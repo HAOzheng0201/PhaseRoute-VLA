@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "PhaseRoute-VLA"
+message: "Please cite the upstream A1 paper and this repository when using the dynamic-compute extension."
+type: software
+version: 0.1.0
+date-released: 2026-08-05
+authors:
+  - name: "PhaseRoute-VLA Contributors"
+preferred-citation:
+  type: article
+  title: "A1: A Fully Transparent Open-Source, Adaptive and Efficient Truncated Vision-Language-Action Model"
+  year: 2026
+  url: "https://arxiv.org/abs/2604.05672"

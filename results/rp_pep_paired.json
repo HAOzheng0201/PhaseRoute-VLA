@@ -1,0 +1,590 @@
+{
+  "status": "PASS",
+  "scope": "m420b_rp_pep_paired_closed_loop_summary",
+  "paired_episodes": 20,
+  "total_rollouts": 40,
+  "tasks": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "episode_indices": [
+    27,
+    28
+  ],
+  "baseline_successes": 20,
+  "rp_pep_successes": 20,
+  "equivalence": {
+    "success_mismatches": 0,
+    "action_chunk_sha256_mismatches": 0,
+    "exit_layer_sequence_mismatches": 0,
+    "policy_call_count_mismatches": 0
+  },
+  "fm_solver_calls": {
+    "baseline": 2002,
+    "rp_pep": 1179,
+    "reduction_fraction": 0.4110889110889111
+  },
+  "policy_latency": {
+    "baseline": {
+      "total_ms": 2767697.453448607,
+      "mean_ms": 10563.730738353463,
+      "median_ms": 9561.35789398104,
+      "p95_ms": 12253.13401838939
+    },
+    "rp_pep": {
+      "total_ms": 1907995.847699989,
+      "mean_ms": 7282.426899618279,
+      "median_ms": 6701.428961969214,
+      "p95_ms": 8984.425811769324
+    },
+    "weighted_mean_reduction_fraction": 0.31061979143616747,
+    "median_reduction_fraction": 0.29911326024226925
+  },
+  "wall_seconds": {
+    "baseline": 3627.2780668060295,
+    "rp_pep": 2764.1598892139737
+  },
+  "gates": {
+    "complete_20_pair_grid": true,
+    "trajectory_equivalence": true,
+    "fm_reduction_at_least_35_percent": true,
+    "weighted_mean_latency_reduction_at_least_15_percent": true,
+    "median_latency_reduction_at_least_15_percent": true
+  },
+  "rows": [
+    {
+      "task_id": 0,
+      "episode_idx": 27,
+      "episode_seed": 20264831,
+      "initial_state_sha256": "734fe557be0bf1bf257203802f1f7095d65b946dc0762351ab155c1b50551f9b",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 10,
+        "fm_calls_total": 76,
+        "latency_ms_total": 104059.72872604616,
+        "wall_seconds": 139.3304558690288
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 10,
+        "fm_calls_total": 46,
+        "latency_ms_total": 77361.3176769577,
+        "wall_seconds": 114.67850720899878
+      }
+    },
+    {
+      "task_id": 0,
+      "episode_idx": 28,
+      "episode_seed": 20264832,
+      "initial_state_sha256": "9037dd0dfe1043d4fe397a7780abae35cbf3a6a0c6b0e5f02546eab8237e4d6a",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 9,
+        "fm_calls_total": 68,
+        "latency_ms_total": 90009.26249817712,
+        "wall_seconds": 123.13742415304296
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 9,
+        "fm_calls_total": 41,
+        "latency_ms_total": 63667.72798693273,
+        "wall_seconds": 97.0386547059752
+      }
+    },
+    {
+      "task_id": 1,
+      "episode_idx": 27,
+      "episode_seed": 20274831,
+      "initial_state_sha256": "761f19df79c52d59fe4feb13863f6a1b57b873031e896b359de7cc5a9b1e463c",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 97,
+        "latency_ms_total": 129671.81216005702,
+        "wall_seconds": 172.05879051901866
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 58,
+        "latency_ms_total": 89280.8957460802,
+        "wall_seconds": 131.6455959469895
+      }
+    },
+    {
+      "task_id": 1,
+      "episode_idx": 28,
+      "episode_seed": 20274832,
+      "initial_state_sha256": "4541e157b208ddff1725077dc3b5a90c22e23806fdafe791d6d35a76292c5199",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 91,
+        "latency_ms_total": 117985.02083891071,
+        "wall_seconds": 159.61870431399439
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 56,
+        "latency_ms_total": 87669.30051002419,
+        "wall_seconds": 129.8502348639886
+      }
+    },
+    {
+      "task_id": 2,
+      "episode_idx": 27,
+      "episode_seed": 20284831,
+      "initial_state_sha256": "61692f65b9aa97b600caa1011c7fb04b30bbaf18f51fd8f63ce0a35cfa511c17",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 11,
+        "fm_calls_total": 80,
+        "latency_ms_total": 107355.93108687317,
+        "wall_seconds": 145.77871146600228
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 11,
+        "fm_calls_total": 47,
+        "latency_ms_total": 71880.20529493224,
+        "wall_seconds": 110.43177328503225
+      }
+    },
+    {
+      "task_id": 2,
+      "episode_idx": 28,
+      "episode_seed": 20284832,
+      "initial_state_sha256": "36d20dbc2a6e50a8e782c42031c68c1377e89d9443f3b3a6805178c5f833fca8",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 96,
+        "latency_ms_total": 140604.7115889378,
+        "wall_seconds": 180.53254994895542
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 55,
+        "latency_ms_total": 92951.91954897018,
+        "wall_seconds": 132.85898823698517
+      }
+    },
+    {
+      "task_id": 3,
+      "episode_idx": 27,
+      "episode_seed": 20294831,
+      "initial_state_sha256": "ffefec6e65a2cc1aedf8d41c0e9378f1f36cbcdea6eb6e11218b21294af1125d",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 90,
+        "latency_ms_total": 119183.82185598603,
+        "wall_seconds": 158.90028450399404
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 54,
+        "latency_ms_total": 90272.81405410031,
+        "wall_seconds": 129.03087347996188
+      }
+    },
+    {
+      "task_id": 3,
+      "episode_idx": 28,
+      "episode_seed": 20294832,
+      "initial_state_sha256": "71b3e187df3d37c56f5a2c65ff432e9050827a319e99fc067343e2756ba56830",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 10,
+        "fm_calls_total": 74,
+        "latency_ms_total": 97338.56121898862,
+        "wall_seconds": 133.1933724989649
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 10,
+        "fm_calls_total": 44,
+        "latency_ms_total": 67637.69294007216,
+        "wall_seconds": 104.17678224196425
+      }
+    },
+    {
+      "task_id": 4,
+      "episode_idx": 27,
+      "episode_seed": 20304831,
+      "initial_state_sha256": "654149b74520989863521bddb1a406553fbda2626bb12192adaa116aa5f19da9",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 20,
+        "fm_calls_total": 158,
+        "latency_ms_total": 225010.1784458966,
+        "wall_seconds": 282.6194116990082
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 20,
+        "fm_calls_total": 93,
+        "latency_ms_total": 150606.22097394662,
+        "wall_seconds": 208.6655473150313
+      }
+    },
+    {
+      "task_id": 4,
+      "episode_idx": 28,
+      "episode_seed": 20304832,
+      "initial_state_sha256": "09dfd519ac5d2d8f7906bd29407447d877375b3439b0e224a392cfe47af98d94",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 120,
+        "latency_ms_total": 156199.393884046,
+        "wall_seconds": 203.84186059003696
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 72,
+        "latency_ms_total": 114521.32238697959,
+        "wall_seconds": 161.26561560103437
+      }
+    },
+    {
+      "task_id": 5,
+      "episode_idx": 27,
+      "episode_seed": 20314831,
+      "initial_state_sha256": "bb31a2057c65b7a236a8b65a9b37c8e23d2feb549f1424187e4bd72867bb11d4",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 101,
+        "latency_ms_total": 163897.0042889705,
+        "wall_seconds": 210.08738217601785
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 60,
+        "latency_ms_total": 101926.37726303656,
+        "wall_seconds": 142.75137619901216
+      }
+    },
+    {
+      "task_id": 5,
+      "episode_idx": 28,
+      "episode_seed": 20314832,
+      "initial_state_sha256": "6ea253a53924699711c8fa1b565c681611f6d3f39f89a6bb14617ff3db293f57",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 11,
+        "fm_calls_total": 82,
+        "latency_ms_total": 110266.6935598827,
+        "wall_seconds": 149.95450705301482
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 11,
+        "fm_calls_total": 49,
+        "latency_ms_total": 76118.46832104493,
+        "wall_seconds": 115.38676654803567
+      }
+    },
+    {
+      "task_id": 6,
+      "episode_idx": 27,
+      "episode_seed": 20324831,
+      "initial_state_sha256": "13fd95a1032749de991974b002ecd1fc99317c5e2a989bbcf0d09f5b90e76eb0",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 82,
+        "latency_ms_total": 108348.49193494301,
+        "wall_seconds": 151.30274233903037
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 48,
+        "latency_ms_total": 76340.16854700167,
+        "wall_seconds": 118.4727478340501
+      }
+    },
+    {
+      "task_id": 6,
+      "episode_idx": 28,
+      "episode_seed": 20324832,
+      "initial_state_sha256": "43e0c0c0ca58acc94deffa65b5c7bc5d7d4a2d6dbbeea1192373bad843c7bce9",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 97,
+        "latency_ms_total": 130877.06132500898,
+        "wall_seconds": 176.4170513349818
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 58,
+        "latency_ms_total": 92495.44701096602,
+        "wall_seconds": 134.26845126895932
+      }
+    },
+    {
+      "task_id": 7,
+      "episode_idx": 27,
+      "episode_seed": 20334831,
+      "initial_state_sha256": "286332dc9097aba93f314855465cb6a1942df84e210208cbfbfe312b9bc0c2c6",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 126,
+        "latency_ms_total": 182812.54785280908,
+        "wall_seconds": 233.60087907896377
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 73,
+        "latency_ms_total": 119839.08293605782,
+        "wall_seconds": 170.1882908300031
+      }
+    },
+    {
+      "task_id": 7,
+      "episode_idx": 28,
+      "episode_seed": 20334832,
+      "initial_state_sha256": "2a807ab8ec47cbe0d7d3e8ee486bf9dca8436b2a84697e654d85db869f9dd58f",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 15,
+        "fm_calls_total": 108,
+        "latency_ms_total": 143867.421902949,
+        "wall_seconds": 192.0903276859899
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 15,
+        "fm_calls_total": 65,
+        "latency_ms_total": 106516.76450792002,
+        "wall_seconds": 155.2040449649794
+      }
+    },
+    {
+      "task_id": 8,
+      "episode_idx": 27,
+      "episode_seed": 20344831,
+      "initial_state_sha256": "81c628e4f0d6ca192a39a8e6371da07769a8266d9feac07bea97cab81dcf0569",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 94,
+        "latency_ms_total": 134873.49272402935,
+        "wall_seconds": 174.1639073229744
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 12,
+        "fm_calls_total": 53,
+        "latency_ms_total": 87135.8096889453,
+        "wall_seconds": 127.52594082098221
+      }
+    },
+    {
+      "task_id": 8,
+      "episode_idx": 28,
+      "episode_seed": 20344832,
+      "initial_state_sha256": "d0d3b9f6cb20946a5e14ace3865295c003b8ec74779871d325dde3ac204037ce",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 118,
+        "latency_ms_total": 190414.218047983,
+        "wall_seconds": 231.22146940301172
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 13,
+        "fm_calls_total": 64,
+        "latency_ms_total": 112171.31833097665,
+        "wall_seconds": 152.41967608901905
+      }
+    },
+    {
+      "task_id": 9,
+      "episode_idx": 27,
+      "episode_seed": 20354831,
+      "initial_state_sha256": "43e84fca81f3ff50aa58c4789a5d7e264f67daa63043cb209ae1b6bd2ef0c342",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 126,
+        "latency_ms_total": 169777.82197104534,
+        "wall_seconds": 216.85274544899585
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 73,
+        "latency_ms_total": 121373.63477208419,
+        "wall_seconds": 169.41288264998002
+      }
+    },
+    {
+      "task_id": 9,
+      "episode_idx": 28,
+      "episode_seed": 20354832,
+      "initial_state_sha256": "7e4a31420eb98de51cdd9a3d8f5a20c02c064bbe224aba8ccf1476abe2e165f1",
+      "success_match": true,
+      "action_chunk_sha256_match": true,
+      "exit_layer_sequence_match": true,
+      "policy_calls_match": true,
+      "baseline": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 118,
+        "latency_ms_total": 145144.27753706696,
+        "wall_seconds": 192.57548940100241
+      },
+      "rp_pep": {
+        "result_path": "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json",
+        "success": true,
+        "policy_calls": 16,
+        "fm_calls_total": 70,
+        "latency_ms_total": 108229.35920296004,
+        "wall_seconds": 158.88713912299136
+      }
+    }
+  ],
+  "input_sha256": {
+    "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard0/result.json": "119127c10d82bd6f71feb98621b85087ef3d42f29d181a75f35c1aefe254ede6",
+    "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/early_exit/shard1/result.json": "8141f42862f0d5b11b586a85bfd9070610d2a2b875dabfd6b5eaa3f5d2952ec9",
+    "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard0/result.json": "74c37ef8ec1b43da591875c7b962cfcde20ed4d6c85f88fbe6ed14a4fac345e4",
+    "reports/m420b_rp_pep_closed_loop_states27_28_20260803_v1/rp_pep/shard1/result.json": "0b6873c0a23ee8cd4ae41a602ee9610494d0e1933fa15d88361b19fadf763083"
+  }
+}

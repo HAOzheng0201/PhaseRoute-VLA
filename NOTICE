@@ -1,0 +1,5 @@
+PhaseRoute-VLA is derived from the A1 project by ATeam Research.
+
+The pinned LIBERO dependency is distributed by Lifelong Robot Learning and is
+installed as a Git submodule. See the corresponding upstream repositories for
+their authorship, notices and license terms.

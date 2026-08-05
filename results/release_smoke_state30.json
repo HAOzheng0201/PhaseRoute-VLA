@@ -1,0 +1,210 @@
+{
+  "status": "PASS",
+  "scope": "phase_route_vla_rp_pep_release_smoke_front4",
+  "policy": "rp_pep",
+  "checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+  "physical_gpu_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "physical_gpu_uuids": {
+    "0": "GPU-00000000-0000-0000-0000-000000000000",
+    "1": "GPU-00000000-0000-0000-0000-000000000001",
+    "2": "GPU-00000000-0000-0000-0000-000000000002",
+    "3": "GPU-00000000-0000-0000-0000-000000000003"
+  },
+  "episode_index": 30,
+  "seed": 20261329,
+  "completed_episodes": 10,
+  "successes": 10,
+  "success_rate": 1.0,
+  "policy_calls": 128,
+  "fm_calls_total": 589,
+  "exit_layer_counts": {
+    "11": 65,
+    "13": 56,
+    "27": 7
+  },
+  "task_results": [
+    {
+      "task_id": 0,
+      "success": true,
+      "policy_calls": 9,
+      "fm_calls_total": 44,
+      "initial_state_sha256": "144219d29e79cb38411439384b05f2d75ba1ebd4eeb90bfe674d1664daef0cf5"
+    },
+    {
+      "task_id": 1,
+      "success": true,
+      "policy_calls": 14,
+      "fm_calls_total": 66,
+      "initial_state_sha256": "2f6d504cd8e2f5a72014678a318f2f13e20b3ef2a09cda747dd376fe78547459"
+    },
+    {
+      "task_id": 2,
+      "success": true,
+      "policy_calls": 12,
+      "fm_calls_total": 52,
+      "initial_state_sha256": "109d6cd57ebba47b8405711eea6d4cadf437a61e8c0e0f187f3a98b85ab9dc00"
+    },
+    {
+      "task_id": 3,
+      "success": true,
+      "policy_calls": 11,
+      "fm_calls_total": 51,
+      "initial_state_sha256": "60566e52988528817155a89b10d020ccb92c8d2a00872ca607c8c037ac193d4c"
+    },
+    {
+      "task_id": 4,
+      "success": true,
+      "policy_calls": 15,
+      "fm_calls_total": 69,
+      "initial_state_sha256": "3228648e3e35818c88882c1db9da1788ff1494670dee41f77f22957f82a36781"
+    },
+    {
+      "task_id": 5,
+      "success": true,
+      "policy_calls": 12,
+      "fm_calls_total": 58,
+      "initial_state_sha256": "be6eda0f8a29dfa85360b7d0398ad655abc638bbe34a531b952648f4e0d38d76"
+    },
+    {
+      "task_id": 6,
+      "success": true,
+      "policy_calls": 14,
+      "fm_calls_total": 68,
+      "initial_state_sha256": "89fd400e1b0d2f12af2349dcb853672c2f54d149980ea741a43010c148c92b93"
+    },
+    {
+      "task_id": 7,
+      "success": true,
+      "policy_calls": 14,
+      "fm_calls_total": 61,
+      "initial_state_sha256": "97d6dc371b4fbbcc68c8293b048667c5268ac0723097cb98ed5efa042eabc6c0"
+    },
+    {
+      "task_id": 8,
+      "success": true,
+      "policy_calls": 11,
+      "fm_calls_total": 48,
+      "initial_state_sha256": "63294c615f0eb910ed8c6ea0fb66ca72dc5367d3becf5cbb95e9491e24e9c201"
+    },
+    {
+      "task_id": 9,
+      "success": true,
+      "policy_calls": 16,
+      "fm_calls_total": 72,
+      "initial_state_sha256": "add0cc4e798523dea717d9a5697bdeae0f09ec99b154eca2f2c6285fa5a7b803"
+    }
+  ],
+  "checks_by_gpu": {
+    "0": {
+      "status": true,
+      "scope": true,
+      "policy": true,
+      "model_class": true,
+      "productive_exit_enabled": true,
+      "vision_aggregation_disabled": true,
+      "checkpoint_sha256": true,
+      "task_suite": true,
+      "task_grid": true,
+      "episode_grid": true,
+      "seed": true,
+      "fm_steps": true,
+      "completed_episodes": true,
+      "episode_record_count": true,
+      "telemetry_errors_zero": true,
+      "policy_calls_positive": true,
+      "gpu_uuid": true,
+      "rp_pep_fm_formula": true
+    },
+    "1": {
+      "status": true,
+      "scope": true,
+      "policy": true,
+      "model_class": true,
+      "productive_exit_enabled": true,
+      "vision_aggregation_disabled": true,
+      "checkpoint_sha256": true,
+      "task_suite": true,
+      "task_grid": true,
+      "episode_grid": true,
+      "seed": true,
+      "fm_steps": true,
+      "completed_episodes": true,
+      "episode_record_count": true,
+      "telemetry_errors_zero": true,
+      "policy_calls_positive": true,
+      "gpu_uuid": true,
+      "rp_pep_fm_formula": true
+    },
+    "2": {
+      "status": true,
+      "scope": true,
+      "policy": true,
+      "model_class": true,
+      "productive_exit_enabled": true,
+      "vision_aggregation_disabled": true,
+      "checkpoint_sha256": true,
+      "task_suite": true,
+      "task_grid": true,
+      "episode_grid": true,
+      "seed": true,
+      "fm_steps": true,
+      "completed_episodes": true,
+      "episode_record_count": true,
+      "telemetry_errors_zero": true,
+      "policy_calls_positive": true,
+      "gpu_uuid": true,
+      "rp_pep_fm_formula": true
+    },
+    "3": {
+      "status": true,
+      "scope": true,
+      "policy": true,
+      "model_class": true,
+      "productive_exit_enabled": true,
+      "vision_aggregation_disabled": true,
+      "checkpoint_sha256": true,
+      "task_suite": true,
+      "task_grid": true,
+      "episode_grid": true,
+      "seed": true,
+      "fm_steps": true,
+      "completed_episodes": true,
+      "episode_record_count": true,
+      "telemetry_errors_zero": true,
+      "policy_calls_positive": true,
+      "gpu_uuid": true,
+      "rp_pep_fm_formula": true
+    }
+  },
+  "global_checks": {
+    "four_shards": true,
+    "ten_tasks_exactly_once": true,
+    "ten_episode_records": true,
+    "four_unique_front_gpu_uuids": true,
+    "all_shard_checks": true
+  },
+  "input_results": [
+    {
+      "path": "reports/m429_rp_pep_release_smoke_state30_20260805_v2/gpu0/result.json",
+      "sha256": "2f335a6057ebb5569bd24c129233aabeec1ec66dff4ea18d1533a16aae172694"
+    },
+    {
+      "path": "reports/m429_rp_pep_release_smoke_state30_20260805_v2/gpu1/result.json",
+      "sha256": "8b64225d75a85caa319da64c189c146d7a468fb97597d33f9318f0dddcc8492f"
+    },
+    {
+      "path": "reports/m429_rp_pep_release_smoke_state30_20260805_v2/gpu2/result.json",
+      "sha256": "8033729ee27634484ac0172f8d83ffe882c43c77858a7576a9291ae83ec8a613"
+    },
+    {
+      "path": "reports/m429_rp_pep_release_smoke_state30_20260805_v2/gpu3/result.json",
+      "sha256": "a7cb0efaa44aad24a15e96cfe2bcb12f17a69d814492e514149dd9b94e8a2f1b"
+    }
+  ]
+}
+

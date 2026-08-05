@@ -1,0 +1,26 @@
+# Reproduced environment on Python 3.10 / PyTorch 2.6 / CUDA 12.4.
+# Install torch/torchvision/torchaudio from the official cu124 index first.
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+numpy==1.25.0
+transformers==4.53.2
+tokenizers==0.21.4
+diffusers==0.39.0
+draccus==0.10.0
+datasets==3.6.0
+huggingface-hub==0.34.4
+tensorflow==2.15.0
+tensorflow-metadata==1.17.3
+protobuf==4.25.9
+google-api-core==2.28.1
+google-cloud-storage==3.13.0
+googleapis-common-protos==1.75.0
+proto-plus==1.28.2
+mujoco==2.3.7
+robosuite==1.4.1
+bddl==1.0.1
+gym==0.25.2
+opencv-python==4.11.0.86
+lerobot==0.3.3
+scipy==1.15.3

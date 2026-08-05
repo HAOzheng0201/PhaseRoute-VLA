@@ -1,0 +1,95 @@
+# build artifacts
+
+.eggs/
+.mypy_cache
+*.egg-info/
+build/
+dist/
+pip-wheel-metadata/
+
+
+# dev tools
+
+.envrc
+.env.personal
+.python-version
+.idea
+.venv/
+.vscode/
+/*.iml
+pyrightconfig.json
+.ruff.toml
+
+
+# jupyter notebooks
+
+.ipynb_checkpoints
+
+
+# miscellaneous
+
+.cache/
+doc/_build/
+*.swp
+.DS_Store
+~$*
+
+
+# python
+
+*.pyc
+*.pyo
+__pycache__
+
+
+# testing and continuous integration
+
+.coverage
+.pytest_cache/
+.benchmarks
+
+# documentation build artifacts
+
+docs/build
+site/
+
+# runs
+/runs/
+/reports/
+/wandb/
+/scratch/
+core
+
+/data
+/outputs
+/caches/
+
+# Local experiment payloads. Curated, immutable summaries belong in results/;
+# raw rollouts and training artifacts belong in ignored reports/ or runs/.
+*.npz
+*.npy
+*.pt
+*.pth
+*.ckpt
+*.log
+*.mp4
+*.avi
+
+# model
+/model
+*.part
+*.seg[0-9][0-9]
+
+# shell
+/*private.sh
+
+/fixing
+/dbg
+
+/sbatch_output
+launch_scripts/sbatch
+.note
+
+/*.ipynb
+
+/.cluster_snapshots

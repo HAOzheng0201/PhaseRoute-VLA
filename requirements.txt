@@ -1,0 +1,3 @@
+# Convenience entry point. Install the CUDA 12.4 PyTorch wheels first.
+-c requirements/constraints-cu124.txt
+-e .[libero]

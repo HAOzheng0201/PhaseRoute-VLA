@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phase-route-vla"
+version = "0.1.0"
+description = "Leakage-audited dynamic computation for A1 on LIBERO"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "absl-py",
+    "cached_property",
+    "fiddle >= 0.2.5",
+    "numpy>=1.23.5,<2.0",
+    "torch>=2.3.1",
+    "torchvision>=0.18.1",
+    "omegaconf",
+    "rich",
+    "boto3",
+    "google-cloud-storage>=2.18,<4",
+    "tokenizers>=0.21,<0.22",
+    "packaging",
+    "cached_path>=1.6.4",
+    "transformers>=4.50.3,<4.54",
+    "datasets>=3.0,<4.0",
+    "huggingface_hub>=0.34.2,<1.0",
+    "sentencepiece",
+    "requests",
+    "einops",
+    "einops-exts",
+    "tqdm",
+    "gcsfs==2023.9.2",
+    "accelerate",
+    "diffusers>=0.30,<0.40",
+    "draccus>=0.10,<0.11",
+    "scipy>=1.10,<1.16",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy>=1.0,<1.4",
+    "black>=23.1,<24.0",
+    "isort>=5.12,<5.13",
+    "pytest",
+    "pytest-sphinx",
+    "twine>=1.11.0",
+    "setuptools",
+    "wheel",
+    "build",
+]
+train = [
+    "wandb",
+    "beaker-gantry",
+    "click",
+    "torchmetrics",
+    "smashed[remote]>=0.21.1",
+    "safetensors",
+    "scikit-learn",
+    "msgspec>=0.14.0",
+    "openai",
+    "python-Levenshtein",
+    "editdistance"
+]
+serve = [
+    "pydantic",
+    "uvicorn",
+    "gradio",
+    "fastapi",
+]
+libero = [
+    "dlimp @ git+https://github.com/moojink/dlimp_openvla.git@040105d256bd28866cc6620621a3d5f7b6b91b46",
+    "numpy==1.25.0",
+    "wandb==0.21.1",
+    "timm==1.0.17",
+    "tensorflow==2.15.0",
+    "tensorflow-addons==0.23.0",
+    "tensorflow-datasets==4.9.9",
+    "tensorflow-estimator==2.15.0",
+    "tensorflow-graphics==2021.12.3",
+    "tensorflow-metadata==1.17.3",
+    "protobuf>=4.25.8,<5",
+    "lerobot==0.3.3",
+    "mujoco==2.3.7",
+    "robosuite==1.4.1",
+    "bddl==1.0.1",
+    "gym==0.25.2",
+    "opencv-python==4.11.0.86",
+]
+all = [
+    "dlimp @ git+https://github.com/moojink/dlimp_openvla.git@040105d256bd28866cc6620621a3d5f7b6b91b46",
+    "wandb==0.21.1",
+    "timm==1.0.17",
+    "tensorflow==2.15.0",
+    "tensorflow-addons==0.23.0",
+    "tensorflow-datasets==4.9.9",
+    "tensorflow-estimator==2.15.0",
+    "tensorflow-graphics==2021.12.3",
+    "tensorflow-metadata==1.17.3",
+    "protobuf>=4.25.8,<5",
+    "lerobot==0.3.3",
+    "mujoco==2.3.7",
+    "robosuite==1.4.1",
+    "bddl==1.0.1",
+    "gym==0.25.2",
+    "opencv-python==4.11.0.86",
+    "pydantic",
+    "uvicorn",
+    "gradio",
+    "fastapi",
+    "pytest",
+]
+
+[project.urls]
+Upstream-A1 = "https://github.com/ATeam-Research/A1"
+Paper = "https://arxiv.org/abs/2604.05672"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["a1*"]

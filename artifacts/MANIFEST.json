@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase-route-vla.artifacts.v1",
+  "checkpoint": {
+    "repository": "spatialtemporal-ai/a1-libero-exit",
+    "revision": "a014b84203c6fb981d3f6181dc3bc7207610b2a3",
+    "local_directory": "model/libero_exit",
+    "config_file": {
+      "path": "config.yaml",
+      "bytes": 8369,
+      "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca"
+    },
+    "dataset_statistics_file": {
+      "path": "dataset_statistics.json",
+      "bytes": 11871,
+      "sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3"
+    },
+    "model_file": {
+      "path": "model.pt",
+      "bytes": 33841175207,
+      "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f"
+    },
+    "spatial_threshold_file": {
+      "path": "exit_thresholds_libero_spatial_exp_1.0.json",
+      "bytes": 241,
+      "sha256": "5b3a0ee9f3851bf1b0c7f7e2b28bc61898ed0b4bd39f8752007719e9f26d7bd6"
+    }
+  },
+  "tokenizer": {
+    "repository": "Qwen/Qwen2-7B",
+    "revision": "453ed1575b739b5b03ce3758b23befdb0967f40e",
+    "files": [
+      "config.json",
+      "generation_config.json",
+      "merges.txt",
+      "tokenizer.json",
+      "tokenizer_config.json",
+      "vocab.json"
+    ]
+  },
+  "libero": {
+    "repository": "https://github.com/Lifelong-Robot-Learning/LIBERO.git",
+    "commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
+    "compatibility_patch": "patches/libero-pytorch-2.6.patch"
+  },
+  "frozen_results": {
+    "rp_pep_paired": {
+      "path": "results/rp_pep_paired.json",
+      "sha256": "5e8c2fa2e50a30a5911b29bab796e50d624a2971da649b4aa82333ba9beefb16"
+    },
+    "release_smoke_state30": {
+      "path": "results/release_smoke_state30.json",
+      "sha256": "51b931211623d3013df0d6249351a854052d349cd723dafe390884809c692c05"
+    },
+    "router_sealed": {
+      "path": "results/router_sealed.json",
+      "sha256": "26cd68fe1339fc2f6bd1871c56eddcf7bc1f2d3ac53be5272253059b3883f311"
+    },
+    "router_failure_analysis": {
+      "path": "results/router_failure_analysis.json",
+      "sha256": "8a2a6eb2a673a62ba5865dd69ed01bf7efbe9b4a616495a29c3e54f7b0fde9c0"
+    }
+  }
+}
