@@ -65,6 +65,18 @@ Task 0、1、4 的 shadow early exit 为 0；Task 7 也只有 2 次。大部分 
 
 更合理的后续方向是在全新的 development 数据协议上训练一个联合 full-action reliability head，直接预测“完整动作一致且夹爪一致”的 cluster-aware 风险；同时保留四个可解释分量作为不可补偿的诊断或 hard veto。不能用本次 episode 30--39 重新选阈值、模型或 loss。
 
+### 5.1 冻结后的 leave-one-gate-out 归因
+
+| 只读消融 | early calls | safe clusters | false-safe calls/clusters | UCB95 | 解释 |
+|---|---:|---:|---:|---:|---|
+| 四门冻结方法 | 152 | 58 | 0 / 0 | 5.034% | 正式判负 |
+| 去掉 motion | 515 | 100 | 1 / 1 | 4.656% | 事后会过门，但禁止部署 |
+| 去掉 tail | 152 | 58 | 0 / 0 | 5.034% | 当前交集上完全不变 |
+| 去掉 action consistency | 152 | 58 | 1 / 1 | 7.920% | A1 consistency 拦住了真实错误 |
+| 去掉 gripper | 1,357 | 100 | 553 / 100 | 100% | Gripper-v2 不可删除 |
+
+Motion 是主要覆盖瓶颈：455 个 candidate 只因 motion 一项被 veto；Tail 在最终交集内没有唯一 veto。去掉 motion 的消融只是诊断，说明新 development 版本应改进 motion/joint reliability 表达，不能据此修改当前冻结策略。
+
 ## 6. 结论边界
 
 - 本阶段没有 active control，原 D3 的 90/100 行为成功结果没有被改变；
