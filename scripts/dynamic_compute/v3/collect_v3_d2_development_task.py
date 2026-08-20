@@ -86,6 +86,7 @@ def parse_args() -> argparse.Namespace:
         help="Must be reports/v3_d2_development_raw/task{task_id}",
     )
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument("--model-load-smoke", action="store_true")
     return parser.parse_args()
 
 
@@ -168,6 +169,58 @@ def _run(args: argparse.Namespace) -> None:
                     and not incomplete.exists(),
                     "model_loaded": False,
                     "rollout_run": False,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return
+    if args.model_load_smoke:
+        threshold_path = checkpoint / "exit_thresholds_libero_10_exp_1.0.json"
+        threshold_before = json.loads(threshold_path.read_text(encoding="utf-8"))
+        smoke_cfg = GenerateConfig(
+            pretrained_checkpoint=str(checkpoint),
+            task_suite_name=D2_SUITE,
+            num_trials_per_task=len(task_window),
+            action_head_flow_matching_inference_steps=D2_FM_STEPS,
+            exit_interval=2,
+            steps_per_stage=1,
+            threshold_type="cosine",
+            exit_dist="exp",
+            exit_ratio=1.0,
+            local_log_dir="/tmp/v3_d2_model_load_smoke",
+            save_rollout_video=False,
+            use_wandb=False,
+            reseed_each_episode=True,
+            seed=D2_SEED_BASE + task_window[0].episode_index,
+            run_id_note=f"v3-d2-model-load-smoke-task{args.task_id}",
+            vision_aggregation_enabled=False,
+        )
+        set_seed_everywhere(smoke_cfg.seed)
+        smoke_model, smoke_device, _ = initialize_and_load_model(smoke_cfg)
+        smoke_controller = make_exit_controller(
+            smoke_cfg, smoke_model, smoke_device
+        )
+        threshold_after = json.loads(threshold_path.read_text(encoding="utf-8"))
+        if threshold_after != threshold_before or stream_sha256(
+            threshold_path
+        ) != D2_EXIT_THRESHOLDS_SHA256:
+            raise RuntimeError("V3-D2 model smoke changed frozen thresholds")
+        print(
+            json.dumps(
+                {
+                    "status": "PASS_V3_D2_MODEL_LOAD_SMOKE",
+                    "task_id": args.task_id,
+                    "device": str(smoke_device),
+                    "n_layers": int(smoke_model.config.n_layers),
+                    "action_head": str(smoke_model.config.action_head),
+                    "eligible_exit_layers": list(smoke_controller.exit_id_list),
+                    "thresholds": {
+                        str(key): float(value)
+                        for key, value in smoke_controller.get_threshold().items()
+                    },
+                    "rollout_run": False,
+                    "output_written": False,
                 },
                 ensure_ascii=False,
                 indent=2,
