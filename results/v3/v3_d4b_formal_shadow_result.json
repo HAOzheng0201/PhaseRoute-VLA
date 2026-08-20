@@ -1,0 +1,92 @@
+{
+  "status": "NEGATIVE_V3_D4B_FORMAL_SHADOW_GATE",
+  "schema_version": "phase-route-vla.v3.d4b-formal-attestation.v1",
+  "source_git_commit": "d963ecb743014434081ebb525999ded8f54940fa",
+  "source_worktree_dirty": false,
+  "role": "calibration_v2",
+  "source_calls": 3516,
+  "clusters": 100,
+  "formal_report": {
+    "path": "reports/v3_d4b_formal_shadow/result.json",
+    "sha256": "ee429db23989000aa08b99446d93da5ff5a2195977a64287ac3df6af9574a076"
+  },
+  "artifacts": {
+    "records_path": "reports/v3_d4b_formal_shadow/shadow_records.jsonl",
+    "records_sha256": "7bbcc913dd8b36a523a27c9b2f3ca429515fb74c48e0de437329e7706e6334bf",
+    "payload_path": "reports/v3_d4b_formal_shadow/shadow_payload.pt",
+    "payload_sha256": "90d6083ff887e78ee4fc4edacd893a6ca4a3f6efc3a7b72338e9a7a41f21f83f"
+  },
+  "selection": {
+    "L11": 29,
+    "L13": 123,
+    "L27_defer": 3364,
+    "early_exit_calls": 152,
+    "early_exit_fraction": 0.04323094425483504,
+    "safe_task_episode_clusters": 58
+  },
+  "safety_audit": {
+    "false_safe_calls": 0,
+    "false_full_action_calls": 0,
+    "false_gripper_calls": 0,
+    "false_safe_clusters": 0,
+    "safe_clusters": 58,
+    "false_safe_cluster_rate": 0.0,
+    "false_safe_cluster_ucb95": 0.0503393383304201,
+    "maximum_allowed_ucb95": 0.05,
+    "ucb_excess_absolute": 0.0003393383304200956,
+    "minimum_zero_error_clusters_needed_for_pass": 59,
+    "layer27_is_consistency_teacher_only": true
+  },
+  "estimated_efficiency": {
+    "shadow_rp_pep_fm_calls": 24279,
+    "observed_behavior_a1_fm_calls": 35956,
+    "estimated_fm_call_reduction_fraction": 0.324758037601513,
+    "risk_head_and_adapter_latency_included": false,
+    "measured_end_to_end_latency": false
+  },
+  "behavior_a1": {
+    "L11_calls": 2098,
+    "L27_calls": 1418,
+    "successes": 90,
+    "rollouts": 100,
+    "shadow_did_not_change_success_or_trajectory": true
+  },
+  "task_selection": {
+    "0": {"L11": 0, "L13": 0, "L27": 334},
+    "1": {"L11": 0, "L13": 0, "L27": 329},
+    "2": {"L11": 7, "L13": 25, "L27": 282},
+    "3": {"L11": 3, "L13": 16, "L27": 290},
+    "4": {"L11": 0, "L13": 0, "L27": 328},
+    "5": {"L11": 2, "L13": 15, "L27": 284},
+    "6": {"L11": 2, "L13": 7, "L27": 282},
+    "7": {"L11": 0, "L13": 2, "L27": 310},
+    "8": {"L11": 2, "L13": 36, "L27": 514},
+    "9": {"L11": 13, "L13": 22, "L27": 411}
+  },
+  "gate_checks": {
+    "all_3516_calls_and_100_clusters_present": true,
+    "nontrivial_early_exit_fraction_at_least_1_percent": true,
+    "always_defer_rejected": true,
+    "false_safe_cluster_ucb95_at_most_5_percent": false,
+    "shadow_never_changed_or_returned_action": true,
+    "independent_test_and_active_control_not_run": true
+  },
+  "failure_interpretation": {
+    "observed_false_safe_event_caused_failure": false,
+    "insufficient_zero_error_cluster_support_caused_failure": true,
+    "posthoc_threshold_relaxation_allowed": false,
+    "same_calibration_data_repair_allowed": false,
+    "current_four_gate_policy_is_overly_conservative_or_uneven_candidate": true
+  },
+  "authorization": {
+    "next_stage": "D4B_NEGATIVE_RESULT_ANALYSIS_ONLY",
+    "active_control_authorized": false,
+    "independent_test_authorized": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "closed_loop_success_improvement": false,
+    "measured_latency_improvement": false,
+    "superiority_claim_authorized": false
+  }
+}
