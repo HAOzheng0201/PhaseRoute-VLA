@@ -7,6 +7,7 @@ import pytest
 import torch
 
 from a1.vla.dynamic_compute.v3 import joint_reliability as jr
+from a1.vla.dynamic_compute.v3 import joint_reliability_oof as jo
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -92,3 +93,40 @@ def test_contract_file_is_valid_json_without_nan() -> None:
     value = json.loads(raw)
     assert value["model"]["trainable_feature_parameter_count"] == 194
     assert "NaN" not in raw
+
+
+def test_development_geometry_requires_all_180_unsplit_cells() -> None:
+    identities = [(task, episode) for task in range(10) for episode in range(12, 30)]
+    calls = len(identities)
+    task = torch.tensor([value[0] for value in identities]).repeat_interleave(2)
+    episode = torch.tensor([value[1] for value in identities]).repeat_interleave(2)
+    target = torch.zeros((calls * 2, 2), dtype=torch.bool)
+    target[0::4, 0] = True
+    target[1::4, 1] = True
+    data = jr.D5DevelopmentData(
+        features=torch.zeros((calls * 2, 97), dtype=torch.float32),
+        candidate_layer=torch.tensor([11, 13]).repeat(calls),
+        source_row=torch.arange(calls).repeat_interleave(2),
+        task_id=task,
+        episode_index=episode,
+        action_consistency=torch.ones(calls * 2, dtype=torch.bool),
+        unsafe_target=target,
+    )
+    data.validate()
+    with pytest.raises(jr.D5JointReliabilityError, match="coverage"):
+        jr.D5DevelopmentData(
+            **{
+                **data.__dict__,
+                "episode_index": data.episode_index.clone().fill_(12),
+            }
+        ).validate()
+
+
+def test_binary_task_cell_loss_equal_weights_tasks() -> None:
+    probability = torch.full((20, 2), 0.25, dtype=torch.float64)
+    target = torch.zeros((20, 2), dtype=torch.bool)
+    task = torch.arange(10).repeat_interleave(2)
+    cells = jo.binary_task_cell_losses(probability, target, task)
+    assert cells.shape == (10,)
+    assert torch.allclose(cells, cells[0].expand_as(cells))
+    assert jo.D5_FITS_PER_OUTER == 52
