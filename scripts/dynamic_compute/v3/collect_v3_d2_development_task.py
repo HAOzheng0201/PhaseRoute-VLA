@@ -1,0 +1,421 @@
+#!/usr/bin/env python3
+"""Collect one LIBERO-Long V3-D2 task over frozen episodes 12--29."""
+
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import shlex
+import statistics
+import subprocess
+import sys
+from typing import Any
+
+import numpy as np
+import torch
+
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+SCRIPT_ROOT = REPO_ROOT / "scripts" / "dynamic_compute"
+for path in (REPO_ROOT, SCRIPT_ROOT):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
+
+from libero.libero import benchmark  # noqa: E402
+import robot_experiments.libero.eval_libero_early_exit as eval_module  # noqa: E402
+
+from a1.vla.dynamic_compute.telemetry import SafeJSONLTelemetryLogger  # noqa: E402
+from a1.vla.dynamic_compute.v3.development_collection import (  # noqa: E402
+    D2_CHECKPOINT_SHA256,
+    D2_EXIT_THRESHOLDS_SHA256,
+    D2_FM_STEPS,
+    D2_ROLE,
+    D2_SEED_BASE,
+    D2_SELECTION_SHA256,
+    D2_STATUS,
+    D2_SUITE,
+    InitialStateWindowTaskSuite,
+    collection_contract_sha256,
+    global_episode_index,
+    load_development_selection,
+    sha256_array,
+    stream_sha256,
+    task_development_window,
+    validate_frozen_d2_inputs,
+    validate_gpu_contract,
+    validate_runtime_model_directory,
+)
+from a1.vla.dynamic_compute.vision_teacher_cache import (  # noqa: E402
+    SafeVisionTeacherCacheWriter,
+    VISION_TEACHER_CACHE_SCHEMA_VERSION,
+    has_complete_candidate_fm_traces,
+)
+from robot_experiments.libero.eval_libero_early_exit import (  # noqa: E402
+    GenerateConfig,
+    get_image_resize_size,
+    initialize_and_load_model,
+    run_task,
+    setup_logging,
+)
+from robot_experiments.robot_utils import set_seed_everywhere  # noqa: E402
+from smoke_m1_telemetry import make_exit_controller  # noqa: E402
+
+
+RESULT_SCHEMA_VERSION = "phase-route-vla.v3.d2-raw-task-result.v1"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--task-id", type=int, required=True)
+    parser.add_argument("--physical-gpu-index", type=int, required=True)
+    parser.add_argument("--expected-gpu-uuid", required=True)
+    parser.add_argument(
+        "--checkpoint",
+        type=Path,
+        default=REPO_ROOT / "model" / "v3_d2" / "libero_exit",
+    )
+    parser.add_argument("--model-attestation", type=Path, required=True)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        required=True,
+        help="Must be reports/v3_d2_development_raw/task{task_id}",
+    )
+    parser.add_argument("--preflight-only", action="store_true")
+    return parser.parse_args()
+
+
+def git_output(*args: str) -> str:
+    return subprocess.check_output(["git", *args], cwd=REPO_ROOT, text=True).strip()
+
+
+def _jsonl(path: Path) -> list[dict[str, Any]]:
+    return [
+        json.loads(line)
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+
+def _run(args: argparse.Namespace) -> None:
+    contract_audit = validate_frozen_d2_inputs(REPO_ROOT)
+    selection = load_development_selection(REPO_ROOT)
+    task_window = task_development_window(selection, args.task_id)
+    expected_output = (
+        REPO_ROOT / "reports" / "v3_d2_development_raw" / f"task{args.task_id}"
+    ).resolve()
+    output = args.output_dir.resolve()
+    incomplete = output.with_name(output.name + ".incomplete")
+    if output != expected_output:
+        raise PermissionError("V3-D2 raw task output path differs")
+    if output.exists() or incomplete.exists():
+        raise FileExistsError("V3-D2 refuses to overwrite raw task evidence")
+    if os.environ.get("CUDA_VISIBLE_DEVICES") != str(args.physical_gpu_index):
+        raise PermissionError("V3-D2 CUDA_VISIBLE_DEVICES differs from assignment")
+    if not torch.cuda.is_available():
+        raise RuntimeError("V3-D2 raw collection requires CUDA")
+    torch.cuda.set_device(0)
+    validate_gpu_contract(
+        physical_gpu_index=args.physical_gpu_index,
+        visible_devices=os.environ.get("CUDA_VISIBLE_DEVICES"),
+        visible_gpu_count=torch.cuda.device_count(),
+        expected_gpu_uuid=args.expected_gpu_uuid,
+        observed_gpu_uuid=str(torch.cuda.get_device_properties(0).uuid),
+    )
+    checkpoint = args.checkpoint.resolve(strict=True)
+    frozen_source = (REPO_ROOT.parents[1] / "source" / "model" / "libero_exit").resolve()
+    if checkpoint == frozen_source:
+        raise PermissionError("V3-D2 cannot use the writable-sidecar source directory")
+    model_audit = validate_runtime_model_directory(
+        checkpoint, args.model_attestation
+    )
+    base_suite = benchmark.get_benchmark_dict()[D2_SUITE]()
+    if not 0 <= args.task_id < base_suite.n_tasks:
+        raise ValueError("V3-D2 task id is outside LIBERO-Long")
+    all_states = base_suite.get_task_init_states(args.task_id)
+    if len(all_states) < 30:
+        raise RuntimeError("V3-D2 LIBERO-Long task has fewer than 30 states")
+    initial_state_sha256 = {
+        str(record.episode_index): sha256_array(all_states[record.episode_index])
+        for record in task_window
+    }
+    suite = InitialStateWindowTaskSuite(
+        base_suite, task_window[0].episode_index, len(task_window)
+    )
+    if args.preflight_only:
+        print(
+            json.dumps(
+                {
+                    "status": "PASS_V3_D2_RAW_TASK_PREFLIGHT",
+                    "task_id": args.task_id,
+                    "episode_indices": [
+                        record.episode_index for record in task_window
+                    ],
+                    "episode_seeds": {
+                        str(record.episode_index): record.seed
+                        for record in task_window
+                    },
+                    "initial_state_sha256": initial_state_sha256,
+                    "contract_audit": contract_audit,
+                    "model_audit": model_audit,
+                    "physical_gpu_index": args.physical_gpu_index,
+                    "gpu_uuid": str(torch.cuda.get_device_properties(0).uuid),
+                    "output_absent": not output.exists()
+                    and not incomplete.exists(),
+                    "model_loaded": False,
+                    "rollout_run": False,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+        return
+
+    incomplete.mkdir(parents=True, exist_ok=False)
+    environment_names = (
+        "CUDA_VISIBLE_DEVICES",
+        "DATA_DIR",
+        "HF_HOME",
+        "HF_HUB_OFFLINE",
+        "TRANSFORMERS_OFFLINE",
+        "VLA_CONFIG_YAML",
+        "MUJOCO_GL",
+        "PYOPENGL_PLATFORM",
+        "CUBLAS_WORKSPACE_CONFIG",
+    )
+    environment = {
+        name: os.environ[name] for name in environment_names if name in os.environ
+    }
+    command = shlex.join(
+        [
+            "env",
+            *(f"{key}={value}" for key, value in environment.items()),
+            sys.executable,
+            *sys.argv,
+        ]
+    )
+    (incomplete / "command.txt").write_text(
+        "cd " + shlex.quote(str(REPO_ROOT)) + "\n\n" + command + "\n",
+        encoding="utf-8",
+    )
+
+    telemetry_path = incomplete / "policy_calls.jsonl"
+    teacher_cache_dir = incomplete / "teacher_calls"
+    threshold_path = checkpoint / "exit_thresholds_libero_10_exp_1.0.json"
+    threshold_before = json.loads(threshold_path.read_text(encoding="utf-8"))
+    cfg = GenerateConfig(
+        pretrained_checkpoint=str(checkpoint),
+        task_suite_name=D2_SUITE,
+        num_trials_per_task=len(task_window),
+        action_head_flow_matching_inference_steps=D2_FM_STEPS,
+        exit_interval=2,
+        steps_per_stage=1,
+        threshold_type="cosine",
+        exit_dist="exp",
+        exit_ratio=1.0,
+        local_log_dir=str(incomplete / "eval_logs"),
+        save_rollout_video=False,
+        save_rollout_video_path=str(incomplete),
+        use_wandb=False,
+        reseed_each_episode=True,
+        seed=D2_SEED_BASE + task_window[0].episode_index,
+        run_id_note=f"v3-d2-development-task{args.task_id}",
+        vision_aggregation_enabled=False,
+    )
+    set_seed_everywhere(cfg.seed)
+    model, device, _ = initialize_and_load_model(cfg)
+    exit_controller = make_exit_controller(cfg, model, device)
+    threshold_after = json.loads(threshold_path.read_text(encoding="utf-8"))
+    if threshold_after != threshold_before:
+        raise RuntimeError("V3-D2 model initialization changed frozen thresholds")
+    if stream_sha256(threshold_path) != D2_EXIT_THRESHOLDS_SHA256:
+        raise RuntimeError("V3-D2 model initialization changed threshold bytes")
+    resize_size = get_image_resize_size(cfg)
+    log_file, eval_log_path, _ = setup_logging(cfg, model.config.action_head)
+    telemetry = SafeJSONLTelemetryLogger(telemetry_path, flush_every=25)
+    teacher = SafeVisionTeacherCacheWriter(
+        teacher_cache_dir,
+        feature_dtype="float16",
+        teacher_kind="a1_early_exit",
+        checkpoint_sha256=D2_CHECKPOINT_SHA256,
+    )
+    original_run_episode = eval_module.run_episode
+
+    def run_episode_with_global_identity(*call_args: Any, **call_kwargs: Any):
+        if len(call_args) > 10:
+            mutable = list(call_args)
+            mutable[10] = global_episode_index(int(mutable[10]))
+            return original_run_episode(*tuple(mutable), **call_kwargs)
+        mutable_kwargs = dict(call_kwargs)
+        mutable_kwargs["episode_idx"] = global_episode_index(
+            int(mutable_kwargs["episode_idx"])
+        )
+        return original_run_episode(*call_args, **mutable_kwargs)
+
+    eval_module.run_episode = run_episode_with_global_identity
+    try:
+        episodes, successes, exit_sum, exit_count = run_task(
+            cfg=cfg,
+            task_suite=suite,
+            task_id=args.task_id,
+            model=model,
+            exit_controller=exit_controller,
+            device=device,
+            num_tasks=1,
+            resize_size=resize_size,
+            total_episodes=0,
+            total_successes=0,
+            log_file=log_file,
+            total_exit_mean_sum=0.0,
+            total_exit_mean_count=0,
+            telemetry_logger=telemetry,
+            vision_teacher_cache_writer=teacher,
+        )
+    finally:
+        eval_module.run_episode = original_run_episode
+        telemetry.close()
+        teacher.close()
+        log_file.close()
+
+    telemetry_records = _jsonl(telemetry_path)
+    manifest_path = teacher_cache_dir / "manifest.jsonl"
+    manifest_records = _jsonl(manifest_path)
+    telemetry_by_key = {
+        (str(record["episode_id"]), int(record["step_id"])): record
+        for record in telemetry_records
+    }
+    teacher_by_key = {
+        (str(record["episode_id"]), int(record["step_id"])): record
+        for record in manifest_records
+    }
+    expected_episode_ids = {record.group_key for record in task_window}
+    observed_episode_ids = {str(record["episode_id"]) for record in manifest_records}
+    shards = [teacher_cache_dir / str(record["array_path"]) for record in manifest_records]
+    latencies = [float(record["latency_ms"]) for record in telemetry_records]
+    source_status = git_output("status", "--porcelain=v1")
+    checks = {
+        "d1_and_d2_contracts_current": bool(contract_audit),
+        "development_selection_sha_exact": D2_SELECTION_SHA256
+        == "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb",
+        "runtime_checkpoint_attested_and_sidecars_local": bool(model_audit),
+        "gpu_is_one_verified_physical_front_four_device": True,
+        "all_18_selected_episodes_completed": episodes == len(task_window),
+        "global_episode_identity_exact": observed_episode_ids
+        == expected_episode_ids,
+        "telemetry_and_teacher_keys_align": telemetry_by_key.keys()
+        == teacher_by_key.keys(),
+        "exit_and_fm_metadata_align": telemetry_by_key.keys()
+        == teacher_by_key.keys()
+        and all(
+            int(teacher_by_key[key]["teacher_exit_layer"])
+            == int(telemetry_by_key[key]["exit_layer"])
+            and int(teacher_by_key[key]["fm_calls"])
+            == int(telemetry_by_key[key]["fm_calls"])
+            for key in teacher_by_key
+        ),
+        "raw_cache_schema_and_fm_trace_complete": bool(manifest_records)
+        and all(
+            record["schema_version"] == VISION_TEACHER_CACHE_SCHEMA_VERSION
+            and record["checkpoint_sha256"] == D2_CHECKPOINT_SHA256
+            and int(record["source_projected_tokens"]) == 576
+            and int(record["unique_visual_slots"]) == 288
+            and int(record["valid_crop_count"]) == 4
+            and has_complete_candidate_fm_traces(record)
+            for record in manifest_records
+        ),
+        "all_npz_shards_present": bool(shards) and all(path.is_file() for path in shards),
+        "observer_writes_error_free": telemetry.error_count == 0
+        and teacher.error_count == 0,
+        "calibration_test_and_c361_payload_not_opened": True,
+        "no_training_threshold_selection_or_active_new_control": True,
+    }
+    passed = all(checks.values())
+    result = {
+        "status": "PASS_V3_D2_RAW_TASK" if passed else "FAIL_V3_D2_RAW_TASK",
+        "schema_version": RESULT_SCHEMA_VERSION,
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="milliseconds"),
+        "d2_contract_status": D2_STATUS,
+        "d2_contract_sha256": collection_contract_sha256(),
+        "contract_audit": contract_audit,
+        "role": D2_ROLE,
+        "suite": D2_SUITE,
+        "task_id": args.task_id,
+        "episode_indices": [record.episode_index for record in task_window],
+        "episode_seeds": {
+            str(record.episode_index): record.seed for record in task_window
+        },
+        "initial_state_sha256": initial_state_sha256,
+        "completed_episodes": episodes,
+        "successes": successes,
+        "success_rate": successes / episodes if episodes else 0.0,
+        "policy_calls": len(telemetry_records),
+        "teacher_cache_calls": len(manifest_records),
+        "mean_exit_ratio": exit_sum / exit_count if exit_count else None,
+        "latency_ms_mean": statistics.fmean(latencies) if latencies else None,
+        "latency_ms_median": statistics.median(latencies) if latencies else None,
+        "cache_bytes": sum(path.stat().st_size for path in shards if path.is_file()),
+        "model_audit": model_audit,
+        "gpu_audit": {
+            "physical_gpu_index": args.physical_gpu_index,
+            "expected_gpu_uuid": args.expected_gpu_uuid,
+            "visible_gpu_uuid": str(torch.cuda.get_device_properties(0).uuid),
+            "visible_gpu_count": torch.cuda.device_count(),
+        },
+        "source_git_commit": git_output("rev-parse", "HEAD"),
+        "source_git_status_sha256": hashlib.sha256(source_status.encode()).hexdigest(),
+        "source_worktree_dirty": bool(source_status),
+        "telemetry_sha256": stream_sha256(telemetry_path),
+        "teacher_manifest_sha256": stream_sha256(manifest_path),
+        "eval_log": str(Path(eval_log_path).relative_to(incomplete)),
+        "checks": checks,
+        "claim_boundary": {
+            "development_v2_payload_opened": True,
+            "calibration_v2_payload_opened": False,
+            "independent_test_v2_payload_opened": False,
+            "legacy_c361_row_payload_opened": False,
+            "new_model_trained": False,
+            "runtime_threshold_selected": False,
+            "new_router_active_control": False,
+            "method_performance_claim": False,
+        },
+    }
+    (incomplete / "result.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    if not passed:
+        raise RuntimeError("V3-D2 raw task failed one or more gates")
+    incomplete.rename(output)
+    print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+
+
+def main() -> None:
+    args = parse_args()
+    try:
+        _run(args)
+    except BaseException as error:
+        incomplete = args.output_dir.resolve().with_name(args.output_dir.name + ".incomplete")
+        if incomplete.is_dir() and not (incomplete / "abort.json").exists():
+            (incomplete / "abort.json").write_text(
+                json.dumps(
+                    {
+                        "status": "ABORT_V3_D2_RAW_TASK",
+                        "schema_version": RESULT_SCHEMA_VERSION,
+                        "failure_type": type(error).__name__,
+                        "failure_message": str(error),
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+        raise
+
+
+if __name__ == "__main__":
+    main()

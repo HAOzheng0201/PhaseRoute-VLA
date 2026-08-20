@@ -1,0 +1,88 @@
+{
+  "schema_version": "phase-route-vla.v3.d2-development-collection.v1",
+  "status": "D2_DEVELOPMENT_COLLECTION_CONTRACT_FROZEN",
+  "role": "development_v2",
+  "suite": "libero_10",
+  "selection": {
+    "path": "configs/research/v3/data_lineage/development_v2.json",
+    "sha256": "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "key_count": 180,
+    "seed_formula": "20260811 + task_id * 10000 + episode_index"
+  },
+  "inputs": {
+    "d1_protocol_path": "configs/research/v3/gripper_v2/protocol.json",
+    "d1_protocol_sha256": "3a5f5ebe49ddee093dc352ab4d46f7bbfea66486bc94d12d925d4eb40d2eaad2",
+    "checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "checkpoint_config_sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+    "action_delta_sha256": "a0d0399b630953a9e0ef3b4ca09fe8a0fbde4b1ce6539ad5d911ad23fb6c812d",
+    "exit_thresholds_sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+    "dataset_statistics_sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3",
+    "model_attestation_sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab",
+    "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1"
+  },
+  "collection": {
+    "fm_steps": 10,
+    "physical_gpus_allowed": [0, 1, 2, 3],
+    "one_visible_gpu_per_process": true,
+    "raw_rollout_window": [12, 30],
+    "raw_cache_schema": "phase-route-vla.vision-teacher-call.v3"
+  },
+  "replay": {
+    "layers": [11, 13, 27],
+    "shared_fm_input_exact": true,
+    "layer27_role": "offline_same_noise_consistency_label_only"
+  },
+  "features": {
+    "runtime_context_names": [
+      "instruction_summary",
+      "vision_crop_summary",
+      "vision_crop_mask",
+      "phase_embedding",
+      "phase_scalars",
+      "normalized_proprio",
+      "proprio_history",
+      "action_history",
+      "history_mask"
+    ],
+    "legacy_dimension": 82,
+    "gripper_sign_dimension": 8,
+    "transition_dimension": 7,
+    "output_dimension": 97,
+    "teacher_visible": false,
+    "other_candidate_visible": false
+  },
+  "targets": {
+    "step_count_support": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "transition_count_support": [0, 1, 2, 3, 4, 5, 6, 7],
+    "first_transition_support": [0, 1, 2, 3, 4, 5, 6, 7],
+    "continuous_positive_magnitude": false
+  },
+  "access_boundary": {
+    "development_v2_payload": true,
+    "calibration_v2_payload": false,
+    "independent_test_v2_payload": false,
+    "legacy_c361_row_payload": false,
+    "runtime_control": false
+  }
+}
