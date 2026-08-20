@@ -33,6 +33,7 @@ doc/_build/
 *.swp
 .DS_Store
 ~$*
+/MUJOCO_LOG.TXT
 
 
 # python
