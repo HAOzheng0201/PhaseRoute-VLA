@@ -1,0 +1,85 @@
+{
+  "status": "PASS_V3_D3_CALIBRATION_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d3-contract-validation.v1",
+  "source_git_commit": "94b2d9243eb29692c6bfa2e60b1eadb8d5619363",
+  "contract": {
+    "status": "D3_CALIBRATION_CONTRACT_FROZEN",
+    "path": "configs/research/v3/gripper_v2/d3_calibration_contract.json",
+    "sha256": "14ac58b6f41fb0f9b2ccadad4fde6fdebb952ca1d59a01104811bde3b9318817",
+    "contract_id": "phaseroute-v3-d3-calibration-20260820-v1"
+  },
+  "prerequisite": {
+    "status": "D3_CALIBRATION_CONTRACT_FROZEN",
+    "contract_sha256": "14ac58b6f41fb0f9b2ccadad4fde6fdebb952ca1d59a01104811bde3b9318817",
+    "d2_attestation_sha256": "bc6841b0a92eb0a66e1e60ad13d58ec15a0f4abb3f6750ad3898dee3c3c41092",
+    "d2_result_sha256": "09c5e71e656bc434f951b99fe2371abf8d5a4e42afcbbf13047d52520974fa79",
+    "d2_payload_sha256": "8e5a6d14b1b60c4e984fa68f32be063335728bd93678f01b2e9926f3741d3d6b",
+    "calibration_selection_sha256": "6f2b2817985740298a06c4412b2f857624ac16c98d174d3ad03f1acca238f79e",
+    "calibration_clusters": 100,
+    "independent_test_selection_sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4",
+    "calibration_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "contract_id": "phaseroute-v3-d3-calibration-20260820-v1"
+  },
+  "calibration_selection": {
+    "clusters": 100,
+    "first_key": "libero_10:task0:episode30",
+    "last_key": "libero_10:task9:episode39"
+  },
+  "frozen_model": {
+    "heads": [
+      "occurrence",
+      "zt_step",
+      "zt_transition",
+      "ordinal_step",
+      "ordinal_transition"
+    ],
+    "primary_parameter_count": 414,
+    "final_lambdas": {
+      "occurrence": 0.01,
+      "zt_step": 0.1,
+      "zt_transition": 0.1,
+      "ordinal_step": 0.1,
+      "ordinal_transition": 0.1
+    },
+    "refit_on_calibration": false
+  },
+  "exact_ucb_boundary_audit": {
+    "zero_of_58": 0.0503393383304201,
+    "zero_of_59": 0.04950760988822693,
+    "one_of_100": 0.046559811453538935,
+    "two_of_100": 0.06161920039604069
+  },
+  "access_ledger": {
+    "development_final_model_payload_opened": true,
+    "calibration_selection_metadata_opened": true,
+    "calibration_sample_payload_opened": false,
+    "independent_test_selection_metadata_opened": true,
+    "independent_test_sample_payload_opened": false
+  },
+  "claim_boundary": {
+    "runtime_threshold_selected": false,
+    "shadow_decision_run": false,
+    "active_control_run": false,
+    "independent_test_run": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  },
+  "next_stage": {
+    "authorized": "V3-D3_CALIBRATION_V2_COLLECTION_AND_THRESHOLD_ONLY",
+    "episode_indices": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  }
+}
