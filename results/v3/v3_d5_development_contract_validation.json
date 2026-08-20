@@ -1,0 +1,87 @@
+{
+  "status": "PASS_V3_D5_DEVELOPMENT_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d5-contract-validation.v1",
+  "source_git_commit": "58a05bd31536244d59e96fbdb3ba245ca615587c",
+  "source_worktree_dirty": false,
+  "contract": {
+    "path": "configs/research/v3/joint_reliability/d5_development_contract.json",
+    "sha256": "e0a584e76f03d0f1b43cd5bbd3477ee2e3694f5425642868b3ec563edd52a29f",
+    "contract_id": "phaseroute-v3-d5-joint-reliability-20260820-v1"
+  },
+  "lineage": {
+    "role": "development_v2",
+    "clusters": 180,
+    "policy_calls": 6521,
+    "candidate_rows": 13042,
+    "episodes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ]
+  },
+  "bound_sha256": {
+    "d4b_result": "53b4462903cc009c5d5b02434d045935aa5b9915790666b1f5ec01a6a1cab27f",
+    "d4b_analysis": "8b0e5fc708302bc10d18afd2145f65d3550077bf78b4e9e252626eb67a1b505a",
+    "d2_formal": "bc6841b0a92eb0a66e1e60ad13d58ec15a0f4abb3f6750ad3898dee3c3c41092",
+    "d2_context_result": "b637299ee317caa17472c8202b5477f22b92bd125082dacaec776d222ae7b7a3",
+    "d2_dataset_result": "469ae38e246e473f9df38ee2f2c8b444d853ba27d949d07090f85187cd576b30",
+    "d2_candidate_results": {
+      "0": "5b68cd3d3a9008355e008795f8779047db1e828bf48774925cc241f4359f2a73",
+      "1": "4d6f47ad8b6a2dbb700a08c4740da20c6b1b5f1d005963a1bb5f0f5fe9d8c964",
+      "2": "9175c3fb5574435f3382320bf490fee5afbaacb6e2f397c6cd007de3cbe7c00b",
+      "3": "dd5ea95fc94cc545cac89de5284191ebf72a7269ba67723e1535252c21c5a2cd"
+    },
+    "d3_formal": "904fb3db1230b5d6fbc449c1c4265128b0e48b829f37aa5f4d9c17be7d6bf3cb",
+    "d3_result": "9a9cd80193dc71fe8459becebfdfb71cb2581bd9ecc5ff42ca06af1ced276d4c"
+  },
+  "frozen_design": {
+    "target_axes": [
+      "full_action_unsafe",
+      "gripper_step_unsafe"
+    ],
+    "model_family": "two_target_layer_anchored_logistic_glm",
+    "outer_folds": 18,
+    "inner_folds_per_outer": 17,
+    "gripper_threshold": 0.043773197319646726,
+    "minimum_safe_clusters": 60,
+    "false_safe_ucb95_max": 0.05
+  },
+  "access_ledger": {
+    "JSON_metadata_files_opened": 13,
+    "tensor_payloads_deserialized": 0,
+    "d5_joint_target_distribution_opened": false,
+    "calibration_v2_payload_reopened": false,
+    "independent_test_payload_opened": false,
+    "gpu_query_or_initialization": 0,
+    "model_fits": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D5_DEVELOPMENT_ONLY_NESTED_OOF_TRAINING",
+    "calibration_v2_repair_authorized": false,
+    "independent_test_authorized": false,
+    "active_control_authorized": false
+  },
+  "claim_boundary": {
+    "development_nested_OOF_is_closed_loop_success": false,
+    "development_nested_OOF_is_independent_test": false,
+    "estimated_FM_reduction_is_measured_latency": false,
+    "layer27_consistency_is_task_success": false,
+    "superiority_claim_authorized": false
+  }
+}
