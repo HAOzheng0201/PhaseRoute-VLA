@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 import sys
 
+import numpy as np
 import pytest
 import torch
 
@@ -54,6 +55,113 @@ def test_calibration_selection_and_seed_formula_are_exact() -> None:
         )
     with pytest.raises(gc.D3CalibrationError):
         gc.expected_calibration_seed(0, 40)
+
+
+def test_calibration_initial_state_window_and_global_identity() -> None:
+    class Suite:
+        n_tasks = 10
+
+        def get_task_init_states(self, task_id: int):
+            return np.arange(50 * 2).reshape(50, 2) + task_id * 1000
+
+        def get_task(self, task_id: int):
+            return f"task-{task_id}"
+
+    window = gc.CalibrationInitialStateWindowTaskSuite(Suite())
+    assert window.n_tasks == 10
+    assert window.get_task(3) == "task-3"
+    assert np.array_equal(
+        window.get_task_init_states(0), np.arange(100).reshape(50, 2)[30:40]
+    )
+    assert [gc.global_calibration_episode_index(index) for index in range(10)] == list(
+        range(30, 40)
+    )
+    with pytest.raises(gc.D3CalibrationError):
+        gc.global_calibration_episode_index(10)
+
+    class ShortSuite:
+        def get_task_init_states(self, task_id: int):
+            return np.arange(39)
+
+    with pytest.raises(gc.D3CalibrationError, match="fewer than 40"):
+        gc.CalibrationInitialStateWindowTaskSuite(
+            ShortSuite()
+        ).get_task_init_states(0)
+
+
+def _manifest_row(task: int, episode: int, step: int, array_path: str) -> dict:
+    shapes = {
+        "fm_trace_layers": [3],
+        "fm_trace_roles": [3],
+        "fm_trace_steps": [3],
+        "fm_trace_input_x": [3, 8, 7],
+        "fm_trace_output_action": [3, 8, 7],
+    }
+    return {
+        "schema_version": gc.VISION_TEACHER_CACHE_SCHEMA_VERSION,
+        "episode_id": f"libero_10:task{task}:episode{episode}",
+        "step_id": step,
+        "task_id": task,
+        "teacher_kind": "a1_early_exit",
+        "checkpoint_sha256": gc.D2_CHECKPOINT_SHA256,
+        "teacher_exit_layer": 27,
+        "fm_calls": 3,
+        "fm_trace_count": 3,
+        "candidate_trace_count": 3,
+        "comparison_trace_count": 0,
+        "candidate_layers": [11, 13, 27],
+        "shapes": shapes,
+        "array_path": array_path,
+    }
+
+
+def test_manifest_accepts_only_calibration_window_and_safe_payloads(
+    tmp_path: Path,
+) -> None:
+    teacher = tmp_path / "teacher_calls"
+    arrays = teacher / "arrays"
+    arrays.mkdir(parents=True)
+    rows = []
+    for episode in range(30, 40):
+        path = arrays / f"call_{episode:06d}.npz"
+        np.savez(path, value=np.array([episode]))
+        rows.append(_manifest_row(0, episode, 10, f"arrays/{path.name}"))
+    manifest = teacher / "manifest.jsonl"
+    manifest.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8"
+    )
+
+    calls = gc.load_calibration_task_calls(
+        tmp_path, task_id=0, dataset_index_start=17
+    )
+    assert len(calls) == 10
+    assert [call.dataset_index for call in calls] == list(range(17, 27))
+    assert [call.episode_index for call in calls] == list(range(30, 40))
+    assert all(gc.resolve_calibration_call_payload(call).is_file() for call in calls)
+
+    rows[-1] = _manifest_row(0, 40, 10, "arrays/call_000039.npz")
+    manifest.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8"
+    )
+    with pytest.raises(PermissionError, match="sealed episode"):
+        gc.load_calibration_task_calls(tmp_path, task_id=0)
+
+
+def test_payload_resolver_rejects_test_episode_and_path_escape(tmp_path: Path) -> None:
+    cache = tmp_path / "teacher_calls"
+    cache.mkdir()
+    payload = cache / "valid.npz"
+    np.savez(payload, value=np.array([1]))
+    test_call = gc.DevelopmentCall(
+        0, 0, 40, 0, 10, 27, cache, "valid.npz", 1
+    )
+    with pytest.raises(PermissionError, match="non-calibration"):
+        gc.resolve_calibration_call_payload(test_call)
+    escaped = gc.DevelopmentCall(
+        0, 0, 30, 0, 10, 27, cache, "../valid.npz", 1
+    )
+    with pytest.raises(gc.D3CalibrationError, match="unsafe"):
+        gc.resolve_calibration_call_payload(escaped)
 
 
 def test_exact_clopper_pearson_boundary_is_not_wald() -> None:

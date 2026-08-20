@@ -7,17 +7,24 @@ and selects one global threshold using 100 task-episode clusters.
 
 from __future__ import annotations
 
+from collections import defaultdict
 from dataclasses import dataclass
 import json
 import math
 from pathlib import Path
+import re
+import stat
 from typing import Any, Mapping
 
 import numpy as np
 from scipy.stats import beta
 import torch
 
-from .development_collection import stream_sha256
+from .development_collection import (
+    D2_CHECKPOINT_SHA256,
+    DevelopmentCall,
+    stream_sha256,
+)
 from .gripper_v2_models import (
     COUNT_SUPPORT_MAX,
     FeatureNormalizer,
@@ -32,6 +39,10 @@ from .gripper_v2_protocol import (
     FEATURE_DIMENSION,
     decode_json_bytes,
     validate_selection_document,
+)
+from a1.vla.dynamic_compute.vision_teacher_cache import (
+    VISION_TEACHER_CACHE_SCHEMA_VERSION,
+    has_complete_candidate_fm_traces,
 )
 
 
@@ -90,6 +101,10 @@ D3_FINAL_LAMBDAS = {
 D3_UCB_CONFIDENCE = 0.95
 D3_FALSE_SAFE_UCB_MAX = 0.05
 D3_MINIMUM_SAFE_COVERAGE = 0.10
+D3_CONTEXT_SCHEMA_VERSION = "phase-route-vla.v3.d3-context.v1"
+D3_CANDIDATE_SCHEMA_VERSION = "phase-route-vla.v3.d3-candidates.v1"
+D3_DATASET_SCHEMA_VERSION = "phase-route-vla.v3.d3-gripper-dataset.v1"
+_D3_EPISODE_ID = re.compile(r"^libero_10:task([0-9]+):episode([0-9]+)$")
 
 
 class D3CalibrationError(ValueError):
@@ -105,6 +120,31 @@ class CalibrationEpisode:
     @property
     def group_key(self) -> str:
         return f"{D3_SUITE}:task{self.task_id}:episode{self.episode_index}"
+
+
+class CalibrationInitialStateWindowTaskSuite:
+    """Expose exactly calibration episode initial states 30--39."""
+
+    def __init__(self, base_suite: Any) -> None:
+        self._base_suite = base_suite
+
+    def get_task_init_states(self, task_id: int):
+        states = self._base_suite.get_task_init_states(task_id)
+        if len(states) < 40:
+            raise D3CalibrationError("LIBERO task has fewer than 40 initial states")
+        return states[30:40]
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._base_suite, name)
+
+
+def global_calibration_episode_index(local_episode_index: int) -> int:
+    if (
+        type(local_episode_index) is not int
+        or not 0 <= local_episode_index < len(D3_EPISODES)
+    ):
+        raise D3CalibrationError("D3 local episode index must be in 0..9")
+    return D3_EPISODES[0] + local_episode_index
 
 
 def expected_calibration_seed(task_id: int, episode_index: int) -> int:
@@ -190,6 +230,123 @@ def task_calibration_window(
     if tuple(record.episode_index for record in selected) != D3_EPISODES:
         raise D3CalibrationError("D3 task calibration window differs")
     return selected
+
+
+def _regular_file(path: Path, *, context: str) -> Path:
+    absolute = path.absolute()
+    current = Path(absolute.anchor)
+    for part in absolute.parts[1:]:
+        current = current / part
+        if current.is_symlink():
+            raise D3CalibrationError(f"{context} contains a symlink")
+    try:
+        metadata = absolute.stat()
+    except FileNotFoundError as error:
+        raise D3CalibrationError(f"{context} is missing") from error
+    if not stat.S_ISREG(metadata.st_mode):
+        raise D3CalibrationError(f"{context} must be a regular file")
+    return absolute.resolve(strict=True)
+
+
+def load_calibration_task_calls(
+    task_output_directory: str | Path,
+    *,
+    task_id: int,
+    dataset_index_start: int = 0,
+) -> tuple[DevelopmentCall, ...]:
+    """Read one D3 manifest without opening any NPZ payload."""
+
+    if task_id not in D3_TASK_IDS:
+        raise D3CalibrationError("D3 task id must be in 0..9")
+    if type(dataset_index_start) is not int or dataset_index_start < 0:
+        raise D3CalibrationError("D3 dataset index start must be non-negative")
+    output = Path(task_output_directory).resolve(strict=True)
+    manifest = _regular_file(
+        output / "teacher_calls" / "manifest.jsonl",
+        context="D3 teacher manifest",
+    )
+    cache_directory = manifest.parent
+    counters: dict[int, int] = defaultdict(int)
+    previous_step: dict[int, int] = {}
+    rows: list[DevelopmentCall] = []
+    with manifest.open("r", encoding="utf-8") as input_file:
+        for line_number, line in enumerate(input_file, start=1):
+            if not line.strip():
+                raise D3CalibrationError("D3 manifest contains an empty line")
+            try:
+                source = json.loads(line)
+            except json.JSONDecodeError as error:
+                raise D3CalibrationError("D3 manifest row is invalid JSON") from error
+            if not isinstance(source, dict):
+                raise D3CalibrationError("D3 manifest row must be an object")
+            match = _D3_EPISODE_ID.fullmatch(str(source.get("episode_id")))
+            if match is None:
+                raise D3CalibrationError("D3 manifest episode ID is not canonical")
+            source_task, episode = map(int, match.groups())
+            if source_task != task_id or source.get("task_id") != task_id:
+                raise D3CalibrationError("D3 manifest task identity differs")
+            if episode not in D3_EPISODES:
+                raise PermissionError("D3 manifest contains a sealed episode")
+            if source.get("schema_version") != VISION_TEACHER_CACHE_SCHEMA_VERSION:
+                raise D3CalibrationError("D3 raw cache schema differs")
+            if source.get("checkpoint_sha256") != D2_CHECKPOINT_SHA256:
+                raise D3CalibrationError("D3 raw cache checkpoint differs")
+            if source.get("teacher_kind") != "a1_early_exit":
+                raise D3CalibrationError("D3 raw cache teacher kind differs")
+            if not has_complete_candidate_fm_traces(source):
+                raise D3CalibrationError("D3 raw cache FM trace is incomplete")
+            step = source.get("step_id")
+            if (
+                type(step) is not int
+                or step < 0
+                or step <= previous_step.get(episode, -1)
+            ):
+                raise D3CalibrationError("D3 episode steps are not increasing")
+            previous_step[episode] = step
+            ordinal = counters[episode]
+            counters[episode] += 1
+            rows.append(
+                DevelopmentCall(
+                    dataset_index=dataset_index_start + len(rows),
+                    task_id=task_id,
+                    episode_index=episode,
+                    call_ordinal=ordinal,
+                    step_id=step,
+                    behavior_exit_layer=int(source["teacher_exit_layer"]),
+                    cache_directory=cache_directory,
+                    array_path=str(source["array_path"]),
+                    source_manifest_line=line_number,
+                )
+            )
+    if tuple(sorted(counters)) != D3_EPISODES or any(
+        counters[episode] < 1 for episode in D3_EPISODES
+    ):
+        raise D3CalibrationError(
+            "D3 task manifest does not cover all episodes 30..39"
+        )
+    return tuple(rows)
+
+
+def resolve_calibration_call_payload(call: DevelopmentCall) -> Path:
+    if call.task_id not in D3_TASK_IDS or call.episode_index not in D3_EPISODES:
+        raise PermissionError("D3 cannot resolve a non-calibration call")
+    root = call.cache_directory.resolve(strict=True)
+    if call.cache_directory.is_symlink() or not root.is_dir():
+        raise D3CalibrationError("D3 cache directory must be regular")
+    relative = Path(call.array_path)
+    if (
+        relative.is_absolute()
+        or relative.suffix != ".npz"
+        or not relative.parts
+        or any(part in {"", ".", ".."} for part in relative.parts)
+    ):
+        raise D3CalibrationError("D3 cache payload path is unsafe")
+    path = _regular_file(root / relative, context="D3 cache payload")
+    try:
+        path.relative_to(root)
+    except ValueError as error:
+        raise D3CalibrationError("D3 cache payload escapes its directory") from error
+    return path
 
 
 def validate_d3_prerequisites(repo_root: str | Path) -> dict[str, Any]:
@@ -576,9 +733,13 @@ def select_global_threshold(
 
 __all__ = [
     "CalibrationEpisode",
+    "CalibrationInitialStateWindowTaskSuite",
     "D3CalibrationError",
     "D3_CLUSTER_COUNT",
     "D3_CONTRACT_SHA256",
+    "D3_CONTEXT_SCHEMA_VERSION",
+    "D3_CANDIDATE_SCHEMA_VERSION",
+    "D3_DATASET_SCHEMA_VERSION",
     "D3_EPISODES",
     "D3_FALSE_SAFE_UCB_MAX",
     "D3_MINIMUM_SAFE_COVERAGE",
@@ -588,9 +749,12 @@ __all__ = [
     "D3_UCB_CONFIDENCE",
     "clopper_pearson_upper",
     "expected_calibration_seed",
+    "global_calibration_episode_index",
     "load_calibration_selection",
+    "load_calibration_task_calls",
     "load_d3_contract",
     "load_frozen_d2_final_state",
+    "resolve_calibration_call_payload",
     "score_calibration_features",
     "select_global_threshold",
     "task_calibration_window",
