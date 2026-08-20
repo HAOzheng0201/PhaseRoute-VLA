@@ -89,3 +89,17 @@ def test_nonfinite_shape_layer_and_threshold_source_drift_fail() -> None:
     )
     with pytest.raises(sa.D4ASignalError):
         state.validate()
+
+
+def test_action_cosine_distance_matches_a1_horizon_reduction() -> None:
+    first = torch.zeros((2, 8, 7), dtype=torch.float32)
+    second = torch.zeros_like(first)
+    first[:, :, 0] = 1.0
+    second[0, :, 0] = 1.0
+    second[1, :, 1] = 1.0
+    distance = sa.mean_action_cosine_distance(
+        first.contiguous(), second.contiguous()
+    )
+    assert torch.equal(distance, torch.tensor([0.0, 1.0]))
+    with pytest.raises(sa.D4ASignalError):
+        sa.mean_action_cosine_distance(first.double(), second.double())

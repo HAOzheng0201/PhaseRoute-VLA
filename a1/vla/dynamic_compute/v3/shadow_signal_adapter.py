@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import torch
+from torch.nn import functional as F
 
 
 D4A_SCHEMA_VERSION = "phase-route-vla.v3.d4a-signal-adapter.v1"
@@ -439,6 +440,37 @@ def validate_v3_dataset_header(dataset: Mapping[str, Any]) -> int:
     return rows
 
 
+def mean_action_cosine_distance(
+    first: torch.Tensor, second: torch.Tensor
+) -> torch.Tensor:
+    """Reproduce A1's FP32 7-D cosine distance then mean over horizon."""
+
+    if (
+        not isinstance(first, torch.Tensor)
+        or not isinstance(second, torch.Tensor)
+        or first.device.type != "cpu"
+        or second.device.type != "cpu"
+        or first.dtype != torch.float32
+        or second.dtype != torch.float32
+        or first.shape != second.shape
+        or first.ndim != 3
+        or first.shape[1:] != (8, 7)
+        or not first.is_contiguous()
+        or not second.is_contiguous()
+        or not bool(torch.isfinite(first).all())
+        or not bool(torch.isfinite(second).all())
+    ):
+        raise D4ASignalError(
+            "D4 action cosine inputs must be matching finite FP32 [N,8,7]"
+        )
+    left = F.normalize(first, p=2.0, dim=-1, eps=1.0e-5)
+    right = F.normalize(second, p=2.0, dim=-1, eps=1.0e-5)
+    distance = (1.0 - (left * right).sum(dim=-1)).mean(dim=-1)
+    if not bool(torch.isfinite(distance).all()):
+        raise D4ASignalError("D4 action cosine distance is non-finite")
+    return distance.contiguous()
+
+
 __all__ = [
     "AdaptedShadowSignals",
     "D4A_CHECKPOINT_SHA256",
@@ -456,6 +488,7 @@ __all__ = [
     "adapt_shadow_signals",
     "authenticated_weights_only_load",
     "load_frozen_legacy_signal_state",
+    "mean_action_cosine_distance",
     "stream_sha256",
     "validate_v3_dataset_header",
 ]
