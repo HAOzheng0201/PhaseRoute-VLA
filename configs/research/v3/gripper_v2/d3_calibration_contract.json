@@ -1,0 +1,145 @@
+{
+  "schema_version": "phase-route-vla.v3.d3-calibration-contract.v1",
+  "contract_id": "phaseroute-v3-d3-calibration-20260820-v1",
+  "stage": "V3-D3",
+  "status": "D3_CALIBRATION_CONTRACT_FROZEN",
+  "scope": {
+    "pre_label_design": true,
+    "metadata_only_at_freeze": true,
+    "calibration_payload_opened_at_freeze": false,
+    "independent_test_payload_opened": false,
+    "model_refit_allowed": false,
+    "runtime_threshold_selection_allowed_after_freeze": true,
+    "shadow_control_allowed": false,
+    "active_control_allowed": false
+  },
+  "prerequisite": {
+    "d2_freeze_commit": "8354cefd71fec7052864308218c3beb566580f70",
+    "d2_attestation_path": "results/v3/v3_d2_formal_development_result.json",
+    "d2_attestation_sha256": "bc6841b0a92eb0a66e1e60ad13d58ec15a0f4abb3f6750ad3898dee3c3c41092",
+    "required_d2_status": "PASS_V3_D2_FULL_DEVELOPMENT_GATE",
+    "d2_nested_oof_result_path": "reports/v3_d2_development_oof/result.json",
+    "d2_nested_oof_result_sha256": "09c5e71e656bc434f951b99fe2371abf8d5a4e42afcbbf13047d52520974fa79",
+    "d2_final_model_payload_path": "reports/v3_d2_development_oof/development_gripper_v2_nested_oof.pt",
+    "d2_final_model_payload_sha256": "8e5a6d14b1b60c4e984fa68f32be063335728bd93678f01b2e9926f3741d3d6b"
+  },
+  "lineage": {
+    "suite": "libero_10",
+    "role": "calibration_v2",
+    "selection_path": "configs/research/v3/data_lineage/calibration_v2.json",
+    "selection_sha256": "6f2b2817985740298a06c4412b2f857624ac16c98d174d3ad03f1acca238f79e",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+    "cluster_count": 100,
+    "cluster_key": "libero_10:task{task_id}:episode{episode_index}",
+    "independent_test_selection_path": "configs/research/v3/data_lineage/independent_test_v2.json",
+    "independent_test_selection_sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4",
+    "independent_test_access_allowed": false
+  },
+  "collection": {
+    "a1_model_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+    "fm_steps": 10,
+    "history_length": 8,
+    "decision_layers": [11, 13],
+    "teacher_layer": 27,
+    "same_noise_replay": true,
+    "feature_dimension": 97,
+    "physical_gpu_allowlist": [0, 1, 2, 3],
+    "output_roots": {
+      "raw": "reports/v3_d3_calibration_raw",
+      "context": "reports/v3_d3_calibration_context",
+      "candidates": "reports/v3_d3_calibration_candidates",
+      "dataset": "reports/v3_d3_calibration_dataset",
+      "calibration": "reports/v3_d3_calibration_result"
+    },
+    "overwrite_existing_evidence": false
+  },
+  "frozen_model": {
+    "refit_on_calibration": false,
+    "feature_or_family_switch_after_calibration_labels": false,
+    "primary_parameter_count": 414,
+    "final_lambdas": {
+      "occurrence": 0.01,
+      "zt_step": 0.1,
+      "zt_transition": 0.1,
+      "ordinal_step": 0.1,
+      "ordinal_transition": 0.1
+    },
+    "required_final_state_heads": [
+      "occurrence",
+      "zt_step",
+      "zt_transition",
+      "ordinal_step",
+      "ordinal_transition"
+    ]
+  },
+  "score": {
+    "name": "step_any_mismatch_probability",
+    "source_head": "final_model_state.occurrence",
+    "source_target_index": 0,
+    "formula": "P(count_step>0 | current_97d_candidate_feature, candidate_layer)",
+    "range": "strictly_between_0_and_1",
+    "lower_is_safer": true,
+    "safe_call_predicate": "score<=threshold",
+    "one_global_threshold_shared_across_layers_tasks_and_time": true,
+    "per_layer_or_per_task_threshold_forbidden": true,
+    "transition_occurrence_used_for_posthoc_score_selection": false,
+    "ordinal_expected_fraction_used_for_posthoc_score_selection": false,
+    "transition_mismatch_implies_step_mismatch_required": true,
+    "ordinal_expected_fraction_reported_as_secondary_severity": true
+  },
+  "threshold_selection": {
+    "candidate_thresholds": "sorted_unique_finite_calibration_scores",
+    "always_defer_sentinel_in_candidate_grid": false,
+    "safe_cluster_definition": "cluster_with_at_least_one_predicted_safe_candidate_call",
+    "false_safe_cluster_definition": "safe_cluster_with_at_least_one_predicted_safe_candidate_call_having_any_step_mismatch",
+    "false_safe_denominator": "safe_clusters_only",
+    "ucb_method": "one_sided_exact_clopper_pearson",
+    "ucb_confidence": 0.95,
+    "false_safe_cluster_ucb_at_most": 0.05,
+    "safe_coverage_denominator": 100,
+    "minimum_safe_coverage": 0.1,
+    "selection_rule": "maximum_safe_cluster_coverage_subject_to_ucb_then_smaller_threshold",
+    "no_feasible_threshold_status": "NEGATIVE_V3_D3_CALIBRATION_GATE",
+    "always_defer_is_valid": false,
+    "ties_are_not_randomized": true
+  },
+  "reporting": {
+    "primary": [
+      "selected_threshold",
+      "safe_clusters",
+      "false_safe_clusters",
+      "safe_cluster_coverage",
+      "false_safe_cluster_rate",
+      "false_safe_cluster_ucb95"
+    ],
+    "secondary": [
+      "predicted_safe_candidate_rows",
+      "call_level_false_safe_rate",
+      "per_layer_support_and_error",
+      "per_task_support_and_error",
+      "score_quantiles",
+      "ordinal_expected_fraction_quantiles"
+    ],
+    "all_100_clusters_required": true,
+    "missing_or_nonfinite_prediction": "abort_whole_calibration"
+  },
+  "gate": {
+    "pass_status": "PASS_V3_D3_CALIBRATION_GATE",
+    "failure_status": "NEGATIVE_V3_D3_CALIBRATION_GATE",
+    "pass_formula": "all_100_clusters_present AND safe_cluster_coverage>=0.10 AND false_safe_cluster_ucb95<=0.05",
+    "on_pass_authorized_next_stage": "V3-D4_SHADOW_DECISION_ONLY",
+    "on_pass_active_control_authorized": false,
+    "on_pass_independent_test_authorized": false,
+    "on_failure_threshold_relaxation_allowed": false,
+    "on_failure_model_or_score_switch_allowed": false
+  },
+  "claim_boundary": {
+    "calibration_is_independent_test": false,
+    "calibration_gate_is_success_rate_improvement": false,
+    "layer27_is_expert_or_success_label": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}
