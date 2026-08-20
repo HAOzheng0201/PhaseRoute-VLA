@@ -159,7 +159,7 @@ def main() -> None:
         or dataset_result.get("payload_sha256")
         != inputs["d2_dataset_result"]["payload_sha256"]
         or d3_formal.get("status") != "PASS_V3_D3_CALIBRATION_GATE"
-        or d3_result.get("selected_threshold")
+        or d3_result.get("primary", {}).get("selected_threshold")
         != inputs["frozen_gripper_calibration"]["score_threshold"]
     ):
         raise PermissionError("V3-D5 D2/D3 metadata semantics differ")
