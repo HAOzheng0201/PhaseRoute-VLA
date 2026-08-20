@@ -1,0 +1,132 @@
+{
+  "schema_version": "phase-route-vla.v3.d4-shadow-contract.v1",
+  "contract_id": "phaseroute-v3-d4-shadow-20260820-v1",
+  "stage": "V3-D4.0",
+  "status": "D4_SHADOW_CONTRACT_FROZEN",
+  "scope": {
+    "decision_only": true,
+    "active_control_allowed": false,
+    "environment_action_may_change": false,
+    "model_refit_allowed": false,
+    "d3_threshold_change_allowed": false,
+    "fresh_rollout_allowed": false,
+    "independent_test_allowed": false,
+    "shadow_execution_allowed_before_signal_attestation": false
+  },
+  "prerequisite": {
+    "d3_freeze_commit": "3429f7d8901f7818583a67aed92daffca8ebb3ec",
+    "d3_attestation_path": "results/v3/v3_d3_formal_calibration_result.json",
+    "d3_attestation_sha256": "904fb3db1230b5d6fbc449c1c4265128b0e48b829f37aa5f4d9c17be7d6bf3cb",
+    "required_d3_status": "PASS_V3_D3_CALIBRATION_GATE",
+    "d3_calibration_result_path": "reports/v3_d3_calibration_result/result.json",
+    "d3_calibration_result_sha256": "9a9cd80193dc71fe8459becebfdfb71cb2581bd9ecc5ff42ca06af1ced276d4c",
+    "d3_dataset_payload_path": "reports/v3_d3_calibration_dataset/calibration_gripper_v2_dataset.pt",
+    "d3_dataset_payload_sha256": "5780e5949bc5b1ded15483ef84a08994ed099cd1a7604fb5c1c2082d7db4f005",
+    "d3_predictions_path": "reports/v3_d3_calibration_result/calibration_predictions.pt",
+    "d3_predictions_sha256": "55dfae85be7609c5fe2319752dc17538b042eed2fec8fb02afce1faabedea607"
+  },
+  "lineage": {
+    "suite": "libero_10",
+    "role": "calibration_v2",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+    "cluster_count": 100,
+    "candidate_call_count": 3516,
+    "candidate_layers": [11, 13],
+    "fallback_layer": 27,
+    "independent_test_episode_indices": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
+    "independent_test_payload_access_allowed": false
+  },
+  "decision": {
+    "formula": "route_safe=original_action_consistency AND motion_safe AND tail_ucb_safe AND gripper_safe",
+    "non_compensating_and": true,
+    "priority": [11, 13, 27],
+    "priority_rule": "select_L11_if_all_four_gates_else_select_L13_if_all_four_gates_else_defer_L27",
+    "missing_or_nonfinite_signal": "veto_candidate_and_continue_deeper",
+    "ties_or_randomization": false,
+    "shadow_decision_returns_action": false,
+    "shadow_decision_may_mutate_controller_or_environment": false
+  },
+  "original_action_consistency": {
+    "metric": "mean_over_horizon_of_one_minus_cosine_over_all_7_action_dimensions",
+    "lower_is_safer": true,
+    "threshold": 0.00390625,
+    "l11_reference": "frozen_A1_layer9_to_layer11_candidate_metric_from_raw_telemetry",
+    "l13_reference": "same_noise_layer11_to_layer13_candidate_metric",
+    "l13_is_original_calibrated_a1_exit": false,
+    "gripper_only_consistency_may_substitute": false
+  },
+  "gripper_gate": {
+    "score": "step_any_mismatch_probability",
+    "threshold": 0.043773197319646726,
+    "predicate": "finite_score<=threshold",
+    "threshold_source": "frozen_V3_D3_global_calibration",
+    "threshold_refit_or_change_allowed": false
+  },
+  "motion_gate": {
+    "required": true,
+    "signal_semantics": "candidate_to_layer27_translation_and_rotation_risk_from_a_frozen_causal_head",
+    "gripper_score_may_substitute": false,
+    "original_action_consistency_may_substitute": false,
+    "runtime_threshold_frozen_in_v3": false,
+    "missing_threshold_policy": "block_shadow_execution_and_force_deeper_compute"
+  },
+  "tail_ucb_gate": {
+    "required": true,
+    "signal_semantics": "calibrated_upper_bound_on_candidate_to_layer27_full_action_tail_linf",
+    "gripper_score_may_substitute": false,
+    "motion_score_may_substitute": false,
+    "runtime_threshold_frozen_in_v3": false,
+    "missing_or_nonfinite_policy": "block_shadow_execution_and_force_deeper_compute"
+  },
+  "signal_adapter_gate": {
+    "must_be_implemented_and_attested_before_formal_shadow": true,
+    "must_bind_frozen_model_and_calibration_artifact_sha256": true,
+    "must_define_motion_and_tail_runtime_thresholds_before_viewing_shadow_distribution": true,
+    "must_prove_82d_legacy_context_is_exact_prefix_of_97d_v3_feature": true,
+    "must_prove_candidate_layer_and_row_identity_alignment": true,
+    "must_fail_closed_on_missing_nonfinite_or_shape_drift": true,
+    "may_read_independent_test": false,
+    "may_refit_d2_gripper_heads_or_d3_threshold": false
+  },
+  "accounting": {
+    "rp_pep_fm_solver_calls_by_shadow_selection": {
+      "11": 4,
+      "13": 5,
+      "27": 7
+    },
+    "behavior_a1_fm_solver_calls_by_exit": {
+      "11": 7,
+      "27": 15
+    },
+    "estimated_compute_is_not_measured_latency": true,
+    "report_l11_l13_defer_counts": true,
+    "report_each_veto_reason": true,
+    "report_false_safe_by_task_episode_cluster": true
+  },
+  "formal_shadow_gate": {
+    "minimum_candidate_calls": 3516,
+    "all_100_clusters_required": true,
+    "safe_cluster_definition": "cluster_with_at_least_one_shadow_early_exit",
+    "false_safe_cluster_definition": "safe_cluster_with_at_least_one_selected_candidate_violating_any_full_action_or_gripper_consistency_target",
+    "false_safe_ucb_method": "one_sided_exact_clopper_pearson_95_percent",
+    "false_safe_cluster_ucb_at_most": 0.05,
+    "minimum_early_exit_call_fraction": 0.01,
+    "always_defer_is_pass": false,
+    "pass_does_not_authorize_active_control": true,
+    "pass_does_not_authorize_independent_test": true
+  },
+  "claim_boundary": {
+    "l27_is_expert_or_success_certificate": false,
+    "tail_bound_is_collision_or_task_success_certificate": false,
+    "shadow_gate_is_closed_loop_success_improvement": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  },
+  "on_contract_pass": {
+    "authorized_next_work": "V3-D4A_SIGNAL_ADAPTER_IMPLEMENTATION_AND_ATTESTATION_ONLY",
+    "formal_shadow_execution_authorized": false,
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  }
+}
