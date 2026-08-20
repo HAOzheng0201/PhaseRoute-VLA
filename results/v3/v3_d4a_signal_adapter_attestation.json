@@ -1,0 +1,53 @@
+{
+  "status": "PASS_V3_D4A_SIGNAL_ADAPTER_ATTESTATION",
+  "schema_version": "phase-route-vla.v3.d4a-formal-attestation.v1",
+  "source_git_commit": "f6674996173b17aae4b6ad6468dd52518a3cedaa",
+  "source_worktree_dirty": false,
+  "role": "calibration_v2",
+  "rows": 7032,
+  "source_calls": 3516,
+  "decision_layers": [11, 13],
+  "formal_report": {
+    "path": "reports/v3_d4a_signal_adapter/result.json",
+    "sha256": "16f19d813a7cee728ab06ccc75c9b6de23d55a657e9fa04a023318e12d33d54d"
+  },
+  "signal_payload": {
+    "path": "reports/v3_d4a_signal_adapter/adapter_signals.pt",
+    "sha256": "9fb66f57b004acfeb918f845adc39d33a73630abdcb3b96188f7ca65a7e6981c"
+  },
+  "input_sha256": {
+    "d3_dataset": "5780e5949bc5b1ded15483ef84a08994ed099cd1a7604fb5c1c2082d7db4f005",
+    "d3_context": "56edd68f73b3e9fbc0609a22a25a003dfa6ed02ca8ad2a313bf6852a4e81c506",
+    "d3_candidate_shards": [
+      "87f5a8b2a6eec1a2fe9ac49369ca5162a8c59555d5670bfb13f32b027e764eee",
+      "f2710e023e4bce718743c1e802f6d4522adefe018133d789f587e096d3006a3c",
+      "793f9de24121a10fd2fbe22646182e1675b00a1c1e1afc07725146a86da24bb7",
+      "5fbfe3ff2cf6af76eac69381d585a06e6a701f4761852455a78c170047703111"
+    ],
+    "legacy_checkpoint": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+    "legacy_tail_artifact": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5"
+  },
+  "checks": {
+    "all_artifacts_authenticated_before_weights_only_load": true,
+    "context_candidate_dataset_row_identity_exact": true,
+    "v3_97d_features_rebuilt_exactly": true,
+    "legacy_82d_slice_exact_prefix": true,
+    "frozen_checkpoint_schema_and_claim_boundary_exact": true,
+    "motion_and_tail_predictions_finite_positive": true,
+    "thresholds_pre_frozen_without_search": true,
+    "no_shadow_selection_counts_or_distribution_reported": true,
+    "no_fit_gpu_independent_test_or_control": true
+  },
+  "authorization": {
+    "d4b_formal_calibration_shadow_only": true,
+    "fresh_rollout_authorized": false,
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  },
+  "claim_boundary": {
+    "adapter_pass_is_shadow_result": false,
+    "success_or_efficiency_improvement": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

@@ -38,3 +38,15 @@ Tail budget 固定为旧 q90 anchor 加旧 split-conformal correction：
 旧 C3.55 checkpoint 是 development-only，C3.58 tail artifact 是 calibration-only；二者原本都没有 runtime threshold。D4A 只复用冻结参数、预处理和 correction，并单独预注册 runtime budget，不能把旧 artifact 的存在误写成已部署。
 
 适配器通过后只授权在 episode 30--39 的冻结 artifacts 上运行 D4B formal shadow。episode 40--49、fresh rollout 和 active control 仍禁止。
+
+## 4. 正式适配结果
+
+适配器已在 clean commit `f6674996173b17aae4b6ad6468dd52518a3cedaa` 上执行并通过：
+
+- 7,032 个 layer candidate，来自 3,516 个 policy call；
+- D3 context、四个 candidate shard 和 dataset 的行身份精确一致；
+- 从原始 context/candidate 重新构造的 97D feature 与冻结 dataset 逐元素相同；
+- checkpoint 和 tail artifact 均先按 SHA 认证再 `weights_only` 加载；
+- 没有 fit、阈值搜索、GPU、shadow selection、independent test 或 active control。
+
+正式 signal payload SHA-256 为 `9fb66f57b004acfeb918f845adc39d33a73630abdcb3b96188f7ca65a7e6981c`。本结果只授权 D4B calibration shadow；它本身不披露或证明任何 L11/L13 选择比例。
