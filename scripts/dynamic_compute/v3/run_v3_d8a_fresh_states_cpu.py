@@ -64,9 +64,12 @@ def run_one(pass_id: int, task_id: int, replicate_id: int, root: Path) -> dict:
     environment.update(
         {
             "CUDA_VISIBLE_DEVICES": "-1",
+            "MUJOCO_GL": "osmesa",
             "PYTHONNOUSERSITE": "1",
             "PYTHONHASHSEED": str(30_260_821 + task_id * 10_000 + replicate_id),
             "LIBERO_CONFIG_PATH": str(root / "libero_config"),
+            "NUMBA_CACHE_DIR": str(root / "numba_cache"),
+            "MPLCONFIGDIR": str(root / "matplotlib_cache"),
             "OMP_NUM_THREADS": "1",
             "MKL_NUM_THREADS": "1",
         }
@@ -118,6 +121,8 @@ def main() -> None:
         raise FileExistsError("V3-D8A refuses to overwrite generation records")
     incomplete.mkdir(parents=True, exist_ok=False)
     (incomplete / "logs").mkdir()
+    (incomplete / "numba_cache").mkdir()
+    (incomplete / "matplotlib_cache").mkdir()
     config_root = incomplete / "libero_config"
     config_root.mkdir()
     benchmark_root = REPO_ROOT / "robot_experiments/libero/LIBERO/libero/libero"

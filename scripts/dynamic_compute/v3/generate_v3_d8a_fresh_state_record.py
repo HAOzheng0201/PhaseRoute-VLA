@@ -17,9 +17,16 @@ import time
 
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["MUJOCO_GL"] = "osmesa"
 REPO_ROOT = Path(__file__).resolve().parents[3]
 LIBERO_ROOT = REPO_ROOT / "robot_experiments/libero/LIBERO"
-LIBERO_PYTHON_ROOT = LIBERO_ROOT / "libero"
+LIBERO_PYTHON_ROOT = LIBERO_ROOT
+os.environ.setdefault(
+    "NUMBA_CACHE_DIR", str(REPO_ROOT / "reports/v3_d8a_numba_cache")
+)
+os.environ.setdefault(
+    "MPLCONFIGDIR", str(REPO_ROOT / "reports/v3_d8a_matplotlib_cache")
+)
 for path in (REPO_ROOT, LIBERO_PYTHON_ROOT):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
@@ -74,6 +81,8 @@ def git_output(cwd: Path, *args: str) -> str:
 def run(args: argparse.Namespace) -> None:
     if os.environ.get("CUDA_VISIBLE_DEVICES") != "-1":
         raise PermissionError("V3-D8A state generation is CPU-only")
+    if os.environ.get("MUJOCO_GL") != "osmesa":
+        raise PermissionError("V3-D8A state generation requires CPU OSMesa")
     if git_output(REPO_ROOT, "status", "--porcelain=v1"):
         raise PermissionError("V3-D8A state generation requires a clean worktree")
     if (
