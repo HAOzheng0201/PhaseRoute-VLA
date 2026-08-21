@@ -1,0 +1,1132 @@
+{
+  "schema_version": "phase-route-vla.v3.d7-formal-development-attestation.v1",
+  "status": "PROMISING_V3_D7_REUSED_DEVELOPMENT_SELECTION",
+  "run_timestamp_utc": "2026-08-21T11:19:38.678+00:00",
+  "freeze_timestamp_utc": "2026-08-21T11:24:34.953+00:00",
+  "source_git_commit": "ffc141297a8e5ee10a74688203c1643e158de36b",
+  "freeze_git_commit": "26515cf2828e033b952d1e197a728609b30217fe",
+  "source_worktree_dirty": false,
+  "role": "development_v2_reused_after_D5_D6_for_D7_method_selection",
+  "data_boundary": {
+    "task_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "episode_indices": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "clusters": 180,
+    "policy_calls": 6521,
+    "candidate_rows": 13042,
+    "development_data_is_fresh_confirmation": false,
+    "calibration_v2_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "fresh_rollout": false
+  },
+  "training_audit": {
+    "outer_folds": 18,
+    "inner_folds_per_outer": 17,
+    "ensemble_heads": 5,
+    "fits_per_outer": 260,
+    "total_model_fits": 4680,
+    "infeasible_outer_folds": 0,
+    "selected_lambdas": {
+      "12": 0.01,
+      "13": 0.01,
+      "14": 0.01,
+      "15": 0.01,
+      "16": 0.01,
+      "17": 0.01,
+      "18": 0.01,
+      "19": 0.01,
+      "20": 0.01,
+      "21": 0.01,
+      "22": 0.01,
+      "23": 0.01,
+      "24": 0.01,
+      "25": 0.01,
+      "26": 0.01,
+      "27": 0.01,
+      "28": 0.01,
+      "29": 0.01
+    },
+    "thresholds": {
+      "12": {
+        "feasible": true,
+        "full_threshold": 0.5172957158188132,
+        "runtime_threshold": 0.49143093002787247,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 879,
+          "early_exit_fraction": 0.1420720866332633,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            42,
+            121,
+            129,
+            168,
+            34,
+            47,
+            47,
+            80,
+            86,
+            125
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 878,
+          "early_exit_fraction": 0.14191045741069985,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            42,
+            121,
+            129,
+            168,
+            34,
+            47,
+            47,
+            80,
+            86,
+            124
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1105,
+        "failure_reason": null
+      },
+      "13": {
+        "feasible": true,
+        "full_threshold": 0.5147092484318097,
+        "runtime_threshold": 0.4889737860102191,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 826,
+          "early_exit_fraction": 0.13396042815439507,
+          "safe_clusters": 168,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04550338853618329,
+          "per_task_early_calls": [
+            35,
+            122,
+            123,
+            156,
+            42,
+            37,
+            59,
+            84,
+            74,
+            94
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 825,
+          "early_exit_fraction": 0.1337982484592929,
+          "safe_clusters": 168,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04550338853618329,
+          "per_task_early_calls": [
+            35,
+            122,
+            123,
+            156,
+            42,
+            37,
+            59,
+            84,
+            74,
+            93
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1020,
+        "failure_reason": null
+      },
+      "14": {
+        "feasible": true,
+        "full_threshold": 0.3006603865609533,
+        "runtime_threshold": 0.2856273672329056,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 937,
+          "early_exit_fraction": 0.15380827314510834,
+          "safe_clusters": 169,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.036782562893625394,
+          "per_task_early_calls": [
+            61,
+            133,
+            118,
+            159,
+            40,
+            36,
+            47,
+            86,
+            97,
+            160
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 935,
+          "early_exit_fraction": 0.15347997373604727,
+          "safe_clusters": 169,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.036782562893625394,
+          "per_task_early_calls": [
+            61,
+            133,
+            117,
+            159,
+            40,
+            36,
+            47,
+            86,
+            97,
+            159
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1180,
+        "failure_reason": null
+      },
+      "15": {
+        "feasible": true,
+        "full_threshold": 0.3629585292213411,
+        "runtime_threshold": 0.34481060276027403,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 872,
+          "early_exit_fraction": 0.14075867635189668,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            43,
+            133,
+            118,
+            160,
+            34,
+            47,
+            46,
+            79,
+            79,
+            133
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 871,
+          "early_exit_fraction": 0.14059725585149313,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            43,
+            133,
+            118,
+            160,
+            34,
+            47,
+            46,
+            79,
+            79,
+            132
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1101,
+        "failure_reason": null
+      },
+      "16": {
+        "feasible": true,
+        "full_threshold": 0.5172957158188132,
+        "runtime_threshold": 0.49143093002787247,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 884,
+          "early_exit_fraction": 0.14376321353065538,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            38,
+            134,
+            114,
+            157,
+            29,
+            50,
+            54,
+            80,
+            88,
+            140
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 882,
+          "early_exit_fraction": 0.14343795739144577,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            38,
+            134,
+            114,
+            157,
+            29,
+            50,
+            54,
+            80,
+            88,
+            138
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1110,
+        "failure_reason": null
+      },
+      "17": {
+        "feasible": true,
+        "full_threshold": 0.3635363878661116,
+        "runtime_threshold": 0.34535956847280597,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 846,
+          "early_exit_fraction": 0.13800978792822186,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            46,
+            130,
+            107,
+            156,
+            31,
+            41,
+            64,
+            78,
+            77,
+            116
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 842,
+          "early_exit_fraction": 0.13735725938009788,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            46,
+            130,
+            107,
+            156,
+            31,
+            41,
+            63,
+            78,
+            77,
+            113
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1075,
+        "failure_reason": null
+      },
+      "18": {
+        "feasible": true,
+        "full_threshold": 0.4224741049115679,
+        "runtime_threshold": 0.40135039966598945,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 903,
+          "early_exit_fraction": 0.14764551994767822,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            35,
+            129,
+            126,
+            176,
+            37,
+            43,
+            58,
+            81,
+            86,
+            132
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 902,
+          "early_exit_fraction": 0.1474820143884892,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            35,
+            129,
+            126,
+            176,
+            37,
+            43,
+            58,
+            81,
+            86,
+            131
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1125,
+        "failure_reason": null
+      },
+      "19": {
+        "feasible": true,
+        "full_threshold": 0.5034815886805373,
+        "runtime_threshold": 0.4783075092465104,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 883,
+          "early_exit_fraction": 0.14299595141700405,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            31,
+            129,
+            108,
+            175,
+            39,
+            41,
+            47,
+            84,
+            86,
+            143
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 882,
+          "early_exit_fraction": 0.14283400809716598,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            31,
+            129,
+            108,
+            175,
+            39,
+            41,
+            47,
+            84,
+            86,
+            142
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1094,
+        "failure_reason": null
+      },
+      "20": {
+        "feasible": true,
+        "full_threshold": 0.2904043585786134,
+        "runtime_threshold": 0.27588414064968275,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 902,
+          "early_exit_fraction": 0.14564831261101244,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            51,
+            128,
+            108,
+            161,
+            41,
+            50,
+            52,
+            83,
+            93,
+            135
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 901,
+          "early_exit_fraction": 0.14548683998062328,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            51,
+            128,
+            108,
+            161,
+            41,
+            50,
+            52,
+            83,
+            93,
+            134
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1164,
+        "failure_reason": null
+      },
+      "21": {
+        "feasible": true,
+        "full_threshold": 0.37063700162366914,
+        "runtime_threshold": 0.3521051515424857,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 857,
+          "early_exit_fraction": 0.13898799870256243,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            33,
+            136,
+            110,
+            170,
+            30,
+            46,
+            43,
+            82,
+            90,
+            117
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 856,
+          "early_exit_fraction": 0.13882581900746027,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            33,
+            136,
+            110,
+            170,
+            30,
+            46,
+            43,
+            82,
+            90,
+            116
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1068,
+        "failure_reason": null
+      },
+      "22": {
+        "feasible": true,
+        "full_threshold": 0.5073143032160893,
+        "runtime_threshold": 0.4819485880552848,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 867,
+          "early_exit_fraction": 0.13963601224029634,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            37,
+            129,
+            126,
+            170,
+            34,
+            48,
+            41,
+            80,
+            83,
+            119
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 866,
+          "early_exit_fraction": 0.139474955709454,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            37,
+            129,
+            126,
+            170,
+            34,
+            48,
+            41,
+            80,
+            83,
+            118
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1083,
+        "failure_reason": null
+      },
+      "23": {
+        "feasible": true,
+        "full_threshold": 0.5360884378000177,
+        "runtime_threshold": 0.5092840159100168,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 911,
+          "early_exit_fraction": 0.14688810061270557,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            50,
+            136,
+            128,
+            161,
+            36,
+            47,
+            52,
+            81,
+            85,
+            135
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 910,
+          "early_exit_fraction": 0.14672686230248308,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            50,
+            136,
+            128,
+            161,
+            36,
+            47,
+            52,
+            81,
+            85,
+            134
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1100,
+        "failure_reason": null
+      },
+      "24": {
+        "feasible": true,
+        "full_threshold": 0.5172957158188132,
+        "runtime_threshold": 0.49143093002787247,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 877,
+          "early_exit_fraction": 0.1414288018061603,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            46,
+            123,
+            117,
+            154,
+            32,
+            57,
+            46,
+            79,
+            86,
+            137
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 876,
+          "early_exit_fraction": 0.1412675374939526,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            46,
+            123,
+            117,
+            154,
+            32,
+            57,
+            46,
+            79,
+            86,
+            136
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1095,
+        "failure_reason": null
+      },
+      "25": {
+        "feasible": true,
+        "full_threshold": 0.5435668918425081,
+        "runtime_threshold": 0.5163885472503826,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 826,
+          "early_exit_fraction": 0.1354764638346728,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            41,
+            131,
+            126,
+            152,
+            37,
+            36,
+            35,
+            78,
+            79,
+            111
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 825,
+          "early_exit_fraction": 0.13531244874528456,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            41,
+            131,
+            126,
+            152,
+            37,
+            36,
+            35,
+            78,
+            79,
+            110
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 982,
+        "failure_reason": null
+      },
+      "26": {
+        "feasible": true,
+        "full_threshold": 0.5273339228495544,
+        "runtime_threshold": 0.5009672267070766,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 849,
+          "early_exit_fraction": 0.13695757380222617,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            37,
+            130,
+            108,
+            154,
+            35,
+            46,
+            47,
+            79,
+            79,
+            134
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 848,
+          "early_exit_fraction": 0.13679625746088078,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            37,
+            130,
+            108,
+            154,
+            35,
+            46,
+            47,
+            79,
+            79,
+            133
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1043,
+        "failure_reason": null
+      },
+      "27": {
+        "feasible": true,
+        "full_threshold": 0.513326049076034,
+        "runtime_threshold": 0.4876597466222322,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 859,
+          "early_exit_fraction": 0.1401305057096248,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            30,
+            121,
+            128,
+            157,
+            32,
+            47,
+            61,
+            80,
+            76,
+            127
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 857,
+          "early_exit_fraction": 0.1398042414355628,
+          "safe_clusters": 170,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.044975562393134036,
+          "per_task_early_calls": [
+            30,
+            121,
+            128,
+            157,
+            32,
+            47,
+            61,
+            80,
+            76,
+            125
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1029,
+        "failure_reason": null
+      },
+      "28": {
+        "feasible": true,
+        "full_threshold": 0.5172957158188132,
+        "runtime_threshold": 0.49143093002787247,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 810,
+          "early_exit_fraction": 0.13166449934980495,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            34,
+            130,
+            98,
+            149,
+            34,
+            34,
+            47,
+            79,
+            80,
+            125
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 809,
+          "early_exit_fraction": 0.13150195058517555,
+          "safe_clusters": 169,
+          "false_safe_clusters": 3,
+          "false_safe_ucb95": 0.04523793606950428,
+          "per_task_early_calls": [
+            34,
+            130,
+            98,
+            149,
+            34,
+            34,
+            47,
+            79,
+            80,
+            124
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 970,
+        "failure_reason": null
+      },
+      "29": {
+        "feasible": true,
+        "full_threshold": 0.36088130759864984,
+        "runtime_threshold": 0.3428372422187173,
+        "fixed_safety_multiplier": 0.95,
+        "full_summary": {
+          "early_exit_calls": 886,
+          "early_exit_fraction": 0.14529353886520172,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            35,
+            124,
+            131,
+            160,
+            35,
+            51,
+            59,
+            81,
+            80,
+            130
+          ],
+          "feasible": true
+        },
+        "runtime_summary": {
+          "early_exit_calls": 885,
+          "early_exit_fraction": 0.1451295506723516,
+          "safe_clusters": 170,
+          "false_safe_clusters": 2,
+          "false_safe_ucb95": 0.03656893086579245,
+          "per_task_early_calls": [
+            35,
+            124,
+            131,
+            160,
+            35,
+            51,
+            58,
+            81,
+            80,
+            130
+          ],
+          "feasible": true
+        },
+        "evaluated_thresholds": 1113,
+        "failure_reason": null
+      }
+    },
+    "gpu_query_or_initialization": 0
+  },
+  "predictive_metrics": {
+    "full_action_epistemic_upper_AUROC": 0.9235275951693862,
+    "full_action_epistemic_upper_log_loss": 0.44609481094352826,
+    "head0_gripper_step_AUROC": 0.9453224582522628,
+    "head0_gripper_step_log_loss": 0.29669203711398623
+  },
+  "uncertainty_diagnostics": {
+    "full_action_head_range": {
+      "rows": 13042,
+      "mean": 0.04713230461109631,
+      "quantiles": {
+        "min": 0.0008604224038095774,
+        "p50": 0.03829641297180408,
+        "p90": 0.09512163687105192,
+        "p95": 0.11899393269791733,
+        "p99": 0.1741644362905135,
+        "max": 0.2712351580454314
+      },
+      "rows_above_1e-6": 13042,
+      "fraction_above_1e-6": 1.0
+    },
+    "all_rows_non_degenerate_above_1e-6": true
+  },
+  "formal_selection": {
+    "L11_calls": 200,
+    "L13_calls": 706,
+    "L27_calls": 5615,
+    "early_exit_calls": 906,
+    "early_exit_fraction": 0.13893574605121914,
+    "safe_clusters": 179,
+    "false_safe_clusters": 2,
+    "false_safe_cluster_ucb95": 0.034752356242288084,
+    "maximum_allowed_ucb95": 0.05,
+    "false_full_action_calls": 2,
+    "false_full_action_clusters": 2,
+    "false_gripper_calls": 0,
+    "false_records": [
+      {
+        "source_row": 2090,
+        "task_id": 3,
+        "episode_index": 16,
+        "selected_layer": 11,
+        "full_action_unsafe": true,
+        "gripper_step_unsafe": false,
+        "full_action_head_scores": [
+          0.2998285581826378,
+          0.3264782305526179,
+          0.2829828976270567,
+          0.35648294809294484,
+          0.2660864106116534
+        ],
+        "full_action_upper_score": 0.35648294809294484,
+        "full_action_head_range": 0.09039653748129145,
+        "head0_gripper_score": 0.03205107533122008,
+        "outer_runtime_threshold": 0.49143093002787247,
+        "action_consistency": true
+      },
+      {
+        "source_row": 2261,
+        "task_id": 3,
+        "episode_index": 22,
+        "selected_layer": 11,
+        "full_action_unsafe": true,
+        "gripper_step_unsafe": false,
+        "full_action_head_scores": [
+          0.18164688411237107,
+          0.18599789353461305,
+          0.16831509527854435,
+          0.20952293598549188,
+          0.16874487190224838
+        ],
+        "full_action_upper_score": 0.20952293598549188,
+        "full_action_head_range": 0.041207840706947524,
+        "head0_gripper_score": 0.0410840069702375,
+        "outer_runtime_threshold": 0.4819485880552848,
+        "action_consistency": true
+      }
+    ],
+    "per_task_early_calls": [
+      40,
+      136,
+      122,
+      170,
+      37,
+      46,
+      51,
+      84,
+      89,
+      131
+    ],
+    "gate_checks": {
+      "all_6521_calls_13042_rows_and_180_clusters_present": true,
+      "all_18_outer_predictions_finite_and_assigned_once": true,
+      "all_outer_shrunk_thresholds_feasible": true,
+      "minimum_60_safe_clusters": true,
+      "minimum_10_percent_early_exit_calls": true,
+      "all_10_tasks_have_nonzero_early_exit_calls": true,
+      "false_safe_cluster_exact_ucb95_at_most_5_percent": true,
+      "false_full_action_clusters_at_most_three": true,
+      "false_gripper_calls_at_most_zero": true,
+      "ensemble_non_degenerate_on_at_least_one_percent_rows": true,
+      "always_defer_rejected": true,
+      "calibration_test_rollout_and_active_control_not_run": true
+    }
+  },
+  "estimated_efficiency": {
+    "shadow_rp_pep_fm_calls": 43635,
+    "observed_behavior_A1_fm_calls": 67719,
+    "estimated_fm_call_reduction_fraction": 0.355646125902627,
+    "five_head_latency_included": false,
+    "measured_end_to_end_latency": false
+  },
+  "locked_comparison": {
+    "D5_formal_sha256": "f08e35e9588f44900d6e714dc45c7afb9e1cc7586e8bbbfade488f3ed783b6f8",
+    "D6_formal_sha256": "c8bda5b40afb93c5fe815e71224da1e0f99570e4b73970e4cf8489b78fd62fc6",
+    "D5_early_exit_fraction": 0.14706333384450238,
+    "D6_early_exit_fraction": 0.16132495016101825,
+    "D7_early_exit_fraction": 0.13893574605121914,
+    "D5_false_safe_clusters": 4,
+    "D6_false_safe_clusters": 4,
+    "D7_false_safe_clusters": 2,
+    "D5_false_gripper_calls": 0,
+    "D6_false_gripper_calls": 0,
+    "D7_false_gripper_calls": 0,
+    "comparison_is_unbiased_or_fresh": false
+  },
+  "artifacts": {
+    "report_path": "reports/v3_d7_development_oof/result.json",
+    "report_sha256": "600370bf978450afc8756cfe7929b36b33ed9d7da716a463902e13c2d0ab3ea9",
+    "payload_path": "reports/v3_d7_development_oof/development_epistemic_nested_oof.pt",
+    "payload_sha256": "ada55c17e7bbf7c6a5833c2a832c77f13249a9fd3c7aff6d6e0c842dd242a35d",
+    "D7_contract_sha256": "7e1f8934e33ae33493b950eabc1142c1f6cd7103ef7b4ad735d6c8b13a5afdea",
+    "D7_contract_validation_sha256": "31dc77519a1ae7b03210a23301f553ca632a90df33eedb3dfcfc17b76386b829",
+    "D5_formal_sha256": "f08e35e9588f44900d6e714dc45c7afb9e1cc7586e8bbbfade488f3ed783b6f8",
+    "D6_formal_sha256": "c8bda5b40afb93c5fe815e71224da1e0f99570e4b73970e4cf8489b78fd62fc6",
+    "dataset_result_sha256": "7b4facd767594974359bef11edec83bbe3df66c3ee4c5c3981814992f792186d",
+    "dataset_payload_sha256": "cf40a9802e37d2335668db7f7e24194a3316d552183151cc780fecb5424137df",
+    "outer_fold_result_sha256": {
+      "12": "95716315cdabd0f76bc985b76030efba92fbabe787b18fbc1aaec974ea3ec189",
+      "13": "03a7bcce2a9876a496385596e7e1c9f31888fc74f799ebec76826ff24ccc2887",
+      "14": "2b1d641f6df351696ece0b6734e1bf4115b298237535ce805baef33b4bbb7ec3",
+      "15": "1c8d600b0de36ca7a66f82011f36cf4c547c3de626d5b4ad3a53b05be26b7422",
+      "16": "bbd9da3f3d3a6de63895cf6210846810c9fb0bba0eb9d810c3405a0beda8f90a",
+      "17": "3a743ccda86ac3e96ccf4e03afa931993a6a764f5affd200bbdab3dc26ecfb69",
+      "18": "37c8b3bc239c665f7580aeddc047f40c270c8ff91540618fb6db91533e55ba1e",
+      "19": "cf78602441362fe200cc22e6a60da8e999e3af4fcc8fa7cbaa182aa91363fbd9",
+      "20": "bde87a8f1ea413cd00c56d1e810d12b088e6498a2b8f63ff47e5b15cda16db1b",
+      "21": "7ebe23c2b13b7d85d482706ec11a90e23e72ef6c27b59c259742bb9a82771a01",
+      "22": "73e5018d3b17420b3ec2bbbcb2d5c1f4a61d35776e55ba4e90cfeebfb16989d0",
+      "23": "4f8052901511ab034b29894b7dd89d4b0380c841453424855e28c0e232838453",
+      "24": "b1dcdbd3b16486fc27877c31ba226fcce7dca75f8eb536cd64e3437aaba42905",
+      "25": "f958b5a0ab15e94af3674cd4abba6eef5d8f83a2fa2c43cea4fb72acb6b177d0",
+      "26": "08e0a98d73096ceb1713571b16c8857d0ccd276b78dc92352bef9a852cc17d9f",
+      "27": "2364a8080c211c6b2c9f97b1542181df790220fff72812c7572da39754144ab1",
+      "28": "8a2f8d8a915ef66fb5a1c06629c29daf94ce2ef4243b1a82e6783babf8b87790",
+      "29": "dde5de5cd83a7eeb70bc1362301db085f415044735453a825fbbe5768bd15525"
+    }
+  },
+  "interpretation": {
+    "all_outer_shrunk_thresholds_feasible": true,
+    "ensemble_is_non_degenerate": true,
+    "preregistered_development_gate_passed": true,
+    "false_clusters_reduced_from_four_to_two_on_reused_development": true,
+    "D6_task0_episode14_and_task9_episode29_errors_rejected": true,
+    "remaining_errors_are_full_action_only": true,
+    "result_is_promising_method_selection": true,
+    "result_is_fresh_confirmation": false,
+    "comparison_supports_superiority": false,
+    "posthoc_D7_repair_allowed": false
+  },
+  "authorization": {
+    "next_stage": "FRESH_CONFIRMATION_DATA_PROTOCOL_DESIGN_ONLY",
+    "open_episode_40_49_independent_test": false,
+    "reuse_episode_30_39_for_repair_or_confirmation": false,
+    "active_control_authorized": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "result_is_fresh_confirmation": false,
+    "result_is_unbiased_D5_D6_comparison": false,
+    "result_is_closed_loop_success": false,
+    "estimated_FM_reduction_is_measured_latency": false,
+    "layer27_consistency_is_task_success": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}
