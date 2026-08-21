@@ -212,4 +212,7 @@ D8 fresh schedule SHA:
 
 D8 contract SHA:
 148a6e7208582958198b8f1265bb715c75e31bc0c282c7f588412ba9c6ba2c17
+
+D8 contract validation SHA:
+ccda03321468f78eb483b0fe276b7d3eed4e92653968abd53ba83c4986f60f1f
 ```
