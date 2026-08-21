@@ -149,3 +149,64 @@ D8D_APPLY_FROZEN_ROUTER_AND_AGGREGATE_CONFIRMATION_GATE
 ```
 
 仍不授权 episode 40--49、active control、deployment 或 superiority claim。
+
+## 2026-08-22 正式执行结果
+
+正式代码先冻结在 clean commit `54d8158093654653053cb0766dcc7a478bd9e0a1`，随后才开始 policy rollout。GPU 0--3 的 UUID 与 D8A/D8B readiness 记录一致；GPU 4--7 未被使用。
+
+raw collection 完成：
+
+```text
+fresh clusters                 200 / 200
+clusters per task               20 / 20（全部 10 个 task）
+policy calls                        7140
+raw cache bytes             37123579908
+original A1 successes           178 / 200 = 0.89
+original A1 behavior L11 exits       4173
+original A1 behavior L27 exits       2967
+```
+
+这里的成功率和 behavior exit 分布只描述负责控制环境的原 A1，不是 D7/PhaseRoute active-control 结果。
+
+CPU past-only context 对全部 7,140 行完成，payload SHA-256 为：
+
+```text
+3941ea81f1387da819f5ab9c12612bb3aa954d90d2b7e26dd9a7dfc3994b3785
+```
+
+四个 GPU replay shard 各包含 1,785 行，payload SHA-256 为：
+
+```text
+shard 0  089fbbaaa27f0aa3c3d61fedfb573702d655927e00f3956f5323c77596d2a867
+shard 1  4e4aa7958f2b46055aaeb54ed7a81b849fbb8c175180b71e1d64407c9b8a7b55
+shard 2  5df5e64e39536ef1a9f53c1a004be3718f36fb7b3b47ba8718d44ede3e5cb7d7
+shard 3  79fc1740bcdcdb80fa1c8275192c00a67f5c1a7b463540d4aece92215b84a36a
+```
+
+聚合后的 dataset 为 7,140 个 calls、14,280 个 L11/L13 rows。此处只冻结候选 truth 的边际分布，未应用 router：
+
+| candidate | consistency safe | full-action unsafe | gripper unsafe | joint unsafe |
+|---|---:|---:|---:|---:|
+| L11 | 4173 | 2288 | 2976 | 3701 |
+| L13 | 5547 | 565 | 2663 | 2876 |
+
+dataset payload SHA-256：
+
+```text
+411b3d68b2e4326573722a616b5fcf7862fbcc6b85f499be7cdf0877a8889327
+```
+
+正式 D8C attestation：
+
+```text
+status:
+PASS_V3_D8C_PROSPECTIVE_COLLECTION_AND_REPLAY
+
+result SHA-256:
+5b0f47de0cefabf6dc6da14860b6a4e7a5cdb34866654bbc5a4d1ed30d72fcf2
+
+next authorization:
+D8D_APPLY_FROZEN_ROUTER_AND_AGGREGATE_CONFIRMATION_GATE
+```
+
+D8C 完成只证明 200 clusters、raw calls、past-only context、same-noise candidates 和 truth 均已完整冻结。最终 router 的 early-exit fraction、false-safe clusters、exact CP-UCB95 和确认 PASS/NEGATIVE 仍必须留到 D8D 一次性计算。

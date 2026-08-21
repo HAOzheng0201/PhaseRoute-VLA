@@ -1,0 +1,117 @@
+{
+  "status": "PASS_V3_D8C_PROSPECTIVE_COLLECTION_AND_REPLAY",
+  "schema_version": "phase-route-vla.v3.d8c-formal-collection-result.v1",
+  "timestamp_utc": "2026-08-21T19:57:09.868+00:00",
+  "source_git_commit": "54d8158093654653053cb0766dcc7a478bd9e0a1",
+  "source_worktree_dirty": false,
+  "role": "prospective_generated_state_shadow_confirmation",
+  "suite": "libero_10",
+  "clusters": 200,
+  "clusters_per_task": [
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20,
+    20
+  ],
+  "policy_calls": 7140,
+  "candidate_rows": 14280,
+  "feature_dimension": 97,
+  "behavior_a1": {
+    "telemetry_sha256": {
+      "0": "af5f4b7c5c06b43ed0348164435b07f7fe3c8c5e4557c9c5cf63f5cd31f22e06",
+      "1": "0c6cc27ecac2f3d0f5c6c34716c88d66fa44482875e773861a48440bce5995ea",
+      "2": "62cbf9604d9486437dacf44a9f933e35893a8139021b2282866d57f5705a97d2",
+      "3": "e201bd759da182ebb245e27c43c2139559677b8353d0b8be7de4ce6541add2eb",
+      "4": "fb5dbbe795fc2f6b08eef831634ae960335b4624495d069e6057e3bfd42c9148",
+      "5": "59c43e856bd1440061a5784e3fa417dfe8c636d5b6706993f590026960d1017f",
+      "6": "408d2be38ea675b2c454affbaaba1647c2b05455db4041221f7a3340c6859bbf",
+      "7": "9ca1730b8fe0711f37975404697ff23ac49390aeffdee87dd0dc6922b3a7107e",
+      "8": "66cb19a633146f06483ce7b55720abf4280413cb3edb583dc86929afe3608f69",
+      "9": "543fb2e483288704bd636492822d90d76e8e70d093560d6337af179875772d43"
+    },
+    "behavior_exit_counts": {
+      "11": 4173,
+      "27": 2967
+    },
+    "behavior_fm_calls": 73716,
+    "behavior_successes": 178,
+    "behavior_clusters": 200,
+    "behavior_success_rate": 0.89
+  },
+  "candidate_truth_support": {
+    "11": {
+      "rows": 7140,
+      "action_consistency_safe": 4173,
+      "full_action_unsafe": 2288,
+      "gripper_step_unsafe": 2976,
+      "joint_unsafe": 3701
+    },
+    "13": {
+      "rows": 7140,
+      "action_consistency_safe": 5547,
+      "full_action_unsafe": 565,
+      "gripper_step_unsafe": 2663,
+      "joint_unsafe": 2876
+    }
+  },
+  "bound_artifacts": {
+    "D8_contract_sha256": "148a6e7208582958198b8f1265bb715c75e31bc0c282c7f588412ba9c6ba2c17",
+    "D8_schedule_sha256": "6a532130ec9ddad5d235cc342e44148a9324f9e0592a1554e3dac9f51956b920",
+    "D8_readiness_sha256": "cb13d48898c189814cc3bf02b2cb3171f7df307c3261a2fb7378c8c7a8b34829",
+    "D8A_result_sha256": "ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622",
+    "D8A_payload_sha256": "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f",
+    "D8B_result_sha256": "76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d",
+    "D8B_payload_sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+    "clusters": 200,
+    "authorization": "D8C_PROSPECTIVE_SHADOW_COLLECTION_AND_REPLAY",
+    "D8C_dataset_result_path": "reports/v3_d8_fresh_dataset/result.json",
+    "D8C_dataset_result_sha256": "3b60e241de444f9cce7839290be39740a3920dcddfe8e2159da25bb3d724ae63",
+    "D8C_dataset_payload_path": "reports/v3_d8_fresh_dataset/fresh_confirmation_dataset.pt",
+    "D8C_dataset_payload_sha256": "411b3d68b2e4326573722a616b5fcf7862fbcc6b85f499be7cdf0877a8889327"
+  },
+  "checks": {
+    "all_200_generated_state_clusters_collected": true,
+    "all_policy_calls_have_past_only_context": true,
+    "all_policy_calls_have_same_noise_L11_L13_L27_replay": true,
+    "all_candidate_truth_rows_finite": true,
+    "original_A1_was_only_behavior_policy": true,
+    "D7_shadow_decision_not_applied_to_environment": true,
+    "final_router_not_loaded_or_scored": true,
+    "confirmation_gate_not_inspected": true,
+    "official_episode_40_49_remain_sealed": true
+  },
+  "access_ledger": {
+    "fresh_generated_state_rollouts": 200,
+    "fresh_policy_calls": 7140,
+    "fresh_candidate_rows": 14280,
+    "candidate_truth_opened": true,
+    "final_router_loaded": false,
+    "router_predictions_computed": 0,
+    "confirmation_gate_inspected": false,
+    "official_episode_40_49_opened": false,
+    "calibration_or_test_payload_opened": false,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D8D_APPLY_FROZEN_ROUTER_AND_AGGREGATE_CONFIRMATION_GATE",
+    "refit_or_threshold_change": false,
+    "open_episode_40_49": false,
+    "active_control": false,
+    "deployment": false
+  },
+  "claim_boundary": {
+    "D8C_collection_and_replay_complete": true,
+    "D8_confirmation_gate_evaluated": false,
+    "generated_states_are_official_LIBERO_fixed_states": false,
+    "shadow_consistency_is_closed_loop_D7_success": false,
+    "behavior_A1_success_is_descriptive_only": true,
+    "superiority_claim_authorized": false,
+    "deployment_authorized": false
+  }
+}
