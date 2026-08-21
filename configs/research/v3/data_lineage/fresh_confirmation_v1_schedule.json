@@ -1,0 +1,35 @@
+{
+  "schema_version": "phase-route-vla.v3.fresh-confirmation-schedule.v1",
+  "schedule_id": "phaseroute-v3-d8-generated-state-confirmation-20260821-v1",
+  "status": "D8_FRESH_CONFIRMATION_SCHEDULE_FROZEN",
+  "suite": "libero_10",
+  "role": "prospective_generated_state_shadow_confirmation",
+  "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "replicate_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+  "record_count": 200,
+  "cluster_key": "libero_10:task{task_id}:fresh_confirm_v1:replicate{replicate_id}",
+  "official_benchmark_episode_index": null,
+  "state_generation": {
+    "source": "fresh_environment_reset_not_official_fixed_init_state",
+    "seed_base": 30260821,
+    "seed_formula": "30260821 + task_id * 10000 + replicate_id",
+    "one_isolated_process_per_record": true,
+    "seed_before_environment_construction_and_reset": true,
+    "manual_state_selection_allowed": false,
+    "outcome_based_replacement_allowed": false
+  },
+  "policy_rollout": {
+    "seed_base": 40260821,
+    "seed_formula": "40260821 + task_id * 10000 + replicate_id",
+    "one_fixed_seed_per_record": true,
+    "seed_distinct_from_state_generation_seed": true,
+    "outcome_based_retry_or_replacement_allowed": false
+  },
+  "identity_boundary": {
+    "episode_12_29_development_identity_reused": false,
+    "episode_30_39_calibration_identity_reused": false,
+    "episode_40_49_independent_test_identity_reused": false,
+    "generated_state_is_official_LIBERO_benchmark_episode": false,
+    "claim_of_official_fixed_state_generalization_allowed": false
+  }
+}
