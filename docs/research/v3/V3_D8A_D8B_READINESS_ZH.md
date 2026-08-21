@@ -73,3 +73,42 @@ head 0 使用全部 development rows；head 1–4 分别删除一个固定的 `(
 ## 结果边界
 
 readiness PASS 只说明状态 payload 与 router 已按预注册规则冻结，允许开始 D8C 的原 A1 控制环境下 shadow collection/replay。它不说明 D7 已获得闭环成功，不说明生成状态是官方固定 benchmark test state，也不支持 superiority、真实 wall-clock 加速或 deployment 声明。
+
+## 2026-08-21 正式执行结果
+
+D8A 在 clean commit `8544d33c23143142d83ddce817cfde7f7549f948` 上完成。两遍共运行 400 个隔离进程，最大并发数为 8，总生成用时 663.25 秒。聚合结果为：
+
+```text
+records                         200
+byte-identical across passes    200 / 200
+initially solved                  0 / 200
+unique states per task           20 / 20（全部 10 个 task）
+state dimensions by task         123, 123, 47, 51, 84,
+                                  45, 71, 84, 47, 47
+```
+
+D8B 的最终拟合结果为：
+
+```text
+heads                            5
+lambda                           0.01
+fit rows                         13042, 9596, 9146, 10106, 10278
+full threshold                   0.5172957158188132
+runtime threshold                0.49143093002787247
+development early exits          911 / 6521 = 13.97025%
+development safe clusters        179
+development false-safe clusters  3
+development CP-UCB95              0.04274434632269861
+```
+
+绑定 SHA-256：
+
+```text
+D8A result     ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622
+D8A payload    203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f
+D8B result     76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d
+D8B payload    9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830
+readiness      cb13d48898c189814cc3bf02b2cb3171f7df307c3261a2fb7378c8c7a8b34829
+```
+
+第一次 D8A 调度曾因 LIBERO `sys.path` 设置错误，在环境模块导入前失败。200 个进程均未构造环境、未 reset、未生成状态；该事件已在 `results/v3/v3_d8a_pre_generation_import_incident.json` 留痕，修复没有改变合同、schedule 或 seed。它属于可审计的 pre-generation infrastructure incident，而不是状态生成或模型方法的负面结果。
