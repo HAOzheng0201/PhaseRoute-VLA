@@ -88,6 +88,7 @@ from a1.vla.dynamic_compute.exit_policy import (
 )
 from a1.vla.dynamic_compute.phase_depth_runtime import SafePhaseDepthRuntime
 from a1.vla.dynamic_compute.productive_exit import a1_fm10_rp_pep_plan
+from a1.vla.dynamic_compute.rollout_identity import resolve_policy_episode_id
 from a1.vla.dynamic_compute.vision_aggregation import (
     StaticVisionAggregationConfig,
 )
@@ -679,6 +680,7 @@ def run_episode(
     vision_teacher_cache_writer=None,
     learnable_vision_aggregator=None,
     phase_depth_control_enabled=True,
+    episode_id_override: Optional[str] = None,
 ):
     """Run a single episode in the environment."""
     # Reset environment
@@ -771,8 +773,14 @@ def run_episode(
             # 将日志回调传入模型，收集并记录早退信息
             observability_kwargs = {}
             if observability_enabled:
+                episode_id = resolve_policy_episode_id(
+                    cfg.task_suite_name,
+                    task_id,
+                    episode_idx,
+                    episode_id_override,
+                )
                 policy_call_context = {
-                    "episode_id": f"{cfg.task_suite_name}:task{task_id}:episode{episode_idx}",
+                    "episode_id": episode_id,
                     "step_id": t,
                     "task_id": task_id,
                     "previous_action": previous_action,
