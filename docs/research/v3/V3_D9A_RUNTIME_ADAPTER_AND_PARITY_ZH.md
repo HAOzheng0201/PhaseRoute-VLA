@@ -4,7 +4,19 @@
 
 D9A 的目标不是运行 independent test，而是把 D8 的冻结 shadow rule 变成可接入 A1 推理循环的在线、fail-closed 路由器，并先证明它没有改变冻结模型语义。
 
-正式结果只有在实现提交后、干净工作树上运行验证脚本才能产生。在该结果通过之前，episode 40--49 的状态和 init archive 继续封存，active rollout 仍不允许执行。
+正式状态：
+
+```text
+PASS_V3_D9A_RUNTIME_ADAPTER_AND_D8_PARITY
+```
+
+验证绑定的实现提交为 `32c6f704edbd0329713208af62161b05c0a3b573`，结果 JSON SHA-256 为：
+
+```text
+fbf450a2beaab07e558e8e6d961bf7799b080e4afe98626d7ff477343d434acf
+```
+
+D9A 已通过，但 episode 40--49 的状态和 init archive 仍继续封存，active rollout 仍不允许执行；下一步只授权 D9B readiness。
 
 ## 2. 在线数据流
 
@@ -89,6 +101,20 @@ D8 cache parity 必须达到：
 | selected layer | 7140 / 7140 exact |
 | candidate safe | 14280 / 14280 exact |
 | five-head prediction max abs error | `<=1e-12` |
+
+正式观测结果：
+
+| 项目 | 结果 |
+|---|---:|
+| synthetic required branches | 6 / 6 PASS |
+| shared-noise/RNG checks | 3 / 3 PASS |
+| policy calls | 7140 |
+| candidate rows | 14280 |
+| 97D feature | exact |
+| selected layer | 7140 / 7140 exact |
+| candidate safe | 14280 / 14280 exact |
+| five-head prediction max abs error | `0.0` |
+| route counts | L11 234 / L13 775 / L27 6131 |
 
 正式命令：
 
