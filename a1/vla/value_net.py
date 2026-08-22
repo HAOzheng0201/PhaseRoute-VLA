@@ -107,9 +107,33 @@ class ActionValueNet(BaseValueNet):
         self.last_fm_calls = 0
         self.last_fm_steps = 0
         self.last_rng_burns = 0
+        self.phase_route_shared_candidate_layers: tuple[int, ...] = ()
+        self.phase_route_shared_input_x: Optional[torch.Tensor] = None
         
     def reset_actions(self):
         self.action_list = []
+        self.phase_route_shared_input_x = None
+
+    def configure_phase_route_shared_candidates(
+        self, layers: Optional[Tuple[int, ...]]
+    ) -> None:
+        """Optionally reuse L11 noise at later PhaseRoute candidates.
+
+        Reused random draws are still burned so enabling PhaseRoute cannot
+        shift the process RNG stream seen by later policy calls.
+        """
+
+        if layers is None:
+            self.phase_route_shared_candidate_layers = ()
+            self.phase_route_shared_input_x = None
+            return
+        normalized = tuple(int(layer) for layer in layers)
+        if normalized != (11, 13, 27):
+            raise ValueError("PhaseRoute shared candidates must be L11/L13/L27")
+        if self.model.config.action_head != "flow_matching":
+            raise ValueError("PhaseRoute shared candidates require flow matching")
+        self.phase_route_shared_candidate_layers = normalized
+        self.phase_route_shared_input_x = None
         
     def set_threshold(self, threshold):
         self.threshold = threshold
@@ -143,9 +167,23 @@ class ActionValueNet(BaseValueNet):
             kwargs = {}
             if input_x is not None:
                 kwargs["input_x"] = input_x
-            if fm_trace_callback is not None:
+            capture_shared_input = bool(
+                role == "candidate_action"
+                and self.phase_route_shared_candidate_layers
+                and layer == self.phase_route_shared_candidate_layers[0]
+            )
+            if fm_trace_callback is not None or capture_shared_input:
+                def trace_callback(payload):
+                    if capture_shared_input:
+                        initial_x = payload.get("input_x")
+                        if not isinstance(initial_x, torch.Tensor):
+                            raise ValueError("PhaseRoute candidate input_x was not emitted")
+                        self.phase_route_shared_input_x = initial_x.detach().clone()
+                    if fm_trace_callback is not None:
+                        fm_trace_callback(payload)
+
                 kwargs.update(
-                    fm_trace_callback=fm_trace_callback,
+                    fm_trace_callback=trace_callback,
                     fm_trace_context={
                         "candidate_layer": layer,
                         "candidate_role": role,
@@ -240,9 +278,30 @@ class ActionValueNet(BaseValueNet):
             if self.model.config.action_head != 'flow_matching':
                 action = self.model.predict_actions_by_hidden_states_by_idx(feats[i], start_idx, end_idx)
             else:
+                shared_input_x = None
+                if i in self.phase_route_shared_candidate_layers:
+                    first_shared_layer = self.phase_route_shared_candidate_layers[0]
+                    if i != first_shared_layer:
+                        if self.phase_route_shared_input_x is None:
+                            raise ValueError(
+                                "PhaseRoute shared candidate input is missing"
+                            )
+                        # The original path would draw one candidate noise
+                        # tensor here.  Burn it before reusing L11's tensor so
+                        # later RNG state remains byte-for-byte aligned.
+                        burn_flow_matching_noise(feats, 1)
+                        shared_input_x = self.phase_route_shared_input_x
                 action = predict_flow_matching(
                     feats[:i+1],
-                    input_x=self.action_list[-1] if (self.anchor and len(self.action_list) > 0) else None,
+                    input_x=(
+                        shared_input_x
+                        if shared_input_x is not None
+                        else (
+                            self.action_list[-1]
+                            if (self.anchor and len(self.action_list) > 0)
+                            else None
+                        )
+                    ),
                     layer=i,
                     role="candidate_action",
                 )
@@ -342,6 +401,7 @@ class ExitController(torch.nn.Module):
         self.phase_state: Optional[PhaseState] = None
         self.resolved_budget: Optional[ResolvedBudget] = None
         self.phase_profile_reason: Optional[str] = None
+        self.phase_route_runtime_adapter: Optional[Any] = None
         # for debug
         # self.history_values = [[] for i in range(num_exit)]
         
@@ -451,6 +511,32 @@ class ExitController(torch.nn.Module):
         if getattr(self.value_net, "productive_exit_plan", None) is not None:
             self.value_net.reset_actions()
 
+    def set_phase_route_runtime_adapter(self, adapter: Any) -> None:
+        """Install the frozen D8 active adapter without changing A1 weights."""
+
+        required = ("begin_policy_call", "consider_candidate", "select_fallback")
+        if adapter is None or any(not hasattr(adapter, name) for name in required):
+            raise ValueError("PhaseRoute runtime adapter interface differs")
+        if tuple(layer for layer in self.exit_id_list if layer >= 11) != (11, 13, 27):
+            raise ValueError("PhaseRoute controller must expose L11/L13/L27")
+        if self.steps_per_stage != 1:
+            raise ValueError("PhaseRoute runtime requires one decision per policy call")
+        if getattr(self.value_net, "productive_exit_plan", None) is None:
+            raise ValueError("PhaseRoute runtime requires the frozen RP-PEP plan")
+        self.value_net.configure_phase_route_shared_candidates((11, 13, 27))
+        self.phase_route_runtime_adapter = adapter
+
+    def clear_phase_route_runtime_adapter(self) -> None:
+        self.value_net.configure_phase_route_shared_candidates(None)
+        self.phase_route_runtime_adapter = None
+
+    def begin_phase_route_policy_call(
+        self, runtime_inputs: Optional[Mapping[str, torch.Tensor]]
+    ) -> None:
+        if self.phase_route_runtime_adapter is None:
+            raise RuntimeError("PhaseRoute runtime adapter is not installed")
+        self.phase_route_runtime_adapter.begin_policy_call(runtime_inputs)
+
     def set_phase_plan(
         self,
         *,
@@ -461,6 +547,10 @@ class ExitController(torch.nn.Module):
     ) -> None:
         """Install one policy-call plan; disabled controllers never call this."""
 
+        if self.phase_route_runtime_adapter is not None:
+            raise ValueError(
+                "legacy phase-depth plan cannot be combined with PhaseRoute D8"
+            )
         if tuple(self.exit_id_list) != budget.eligible_exit_layers:
             raise ValueError("Resolved phase budget does not match controller exits")
         self.phase_exit_policy = policy
@@ -504,6 +594,7 @@ class ExitController(torch.nn.Module):
         if i not in self.exit_id_list:
             return False, None
         phase_active = self.phase_plan_active
+        phase_route_active = self.phase_route_runtime_adapter is not None
         exit_rank = self.exit_id_list.index(i)
         
         # if still in a stage just use previous exit id
@@ -607,6 +698,39 @@ class ExitController(torch.nn.Module):
             # Keep the baseline expression unchanged when no phase plan is active.
             threshold_passed = bool(value <= thr) is self.leq
             exit_flag = threshold_passed or forced_by_max_layer
+
+        phase_route_record = None
+        if phase_route_active:
+            adapter = self.phase_route_runtime_adapter
+            if not getattr(adapter, "active", False):
+                # Missing per-call context is a routing failure, not a robot
+                # control failure.  L11/L13 are vetoed and L27 remains exact.
+                adapter.begin_policy_call(None)
+            if i in (11, 13):
+                consistency = bool(
+                    math.isfinite(value)
+                    and value <= adapter.router.action_consistency_threshold
+                )
+                decision = adapter.consider_candidate(
+                    i,
+                    action,
+                    consistency,
+                    telemetry_callback=telemetry_callback,
+                )
+                exit_flag = decision.should_exit
+                threshold_passed = consistency
+                thr = adapter.router.action_consistency_threshold
+                phase_route_record = decision.telemetry
+            elif i == 27:
+                decision = adapter.select_fallback(
+                    action, telemetry_callback=telemetry_callback
+                )
+                exit_flag = True
+                phase_route_record = decision.telemetry
+            else:
+                # L3 is retained solely to preserve the preregistered RP-PEP
+                # RNG/cost path; it is never a PhaseRoute decision layer.
+                exit_flag = False
         if telemetry_callback is not None:
             configured_fm_steps = int(
                 getattr(self.value_net.model.config, "num_diffusion_inference_steps", 0)
@@ -665,6 +789,8 @@ class ExitController(torch.nn.Module):
                     "min_exit_layer": (
                         self.resolved_budget.min_exit_layer if phase_active else None
                     ),
+                    "phase_route_active": phase_route_active,
+                    "phase_route_gate": phase_route_record,
                 },
             )
         if exit_flag: # both be true or both be false

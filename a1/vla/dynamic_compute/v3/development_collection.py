@@ -782,6 +782,36 @@ def build_legacy_82d_features(
     return features.contiguous()
 
 
+def build_gripper_v2_feature(
+    runtime_inputs: Mapping[str, torch.Tensor],
+    current_candidate_action: torch.Tensor,
+) -> torch.Tensor:
+    """Build one isolated ``[B,97]`` runtime candidate feature matrix."""
+
+    if not isinstance(current_candidate_action, torch.Tensor) or (
+        current_candidate_action.dtype != torch.float32
+        or current_candidate_action.ndim != 3
+        or current_candidate_action.shape[1:] != (HORIZON, ACTION_DIMENSION)
+        or not bool(torch.isfinite(current_candidate_action).all())
+    ):
+        raise D2ArtifactError("D2 current candidate action must be finite [B,8,7]")
+    base = build_legacy_82d_features(runtime_inputs, current_candidate_action)
+    states = current_candidate_action[..., GRIPPER_INDEX] >= 0.0
+    signs = torch.where(
+        states,
+        torch.ones_like(current_candidate_action[..., GRIPPER_INDEX]),
+        -torch.ones_like(current_candidate_action[..., GRIPPER_INDEX]),
+    )
+    transitions = (states[:, 1:] != states[:, :-1]).float()
+    features = torch.cat((base, signs, transitions), dim=1).float().contiguous()
+    if features.shape != (
+        current_candidate_action.shape[0],
+        FEATURE_DIMENSION,
+    ) or not bool(torch.isfinite(features).all()):
+        raise D2ArtifactError("D2 Gripper-v2 feature geometry differs")
+    return features
+
+
 def build_gripper_v2_features(
     runtime_inputs: Mapping[str, torch.Tensor],
     current_candidate_actions: torch.Tensor,
@@ -795,18 +825,12 @@ def build_gripper_v2_features(
         or not bool(torch.isfinite(current_candidate_actions).all())
     ):
         raise D2ArtifactError("D2 candidate actions must be finite [B,2,8,7]")
-    layers: list[torch.Tensor] = []
-    for layer_index, _layer in enumerate(DECISION_LAYERS):
-        current = current_candidate_actions[:, layer_index]
-        base = build_legacy_82d_features(runtime_inputs, current)
-        states = current[..., GRIPPER_INDEX] >= 0.0
-        signs = torch.where(
-            states,
-            torch.ones_like(current[..., GRIPPER_INDEX]),
-            -torch.ones_like(current[..., GRIPPER_INDEX]),
+    layers = [
+        build_gripper_v2_feature(
+            runtime_inputs, current_candidate_actions[:, layer_index]
         )
-        transitions = (states[:, 1:] != states[:, :-1]).float()
-        layers.append(torch.cat((base, signs, transitions), dim=1))
+        for layer_index, _layer in enumerate(DECISION_LAYERS)
+    ]
     features = torch.stack(layers, dim=1).float().contiguous()
     if features.shape != (
         current_candidate_actions.shape[0],
@@ -934,6 +958,7 @@ __all__ = [
     or name
     in {
         "InitialStateWindowTaskSuite",
+        "build_gripper_v2_feature",
         "build_gripper_v2_features",
         "build_gripper_v2_targets",
         "build_legacy_82d_features",
