@@ -349,16 +349,16 @@ class FrozenD8RuntimeAdapter:
                     raise RuntimeAdapterError("action consistency must be bool")
                 if (
                     not isinstance(candidate_action, torch.Tensor)
-                    or candidate_action.dtype != torch.float32
+                    or not candidate_action.is_floating_point()
                     or candidate_action.ndim != 3
                     or tuple(candidate_action.shape) != (1, HORIZON, ACTION_DIMENSION)
                     or not bool(torch.isfinite(candidate_action).all())
                 ):
                     raise RuntimeAdapterError(
-                        "candidate action must be finite float32 [1,8,7]"
+                        "candidate action must be a finite floating tensor [1,8,7]"
                     )
                 assert self._runtime_inputs is not None
-                action_cpu = candidate_action.detach().cpu().contiguous()
+                action_cpu = candidate_action.detach().cpu().float().contiguous()
                 features = build_gripper_v2_feature(
                     self._runtime_inputs, action_cpu
                 )

@@ -110,6 +110,16 @@ def test_nonfinite_or_shape_drift_latches_fail_closed_to_exact_l27() -> None:
     assert adapter.select_fallback(l27).selected_action is l27
 
 
+def test_bfloat16_candidate_is_scored_as_float32_but_returned_exactly() -> None:
+    adapter = FrozenD8RuntimeAdapter(_router())
+    candidate = _actions()[0].to(torch.bfloat16)
+    adapter.begin_policy_call(_runtime())
+    selected = adapter.consider_candidate(11, candidate, True)
+    assert selected.should_exit
+    assert selected.selected_action is candidate
+    assert selected.selected_action.dtype == torch.bfloat16
+
+
 def test_episode_history_is_past_only_and_resets_at_boundary() -> None:
     history = EpisodePastOnlyHistory()
     proprio = np.arange(8, dtype=np.float32)
