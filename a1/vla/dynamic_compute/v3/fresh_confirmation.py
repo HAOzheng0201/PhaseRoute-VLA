@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -201,9 +202,23 @@ class D8ConfirmationSummary:
             or not 0 <= self.early_exit_calls <= self.policy_calls
             or not 0 <= self.safe_clusters <= self.total_clusters
             or not 0 <= self.false_safe_clusters <= self.safe_clusters
+            or not 0 <= self.false_full_action_clusters <= self.false_safe_clusters
+            or not 0 <= self.false_gripper_calls <= self.early_exit_calls
+            or not 0 <= self.severe_false_full_action_clusters
+            <= self.false_full_action_clusters
             or len(self.clusters_per_task) != len(D8_TASK_IDS)
             or len(self.safe_clusters_per_task) != len(D8_TASK_IDS)
             or len(self.early_exit_calls_per_task) != len(D8_TASK_IDS)
+            or any(value < 0 for value in self.clusters_per_task)
+            or any(value < 0 for value in self.safe_clusters_per_task)
+            or any(value < 0 for value in self.early_exit_calls_per_task)
+            or sum(self.clusters_per_task) != self.total_clusters
+            or sum(self.safe_clusters_per_task) != self.safe_clusters
+            or sum(self.early_exit_calls_per_task) != self.early_exit_calls
+            or not math.isfinite(self.nondegenerate_row_fraction)
+            or not 0.0 <= self.nondegenerate_row_fraction <= 1.0
+            or not math.isfinite(self.estimated_fm_reduction_fraction)
+            or self.estimated_fm_reduction_fraction > 1.0
         ):
             raise D8ProtocolError("D8 confirmation summary geometry differs")
         ucb = clopper_pearson_upper(
