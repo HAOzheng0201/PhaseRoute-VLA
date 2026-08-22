@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 
@@ -10,6 +11,10 @@ from a1.vla.dynamic_compute.v3 import independent_test_protocol as d9
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def test_d9_contract_freezes_paired_active_test_without_opening_states() -> None:
@@ -84,3 +89,21 @@ def test_d9_validator_source_cannot_open_test_samples_or_run_control() -> None:
         "nvidia-smi",
     ):
         assert forbidden not in source
+
+
+def test_frozen_d9_contract_validation_is_metadata_only() -> None:
+    path = REPO_ROOT / "results/v3/v3_d9_independent_test_contract_validation.json"
+    assert _sha256(path) == (
+        "eb3cc249c4588197e05edae9c70d57d426999ee87cae83358357afe7bd4ce48c"
+    )
+    result = json.loads(path.read_text(encoding="utf-8"))
+    assert result["status"] == "PASS_V3_D9_INDEPENDENT_TEST_CONTRACT_FROZEN"
+    assert all(result["checks"].values())
+    assert result["access_ledger"]["independent_test_sample_state_payload_opened"] is False
+    assert result["access_ledger"]["LIBERO_init_state_archive_opened"] is False
+    assert result["access_ledger"]["test_rollouts"] == 0
+    assert result["access_ledger"]["active_control"] is False
+    assert (
+        result["authorization"]["next_stage"]
+        == "D9A_RUNTIME_ADAPTER_IMPLEMENTATION_AND_D8_PARITY_ONLY"
+    )
