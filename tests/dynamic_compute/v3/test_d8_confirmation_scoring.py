@@ -1,8 +1,19 @@
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
+
 import torch
 
 from a1.vla.dynamic_compute.v3 import d8_confirmation_scoring as d8d
+
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _payload() -> dict:
@@ -125,3 +136,22 @@ def test_d8d_rejects_pair_identity_drift() -> None:
         pass
     else:
         raise AssertionError("D8D accepted malformed candidate pairing")
+
+
+def test_frozen_d8d_formal_evidence_is_bound_and_passes_all_checks() -> None:
+    formal_path = REPO_ROOT / "results/v3/v3_d8_formal_confirmation_result.json"
+    assert _sha256(formal_path) == (
+        "4e6114fc5523bea0c0e156ec7095d8820c650e28250db7f9f7282e08121333fc"
+    )
+    formal = json.loads(formal_path.read_text(encoding="utf-8"))
+    assert formal["status"] == "PASS_V3_D8_PROSPECTIVE_SHADOW_CONFIRMATION"
+    assert formal["formal_report"]["sha256"] == (
+        "5c43ce8f77ada57737bbebc4abcbaa0274f0924e5a87ff62735d9b2ed8122c53"
+    )
+    assert formal["artifacts"]["prediction_payload_sha256"] == (
+        "b225ebec9bfd55044a5b856dd09ad9b5b14278164172d93d525d10309472ffba"
+    )
+    assert len(formal["gate_checks"]) == 14
+    assert all(formal["gate_checks"].values())
+    assert formal["access_ledger"]["confirmation_gate_evaluations"] == 1
+    assert formal["access_ledger"]["formal_gate_recomputed_during_freeze"] is False
