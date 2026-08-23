@@ -32,6 +32,7 @@ RP-PEP 的 20-pair exact-equivalence 结果也仍有效。三者必须按名称�
 | clean-clone CPU release gate | PASS | `scripts/validate_phase_route_v3_release.py` |
 | GPU 0–3 UUID 绑定与单卡 preflight | PASS | V3 launcher/preflight |
 | 通用 task/state 选择与 non-overwrite 输出 | PASS | V3 launcher tests |
+| 独立发布仓库自包含迁移 | PASS | `results/v3/v3_d11_release_migration.json` |
 | 真实机器人部署 | **NOT VALIDATED** | 不在当前授权范围 |
 
 ## 3. PhaseRoute V3 正式结果
@@ -158,4 +159,6 @@ LIBERO-10 official states 的角色已全部消耗：
 - 当前没有真实机器人、跨 suite、wall-clock latency 或 deployment 结论。
 
 消融和未来因果实验协议见
-`docs/research/v3/V3_D10_PAPER_ABLATION_MIGRATION_ZH.md`。
+`docs/research/v3/V3_D10_PAPER_ABLATION_MIGRATION_ZH.md`；发布迁移的测试、CPU/GPU
+attestation 与可移植性修复见
+`docs/research/v3/V3_D11_RELEASE_MIGRATION_ZH.md`。

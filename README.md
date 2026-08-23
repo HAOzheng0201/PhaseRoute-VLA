@@ -87,7 +87,7 @@ PhaseRoute-VLA/
 ├── scripts/
 │   ├── run_libero_phase_route_v3.sh # V3 单卡入口，仅物理 GPU 0–3
 │   ├── validate_phase_route_v3_*.py  # 发布与运行结果门禁
-│   └── dynamic_compute/v3/           # D0–D10 可审计研究管线
+│   └── dynamic_compute/v3/           # D0–D10 可审计研究 runner
 ├── tests/dynamic_compute/v3/         # V3 单元、合约和 release tests
 ├── results/v3/                       # 冻结机器可读 evidence
 └── docs/research/v3/                 # 阶段报告与论文资产

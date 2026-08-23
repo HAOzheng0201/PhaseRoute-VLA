@@ -7,6 +7,7 @@ hidden tensors、模型训练输出和视频分别留在 ignored `reports/` / `r
 
 | 路径 | 状态 | 正确解释 |
 |---|---|---|
+| `v3/v3_d11_release_migration.json` | PASS | 研究分支到独立发布仓库的自包含迁移验收 |
 | `v3/v3_d9_final_result.json` | **18/18 PASS** | PhaseRoute V3，LIBERO-10 100-pair active independent test |
 | `v3/v3_d10_paper_analysis.json` | PASS | 从冻结 D9 结果导出论文资产并冻结消融边界 |
 | `rp_pep_paired.json` | PASS | 历史 RP-PEP，LIBERO Spatial 20-pair exact equivalence |
@@ -14,8 +15,8 @@ hidden tensors、模型训练输出和视频分别留在 ignored `reports/` / `r
 | `router_sealed.json` | 工程 PASS / 科学 NOT_VIABLE | M4.28 task-jackknife router 负结果 |
 | `router_failure_analysis.json` | PASS | M4.28 false-shallow 精确重建 |
 
-`results/v3/` 还包含 D0–D9 每个数据/拟合/校准/active-test 合同的 attestation。这些文件
-用于追溯完整研究链，正式主结果以 D9 final result 为唯一入口。
+`results/v3/` 还包含 D0–D11 每个数据、拟合、校准、active test 与发布迁移阶段的
+attestation。这些文件用于追溯完整研究链，正式主结果以 D9 final result 为唯一入口。
 
 ## PhaseRoute V3 D9
 

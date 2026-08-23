@@ -49,7 +49,8 @@ scripts/run_libero_phase_route_v3.sh
 | paired test/aggregate | `paired_active_collection.py`, `d9_final_analysis.py` |
 | release | `release.py` |
 
-`scripts/dynamic_compute/v3/` 是 D0–D10 的可审计 runner；通用用户入口不调用硬绑定
+`scripts/dynamic_compute/v3/` 是 D0–D10 的可审计 runner；D11 迁移验收位于
+`results/v3/` 与 `docs/research/v3/`。通用用户入口不调用硬绑定
 D9 state 40–49 的研究 runner。
 
 ## 真实数据契约

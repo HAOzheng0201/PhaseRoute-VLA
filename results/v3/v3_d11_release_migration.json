@@ -1,0 +1,189 @@
+{
+  "schema_version": "phase-route-vla.v3.d11-release-migration.v1",
+  "status": "PASS_V3_D11_RELEASE_MIGRATION",
+  "created_at": "2026-08-23T19:55:52+08:00",
+  "scope": "research_branch_to_clean_publication_repository",
+  "research_simulation_only": true,
+  "deployment_authorized": false,
+  "repository": {
+    "target": "/data3/haozheng/A1/PhaseRoute-VLA",
+    "branch": "main",
+    "implementation_commit": "0428a7a0a17b161e241fdb6c50a613e1984980af",
+    "implementation_worktree_dirty": false,
+    "libero_submodule_commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01"
+  },
+  "migration_lineage": {
+    "research_release_commit": "807fa5ad5a2d190652cc83057c526f7e99fc8ee4",
+    "dimension_correction_commit": "decbd15d168575e15911ab2c1381710f7ec65fbe",
+    "merge_commit": "9b231dd17faec921777891b7c6928baa06af368b",
+    "self_contained_validation_commit": "0428a7a0a17b161e241fdb6c50a613e1984980af",
+    "merge_parents": [
+      "decbd15d168575e15911ab2c1381710f7ec65fbe",
+      "807fa5ad5a2d190652cc83057c526f7e99fc8ee4"
+    ],
+    "dimension_contract_preserved": {
+      "multimodal_tokens": 680,
+      "visual_crops": {
+        "total": 5,
+        "valid": 4,
+        "padded": 1
+      },
+      "action_chunk": [
+        8,
+        7
+      ],
+      "proprio_dimension": 8
+    }
+  },
+  "protected_scientific_evidence": {
+    "d9_evaluator": {
+      "path": "robot_experiments/libero/eval_libero_early_exit.py",
+      "sha256": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd",
+      "unchanged_from_frozen_d9": true
+    },
+    "d9_final_result": {
+      "path": "results/v3/v3_d9_final_result.json",
+      "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952",
+      "status": "PASS_V3_D9_PAIRED_ACTIVE_INDEPENDENT_TEST",
+      "pairs": 100
+    },
+    "d10_paper_analysis": {
+      "path": "results/v3/v3_d10_paper_analysis.json",
+      "sha256": "60b451a32b2966bdc9d888c137eb93d903a9aa5268219f6f7c8116c3a248187d"
+    },
+    "negative_results_retained": [
+      {
+        "path": "results/v3/v3_d5_negative_analysis.json",
+        "sha256": "b0a38c7ed54f748815b7c1d7aa6a1965d0505352474c72ab87e19c155245a7f3"
+      },
+      {
+        "path": "results/v3/v3_d6_negative_analysis.json",
+        "sha256": "e3005e3dd51b5f712c034607d1130180a7d79e7f8354f7298b7840751f2b9fd7"
+      }
+    ]
+  },
+  "runtime_artifacts": {
+    "router": {
+      "path": "artifacts/phase_route_v3/final_router.pt",
+      "bytes": 22290,
+      "sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830"
+    },
+    "phase_estimator": {
+      "path": "artifacts/phase_route_v3/phase_estimator.pt",
+      "bytes": 11344688,
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "state_sha256": "8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598"
+    },
+    "libero_10_thresholds": {
+      "path": "artifacts/phase_route_v3/exit_thresholds_libero_10_exp_1.0.json",
+      "bytes": 236,
+      "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+    },
+    "external_backbone": {
+      "git_tracked": false,
+      "bytes": 33841175207,
+      "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f"
+    }
+  },
+  "migration_incident_and_resolution": {
+    "initial_full_test": {
+      "passed": 198,
+      "failed": 3,
+      "cause": "three historical tests depended on the old research-directory depth or ignored reports artifacts",
+      "model_or_numeric_failure": false
+    },
+    "resolution": {
+      "legacy_evidence_entries_archived": 28,
+      "legacy_evidence_bytes": 1737937,
+      "legacy_c355_result_archived": true,
+      "d8_fresh_states_archived": 200,
+      "release_gate_now_authenticates_historical_evidence": true,
+      "raw_rollouts_archived_in_git": false,
+      "test_skips_added": false
+    }
+  },
+  "validation": {
+    "full_v3_tests": {
+      "status": "PASS",
+      "passed": 201,
+      "failed": 0,
+      "subtests_passed": 22,
+      "warnings": 1,
+      "seconds": 25.82,
+      "junit_path": "/tmp/phaseroute_v3_d11_0428a7a_v3_tests.xml",
+      "junit_sha256": "94d30f9b82a5fcd78d6adee3961511d9070aa6036443042f8930002dd4d274e5"
+    },
+    "cpu_preflight": {
+      "status": "PASS",
+      "git_commit": "0428a7a0a17b161e241fdb6c50a613e1984980af",
+      "worktree_dirty": false,
+      "path": "/tmp/phaseroute_v3_d11_0428a7a_cpu_preflight.json",
+      "sha256": "0895b91073422fb905f5309a63911b34f7f25e6d5861a95ba1427d90ad420cef"
+    },
+    "gpu_preflight": {
+      "status": "PASS",
+      "git_commit": "0428a7a0a17b161e241fdb6c50a613e1984980af",
+      "worktree_dirty": false,
+      "physical_gpu_index": 0,
+      "visible_device_count": 1,
+      "visible_gpu_uuid": "f52eda42-a640-8244-bcdb-e6201acae766",
+      "torch_cuda_runtime": "12.4",
+      "path": "runs/d11_clean_migration_preflight/libero_10_20260823_195127/preflight.json",
+      "sha256": "4fd58e9c3f3fad99dff664cf4b9fac46758e7c5299076fb7705f54bc9154fc3e"
+    },
+    "clean_end_to_end_engineering_smoke": {
+      "status": "PASS",
+      "source_commit": "807fa5ad5a2d190652cc83057c526f7e99fc8ee4",
+      "scope": "general_simulator_run_not_D9_retest",
+      "physical_gpu_index": 0,
+      "task_ids": [
+        0
+      ],
+      "episode_indices": [
+        0
+      ],
+      "successes": 1,
+      "episodes": 1,
+      "policy_calls": 34,
+      "prepared_calls": 34,
+      "committed_calls": 34,
+      "runtime_errors": 0,
+      "selected_layers": {
+        "11": 0,
+        "13": 4,
+        "27": 30
+      },
+      "attestation_sha256": "431b14d02403e402fd91e4849c060b7b3f80cd9818a46c9e524b2ed10fb21651"
+    },
+    "quality_gate": {
+      "make_check": true,
+      "pip_check": "No broken requirements found",
+      "python_compile": true,
+      "shell_syntax": true,
+      "git_diff_check": true
+    }
+  },
+  "scientific_boundaries": {
+    "d9_states_40_49_rerun": false,
+    "new_independent_test_claimed": false,
+    "engineering_smoke_claimed_as_accuracy_result": false,
+    "gpus_4_7_accessed": false,
+    "early_exit_failure_causality_claimed": false,
+    "negative_results_deleted": false,
+    "deployment_authorized": false
+  },
+  "gate_checks": {
+    "research_branch_merged": true,
+    "dimension_corrections_preserved": true,
+    "d9_evaluator_sha_preserved": true,
+    "runtime_artifacts_authenticated": true,
+    "historical_validation_self_contained": true,
+    "full_v3_tests_pass": true,
+    "cpu_preflight_clean_pass": true,
+    "gpu_preflight_clean_pass": true,
+    "engineering_smoke_attested": true,
+    "libero_submodule_pinned": true,
+    "quality_gate_pass": true,
+    "claim_boundary_preserved": true
+  }
+}

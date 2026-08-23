@@ -70,6 +70,10 @@
     }
   },
   "frozen_results": {
+    "phase_route_v3_d11_release_migration": {
+      "path": "results/v3/v3_d11_release_migration.json",
+      "sha256": "8e903f5e197b855a67c6a02b3490e1bdb2bd7cd73eed239c287d42cf8cac5cc5"
+    },
     "phase_route_v3_d9": {
       "path": "results/v3/v3_d9_final_result.json",
       "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952"
