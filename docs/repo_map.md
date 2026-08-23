@@ -44,14 +44,18 @@ scripts/run_libero_rp_pep.sh
 
 | 数据 | 形状 / 类型 | 产生位置 | 消费位置 |
 |---|---|---|---|
-| projected vision | `(B,2,144,3584)` | A1 vision backbone | 主 VLM / phase cache |
-| input sequence | `(B,600)` | preprocessor/collator | 主 VLM |
-| proprio | `(B,1,1,32)` | `vla_utils` | FM state projector |
-| layer KV | 28 × K/V `(B,4,600,128)` | 主 VLM | FM expert / early exit |
-| candidate action | `(B,10,32)` | FM expert | delta / controller |
-| LIBERO action | `(B,10,7)` | postprocess | action queue |
+| projected vision | `(B,5,144,3584)`；4 valid + 1 pad | A1 vision backbone | 主 VLM / phase cache |
+| visual mapping | `(B,5,144)`；576 source / 288 unique slots | preprocessor/collator | 主 VLM indexed write |
+| input sequence | `(B,680)` | preprocessor/collator | 主 VLM |
+| proprio | `(B,1,1,8)` | `vla_utils` | FM state projector |
+| layer KV | 28 × K/V `(B,4,680,128)` | 主 VLM | FM expert / early exit |
+| candidate action | `(B,8,7)` | FM expert | delta / controller |
+| LIBERO action | `(B,8,7)` | postprocess | action queue |
 | telemetry | strict JSON object | rollout side channel | JSONL / analyzer |
 | teacher cache | NPZ + manifest JSONL | collection scripts | offline router training |
+
+这些形状对应正式 `model/libero_exit` checkpoint。`configs/models/libero.yaml` 是可选的
+上游兼容训练配方，仍采用另一套 `10×32` 契约；它不能用来解释当前 RP-PEP checkpoint。
 
 ## 不变式
 

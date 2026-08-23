@@ -192,7 +192,13 @@ WANDB_PROJECT=phase-route-vla \
 bash train_libero.sh
 ```
 
-训练输出默认进入 `model/checkpoints/`，不会提交 Git。训练配置是 `configs/experiments/libero_simulation.yaml`，动作输出契约为 `10×32`，LIBERO 数据仅监督前 7 维。
+训练输出默认进入 `model/checkpoints/`，不会提交 Git。这里的
+`configs/experiments/libero_simulation.yaml` 是可选的上游兼容、从预训练权重继续训练
+配方，动作契约仍为 `10×32`，LIBERO 数据只监督前 7 维；它不是正式 RP-PEP
+`model/libero_exit` checkpoint 的配置。复现已冻结 RP-PEP 不需要重训 A1，其实际契约为
+`sequence_length=680`、动作 `8×7`、proprio `8D`。若要训练与正式 checkpoint
+完全兼容的新 backbone，必须先单独冻结新的 `8×7` 训练配置和迁移协议，不能直接沿用
+本节命令后声称与 RP-PEP checkpoint 等价。
 
 ## 9. 常见问题
 
