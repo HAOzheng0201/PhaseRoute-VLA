@@ -65,9 +65,10 @@ def _svg(result: Mapping[str, Any]) -> str:
     phase_success_h = 2.8 * phase_success
     a1_fm_h = 280.0 * a1_fm / max(a1_fm, phase_fm)
     phase_fm_h = 280.0 * phase_fm / max(a1_fm, phase_fm)
-    l11_w = 4.8 * route["L11"]
-    l13_w = 4.8 * route["L13"]
-    l27_w = 4.8 * route["L27"]
+    # The right panel reserves exactly 320 px for the 100% stacked route bar.
+    l11_w = 3.2 * route["L11"]
+    l13_w = 3.2 * route["L13"]
+    l27_w = 3.2 * route["L27"]
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
   <title id="title">PhaseRoute-VLA V3 D9 independent test summary</title>
   <desc id="desc">Success, flow-matching compute, route distribution, and same-noise safety results.</desc>
