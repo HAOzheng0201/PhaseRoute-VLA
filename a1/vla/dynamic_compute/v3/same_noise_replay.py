@@ -49,7 +49,7 @@ D9C_COLLECTION_SHA256 = (
 )
 D9C_SOURCE_GIT_COMMIT = "1a0598d67994755b9f8abd88563ea2d03b7ff47c"
 D9D_RUNNER_READINESS_RELATIVE_PATH = Path(
-    "results/v3/v3_d9d_runner_readiness.json"
+    "results/v3/v3_d9d_runner_readiness_v2.json"
 )
 D9D_RUNNER_READINESS_STATUS = "PASS_V3_D9D_FROZEN_RUNNER_READINESS"
 D9D_OUTPUT_RELATIVE_PATH = Path("reports/v3_d9d_same_noise_replay")
@@ -59,7 +59,6 @@ D9D_SHARD_COUNT = 4
 D9D_EXPECTED_ROWS = 3700
 D9D_ACTION_THRESHOLD = 0.00390625
 D9D_SEVERE_RATIO = 4.0
-D9D_SELECTED_REPLAY_ATOL = 1.0e-6
 D9D_SHARD_SCHEMA_VERSION = "phase-route-vla.v3.d9d-truth-shard.v1"
 D9D_SHARD_RESULT_SCHEMA_VERSION = "phase-route-vla.v3.d9d-shard-result.v1"
 D9D_COLLECTION_SCHEMA_VERSION = "phase-route-vla.v3.d9d-truth-collection.v1"
@@ -94,7 +93,6 @@ class D9DCall:
 class D9DCallTruth:
     selected_candidate_index: int
     selected_replay_max_abs_error: float
-    selected_replay_within_atol: bool
     selected_replay_bit_exact: bool
     full_action_distance: float
     full_action_unsafe: bool
@@ -410,25 +408,24 @@ def build_call_truth(
     ):
         raise D9DReplayError("D9D truth action geometry differs")
     selected_index = D9D_REPLAY_LAYERS.index(selected_layer)
-    selected = candidate_actions[selected_index].float().contiguous()
+    replayed_selected = candidate_actions[selected_index].float().contiguous()
     online = online_selected_action.float().contiguous()
-    error = float((selected - online).abs().max().item())
+    error = float((replayed_selected - online).abs().max().item())
     reference = candidate_actions[2].double()
     similarity = torch.nn.functional.cosine_similarity(
-        selected.double(), reference, dim=-1, eps=1.0e-8
+        online.double(), reference, dim=-1, eps=1.0e-8
     )
     distance = float((1.0 - similarity).mean().item())
     if not math.isfinite(distance) or distance < -1.0e-12:
         raise D9DReplayError("D9D full-action distance is invalid")
     distance = max(0.0, distance)
     gripper_unsafe = bool(
-        ((selected[:, 6] >= 0.0) != (reference[:, 6] >= 0.0)).any().item()
+        ((online[:, 6] >= 0.0) != (reference[:, 6] >= 0.0)).any().item()
     )
     return D9DCallTruth(
         selected_candidate_index=selected_index,
         selected_replay_max_abs_error=error,
-        selected_replay_within_atol=error <= D9D_SELECTED_REPLAY_ATOL,
-        selected_replay_bit_exact=torch.equal(selected, online),
+        selected_replay_bit_exact=torch.equal(replayed_selected, online),
         full_action_distance=distance,
         full_action_unsafe=distance > D9D_ACTION_THRESHOLD,
         gripper_unsafe=gripper_unsafe,
@@ -456,7 +453,6 @@ __all__ = [
     "D9DReplayError",
     "D9D_RUNNER_READINESS_RELATIVE_PATH",
     "D9D_RUNNER_READINESS_STATUS",
-    "D9D_SELECTED_REPLAY_ATOL",
     "D9D_SEVERE_RATIO",
     "D9D_SHARD_COUNT",
     "D9D_SHARD_RESULT_SCHEMA_VERSION",

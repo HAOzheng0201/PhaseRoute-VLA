@@ -124,6 +124,15 @@ def main() -> None:
             and "for layer in D9D_REPLAY_LAYERS" in worker_source
             and "shared flow-matching input mutated" in worker_source
         ),
+        "worker_uses_online_FP32_precision_without_BF16_autocast": (
+            "with torch.inference_mode():" in worker_source
+            and "torch.autocast" not in worker_source
+        ),
+        "truth_uses_actual_online_selected_action_against_replayed_L27": (
+            "online.double(), reference" in (
+                REPO_ROOT / CODE_PATHS[0]
+            ).read_text(encoding="utf-8")
+        ),
         "worker_requires_clean_worktree_and_nonoverwrite": (
             "D9D replay requires a clean frozen-runner worktree" in worker_source
             and "D9D refuses to overwrite replay evidence" in worker_source
@@ -151,7 +160,7 @@ def main() -> None:
         raise PermissionError(f"D9D runner readiness checks failed: {checks}")
     result = {
         "status": D9D_RUNNER_READINESS_STATUS,
-        "schema_version": "phase-route-vla.v3.d9d-runner-readiness.v1",
+        "schema_version": "phase-route-vla.v3.d9d-runner-readiness.v2",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="milliseconds"),
         "source_git_commit": git_output("rev-parse", "HEAD"),
         "source_worktree_dirty": False,

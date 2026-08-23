@@ -34,7 +34,6 @@ from a1.vla.dynamic_compute.v3.same_noise_replay import (  # noqa: E402
     D9D_EXPECTED_ROWS,
     D9D_OUTPUT_RELATIVE_PATH,
     D9D_REPLAY_LAYERS,
-    D9D_SELECTED_REPLAY_ATOL,
     D9D_SEVERE_RATIO,
     D9D_SHARD_COUNT,
     D9D_SHARD_RESULT_SCHEMA_VERSION,
@@ -158,7 +157,6 @@ def _validate_shard(shard: int, *, expected_commit: str) -> dict[str, Any]:
         or not bool(torch.isfinite(online).all())
         or not bool(torch.isfinite(distance).all())
         or not bool(torch.isfinite(replay_error).all())
-        or bool((replay_error > D9D_SELECTED_REPLAY_ATOL).any())
         or not bool((dataset_index.remainder(D9D_SHARD_COUNT) == shard).all())
         or not set(selected_layer.tolist()).issubset(set(D9D_REPLAY_LAYERS))
     ):
@@ -166,15 +164,15 @@ def _validate_shard(shard: int, *, expected_commit: str) -> dict[str, Any]:
     selected_index = torch.empty(rows, dtype=torch.long)
     for index, layer in enumerate(D9D_REPLAY_LAYERS):
         selected_index[selected_layer == layer] = index
-    selected = candidates[torch.arange(rows), selected_index]
-    expected_error = (selected - online).abs().amax(dim=(1, 2)).double()
+    replayed_selected = candidates[torch.arange(rows), selected_index]
+    expected_error = (replayed_selected - online).abs().amax(dim=(1, 2)).double()
     similarity = torch.nn.functional.cosine_similarity(
-        selected.double(), candidates[:, 2].double(), dim=-1, eps=1.0e-8
+        online.double(), candidates[:, 2].double(), dim=-1, eps=1.0e-8
     )
     expected_distance = (1.0 - similarity).mean(dim=1).clamp_min(0.0)
     expected_full = expected_distance > D9D_ACTION_THRESHOLD
     expected_gripper = (
-        (selected[:, :, 6] >= 0.0) != (candidates[:, 2, :, 6] >= 0.0)
+        (online[:, :, 6] >= 0.0) != (candidates[:, 2, :, 6] >= 0.0)
     ).any(dim=1)
     expected_severe = expected_distance > D9D_SEVERE_RATIO * D9D_ACTION_THRESHOLD
     if (
@@ -183,7 +181,9 @@ def _validate_shard(shard: int, *, expected_commit: str) -> dict[str, Any]:
         or not torch.equal(expected_full, full_unsafe)
         or not torch.equal(expected_gripper, gripper_unsafe)
         or not torch.equal(expected_severe, severe)
-        or not torch.equal((selected == online).all(dim=(1, 2)), bit_exact)
+        or not torch.equal(
+            (replayed_selected == online).all(dim=(1, 2)), bit_exact
+        )
     ):
         raise PermissionError("D9D per-call truth recomputation differs")
     for ordinal, record in enumerate(records):
@@ -204,6 +204,11 @@ def _validate_shard(shard: int, *, expected_commit: str) -> dict[str, Any]:
             != strings["candidate_actions_sha256"][ordinal]
             or record.get("online_selected_action_sha256")
             != strings["online_selected_action_sha256"][ordinal]
+            or record.get("selected_replay_max_abs_error")
+            != float(replay_error[ordinal])
+            or record.get("selected_replay_bit_exact") != bool(bit_exact[ordinal])
+            or record.get("selected_replay_role")
+            != "float16_cache_quantization_diagnostic_only"
             or record.get("full_action_distance_selected_vs_L27")
             != float(distance[ordinal])
             or record.get("full_action_unsafe") != bool(full_unsafe[ordinal])

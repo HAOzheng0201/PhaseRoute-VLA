@@ -44,7 +44,6 @@ def test_build_call_truth_uses_selected_layer_and_l27_only() -> None:
     )
     assert truth.selected_candidate_index == 0
     assert truth.selected_replay_max_abs_error == 0.0
-    assert truth.selected_replay_within_atol
     assert truth.selected_replay_bit_exact
     expected = float(
         (
@@ -68,6 +67,20 @@ def test_l27_truth_is_safe_and_nonsevere() -> None:
         actions, selected_layer=27, online_selected_action=actions[2].clone()
     )
     assert truth.selected_candidate_index == 2
+    assert math.isclose(truth.full_action_distance, 0.0, abs_tol=1e-12)
+    assert not truth.full_action_unsafe
+    assert not truth.gripper_unsafe
+    assert not truth.severe_full_action
+
+
+def test_truth_uses_actual_online_selected_action_not_quantized_replay() -> None:
+    actions = _actions()
+    online = actions[2].clone()
+    truth = build_call_truth(
+        actions, selected_layer=11, online_selected_action=online
+    )
+    assert truth.selected_replay_max_abs_error > 0.0
+    assert not truth.selected_replay_bit_exact
     assert math.isclose(truth.full_action_distance, 0.0, abs_tol=1e-12)
     assert not truth.full_action_unsafe
     assert not truth.gripper_unsafe

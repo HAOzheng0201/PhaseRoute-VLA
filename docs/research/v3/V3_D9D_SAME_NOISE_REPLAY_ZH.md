@@ -79,7 +79,7 @@ SHA、三层 candidate SHA、selected-layer replay 最大绝对误差以及以�
 
 ```text
 full_action_distance = mean_horizon(
-    1 - cosine(selected_candidate_action_7D, L27_action_7D)
+    1 - cosine(online_selected_action_7D, replayed_L27_action_7D)
 )
 
 full_action_unsafe = distance > 0.00390625
@@ -99,8 +99,12 @@ L27 只是同噪声一致性 teacher，不是 expert action，也不能证明 ta
   必须逐级 SHA 绑定；
 - NPZ 必须先核验文件大小和 SHA-256，再调用 `np.load`；
 - 三层 replay 共享同一份 `teacher_exit_input_x`，replay 后重新计算 hash；
-- `teacher_normalized_action` 必须与在线保存的 selected trace 完全相同；
-- 离线 selected-layer 输出与在线 action 的最大误差必须不超过 `1e-6`；
+- `teacher_normalized_action` 必须与在线保存的 selected trace 完全相同；它是
+  full-action 与 gripper 真值中的实际 selected action；
+- D9C 为控制缓存体积将 projected visual features 保存为 fp16，因此离线
+  selected-layer replay 与在线未量化 action 的误差只作为量化诊断报告，不能
+  替代实际 selected action，也不能作为 D9 safety gate；
+- replay 使用与 D9C 在线模型相同的 FP32 前向，不额外启用 BF16 autocast；
 - 模型参数必须全部 `requires_grad=False`；
 - 输出目录不可覆盖，异常写入 `.incomplete/abort.json`；
 - shard payload 只保存逐调用 truth，禁止读取或运行 router；
@@ -127,7 +131,7 @@ reports/v3_d9d_same_noise_logs/
 精炼 attestation 写入 tracked 的：
 
 ```text
-results/v3/v3_d9d_runner_readiness.json
+results/v3/v3_d9d_runner_readiness_v2.json
 results/v3/v3_d9d_collection_attestation.json
 ```
 
