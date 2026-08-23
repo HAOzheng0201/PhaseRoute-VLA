@@ -198,3 +198,49 @@ SHA-256 0d0800acc4dcf7e37ba9dd6c57283bba70f18a3a9120ef0f6dfa34a7a2ffb041
 
 这些 build SHA 仅记录本轮本地资格复核，不替代
 `artifacts/phase_route_v3/MANIFEST.json` 中冻结 runtime artifacts 的正式 SHA。
+
+### 9.1 Post-release GPU 工程验证
+
+在 commit `e213844a3a6e78fcd2d876a1d29bac5c81c5c602` 的 clean worktree 上，只使用
+物理 GPU 0 完成以下验证；GPU 4--7 未访问：
+
+| 范围 | 结果 | 关键指标 |
+|---|---|---|
+| 完整 GPU preflight | PASS | UUID 单卡绑定、CUDA 12.4、backbone 与所有 V3 SHA/payload gate 通过 |
+| task 0 / state 0 单 episode | PASS | 1/1 success，34 policy calls，L13/L27=4/30，0 error |
+| 10 task × state 0 | PASS engineering smoke | 9/10 success，362 policy calls，L11/L13/L27=8/52/302，0 error |
+
+10-task smoke 使用与冻结 runtime 一致的 FM10 配置，但属于普通 simulator engineering
+run；它没有使用 D9 states 40--49，也不构成第二次 independent test。其描述性统计为：
+
+```text
+successes                         9 / 10
+early exits                      60 / 362 = 16.57%
+FM calls / policy call           2406 / 362 = 6.6464
+policy-call latency mean         1422.65 ms
+policy-call latency median       1538.10 ms
+10-episode rollout wall time     681.18 s
+```
+
+唯一失败为 task 4/state 0：65 次调用中 L13 仅 2 次、L27 为 63 次，runtime error 为
+0。该结果不能证明两次 L13 导致失败；在相同 state/seed 的 original A1 arm 完成前，也
+不能形成 paired attribution。
+
+本地、被 Git 忽略的原始记录及其 sealed SHA 为：
+
+```text
+runs/phase_route_v3/libero_10_20260824_001530/preflight.json
+ef9d052d12dc68da8de52f649035510495399af71716783560ca0d5d34a66c5b
+
+runs/phase_route_v3/libero_10_20260824_001738/run_attestation.json
+b08b8bf2811bc712d10318354b000a066231b1db077065dcfc7a96541f4b09a4
+
+runs/stage5_phase_route_v3/libero_10_20260824_003703/run_attestation.json
+5519d737a7e1751f83be635ca7ee3261958295fdff0e3adaa0ab8b0bb54d00b1
+
+runs/stage5_phase_route_v3/libero_10_20260824_003703/evaluation_summary.json
+079b90281e3dd77d3f3bb2e6d66beb8f23a71c202dec8b2868316b98e955d155
+```
+
+original A1 的 GPU 1 preflight 已通过，但 rollout 尚未完成，因此本节不声明 paired
+success difference、paired latency reduction 或 wall-clock speedup。
