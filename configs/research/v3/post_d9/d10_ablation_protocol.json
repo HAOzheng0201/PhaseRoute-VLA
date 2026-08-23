@@ -1,0 +1,280 @@
+{
+  "schema_version": "phase-route-vla.v3.d10-post-d9-ablation-protocol.v1",
+  "protocol_id": "phaseroute-v3-d10-post-d9-ablation-design-20260823-v1",
+  "stage": "V3-D10",
+  "status": "FROZEN_V3_D10_PROTOCOL_DESIGN_ONLY",
+  "reference_result": {
+    "path": "results/v3/v3_d9_final_result.json",
+    "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952",
+    "status": "PASS_V3_D9_PAIRED_ACTIVE_INDEPENDENT_TEST",
+    "designed_after_D9_outcomes_were_known": true,
+    "D10_is_part_of_the_pre_D9_preregistration": false
+  },
+  "authorization_boundary": {
+    "authorized_now": [
+      "paper_table_and_figure_export_from_frozen_D9_result",
+      "ablation_protocol_design",
+      "migration_protocol_design",
+      "post_hoc_descriptive_failure_analysis_with_explicit_label"
+    ],
+    "not_authorized_now": [
+      "new_model_fit",
+      "new_threshold_search",
+      "new_generated_state_access",
+      "new_active_control",
+      "second_D9_independent_test",
+      "replacement_of_any_D9_episode_or_seed",
+      "deployment"
+    ]
+  },
+  "scientific_questions": [
+    {
+      "id": "Q1_phase",
+      "question": "Does causal phase state improve the safety-efficiency frontier beyond candidate action features alone?"
+    },
+    {
+      "id": "Q2_history",
+      "question": "Does past-only proprio/action history add information beyond the current policy state?"
+    },
+    {
+      "id": "Q3_epistemic",
+      "question": "Does the five-head epistemic maximum reduce false-safe routing relative to one head or a head mean?"
+    },
+    {
+      "id": "Q4_gripper",
+      "question": "Is the dedicated gripper occurrence head necessary in addition to full-action consistency risk?"
+    },
+    {
+      "id": "Q5_depth",
+      "question": "What is the marginal contribution of L11 routing beyond a conservative L13-only policy?"
+    }
+  ],
+  "frozen_full_method": {
+    "name": "PhaseRoute_full",
+    "feature_dimension": 97,
+    "past_only_context_dimension": 82,
+    "current_candidate_dimension": 15,
+    "candidate_layers": [11, 13],
+    "fallback_layer": 27,
+    "head_count": 5,
+    "full_action_aggregation": "maximum_over_five_heads",
+    "gripper_aggregation": "head_0_occurrence_probability",
+    "route_priority": "L11_then_L13_then_L27",
+    "missing_nonfinite_or_shape_drift": "fail_closed_to_L27"
+  },
+  "ablation_arms": [
+    {
+      "id": "A0_full",
+      "changes_from_full": [],
+      "role": "frozen_reference",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A1_no_phase",
+      "changes_from_full": [
+        "remove_phase_embedding_and_phase_progress_boundary_uncertainty",
+        "retrain_all_router_heads_and_normalizers_from_scratch"
+      ],
+      "forbidden_shortcut": "zero_phase_features_only_at_test_time_without_retraining",
+      "answers": "Q1_phase",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A2_no_history",
+      "changes_from_full": [
+        "remove_past_proprio_history_action_history_and_history_mask",
+        "retain_current_normalized_proprio",
+        "retrain_all_router_heads_and_normalizers_from_scratch"
+      ],
+      "forbidden_shortcut": "shuffle_or_zero_history_only_at_test_time_without_retraining",
+      "answers": "Q2_history",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A3_single_head",
+      "changes_from_full": [
+        "fit_one_router_head_with_the_same_outer_folds_and_feature_family",
+        "recalibrate_the_full_action_threshold_once"
+      ],
+      "answers": "Q3_epistemic",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A4_mean_five_heads",
+      "changes_from_full": [
+        "replace_maximum_over_five_full_action_scores_with_arithmetic_mean",
+        "recalibrate_the_full_action_threshold_once"
+      ],
+      "answers": "Q3_epistemic",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A5_no_gripper_gate",
+      "changes_from_full": [
+        "remove_the_dedicated_gripper_occurrence_veto"
+      ],
+      "answers": "Q4_gripper",
+      "safety_diagnostic_only": true,
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A6_L13_only",
+      "changes_from_full": [
+        "never_select_L11",
+        "evaluate_L13_with_the_frozen_full_safety_gate_else_L27"
+      ],
+      "answers": "Q5_depth",
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A7_always_L27",
+      "changes_from_full": [
+        "disable_all_early_exits"
+      ],
+      "role": "compute_and_safety_endpoint_not_a_trainable_ablation",
+      "cannot_pass_efficiency_gate": true,
+      "active_control_eligible_under_this_protocol": false
+    },
+    {
+      "id": "A8_original_A1",
+      "changes_from_full": [
+        "use_the_frozen_original_A1_early_exit_controller"
+      ],
+      "role": "external_controller_reference_not_a_component_ablation",
+      "active_control_eligible_under_this_protocol": false
+    }
+  ],
+  "data_roles": {
+    "development": {
+      "selection_path": "configs/research/v3/data_lineage/development_v2.json",
+      "suite": "libero_10",
+      "episode_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+      "records": 180,
+      "allowed": "nested_task_episode_grouped_OOF_fit_and_architecture_debug",
+      "success_or_D9_outcomes_allowed": false
+    },
+    "calibration": {
+      "selection_path": "configs/research/v3/data_lineage/calibration_v2.json",
+      "suite": "libero_10",
+      "episode_indices": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
+      "records": 100,
+      "allowed": "one_threshold_freeze_per_predefined_ablation_arm",
+      "architecture_or_feature_selection_allowed": false
+    },
+    "consumed_independent_test": {
+      "selection_path": "configs/research/v3/data_lineage/independent_test_v2.json",
+      "suite": "libero_10",
+      "episode_indices": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
+      "records": 100,
+      "new_model_selection_threshold_selection_or_confirmatory_ablation_allowed": false,
+      "post_hoc_descriptive_analysis_allowed_with_label": true
+    },
+    "fresh_generated_confirmation_v2": {
+      "suite": "libero_10",
+      "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "replicate_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+      "records": 200,
+      "state_seed_formula": "50260901 + task_id * 10000 + replicate_id",
+      "policy_seed_formula": "60260901 + task_id * 10000 + replicate_id",
+      "state_generator_and_acceptance_rule_must_be_frozen_before_generation": true,
+      "replacement_after_duplicate_invalid_solved_or_unfavorable_state_allowed": false,
+      "active_control": false,
+      "role": "prospective_shadow_ablation_confirmation_not_official_LIBERO_success"
+    }
+  },
+  "fit_and_calibration_rules": {
+    "same_outer_folds_for_all_trainable_arms": true,
+    "task_episode_is_the_grouping_unit": true,
+    "candidate_identity_is_never_a_feature": true,
+    "normalizer_is_refit_only_on_each_outer_training_partition": true,
+    "hyperparameter_grid_is_shared_and_frozen_before_fit": true,
+    "one_calibration_pass_per_arm": true,
+    "threshold_search_after_fresh_confirmation": false,
+    "D9_labels_or_success_used_for_fit_calibration_or_arm_selection": false
+  },
+  "prospective_confirmation_endpoints": {
+    "primary": [
+      "false_safe_cluster_exact_CP_UCB95",
+      "false_full_action_clusters",
+      "false_gripper_calls",
+      "severe_false_full_action_clusters",
+      "early_exit_call_fraction",
+      "estimated_FM_calls_per_policy_call_reduction"
+    ],
+    "secondary": [
+      "per_task_safe_clusters",
+      "L11_L13_L27_distribution",
+      "score_and_head_range_distributions",
+      "phase_and_history_stratified_route_distribution"
+    ],
+    "task_success_endpoint_available": false,
+    "layer27_is_expert_or_success_certificate": false
+  },
+  "comparisons_and_multiplicity": {
+    "control": "A0_full",
+    "confirmatory_comparisons": [
+      "A0_full_vs_A1_no_phase",
+      "A0_full_vs_A2_no_history",
+      "A0_full_vs_A3_single_head",
+      "A0_full_vs_A4_mean_five_heads",
+      "A0_full_vs_A5_no_gripper_gate",
+      "A0_full_vs_A6_L13_only"
+    ],
+    "paired_cluster_bootstrap_resamples": 100000,
+    "paired_cluster_bootstrap_seed": 70260901,
+    "resample_within_task": true,
+    "confidence": 0.95,
+    "familywise_method": "Holm_for_six_predefined_comparisons",
+    "effect_sizes_and_confidence_intervals_reported_even_when_not_significant": true,
+    "best_arm_selection_from_fresh_confirmation": false
+  },
+  "future_causal_intervention_design": {
+    "status": "DESIGN_SKETCH_REQUIRES_SEPARATE_PREREGISTRATION",
+    "question": "Does replacing a selected early action with its same-noise L27 action change closed-loop task success?",
+    "required_new_data": true,
+    "D9_episode_40_49_reuse_for_confirmatory_causality": false,
+    "paired_arms": [
+      "frozen_full_PhaseRoute",
+      "frozen_PhaseRoute_with_first_preselected_eligible_early_call_forced_to_L27"
+    ],
+    "intervention_call_selection_must_be_outcome_blind_and_frozen": true,
+    "same_initial_state_policy_seed_and_noise": true,
+    "all_post_intervention_trajectory_divergence_retained": true,
+    "primary_endpoint": "paired_task_success_difference",
+    "secondary_endpoints": [
+      "trajectory_divergence_after_intervention",
+      "action_distance_at_intervention",
+      "additional_FM_calls"
+    ],
+    "this_D10_document_authorizes_execution": false
+  },
+  "migration_boundary": {
+    "target_directory": "/data3/haozheng/A1/PhaseRoute-VLA",
+    "target_base_commit": "a22b3ff5180a17c6352c916e9f950186e82be146",
+    "target_current_uncommitted_files_must_be_preserved": [
+      "configs/README.md",
+      "docs/A1_PROJECT_READING_GUIDE_ZH.md",
+      "docs/PHASEROUTE_ARCHITECTURE_ZH.md",
+      "docs/QUICKSTART_ZH.md",
+      "docs/repo_map.md"
+    ],
+    "migration_must_not_copy": [
+      "reports",
+      "model",
+      "runs",
+      "caches",
+      "__pycache__",
+      ".pytest_cache"
+    ],
+    "source_commit_and_tree_hash_manifest_required_before_migration": true,
+    "target_release_claims_must_replace_not_conflate_old_RP_PEP_and_new_V3_results": true
+  },
+  "claim_boundary": {
+    "D9_PASS_proves_every_component_is_necessary": false,
+    "D10_protocol_contains_new_ablation_results": false,
+    "D10_generated_state_confirmation_is_official_benchmark_success": false,
+    "D9_failure_with_early_exit_proves_early_exit_causation": false,
+    "old_RP_PEP_spatial_results_are_directly_comparable_to_D9_libero_10": false,
+    "deployment_authorized": false
+  }
+}

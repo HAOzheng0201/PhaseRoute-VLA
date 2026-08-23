@@ -1,0 +1,5 @@
+paired_outcome,count
+both_success,82
+A1_success_PhaseRoute_failure,3
+A1_failure_PhaseRoute_success,6
+both_failure,9

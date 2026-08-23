@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">PhaseRoute-VLA V3 D9 independent test summary</title>
+  <desc id="desc">Success, flow-matching compute, route distribution, and same-noise safety results.</desc>
+  <rect width="1200" height="650" fill="#fbfcfe"/>
+  <text x="60" y="60" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#17233c">PhaseRoute-VLA · Paired Active Independent Test</text>
+  <text x="60" y="92" font-family="Arial, sans-serif" font-size="16" fill="#5b6578">LIBERO-10 · 100 paired episodes · frozen A1 checkpoint · 18/18 primary gates PASS</text>
+
+  <rect x="50" y="125" width="335" height="440" rx="16" fill="#ffffff" stroke="#dce3ed"/>
+  <text x="75" y="165" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#17233c">Task success ↑</text>
+  <line x1="95" y1="475" x2="345" y2="475" stroke="#aeb8c7"/>
+  <rect x="120" y="237.00" width="75" height="238.00" rx="5" fill="#7c8da6"/>
+  <rect x="245" y="228.60" width="75" height="246.40" rx="5" fill="#2878d0"/>
+  <text x="157.5" y="224.00" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#46546a">85%</text>
+  <text x="282.5" y="215.60" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#185b9f">88%</text>
+  <text x="157.5" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#46546a">A1</text>
+  <text x="282.5" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#185b9f">PhaseRoute</text>
+  <text x="217.5" y="542" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#16815d">+3 percentage points</text>
+
+  <rect x="415" y="125" width="335" height="440" rx="16" fill="#ffffff" stroke="#dce3ed"/>
+  <text x="440" y="165" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#17233c">FM calls / policy call ↓</text>
+  <line x1="460" y1="475" x2="710" y2="475" stroke="#aeb8c7"/>
+  <rect x="485" y="195.00" width="75" height="280.00" rx="5" fill="#7c8da6"/>
+  <rect x="610" y="297.43" width="75" height="177.57" rx="5" fill="#f29a2e"/>
+  <text x="522.5" y="182.00" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#46546a">10.56</text>
+  <text x="647.5" y="284.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#a85b00">6.70</text>
+  <text x="522.5" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#46546a">A1</text>
+  <text x="647.5" y="505" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#a85b00">PhaseRoute</text>
+  <text x="582.5" y="542" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#16815d">−36.58% normalized compute</text>
+
+  <rect x="780" y="125" width="370" height="440" rx="16" fill="#ffffff" stroke="#dce3ed"/>
+  <text x="805" y="165" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#17233c">PhaseRoute decisions</text>
+  <text x="805" y="205" font-family="Arial, sans-serif" font-size="16" fill="#5b6578">Early exit: 13.84%</text>
+  <rect x="805" y="230" width="8.65" height="46" rx="6" fill="#24a47a"/>
+  <rect x="813.65" y="230" width="35.63" height="46" fill="#4f8edc"/>
+  <rect x="849.28" y="230" width="275.72" height="46" rx="6" fill="#b9c2cf"/>
+  <circle cx="820" cy="316" r="7" fill="#24a47a"/><text x="838" y="322" font-family="Arial, sans-serif" font-size="16" fill="#354158">L11 · 2.70%</text>
+  <circle cx="820" cy="354" r="7" fill="#4f8edc"/><text x="838" y="360" font-family="Arial, sans-serif" font-size="16" fill="#354158">L13 · 11.14%</text>
+  <circle cx="820" cy="392" r="7" fill="#b9c2cf"/><text x="838" y="398" font-family="Arial, sans-serif" font-size="16" fill="#354158">L27 fallback · 86.16%</text>
+  <line x1="805" y1="425" x2="1125" y2="425" stroke="#dce3ed"/>
+  <text x="805" y="462" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#17233c">Same-noise safety</text>
+  <text x="805" y="494" font-family="Arial, sans-serif" font-size="16" fill="#16815d">0 unsafe early calls</text>
+  <text x="805" y="522" font-family="Arial, sans-serif" font-size="16" fill="#5b6578">Exact CP-UCB95: 2.951%</text>
+
+  <text x="60" y="616" font-family="Arial, sans-serif" font-size="14" fill="#687386">FM metric is trajectory-length normalized. L27 is a same-noise consistency teacher, not an expert or task-success certificate.</text>
+</svg>
