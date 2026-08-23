@@ -17,7 +17,9 @@ MODULE_PATH = REPOSITORY_ROOT / "a1/vla/dynamic_compute/v3/evidence_manifest.py"
 FROZEN_MANIFEST = (
     REPOSITORY_ROOT / "docs/research/v3/legacy_evidence_manifest.json"
 )
-FROZEN_SOURCE_ROOT = Path("/data3/haozheng/A1/source")
+FROZEN_SOURCE_ROOT = (
+    REPOSITORY_ROOT / "artifacts/phase_route_v3/legacy_source"
+)
 
 # Loading by file location is deliberate: importing through ``a1`` executes
 # legacy package-level ML imports.  D0 must remain a stdlib-only CPU audit.
@@ -108,7 +110,9 @@ class TestEvidenceManifest(unittest.TestCase):
 
     def test_frozen_repository_manifest_verifies_without_payloads(self) -> None:
         report = verify_evidence_manifest(
-            FROZEN_MANIFEST, source_root=FROZEN_SOURCE_ROOT
+            FROZEN_MANIFEST,
+            source_root=FROZEN_SOURCE_ROOT,
+            allow_relocated_root=True,
         )
 
         self.assertEqual(report.verified_count, 28)
@@ -155,6 +159,7 @@ class TestEvidenceManifest(unittest.TestCase):
             report = module.verify_evidence_manifest(
                 pathlib.Path({str(FROZEN_MANIFEST)!r}),
                 source_root=pathlib.Path({str(FROZEN_SOURCE_ROOT)!r}),
+                allow_relocated_root=True,
             )
             forbidden = ("torch", "numpy", "tensorflow", "jax")
             loaded = [name for name in forbidden if name in sys.modules]

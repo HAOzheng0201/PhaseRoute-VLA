@@ -162,3 +162,39 @@ LIBERO-10 official states 的角色已全部消耗：
 `docs/research/v3/V3_D10_PAPER_ABLATION_MIGRATION_ZH.md`；发布迁移的测试、CPU/GPU
 attestation 与可移植性修复见
 `docs/research/v3/V3_D11_RELEASE_MIGRATION_ZH.md`。
+
+## 9. 当前发布资格复核记录
+
+2026-08-23 在独立发布目录、冻结 V3 权重与阈值不变的前提下完成阶段二复核：
+
+| 检查 | 结果 |
+|---|---|
+| `make test` | **472 passed**, 22 subtests passed，0 failed，72.57 s |
+| `make test-v3-release` | **13 passed**，0 failed，6.43 s |
+| `make check` | pip、Python/Shell 语法、`git diff --check` 全部 PASS |
+| Python sdist/wheel | 构建成功，`twine check --strict` 与 wheel ZIP 完整性均 PASS |
+| tracked 大文件 | 无超过 100 MB blob；唯一超过 10 MB blob 为已登记的 phase estimator |
+| secrets 审计 | 文件名与常见 token/private-key 内容模式均无命中 |
+| 通用入口绝对路径 | QuickStart、Makefile 与通用 launcher 无个人机器路径依赖 |
+| broken symlink | 无 |
+| README/Makefile 映射 | README 的 7 个 `make` target 与 Makefile 引用的脚本全部存在 |
+
+复核首次运行发现两个 evidence-manifest 测试仍直接引用已删除的旧
+`/data3/haozheng/A1/source`。根因是发布代码已经采用 bundled relocated evidence，测试
+常量却未同步迁移；这不是模型、数值或冻结证据失败。修复后测试使用仓库内
+`artifacts/phase_route_v3/legacy_source/`，显式启用 relocation，并继续逐文件验证原始
+size/SHA 与 symlink fail-closed 语义；对应目标测试为 **14 passed + 22 subtests**。
+
+本轮还把 `pyproject.toml` 的许可证元数据更新为标准 SPDX `MIT`，并显式登记
+`LICENSE`/`NOTICE`，消除了 setuptools 2027 弃用警告。最终本地构建产物为：
+
+```text
+phase_route_vla-0.1.0-py3-none-any.whl  653168 bytes
+SHA-256 94016191d9169853f07ae19fea49558a54cd668bd7fa6205a940f8af2e07e0a6
+
+phase_route_vla-0.1.0.tar.gz            582588 bytes
+SHA-256 0d0800acc4dcf7e37ba9dd6c57283bba70f18a3a9120ef0f6dfa34a7a2ffb041
+```
+
+这些 build SHA 仅记录本轮本地资格复核，不替代
+`artifacts/phase_route_v3/MANIFEST.json` 中冻结 runtime artifacts 的正式 SHA。
