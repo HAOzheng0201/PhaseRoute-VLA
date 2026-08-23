@@ -1,0 +1,121 @@
+{
+  "status": "COMPLETE_V3_D9D_SAME_NOISE_TRUTH",
+  "schema_version": "phase-route-vla.v3.d9d-truth-collection.v1",
+  "timestamp_utc": "2026-08-23T03:58:05.248+00:00",
+  "source_git_commit": "fdd608db8b70328743ec8b6c50e9758303605e3e",
+  "source_worktree_dirty": false,
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "CUDA_initialized": false
+  },
+  "D9C_collection": {
+    "path": "results/v3/v3_d9c_collection_attestation.json",
+    "sha256": "e4994368622590ec0cce0beb02b870f9a28e4c2f04fd9f1f93f424cb98d9292d",
+    "source_git_commit": "1a0598d67994755b9f8abd88563ea2d03b7ff47c",
+    "cache_rows": 3700
+  },
+  "D9D_runner_readiness": {
+    "path": "results/v3/v3_d9d_runner_readiness_v2.json",
+    "sha256": "d060bad4c7dd6693fd80eba2a35a133183e31f6697f8c068b0e69cf61ff8acf7",
+    "source_git_commit": "e1ca7a08723e5ca4a64d20eb779a770e1f853fa6",
+    "bound_code_files": 6
+  },
+  "completeness": {
+    "shards": 4,
+    "policy_call_truth_rows": 3700,
+    "candidate_replays": 11100,
+    "candidate_layers": [
+      11,
+      13,
+      27
+    ]
+  },
+  "shard_binding": {
+    "0": {
+      "result_path": "reports/v3_d9d_same_noise_replay/shard0/result.json",
+      "result_sha256": "b7fe717dcfda85c3d6f0942cdb097b8c0753b271e8b7851433f20fbf70842f09",
+      "records_path": "reports/v3_d9d_same_noise_replay/shard0/truth_records.jsonl",
+      "records_sha256": "d27a2d1c7ed6970ea65f2c71dfbf695c58e2dc347e0c3d2b3701f0a55c31e40a",
+      "payload_path": "reports/v3_d9d_same_noise_replay/shard0/truth_payload.pt",
+      "payload_sha256": "90967b92b19f14acc8e4249f8ec4d33d9ec27200588648847a1b2f6645f88565",
+      "rows": 925,
+      "physical_gpu_index": 0,
+      "gpu_uuid": "f52eda42-a640-8244-bcdb-e6201acae766",
+      "source_NPZ_hashes_verified_during_replay": true
+    },
+    "1": {
+      "result_path": "reports/v3_d9d_same_noise_replay/shard1/result.json",
+      "result_sha256": "8dfc7f627506188e13ad95657f89fc7b749ffbd46e656be23eb1787505e9ef04",
+      "records_path": "reports/v3_d9d_same_noise_replay/shard1/truth_records.jsonl",
+      "records_sha256": "2d73828f75758238f35051a3a75b7ee6351ab6a600e6aafa7a4dde10b5cebd82",
+      "payload_path": "reports/v3_d9d_same_noise_replay/shard1/truth_payload.pt",
+      "payload_sha256": "df9b3a2a7f124fcc7ac553773f17fab1b0cc27083d4784c5632274d6f3d7733a",
+      "rows": 925,
+      "physical_gpu_index": 1,
+      "gpu_uuid": "f4f497b3-86d0-e107-936f-493739d7b5ea",
+      "source_NPZ_hashes_verified_during_replay": true
+    },
+    "2": {
+      "result_path": "reports/v3_d9d_same_noise_replay/shard2/result.json",
+      "result_sha256": "b638c6d318b315c6edc038fe081f2aabd381e702715cc7bbd28948c0b10f0aaf",
+      "records_path": "reports/v3_d9d_same_noise_replay/shard2/truth_records.jsonl",
+      "records_sha256": "8c81232330d934aa9969ff4be5a49f88b21c2823487756507e93c3534b4885f3",
+      "payload_path": "reports/v3_d9d_same_noise_replay/shard2/truth_payload.pt",
+      "payload_sha256": "515447fb201908aedb371bd7bb47909b76654548a009c7d5786bfa1015a3d2a9",
+      "rows": 925,
+      "physical_gpu_index": 2,
+      "gpu_uuid": "eb395571-9c61-f945-f90c-85a352e52161",
+      "source_NPZ_hashes_verified_during_replay": true
+    },
+    "3": {
+      "result_path": "reports/v3_d9d_same_noise_replay/shard3/result.json",
+      "result_sha256": "4b4a00eabf81b683d1c18d467588a3dca77511186cf597ca23e730c5539019cc",
+      "records_path": "reports/v3_d9d_same_noise_replay/shard3/truth_records.jsonl",
+      "records_sha256": "4f39bde02e27612025c43b46840895b07dd19d2229ac5381d5c6855fcba75c18",
+      "payload_path": "reports/v3_d9d_same_noise_replay/shard3/truth_payload.pt",
+      "payload_sha256": "7d03a3fa48fca7c757720c201ca0d8f771958cd3bf4a87d112ef10a53c5b3245",
+      "rows": 925,
+      "physical_gpu_index": 3,
+      "gpu_uuid": "c4560cc9-8c2a-15a9-4872-25b92de7e270",
+      "source_NPZ_hashes_verified_during_replay": true
+    }
+  },
+  "checks": {
+    "D9C_collection_binding_exact": true,
+    "D9D_runner_readiness_exact": true,
+    "all_four_front_GPU_shards_complete": true,
+    "all_3700_policy_calls_have_truth": true,
+    "global_dataset_index_coverage_exact": true,
+    "only_physical_GPU_0_to_3_used": true,
+    "source_NPZ_SHA_verified_before_every_open": true,
+    "per_call_truth_recomputed_and_hash_bound": true,
+    "no_LIBERO_environment_router_action_mutation_or_active_control": true,
+    "no_success_safety_efficiency_or_D9_gate_aggregate": true,
+    "source_worktree_clean": true
+  },
+  "access_ledger": {
+    "D9C_PhaseRoute_policy_states_replayed": 3700,
+    "source_cache_NPZ_SHA_checks": 3700,
+    "LIBERO_environments_created": 0,
+    "environment_actions_executed": 0,
+    "routers_loaded": 0,
+    "success_safety_efficiency_aggregate_calls": 0,
+    "D9_primary_gate_calls": 0
+  },
+  "authorization": {
+    "next_stage": "D9E_ONE_SHOT_SUCCESS_EFFICIENCY_SAFETY_AGGREGATE",
+    "D9E_one_shot_aggregate_authorized": true,
+    "additional_test_tuning_or_second_independent_test": false
+  },
+  "claim_boundary": {
+    "D9D_is_complete_per_call_truth": true,
+    "D9D_is_D9_pass_or_negative": false,
+    "layer27_is_expert_or_success_certificate": false,
+    "success_rate_reported": false,
+    "safety_rate_reported": false,
+    "efficiency_rate_reported": false,
+    "D9_primary_gate_evaluated": false
+  }
+}

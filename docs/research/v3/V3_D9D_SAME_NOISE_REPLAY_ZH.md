@@ -135,17 +135,96 @@ results/v3/v3_d9d_runner_readiness_v2.json
 results/v3/v3_d9d_collection_attestation.json
 ```
 
-## 6. 当前执行记录
+## 6. 正式执行记录
 
-实现阶段已完成：
+### 6.1 实现与回归
 
 ```text
-相关 targeted tests: 26 passed
-D9D call index:       3700 rows
-modulo-four shards:   925 / 925 / 925 / 925
-pip check:            No broken requirements found
+implementation commit: 8528137cb70c442908926cd3a9a4a9cf9e952ad3
+corrected truth commit: e1ca7a08723e5ca4a64d20eb779a770e1f853fa6
+full V3 CPU regression: 182 passed + 22 subtests passed
+D9D call index:         3700 rows
+modulo-four shards:     925 / 925 / 925 / 925
+pip check:              No broken requirements found
 ```
 
-正式 readiness、四卡 replay 和 D9D collection attestation 需要在对应 clean
-commit 上依序生成；生成后在本节补充 commit、命令、GPU UUID、耗时、输出 SHA
-与所有失败记录。
+### 6.2 FP32/缓存量化 incident
+
+初版 runner 在四个 shard 的第一行均 fail-closed，接受真值 `0/3700`。只读单行
+诊断确认：D9C 在线模型使用 FP32，初版 runner 错用了 BF16；同时 D9C 缓存把
+projected visual features 保存为 fp16，因此离线 selected-layer replay 不可能与
+在线未量化 action bit-exact。
+
+```text
+FP32 replay max error: 1.9535422325134277e-05
+BF16 replay max error: 8.451581001281738e-03
+```
+
+修正后，replay 使用 FP32；安全真值使用与在线 selected trace 完全绑定的实际
+`teacher_normalized_action` 对比 replayed L27。旧 readiness、四个 abort 和日志
+均保留，不覆盖、不删除。
+
+```text
+incident:
+results/v3/v3_d9d_precision_incident.json
+SHA-256: a4cdab4ad69b96d4b9b03f885ea10a2c6ae2ce9cc53ccf3baa07d4b077297d71
+
+raw archive:
+reports/v3_d9d_failed_attempt_20260823_1107/
+```
+
+### 6.3 Corrected runner readiness
+
+```text
+implementation commit: e1ca7a08723e5ca4a64d20eb779a770e1f853fa6
+readiness commit:      fdd608db8b70328743ec8b6c50e9758303605e3e
+status:                PASS_V3_D9D_FROZEN_RUNNER_READINESS
+artifact:              results/v3/v3_d9d_runner_readiness_v2.json
+SHA-256:               d060bad4c7dd6693fd80eba2a35a133183e31f6697f8c068b0e69cf61ff8acf7
+NPZ opened:            0
+CUDA initialized:      false
+```
+
+### 6.4 四卡正式 replay
+
+命令：
+
+```bash
+bash scripts/dynamic_compute/v3/run_v3_d9d_front4.sh
+```
+
+结果：
+
+| shard | physical GPU | GPU UUID | rows | elapsed seconds | peak allocated bytes |
+|---:|---:|---|---:|---:|---:|
+| 0 | 0 | `f52eda42-a640-8244-bcdb-e6201acae766` | 925 | 2031.919 | 36,082,236,416 |
+| 1 | 1 | `f4f497b3-86d0-e107-936f-493739d7b5ea` | 925 | 1935.603 | 36,082,236,416 |
+| 2 | 2 | `eb395571-9c61-f945-f90c-85a352e52161` | 925 | 2033.506 | 36,082,236,416 |
+| 3 | 3 | `c4560cc9-8c2a-15a9-4872-25b92de7e270` | 925 | 2008.208 | 36,082,236,416 |
+
+GPU 4--7 未参与。四个 shard 全部返回：
+
+```text
+PASS_V3_D9D_SAME_NOISE_TRUTH_SHARD
+PASS_V3_D9D_FRONT4_SAME_NOISE_REPLAY
+```
+
+### 6.5 D9D truth freeze
+
+```text
+status:          COMPLETE_V3_D9D_SAME_NOISE_TRUTH
+states:          3700/3700
+candidate replay: 11100
+source NPZ SHA:  3700/3700 checked before open
+LIBERO env:      0
+executed action: 0
+router load:     0
+D9 gate calls:   0
+
+artifact:
+results/v3/v3_d9d_collection_attestation.json
+SHA-256: f8b3421948ca6c8ccfda6837afde9cfec0a7dbd6cee61987eb03e2dee2f6ea65
+```
+
+D9D 只证明逐调用 truth 完整，尚未报告 success、安全率、效率或 PASS/NEGATIVE。
+冻结 attestation 只授权下一阶段 D9E 做一次性最终聚合。
