@@ -244,3 +244,23 @@ runs/stage5_phase_route_v3/libero_10_20260824_003703/evaluation_summary.json
 
 original A1 的 GPU 1 preflight 已通过，但 rollout 尚未完成，因此本节不声明 paired
 success difference、paired latency reduction 或 wall-clock speedup。
+
+### 9.2 Clean-clone 复现
+
+commit `28cac086d95a439d1fffb2a1b9775def8294dffd` 被重新克隆到 `/tmp` 的空目录，LIBERO
+submodule 从本地 pinned object store 初始化到
+`8f1084e3132a39270c3a13ebe37270a43ece2a01`。clone 中不存在原工作区的 `model/`、
+`runs/`、`.cache/` 或旧 `/source` 内容。使用同一冻结 conda 环境得到：
+
+```text
+CPU V3 release gate             PASS (worktree_dirty=false)
+full dynamic-compute tests      472 passed + 22 subtests, 0 failed
+sdist + wheel build             PASS
+twine check --strict            PASS / PASS
+wheel ZIP integrity             PASS
+final clone git status          clean
+```
+
+这证明源码、bundled runtime artifacts 与最小历史证据可从 clean Git clone 自包含验证。
+它仍不等于“从零创建全新依赖环境”：当前 Python/CUDA 依赖继续来自已验证的 `a1` conda
+环境；完全从零的环境安装验收需要在后续单独执行并记录。
