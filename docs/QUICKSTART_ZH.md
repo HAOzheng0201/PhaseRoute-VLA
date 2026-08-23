@@ -1,8 +1,9 @@
 # PhaseRoute-VLA 中文复现指南
 
-本指南从空环境开始复现正式 RP-PEP 路径。所有命令均在项目根目录执行；权重、缓存和运行结果不会提交到 Git。
+本文从空环境开始复现 PhaseRoute V3 的通用 LIBERO-10 仿真入口。所有命令在项目
+根目录执行；34 GB backbone、缓存和运行输出不会进入 Git。
 
-## 1. 硬件与软件基线
+## 1. 冻结环境
 
 已验证组合：
 
@@ -12,10 +13,10 @@ Python 3.10
 PyTorch 2.6.0 + CUDA 12.4
 torchvision 0.21.0
 NVIDIA driver 570.133.07
-单卡显存约 48 GiB
+RTX 6000 Ada, 48 GiB / GPU
 ```
 
-正式 launcher 只允许物理 GPU 0–3。GPU 4–7 不会被使用。
+launcher 只允许物理 GPU 0–3，并确保每个进程只看到一张卡。GPU 4–7 被明确保留。
 
 ## 2. 获取代码
 
@@ -31,8 +32,6 @@ LIBERO 应固定在：
 8f1084e3132a39270c3a13ebe37270a43ece2a01
 ```
 
-如果 clone 时没有拉取 submodule，后续 `make setup-libero` 会补齐。
-
 ## 3. 创建环境
 
 ```bash
@@ -44,24 +43,15 @@ python -m pip install \
   torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 \
   --index-url https://download.pytorch.org/whl/cu124
 
-python - <<'PY'
-import torch
-print("torch:", torch.__version__)
-print("CUDA runtime:", torch.version.cuda)
-print("CUDA available:", torch.cuda.is_available())
-PY
-```
-
-安装项目与 LIBERO 依赖：
-
-```bash
 make install
 make setup-libero
 ```
 
-`make install` 会使用 `requirements/constraints-cu124.txt`，并从固定 Git commit 安装 `dlimp_openvla`。网络中断时可直接重试同一命令。
+`make install` 使用 `requirements/constraints-cu124.txt` 固定关键版本；不要安装
+`ai2-molmo[dev,serve,train]`。`make setup-libero` 会安装 pinned submodule、幂等应用
+PyTorch 2.6 patch，并非交互创建 LIBERO config。
 
-设置可复现的本地缓存位置：
+设置本地缓存：
 
 ```bash
 export HF_HOME="$PWD/.cache/huggingface"
@@ -69,146 +59,180 @@ export LIBERO_CONFIG_PATH="$PWD/.cache/libero"
 export VLA_CONFIG_YAML=libero_simulation.yaml
 ```
 
-`setup_libero.sh` 会非交互生成 `$LIBERO_CONFIG_PATH/config.yaml`，避免第一次 import 时等待输入。
-
-## 4. 下载并校验权重
+## 4. 下载 A1 backbone
 
 ```bash
 make download-checkpoint
 ```
 
-预期文件：
+预期主文件：
 
 ```text
 model/libero_exit/config.yaml
 model/libero_exit/dataset_statistics.json
 model/libero_exit/model.pt
-model/libero_exit/exit_thresholds_libero_spatial_exp_1.0.json
 ```
 
-手动复核：
-
-```bash
-sha256sum \
-  model/libero_exit/model.pt \
-  model/libero_exit/exit_thresholds_libero_spatial_exp_1.0.json
-```
-
-预期 SHA-256：
+V3 的 router、phase estimator 和 LIBERO-10 threshold 已在
+`artifacts/phase_route_v3/`，不需要另找未固定的外部链接。主要 SHA：
 
 ```text
 dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f  model.pt
-5b3a0ee9f3851bf1b0c7f7e2b28bc61898ed0b4bd39f8752007719e9f26d7bd6  exit_thresholds_libero_spatial_exp_1.0.json
+9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830  final_router.pt
+b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1  phase_estimator.pt
+a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796  LIBERO-10 threshold
 ```
 
-## 5. 安装验收
+完整清单见 `artifacts/MANIFEST.json` 与
+`artifacts/phase_route_v3/MANIFEST.json`。
 
-CPU/文件级 preflight：
+## 5. 分层验收
+
+### 5.1 不需要 GPU/34 GB 权重
 
 ```bash
-make preflight
+make preflight-v3
+make test-v3-release
 ```
 
-CUDA smoke：
+该门禁验证三个随仓库发布的 artifact、payload schema、five-head 数量、phase-state
+hash、D9 formal result 和科学声明边界。
+
+### 5.2 CUDA 与完整 backbone
+
+先查看 GPU 0–3：
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 python - <<'PY'
-import torch
-assert torch.cuda.is_available()
-assert torch.cuda.device_count() == 1
-x = torch.randn(1024, 1024, device="cuda", dtype=torch.bfloat16)
-y = x @ x
-torch.cuda.synchronize()
-assert torch.isfinite(y).all()
-print(torch.cuda.get_device_name(0), "PASS")
-PY
+nvidia-smi --query-gpu=index,name,memory.used,memory.total,utilization.gpu \
+  --format=csv,noheader
 ```
 
-测试：
+选择空闲卡，只做 preflight：
 
 ```bash
-make test-release
+GPU_INDEX=0 \
+PREFLIGHT_ONLY=1 \
+PYTHON_BIN=python \
+make run-v3
+```
+
+这一步会流式计算 34 GB `model.pt` 的 SHA，并检查：
+
+- physical GPU index 只能是 0–3；
+- UUID 绑定后 `torch.cuda.device_count()==1`；
+- visible GPU UUID 与物理卡一致；
+- A1 model/config/statistics 与 V3 小模型全部匹配；
+- A1、V3 和 LIBERO import 完整。
+
+## 6. 跑一个完整输入—输出闭环
+
+不要用 D9 test states 40–49 做调参。普通 smoke 可选择 task 0、state 0：
+
+```bash
+GPU_INDEX=0 \
+TASK_IDS=0 \
+EPISODE_INDICES=0 \
+SEED=20260823 \
+OUTPUT_ROOT=runs/phase_route_v3 \
+make run-v3
+```
+
+也可以显式选择多个 task/state：
+
+```bash
+GPU_INDEX=0 \
+TASK_IDS=0,2-4 \
+EPISODE_INDICES=0,3 \
+make run-v3
+```
+
+语义是 task 与 state 的笛卡尔积。launcher 固定以下研究合同：
+
+```text
+suite                 libero_10
+backbone              frozen A1 early-exit checkpoint
+FM inference steps    10
+candidate interval    2
+productive schedule   RP-PEP compatibility path
+V3 decisions          L11 -> L13 -> L27
+missing/error policy  fail closed to exact L27
+```
+
+运行目录包含：
+
+| 文件 | 作用 |
+|---|---|
+| `preflight.json` | 环境、GPU、artifact、Git provenance |
+| `command.sh` | 可重新输入的核心命令参数 |
+| `stdout.log` | 完整终端输出 |
+| `episode_logs/*.log` | 每个 task/state 的冻结 evaluator 退出层记录 |
+| `policy_telemetry.jsonl` | 每个 policy call 的通用 early-exit telemetry |
+| `phase_route_runtime.jsonl` | causal context 准备、risk/route、fallback/error |
+| `evaluation_summary.json` | episode success 与 runtime 汇总 |
+| `run_attestation.json` | non-overwrite 最终完整性判定 |
+
+只有 runtime record 数量与 policy calls 对齐、全部 prepared/committed、L11/L13/L27
+计数完备且 error 为 0，最终 attestation 才会 PASS。
+
+## 7. 如何确认模型张量契约
+
+当前实现不是旧文档中的 600-token/10-action/2-crop 简化图。正式输入输出是：
+
+```text
+A1 multimodal prefix    680 tokens
+visual crops            5 = 4 valid + 1 padded
+projected crop bank     [1, 5, 144, 3584]
+normalized proprio      [1, 8]
+candidate action        [1, 8, 7]
+causal route context    82D
+candidate pattern       15D
+router feature          97D
+selected action chunk   8 × 7
+```
+
+逐模块输入输出见 `docs/PHASEROUTE_ARCHITECTURE_ZH.md` 和
+`docs/A1_PROJECT_READING_GUIDE_ZH.md`。
+
+## 8. 运行全部回归测试
+
+```bash
+make test-v3-release
 make test
 make check
 ```
 
-## 6. 单卡正式运行
+`make test` 覆盖历史模块和 V3 D0–D10 合约；`make check` 还执行依赖、Python/shell
+语法和 whitespace 检查。
 
-先做 1 episode/task 的完整 LIBERO Spatial 闭环验证：
+## 9. 历史 RP-PEP
 
-```bash
-GPU_INDEX=0 \
-NUM_EPISODES=1 \
-SEED=20260805 \
-OUTPUT_ROOT=runs/rp_pep \
-make run-rp-pep
-```
-
-launcher 会：
-
-1. 拒绝 `GPU_INDEX=4..7`；
-2. 查询物理卡 UUID，并用 UUID 设置 `CUDA_VISIBLE_DEVICES`；
-3. 运行 checkpoint、阈值、冻结结果和可见 GPU 的 preflight；
-4. 显式开启 `--rp_pep_enabled True`；
-5. 把日志和评测结果写入带时间戳的新目录。
-
-确认小规模运行正常后再增加：
+如果需要复现旧 LIBERO Spatial baseline：
 
 ```bash
-GPU_INDEX=0 NUM_EPISODES=50 make run-rp-pep
+GPU_INDEX=0 NUM_EPISODES=1 make run-rp-pep
 ```
 
-## 7. 前四卡 release smoke
+它使用固定 candidate pruning，不加载 V3 router。两套结果不能混为一次对照实验。
 
-```bash
-make smoke-front4
-```
+## 10. 训练与研究扩展
 
-任务分片：
-
-| 物理 GPU | task IDs |
-|---:|---|
-| 0 | 0, 4, 8 |
-| 1 | 1, 5, 9 |
-| 2 | 2, 6 |
-| 3 | 3, 7 |
-
-每个 worker 都记录并复核自己的物理 GPU UUID。汇总器要求 task 0–9 各出现一次、episode index/seed 一致、checkpoint SHA 一致且所有 worker 完整退出。
-
-## 8. LIBERO 训练
-
-准备：
-
-- RLDS 数据：`data/libero_rlds`；
-- A1 预训练 checkpoint：`model/pretrain`；
-- 可选 W&B 配置。
-
-使用前四卡：
+A1 backbone 微调：
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1,2,3 \
-WANDB_ENTITY=<your-entity> \
+WANDB_ENTITY=<entity> \
 WANDB_PROJECT=phase-route-vla \
 bash train_libero.sh
 ```
 
-训练输出默认进入 `model/checkpoints/`，不会提交 Git。这里的
-`configs/experiments/libero_simulation.yaml` 是可选的上游兼容、从预训练权重继续训练
-配方，动作契约仍为 `10×32`，LIBERO 数据只监督前 7 维；它不是正式 RP-PEP
-`model/libero_exit` checkpoint 的配置。复现已冻结 RP-PEP 不需要重训 A1，其实际契约为
-`sequence_length=680`、动作 `8×7`、proprio `8D`。若要训练与正式 checkpoint
-完全兼容的新 backbone，必须先单独冻结新的 `8×7` 训练配置和迁移协议，不能直接沿用
-本节命令后声称与 RP-PEP checkpoint 等价。
+V3 five-head router 已经是用独立 development/calibration 训练出来的参数，并非仅靠 A1
+权重即可得到。若改变 phase、history、head aggregation 或 gripper gate，必须为该 arm
+重新训练 normalizer/router 并单独 calibration；不能在 D9 test 上置零 feature 后选择
+“最好”的版本。协议见 `configs/research/v3/post_d9/d10_ablation_protocol.json`。
 
-## 9. 常见问题
+## 11. 常见问题
 
-### GitHub 或 Hugging Face 超时
-
-重复原命令即可。checkpoint 脚本会先校验现有文件，已完成且 hash 正确时不会重复下载。
-
-### LIBERO 首次 import 要求交互输入
-
-重新运行：
+### LIBERO import 要求交互输入
 
 ```bash
 export LIBERO_CONFIG_PATH="$PWD/.cache/libero"
@@ -222,33 +246,32 @@ make setup-libero
 python -c "from libero.libero import benchmark; print('LIBERO PASS')"
 ```
 
-### 依赖被 pip 升级后冲突
+### GitHub/Hugging Face 中断
 
-```bash
-python -m pip install -e ".[libero]" \
-  -c requirements/constraints-cu124.txt
-python -m pip check
-```
+重复原命令。下载脚本先验证现有字节与 SHA，已完成文件不会重复下载。
 
-不要安装 `transformers 5.x`、`numpy 2.x` 或 `mujoco 3.x` 来覆盖冻结环境。
+### preflight 报 artifact hash 不一致
 
-### preflight 缺少 checkpoint
+不要用 `--no-check` 绕过。删除或移走损坏的外部 checkpoint 后重新下载；Git 内 V3
+artifact 若变化，应恢复与当前 commit 一致的文件。runtime 会 fail closed，launcher
+会在模型加载前退出。
 
-这是预期的安全失败。执行 `make download-checkpoint`，或将已验证的 checkpoint 放到 `model/libero_exit/` 后重试。
+### 指定 GPU 4–7 被拒绝
 
-## 10. 如何核对论文结论
+这是项目合同，不是 bug。只在 GPU 0–3 中选择空闲卡。
+
+### 如何读取正式结论
 
 ```bash
 python - <<'PY'
 import json
-d = json.load(open("results/rp_pep_paired.json"))
-print("status:", d["status"])
-print("paired episodes:", d["paired_episodes"])
-print("successes:", d["baseline_successes"], d["rp_pep_successes"])
-print("FM reduction:", d["fm_solver_calls"]["reduction_fraction"])
-print("mean latency reduction:", d["policy_latency"]["weighted_mean_reduction_fraction"])
-print("equivalence:", d["equivalence"])
+d = json.load(open("results/v3/v3_d9_final_result.json"))
+print(d["status"])
+print(d["success"])
+print(d["efficiency"])
+print(d["safety"])
+print(d["early_exit_failure_association"])
 PY
 ```
 
-科学声明必须以 `results/README.md` 中的边界为准。
+论文表述以 `docs/RELEASE_STATUS_ZH.md` 的边界为准。

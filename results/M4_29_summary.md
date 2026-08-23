@@ -1,4 +1,8 @@
-# M4.29：失败归因与 RP-PEP 发布选择
+# 历史 M4.29：失败归因与 RP-PEP 发布选择
+
+> 本文是旧 M4.28 router 的冻结负结果与当时的 RP-PEP 选择。后续 PhaseRoute V3
+> five-head router 使用不同协议并已通过 D9 18/18 gates；本文不得被概括为所有
+> learned routing 都不可行。当前状态见 `docs/RELEASE_STATUS_ZH.md`。
 
 日期：2026-08-05
 

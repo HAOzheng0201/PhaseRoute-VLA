@@ -1,4 +1,8 @@
-# PhaseRoute-VLA 最终验证报告
+# PhaseRoute-VLA 历史 M4.29 / RP-PEP 验证报告
+
+> 本文件冻结记录 2026-08-05 的 RP-PEP release，不是 2026-08-23 PhaseRoute V3
+> D9 的最终结论。当前正式结果请读 `results/v3/v3_d9_final_result.json` 和
+> `docs/RELEASE_STATUS_ZH.md`；下文负结果只对应 M4.28 router。
 
 验证日期：2026-08-05  
 发布结论：**PASS（RP-PEP release scope）**  

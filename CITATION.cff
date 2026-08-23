@@ -2,8 +2,8 @@ cff-version: 1.2.0
 title: "PhaseRoute-VLA"
 message: "Please cite the upstream A1 paper and this repository when using the dynamic-compute extension."
 type: software
-version: 0.1.0
-date-released: 2026-08-05
+version: 0.2.0
+date-released: 2026-08-23
 authors:
   - name: "PhaseRoute-VLA Contributors"
 preferred-citation:

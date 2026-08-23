@@ -1,0 +1,237 @@
+{
+  "schema_version": "phase-route-vla.v3.d5-negative-analysis-attestation.v1",
+  "status": "PASS_V3_D5_NEGATIVE_RESULT_ANALYSIS",
+  "freeze_timestamp_utc": "2026-08-20T15:34:52.190+00:00",
+  "source_git_commit": "e84051c844da1a3b3f2290ff5ffc2e755c143ba6",
+  "freeze_git_commit": "4504eeaa0dc241f9a9dd5a4246337699e6f30893",
+  "source_worktree_dirty": false,
+  "formal_negative_result_reproduced": true,
+  "formal_gate": {
+    "L11_calls": 199,
+    "L13_calls": 760,
+    "L27_calls": 5562,
+    "early_exit_calls": 959,
+    "early_exit_fraction": 0.14706333384450238,
+    "safe_clusters": 179,
+    "false_safe_clusters": 4,
+    "false_safe_cluster_ucb95": 0.05040430222355668,
+    "maximum_allowed_ucb95": 0.05,
+    "false_full_action_calls": 4,
+    "false_gripper_calls": 0,
+    "gate_checks": {
+      "all_6521_calls_13042_rows_and_180_clusters_present": true,
+      "all_18_outer_predictions_finite_and_assigned_once": true,
+      "all_18_inner_thresholds_feasible": true,
+      "minimum_60_safe_clusters": true,
+      "minimum_5_percent_early_exit_calls": true,
+      "all_10_tasks_have_nonzero_early_exit_calls": true,
+      "false_safe_cluster_exact_ucb95_at_most_5_percent": false,
+      "always_defer_rejected": true,
+      "calibration_test_rollout_and_active_control_not_run": true
+    }
+  },
+  "error_summary": {
+    "false_safe_calls": 4,
+    "unique_task_episode_clusters": 4,
+    "tasks": {
+      "0": 1,
+      "3": 2,
+      "9": 1
+    },
+    "episodes": {
+      "14": 1,
+      "16": 1,
+      "22": 1,
+      "29": 1
+    },
+    "layers": {
+      "11": 2,
+      "13": 2
+    },
+    "all_are_full_action_only": true,
+    "minimum_false_score_to_threshold_ratio": 0.3564911994394817,
+    "maximum_false_score_to_threshold_ratio": 0.9666485292724158,
+    "minimum_distance_to_truth_threshold_ratio": 1.0204712704919032,
+    "maximum_distance_to_truth_threshold_ratio": 17.028794060551252
+  },
+  "false_safe_records": [
+    {
+      "source_row": 90,
+      "task_id": 0,
+      "episode_index": 14,
+      "selected_layer": 13,
+      "full_action_score": 0.08076350065662853,
+      "gripper_score": 0.039055591691733386,
+      "outer_inner_selected_threshold": 0.11342750984903154,
+      "full_score_to_threshold_ratio": 0.7120274505199156,
+      "threshold_minus_full_score": 0.032664009192403004,
+      "full_action_distance": 0.06651872679902833,
+      "distance_to_truth_threshold_ratio": 17.028794060551252,
+      "full_action_unsafe": true,
+      "gripper_step_unsafe": false,
+      "A1_action_consistency_pass": true
+    },
+    {
+      "source_row": 2090,
+      "task_id": 3,
+      "episode_index": 16,
+      "selected_layer": 11,
+      "full_action_score": 0.14379356544565855,
+      "gripper_score": 0.032051322598621326,
+      "outer_inner_selected_threshold": 0.25804091691303194,
+      "full_score_to_threshold_ratio": 0.5572510250152366,
+      "threshold_minus_full_score": 0.11424735146737339,
+      "full_action_distance": 0.003986215900358997,
+      "distance_to_truth_threshold_ratio": 1.0204712704919032,
+      "full_action_unsafe": true,
+      "gripper_step_unsafe": false,
+      "A1_action_consistency_pass": true
+    },
+    {
+      "source_row": 2261,
+      "task_id": 3,
+      "episode_index": 22,
+      "selected_layer": 11,
+      "full_action_score": 0.08054891202823528,
+      "gripper_score": 0.04108393333932651,
+      "outer_inner_selected_threshold": 0.22594923003676937,
+      "full_score_to_threshold_ratio": 0.3564911994394817,
+      "threshold_minus_full_score": 0.1454003180085341,
+      "full_action_distance": 0.008908682595104134,
+      "distance_to_truth_threshold_ratio": 2.2806227443466582,
+      "full_action_unsafe": true,
+      "gripper_step_unsafe": false,
+      "A1_action_consistency_pass": true
+    },
+    {
+      "source_row": 6514,
+      "task_id": 9,
+      "episode_index": 29,
+      "selected_layer": 13,
+      "full_action_score": 0.12321487578711418,
+      "gripper_score": 0.0417724512776404,
+      "outer_inner_selected_threshold": 0.12746605623023755,
+      "full_score_to_threshold_ratio": 0.9666485292724158,
+      "threshold_minus_full_score": 0.004251180443123365,
+      "full_action_distance": 0.005242593438841814,
+      "distance_to_truth_threshold_ratio": 1.3421039203435043,
+      "full_action_unsafe": true,
+      "gripper_step_unsafe": false,
+      "A1_action_consistency_pass": true
+    }
+  ],
+  "threshold_stability": {
+    "outer_threshold_minimum": 0.11342750984903154,
+    "outer_threshold_maximum": 0.25804091691303194,
+    "outer_threshold_mean": 0.19703825198348818,
+    "outer_threshold_median": 0.2226742629566853,
+    "outer_threshold_population_std": 0.04770313278033556,
+    "maximum_to_minimum_ratio": 2.274941213612785,
+    "episode14_selected_different_lambda": true
+  },
+  "posthoc_diagnostic_threshold_multipliers": {
+    "1.0": {
+      "L11": 199,
+      "L13": 760,
+      "L27": 5562,
+      "early_exit_calls": 959,
+      "early_exit_fraction": 0.14706333384450238,
+      "safe_clusters": 179,
+      "false_safe_clusters": 4,
+      "false_safe_ucb95": 0.05040430222355668,
+      "formal_D5_gate_would_pass": false,
+      "runtime_authorized": false
+    },
+    "0.95": {
+      "L11": 195,
+      "L13": 762,
+      "L27": 5564,
+      "early_exit_calls": 957,
+      "early_exit_fraction": 0.14675663241834075,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "formal_D5_gate_would_pass": true,
+      "runtime_authorized": false
+    },
+    "0.9": {
+      "L11": 191,
+      "L13": 765,
+      "L27": 5565,
+      "early_exit_calls": 956,
+      "early_exit_fraction": 0.14660328170525994,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "formal_D5_gate_would_pass": true,
+      "runtime_authorized": false
+    },
+    "0.8": {
+      "L11": 176,
+      "L13": 778,
+      "L27": 5567,
+      "early_exit_calls": 954,
+      "early_exit_fraction": 0.1462965802790983,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "formal_D5_gate_would_pass": true,
+      "runtime_authorized": false
+    },
+    "0.75": {
+      "L11": 170,
+      "L13": 783,
+      "L27": 5568,
+      "early_exit_calls": 953,
+      "early_exit_fraction": 0.14614322956601747,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "formal_D5_gate_would_pass": true,
+      "runtime_authorized": false
+    },
+    "0.5": {
+      "L11": 122,
+      "L13": 821,
+      "L27": 5578,
+      "early_exit_calls": 943,
+      "early_exit_fraction": 0.14460972243520934,
+      "safe_clusters": 179,
+      "false_safe_clusters": 1,
+      "false_safe_ucb95": 0.026226492561680668,
+      "formal_D5_gate_would_pass": true,
+      "runtime_authorized": false
+    }
+  },
+  "scientific_interpretation": {
+    "D5_is_formally_negative": true,
+    "predictive_AUROC_above_0_9": true,
+    "specialized_gripper_protection_had_zero_selected_errors": true,
+    "remaining_failure_is_full_action_cluster_tail_risk": true,
+    "fold_specific_threshold_variability_requires_attention": true,
+    "posthoc_multiplier_diagnostics_are_runtime_policy": false,
+    "posthoc_multiplier_diagnostics_authorize_repair": false,
+    "same_development_OOF_is_fresh_confirmation_after_analysis": false
+  },
+  "artifacts": {
+    "analysis_path": "reports/v3_d5_negative_analysis/result.json",
+    "analysis_sha256": "e4705fcbaa0e1a917df2a928ac1afc62c4921757ede682f8e6ca8c8df2aee9b4",
+    "formal_result_path": "results/v3/v3_d5_formal_development_result.json",
+    "formal_result_sha256": "f08e35e9588f44900d6e714dc45c7afb9e1cc7586e8bbbfade488f3ed783b6f8"
+  },
+  "authorization": {
+    "next_stage": "D6_PROTOCOL_DESIGN_ONLY_USING_D5_AS_DEVELOPMENT_EVIDENCE",
+    "reuse_D3_calibration_for_repair": false,
+    "independent_test_authorized": false,
+    "active_control_authorized": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "development_nested_OOF_is_closed_loop_success": false,
+    "development_nested_OOF_is_independent_test": false,
+    "estimated_FM_reduction_is_measured_latency": false,
+    "layer27_consistency_is_task_success": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

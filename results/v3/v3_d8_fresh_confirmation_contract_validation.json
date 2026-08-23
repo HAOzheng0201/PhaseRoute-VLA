@@ -1,0 +1,82 @@
+{
+  "status": "PASS_V3_D8_FRESH_CONFIRMATION_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d8-contract-validation.v1",
+  "timestamp_utc": "2026-08-21T12:06:08.840+00:00",
+  "source_git_commit": "1ed8ed0d75a4c06829832d55031db6d661172d4d",
+  "source_worktree_dirty": false,
+  "contract": {
+    "path": "configs/research/v3/joint_reliability/d8_fresh_confirmation_contract.json",
+    "sha256": "148a6e7208582958198b8f1265bb715c75e31bc0c282c7f588412ba9c6ba2c17",
+    "contract_id": "phaseroute-v3-d8-prospective-generated-state-shadow-confirmation-20260821-v1"
+  },
+  "schedule": {
+    "path": "configs/research/v3/data_lineage/fresh_confirmation_v1_schedule.json",
+    "sha256": "6a532130ec9ddad5d235cc342e44148a9324f9e0592a1554e3dac9f51956b920",
+    "schedule_id": "phaseroute-v3-d8-generated-state-confirmation-20260821-v1",
+    "records": 200,
+    "tasks": 10,
+    "replicates_per_task": 20,
+    "state_seed_min": 30260821,
+    "state_seed_max": 30350840,
+    "policy_seed_min": 40260821,
+    "policy_seed_max": 40350840
+  },
+  "bound_sha256": {
+    "D0_audit": "64d1159b3941fe1e7b806da981a0f47297758dcc2cad87d4e283d03db3a71c4b",
+    "D7_contract": "7e1f8934e33ae33493b950eabc1142c1f6cd7103ef7b4ad735d6c8b13a5afdea",
+    "D7_contract_validation": "31dc77519a1ae7b03210a23301f553ca632a90df33eedb3dfcfc17b76386b829",
+    "D7_formal_result": "4c6d267bb40d2a2b01b92ffa662d0ffb487fb09e1640ca37fa2a10ad8b1a1a07",
+    "D7_aggregate_result": "600370bf978450afc8756cfe7929b36b33ed9d7da716a463902e13c2d0ab3ea9",
+    "D7_aggregate_payload": "ada55c17e7bbf7c6a5833c2a832c77f13249a9fd3c7aff6d6e0c842dd242a35d"
+  },
+  "frozen_design": {
+    "fresh_generated_state_clusters": 200,
+    "state_generation_passes": 2,
+    "official_episode_identity_used": false,
+    "final_D7_heads": 5,
+    "final_D7_lambda": 0.01,
+    "final_model_fits": 5,
+    "final_threshold_uses_D7_outer_OOF_only": true,
+    "minimum_safe_clusters": 120,
+    "minimum_early_exit_fraction": 0.1,
+    "maximum_false_safe_ucb95": 0.05,
+    "maximum_false_full_action_clusters": 3,
+    "maximum_false_gripper_calls": 0,
+    "maximum_severe_false_clusters": 0,
+    "minimum_estimated_FM_reduction": 0.3,
+    "confirmation_is_shadow_only": true
+  },
+  "access_ledger": {
+    "JSON_metadata_files_opened": 7,
+    "binary_payloads_hashed": 1,
+    "tensor_payloads_deserialized": 0,
+    "fresh_states_generated": 0,
+    "final_model_fits": 0,
+    "fresh_policy_rollouts": 0,
+    "fresh_candidate_labels_opened": false,
+    "calibration_v2_payload_opened": false,
+    "independent_test_v2_payload_opened": false,
+    "official_episode_40_49_opened": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "on_contract_validation_pass": "D8A_FRESH_STATE_GENERATION_AND_D8B_FINAL_ROUTER_FINALIZATION_ONLY",
+    "fresh_policy_rollout_authorized_on_contract_validation_alone": false,
+    "on_D8A_D8B_readiness_pass": "D8C_PROSPECTIVE_SHADOW_COLLECTION_AND_REPLAY",
+    "on_confirmation_pass": "INDEPENDENT_TEST_V2_PROTOCOL_DESIGN_ONLY",
+    "on_confirmation_failure": "D8_NEGATIVE_RESULT_ANALYSIS_ONLY",
+    "open_episode_40_49_authorized": false,
+    "active_control_authorized": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "generated_states_are_official_LIBERO_fixed_benchmark_states": false,
+    "confirmation_is_official_independent_test_v2": false,
+    "shadow_consistency_is_closed_loop_D7_success": false,
+    "layer27_is_task_success_or_expert_certificate": false,
+    "estimated_FM_reduction_is_measured_end_to_end_latency": false,
+    "confirmation_pass_alone_authorizes_superiority_claim": false,
+    "confirmation_pass_alone_authorizes_deployment": false
+  }
+}

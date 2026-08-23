@@ -1,0 +1,19 @@
+{
+  "status": "PASS_V3_D2_COLLECTION_CONTRACT",
+  "contract_path": "configs/research/v3/gripper_v2/d2_collection_contract.json",
+  "contract_file_sha256": "e43b82b9a0dfe2c45f7907aec40f45ec1d02a8d8a9fa7f3f4bd1c59f270a77c3",
+  "contract_canonical_sha256": "3bb3a1305a51787dd5974ca6722f40ed4e5d89a846f67710f88245c0ef09708a",
+  "development_keys": 180,
+  "first_key": "libero_10:task0:episode12",
+  "last_key": "libero_10:task9:episode29",
+  "calibration_or_test_payload_opened": false,
+  "legacy_c361_row_payload_opened": false,
+  "frozen_inputs": {
+    "d1_protocol_status": "D1_GRIPPER_V2_PROTOCOL_FROZEN",
+    "d1_protocol_sha256": "3a5f5ebe49ddee093dc352ab4d46f7bbfea66486bc94d12d925d4eb40d2eaad2",
+    "development_selection_sha256": "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb",
+    "development_keys": 180,
+    "d2_contract_file_sha256": "e43b82b9a0dfe2c45f7907aec40f45ec1d02a8d8a9fa7f3f4bd1c59f270a77c3",
+    "d2_contract_canonical_sha256": "3bb3a1305a51787dd5974ca6722f40ed4e5d89a846f67710f88245c0ef09708a"
+  }
+}

@@ -15,6 +15,7 @@ ORIGINAL_EXITS = (1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27)
 
 class FakeFlowModel:
     def __init__(self):
+        self.candidate_inputs = {}
         self.config = SimpleNamespace(
             action_head="flow_matching",
             num_diffusion_inference_steps=10,
@@ -34,11 +35,14 @@ class FakeFlowModel:
         del proprio, pos_offset
         if input_x is None:
             input_x = torch.randn(1, 2, 3)
+        context = dict(fm_trace_context or {})
+        if context.get("candidate_role") == "candidate_action":
+            self.candidate_inputs[int(context["candidate_layer"])] = input_x.clone()
         output = input_x + len(kvs) * 0.01
         if fm_trace_callback is not None:
             fm_trace_callback(
                 {
-                    **dict(fm_trace_context or {}),
+                    **context,
                     "input_x": input_x,
                     "output_action": output,
                     "fm_steps": 10,
@@ -150,6 +154,49 @@ def test_productive_controller_resets_only_new_mode_history_per_call():
 
     assert productive_net.action_list == []
     assert len(baseline_net.action_list) == 1
+
+
+def test_phase_route_candidates_share_l11_noise_without_shifting_rng():
+    plan = a1_fm10_rp_pep_plan(ORIGINAL_EXITS)
+    baseline = _value_net(plan.eligible_exit_layers, plan=plan)
+    phase_route = _value_net(plan.eligible_exit_layers, plan=plan)
+    phase_route.configure_phase_route_shared_candidates((11, 13, 27))
+    feats = [(torch.zeros(1, 1), torch.zeros(1, 1)) for _ in range(28)]
+
+    def run(value_net):
+        actions = {}
+        states = {}
+        for layer in plan.eligible_exit_layers:
+            _, action = value_net(
+                feats,
+                layer,
+                None,
+                0,
+                0,
+                None,
+                fm_trace_callback=lambda _payload: None,
+            )
+            actions[layer] = action.clone()
+            states[layer] = torch.random.get_rng_state().clone()
+        return actions, states
+
+    torch.manual_seed(20260822)
+    _, baseline_states = run(baseline)
+    torch.manual_seed(20260822)
+    _, phase_route_states = run(phase_route)
+
+    assert all(
+        torch.equal(phase_route_states[layer], baseline_states[layer])
+        for layer in plan.eligible_exit_layers
+    )
+    assert torch.equal(
+        phase_route.model.candidate_inputs[11],
+        phase_route.model.candidate_inputs[13],
+    )
+    assert torch.equal(
+        phase_route.model.candidate_inputs[11],
+        phase_route.model.candidate_inputs[27],
+    )
 
 
 def test_plan_rejects_anchor_and_mismatched_exit_list():

@@ -1,0 +1,52 @@
+{
+  "status": "PASS_V3_D6_REPAIR_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d6-contract-validation.v1",
+  "source_git_commit": "d91abd07a73e5e3c24077531334cad1d4008457b",
+  "source_worktree_dirty": false,
+  "contract": {
+    "path": "configs/research/v3/joint_reliability/d6_repair_contract.json",
+    "sha256": "28185ce5431cf438d20cb7cfdfd0e20d5859b6a99f1bdafa81d18faef59fd7a1",
+    "contract_id": "phaseroute-v3-d6-severity-robust-repair-20260821-v1"
+  },
+  "bound_sha256": {
+    "D5_contract": "e0a584e76f03d0f1b43cd5bbd3477ee2e3694f5425642868b3ec563edd52a29f",
+    "D5_formal_result": "f08e35e9588f44900d6e714dc45c7afb9e1cc7586e8bbbfade488f3ed783b6f8",
+    "D5_negative_analysis": "b0a38c7ed54f748815b7c1d7aa6a1965d0505352474c72ab87e19c155245a7f3",
+    "D5_dataset_result": "7b4facd767594974359bef11edec83bbe3df66c3ee4c5c3981814992f792186d",
+    "D5_dataset_payload": "cf40a9802e37d2335668db7f7e24194a3316d552183151cc780fecb5424137df"
+  },
+  "frozen_repair": {
+    "severity_weight_formula": "1+clamp(log2(max(ratio,1)),minimum=0,maximum=4)",
+    "severity_weight_range": [
+      1.0,
+      5.0
+    ],
+    "model_family": "two_target_layer_anchored_severity_weighted_logistic_GLM",
+    "jackknife_views": 17,
+    "jackknife_order_statistic": "fifth_smallest_of_17_feasible_thresholds",
+    "safety_multiplier": 0.95
+  },
+  "access_ledger": {
+    "JSON_metadata_files_opened": 5,
+    "tensor_payloads_deserialized": 0,
+    "model_fits": 0,
+    "calibration_v2_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D6_DEVELOPMENT_SELECTION_IMPLEMENTATION_AND_RUN",
+    "fresh_confirmation": false,
+    "independent_test_authorized": false,
+    "active_control_authorized": false
+  },
+  "claim_boundary": {
+    "D6_reuses_analyzed_development_data": true,
+    "D6_result_is_unbiased_method_comparison": false,
+    "D6_result_is_fresh_confirmation": false,
+    "D6_result_is_closed_loop_success": false,
+    "estimated_FM_reduction_is_measured_latency": false,
+    "superiority_claim_authorized": false
+  }
+}

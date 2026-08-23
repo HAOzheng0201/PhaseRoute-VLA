@@ -1,0 +1,27 @@
+{
+  "schema_version": "phase-route-vla.v3.data-lineage-audit-request.v1",
+  "used_sources": [
+    {
+      "path": "used_libero_long.json",
+      "schema_version": "phase-route-vla.v3.data-lineage-selection.v1"
+    },
+    {
+      "path": "used_libero_spatial_conservative.json",
+      "schema_version": "phase-route-vla.v3.data-lineage-selection.v1"
+    }
+  ],
+  "candidate_sources": [
+    {
+      "path": "development_v2.json",
+      "schema_version": "phase-route-vla.v3.data-lineage-selection.v1"
+    },
+    {
+      "path": "calibration_v2.json",
+      "schema_version": "phase-route-vla.v3.data-lineage-selection.v1"
+    },
+    {
+      "path": "independent_test_v2.json",
+      "schema_version": "phase-route-vla.v3.data-lineage-selection.v1"
+    }
+  ]
+}

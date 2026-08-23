@@ -1,0 +1,507 @@
+{
+  "schema_version": "phase-route-vla.v3.data-lineage-selection.v1",
+  "suite": "libero_10",
+  "role": "calibration_v2",
+  "records": [
+    {
+      "task_id": 0,
+      "episode_index": 30,
+      "seed": 20260841
+    },
+    {
+      "task_id": 0,
+      "episode_index": 31,
+      "seed": 20260842
+    },
+    {
+      "task_id": 0,
+      "episode_index": 32,
+      "seed": 20260843
+    },
+    {
+      "task_id": 0,
+      "episode_index": 33,
+      "seed": 20260844
+    },
+    {
+      "task_id": 0,
+      "episode_index": 34,
+      "seed": 20260845
+    },
+    {
+      "task_id": 0,
+      "episode_index": 35,
+      "seed": 20260846
+    },
+    {
+      "task_id": 0,
+      "episode_index": 36,
+      "seed": 20260847
+    },
+    {
+      "task_id": 0,
+      "episode_index": 37,
+      "seed": 20260848
+    },
+    {
+      "task_id": 0,
+      "episode_index": 38,
+      "seed": 20260849
+    },
+    {
+      "task_id": 0,
+      "episode_index": 39,
+      "seed": 20260850
+    },
+    {
+      "task_id": 1,
+      "episode_index": 30,
+      "seed": 20270841
+    },
+    {
+      "task_id": 1,
+      "episode_index": 31,
+      "seed": 20270842
+    },
+    {
+      "task_id": 1,
+      "episode_index": 32,
+      "seed": 20270843
+    },
+    {
+      "task_id": 1,
+      "episode_index": 33,
+      "seed": 20270844
+    },
+    {
+      "task_id": 1,
+      "episode_index": 34,
+      "seed": 20270845
+    },
+    {
+      "task_id": 1,
+      "episode_index": 35,
+      "seed": 20270846
+    },
+    {
+      "task_id": 1,
+      "episode_index": 36,
+      "seed": 20270847
+    },
+    {
+      "task_id": 1,
+      "episode_index": 37,
+      "seed": 20270848
+    },
+    {
+      "task_id": 1,
+      "episode_index": 38,
+      "seed": 20270849
+    },
+    {
+      "task_id": 1,
+      "episode_index": 39,
+      "seed": 20270850
+    },
+    {
+      "task_id": 2,
+      "episode_index": 30,
+      "seed": 20280841
+    },
+    {
+      "task_id": 2,
+      "episode_index": 31,
+      "seed": 20280842
+    },
+    {
+      "task_id": 2,
+      "episode_index": 32,
+      "seed": 20280843
+    },
+    {
+      "task_id": 2,
+      "episode_index": 33,
+      "seed": 20280844
+    },
+    {
+      "task_id": 2,
+      "episode_index": 34,
+      "seed": 20280845
+    },
+    {
+      "task_id": 2,
+      "episode_index": 35,
+      "seed": 20280846
+    },
+    {
+      "task_id": 2,
+      "episode_index": 36,
+      "seed": 20280847
+    },
+    {
+      "task_id": 2,
+      "episode_index": 37,
+      "seed": 20280848
+    },
+    {
+      "task_id": 2,
+      "episode_index": 38,
+      "seed": 20280849
+    },
+    {
+      "task_id": 2,
+      "episode_index": 39,
+      "seed": 20280850
+    },
+    {
+      "task_id": 3,
+      "episode_index": 30,
+      "seed": 20290841
+    },
+    {
+      "task_id": 3,
+      "episode_index": 31,
+      "seed": 20290842
+    },
+    {
+      "task_id": 3,
+      "episode_index": 32,
+      "seed": 20290843
+    },
+    {
+      "task_id": 3,
+      "episode_index": 33,
+      "seed": 20290844
+    },
+    {
+      "task_id": 3,
+      "episode_index": 34,
+      "seed": 20290845
+    },
+    {
+      "task_id": 3,
+      "episode_index": 35,
+      "seed": 20290846
+    },
+    {
+      "task_id": 3,
+      "episode_index": 36,
+      "seed": 20290847
+    },
+    {
+      "task_id": 3,
+      "episode_index": 37,
+      "seed": 20290848
+    },
+    {
+      "task_id": 3,
+      "episode_index": 38,
+      "seed": 20290849
+    },
+    {
+      "task_id": 3,
+      "episode_index": 39,
+      "seed": 20290850
+    },
+    {
+      "task_id": 4,
+      "episode_index": 30,
+      "seed": 20300841
+    },
+    {
+      "task_id": 4,
+      "episode_index": 31,
+      "seed": 20300842
+    },
+    {
+      "task_id": 4,
+      "episode_index": 32,
+      "seed": 20300843
+    },
+    {
+      "task_id": 4,
+      "episode_index": 33,
+      "seed": 20300844
+    },
+    {
+      "task_id": 4,
+      "episode_index": 34,
+      "seed": 20300845
+    },
+    {
+      "task_id": 4,
+      "episode_index": 35,
+      "seed": 20300846
+    },
+    {
+      "task_id": 4,
+      "episode_index": 36,
+      "seed": 20300847
+    },
+    {
+      "task_id": 4,
+      "episode_index": 37,
+      "seed": 20300848
+    },
+    {
+      "task_id": 4,
+      "episode_index": 38,
+      "seed": 20300849
+    },
+    {
+      "task_id": 4,
+      "episode_index": 39,
+      "seed": 20300850
+    },
+    {
+      "task_id": 5,
+      "episode_index": 30,
+      "seed": 20310841
+    },
+    {
+      "task_id": 5,
+      "episode_index": 31,
+      "seed": 20310842
+    },
+    {
+      "task_id": 5,
+      "episode_index": 32,
+      "seed": 20310843
+    },
+    {
+      "task_id": 5,
+      "episode_index": 33,
+      "seed": 20310844
+    },
+    {
+      "task_id": 5,
+      "episode_index": 34,
+      "seed": 20310845
+    },
+    {
+      "task_id": 5,
+      "episode_index": 35,
+      "seed": 20310846
+    },
+    {
+      "task_id": 5,
+      "episode_index": 36,
+      "seed": 20310847
+    },
+    {
+      "task_id": 5,
+      "episode_index": 37,
+      "seed": 20310848
+    },
+    {
+      "task_id": 5,
+      "episode_index": 38,
+      "seed": 20310849
+    },
+    {
+      "task_id": 5,
+      "episode_index": 39,
+      "seed": 20310850
+    },
+    {
+      "task_id": 6,
+      "episode_index": 30,
+      "seed": 20320841
+    },
+    {
+      "task_id": 6,
+      "episode_index": 31,
+      "seed": 20320842
+    },
+    {
+      "task_id": 6,
+      "episode_index": 32,
+      "seed": 20320843
+    },
+    {
+      "task_id": 6,
+      "episode_index": 33,
+      "seed": 20320844
+    },
+    {
+      "task_id": 6,
+      "episode_index": 34,
+      "seed": 20320845
+    },
+    {
+      "task_id": 6,
+      "episode_index": 35,
+      "seed": 20320846
+    },
+    {
+      "task_id": 6,
+      "episode_index": 36,
+      "seed": 20320847
+    },
+    {
+      "task_id": 6,
+      "episode_index": 37,
+      "seed": 20320848
+    },
+    {
+      "task_id": 6,
+      "episode_index": 38,
+      "seed": 20320849
+    },
+    {
+      "task_id": 6,
+      "episode_index": 39,
+      "seed": 20320850
+    },
+    {
+      "task_id": 7,
+      "episode_index": 30,
+      "seed": 20330841
+    },
+    {
+      "task_id": 7,
+      "episode_index": 31,
+      "seed": 20330842
+    },
+    {
+      "task_id": 7,
+      "episode_index": 32,
+      "seed": 20330843
+    },
+    {
+      "task_id": 7,
+      "episode_index": 33,
+      "seed": 20330844
+    },
+    {
+      "task_id": 7,
+      "episode_index": 34,
+      "seed": 20330845
+    },
+    {
+      "task_id": 7,
+      "episode_index": 35,
+      "seed": 20330846
+    },
+    {
+      "task_id": 7,
+      "episode_index": 36,
+      "seed": 20330847
+    },
+    {
+      "task_id": 7,
+      "episode_index": 37,
+      "seed": 20330848
+    },
+    {
+      "task_id": 7,
+      "episode_index": 38,
+      "seed": 20330849
+    },
+    {
+      "task_id": 7,
+      "episode_index": 39,
+      "seed": 20330850
+    },
+    {
+      "task_id": 8,
+      "episode_index": 30,
+      "seed": 20340841
+    },
+    {
+      "task_id": 8,
+      "episode_index": 31,
+      "seed": 20340842
+    },
+    {
+      "task_id": 8,
+      "episode_index": 32,
+      "seed": 20340843
+    },
+    {
+      "task_id": 8,
+      "episode_index": 33,
+      "seed": 20340844
+    },
+    {
+      "task_id": 8,
+      "episode_index": 34,
+      "seed": 20340845
+    },
+    {
+      "task_id": 8,
+      "episode_index": 35,
+      "seed": 20340846
+    },
+    {
+      "task_id": 8,
+      "episode_index": 36,
+      "seed": 20340847
+    },
+    {
+      "task_id": 8,
+      "episode_index": 37,
+      "seed": 20340848
+    },
+    {
+      "task_id": 8,
+      "episode_index": 38,
+      "seed": 20340849
+    },
+    {
+      "task_id": 8,
+      "episode_index": 39,
+      "seed": 20340850
+    },
+    {
+      "task_id": 9,
+      "episode_index": 30,
+      "seed": 20350841
+    },
+    {
+      "task_id": 9,
+      "episode_index": 31,
+      "seed": 20350842
+    },
+    {
+      "task_id": 9,
+      "episode_index": 32,
+      "seed": 20350843
+    },
+    {
+      "task_id": 9,
+      "episode_index": 33,
+      "seed": 20350844
+    },
+    {
+      "task_id": 9,
+      "episode_index": 34,
+      "seed": 20350845
+    },
+    {
+      "task_id": 9,
+      "episode_index": 35,
+      "seed": 20350846
+    },
+    {
+      "task_id": 9,
+      "episode_index": 36,
+      "seed": 20350847
+    },
+    {
+      "task_id": 9,
+      "episode_index": 37,
+      "seed": 20350848
+    },
+    {
+      "task_id": 9,
+      "episode_index": 38,
+      "seed": 20350849
+    },
+    {
+      "task_id": 9,
+      "episode_index": 39,
+      "seed": 20350850
+    }
+  ]
+}

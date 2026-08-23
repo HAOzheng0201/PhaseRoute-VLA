@@ -1,0 +1,130 @@
+{
+  "schema_version": "phase-route-vla.v3.d4a-signal-adapter-contract.v1",
+  "contract_id": "phaseroute-v3-d4a-signal-adapter-20260820-v1",
+  "stage": "V3-D4A",
+  "status": "D4A_SIGNAL_ADAPTER_CONTRACT_FROZEN",
+  "scope": {
+    "pre_shadow_distribution_freeze": true,
+    "calibration_v2_adapter_only": true,
+    "model_fit_allowed": false,
+    "runtime_threshold_fit_or_search_allowed": false,
+    "formal_shadow_allowed_before_adapter_attestation": false,
+    "active_control_allowed": false,
+    "independent_test_allowed": false
+  },
+  "prerequisite": {
+    "d4_contract_validation_commit": "1af7fc9ac92ad2414c4c4f9e72aa79b87f832a86",
+    "d4_contract_validation_path": "results/v3/v3_d4_shadow_contract_validation.json",
+    "d4_contract_validation_sha256": "8afdaac48a82a291f3602a1e3f87fccfe296658db3b80eb65053ec5cc4af5dcc",
+    "required_d4_validation_status": "PASS_V3_D4_SHADOW_CONTRACT_FROZEN"
+  },
+  "legacy_evidence": {
+    "source_root": "/data3/haozheng/A1/source",
+    "checkpoint_path": "reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/development_checkpoint_candidates.pt",
+    "checkpoint_sha256": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+    "checkpoint_role": "development_only",
+    "checkpoint_runtime_control_authorized": false,
+    "tail_calibration_path": "reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_artifact.pt",
+    "tail_calibration_sha256": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5",
+    "tail_calibration_role": "calibration_only",
+    "tail_calibration_runtime_threshold_defined": false,
+    "artifact_deserialization_at_contract_freeze": false,
+    "portability_bundle_required_before_repository_migration": true
+  },
+  "feature_adapter": {
+    "v3_feature_dimension": 97,
+    "legacy_feature_dimension": 82,
+    "legacy_slice": [0, 82],
+    "required_v3_layout_entry": {
+      "legacy_causal_context": [0, 82]
+    },
+    "copy_or_reorder_allowed": false,
+    "task_episode_identity_runtime_visible": false,
+    "layer27_runtime_visible": false,
+    "exact_prefix_and_row_identity_attestation_required": true
+  },
+  "frozen_inference": {
+    "decision_layers": [11, 13],
+    "feature_standardization": "(feature82-feature_mean_by_layer)/feature_scale_by_layer",
+    "motion_formula": "motion_anchor[layer]*exp(standardized_feature@motion_weight.T-motion_correction[layer])",
+    "tail_q90_formula": "tail_q90_anchor[layer]*exp(standardized_feature@tail_weight.T-tail_model_correction[layer])",
+    "tail_upper_formula": "float32(tail_q90)+float32(legacy_conformal_correction[layer])",
+    "device": "cpu",
+    "inference_dtype": "float64_except_frozen_float32_tail_upper_addition",
+    "parameter_or_preprocessing_change_allowed": false
+  },
+  "motion_gate": {
+    "predicate": "predicted_translation_rms<=layer_translation_anchor AND predicted_rotation_rms<=layer_rotation_anchor",
+    "threshold_source": "frozen_C355_full_development_motion_anchors_not_V3_shadow_distribution",
+    "thresholds": {
+      "11": {
+        "translation_rms": 0.03213280713194666,
+        "rotation_rms": 0.038649997499361995
+      },
+      "13": {
+        "translation_rms": 0.014665028945979288,
+        "rotation_rms": 0.017045890401760883
+      }
+    },
+    "threshold_search_on_v3_allowed": false,
+    "is_absolute_robot_safety_certificate": false
+  },
+  "tail_ucb_gate": {
+    "predicate": "calibrated_tail_upper<=layer_tail_budget",
+    "budget_source": "frozen_C355_layer_q90_anchor_plus_frozen_C358_conformal_correction",
+    "q90_anchors": {
+      "11": 0.15234375,
+      "13": 0.07666015625
+    },
+    "conformal_corrections": {
+      "11": 0.009694024920463562,
+      "13": 0.0036352351307868958
+    },
+    "tail_budgets": {
+      "11": 0.16203777492046356,
+      "13": 0.0802953913807869
+    },
+    "threshold_search_on_v3_allowed": false,
+    "is_collision_or_task_success_certificate": false
+  },
+  "action_consistency_adapter": {
+    "threshold": 0.00390625,
+    "metric": "mean_over_horizon_of_one_minus_cosine_over_all_7_action_dimensions",
+    "l11_source": "frozen_raw_A1_L11_exit_candidate_telemetry_metric",
+    "l13_source": "recomputed_same_noise_L11_to_L13_candidate_metric",
+    "candidate_to_l27_truth_source": "same_noise_candidate_replay",
+    "candidate_to_l27_truth_is_runtime_visible": false
+  },
+  "formal_shadow_truth": {
+    "selected_candidate_full_action_safe": "candidate_to_L27_full_7D_cosine_distance<=0.00390625",
+    "selected_candidate_gripper_safe": "no_step_mismatch_relative_to_L27",
+    "false_safe_call": "shadow_early_exit AND (NOT full_action_safe OR NOT gripper_safe)",
+    "false_safe_cluster": "task_episode_with_at_least_one_false_safe_call",
+    "truth_used_for_decision": false,
+    "layer27_is_expert_or_success_label": false
+  },
+  "adapter_attestation": {
+    "all_3516_source_calls_required": true,
+    "both_candidate_layers_required_per_call": true,
+    "source_row_order_and_identity_exact": true,
+    "artifact_hashes_exact": true,
+    "checkpoint_schema_and_non_deployable_flags_exact": true,
+    "all_predictions_finite_and_positive": true,
+    "missing_nonfinite_or_geometry_drift": "abort_or_force_deeper_never_pass",
+    "shadow_selection_distribution_may_be_reported_during_attestation": false
+  },
+  "on_adapter_pass": {
+    "authorized_next_work": "V3-D4B_FORMAL_CALIBRATION_SHADOW_ONLY",
+    "formal_shadow_execution_authorized": true,
+    "fresh_rollout_authorized": false,
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  },
+  "claim_boundary": {
+    "legacy_development_model_is_v3_trained": false,
+    "adapter_pass_is_shadow_result": false,
+    "adapter_pass_is_success_or_efficiency_improvement": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

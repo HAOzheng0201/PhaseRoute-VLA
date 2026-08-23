@@ -1,0 +1,146 @@
+{
+  "status": "PASS_V3_D9D_FROZEN_RUNNER_READINESS",
+  "schema_version": "phase-route-vla.v3.d9d-runner-readiness.v2",
+  "timestamp_utc": "2026-08-23T03:20:41.393+00:00",
+  "source_git_commit": "e1ca7a08723e5ca4a64d20eb779a770e1f853fa6",
+  "source_worktree_dirty": false,
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "CUDA_initialized": false
+  },
+  "D9C_collection": {
+    "path": "results/v3/v3_d9c_collection_attestation.json",
+    "sha256": "e4994368622590ec0cce0beb02b870f9a28e4c2f04fd9f1f93f424cb98d9292d",
+    "source_git_commit": "1a0598d67994755b9f8abd88563ea2d03b7ff47c",
+    "cache_rows": 3700
+  },
+  "bound_code_sha256": {
+    "a1/vla/dynamic_compute/v3/same_noise_replay.py": "3d818da26048bf9358fdcb78d93e3d58e870142ebaa40ec7ad5e98572744b896",
+    "scripts/dynamic_compute/v3/replay_v3_d9d_shard.py": "04e2a108740371b9bba1214721ad2fd62376f7b334b2ae77266e73f9b1e1eacb",
+    "scripts/dynamic_compute/v3/run_v3_d9d_front4.sh": "fc9436e196188708b35f50c558bb9dba3d3d277e3aeec33a86c0eb3436a0f933",
+    "scripts/dynamic_compute/v3/freeze_v3_d9d_collection.py": "0c56b8bd7af6788158ed2834a723a6ce0885be3c03e5c76c50a9bc0c67ad91d3",
+    "scripts/dynamic_compute/v3/validate_v3_d9d_runner_contract.py": "d9a09295878596f492e60f5b0729e3d16381d20234106b0421065830e9d8ad41",
+    "tests/dynamic_compute/v3/test_same_noise_replay.py": "9fd8db3c31fef7df6bdb66b4bb48ed8726d7d3e8a52e4b03c0ccfad8c26a93a4"
+  },
+  "call_index_summary": {
+    "pairs": 100,
+    "policy_calls": 3700,
+    "candidate_layers": [
+      11,
+      13,
+      27
+    ],
+    "candidate_replays": 11100,
+    "rows_per_modulo_shard": {
+      "0": 925,
+      "1": 925,
+      "2": 925,
+      "3": 925
+    },
+    "physical_gpu_allowlist": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "validation": {
+    "targeted_regression": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--disable-warnings",
+        "tests/dynamic_compute/v3/test_same_noise_replay.py",
+        "tests/dynamic_compute/v3/test_independent_test_protocol.py",
+        "tests/dynamic_compute/v3/test_paired_active_collection.py"
+      ],
+      "exit_code": 0,
+      "output": "...........................                                              [100%]\n27 passed, 1 warning in 5.90s",
+      "pass": true
+    },
+    "shell_syntax": {
+      "command": [
+        "bash",
+        "-n",
+        "scripts/dynamic_compute/v3/run_v3_d9d_front4.sh"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "python_compile": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "py_compile",
+        "a1/vla/dynamic_compute/v3/same_noise_replay.py",
+        "scripts/dynamic_compute/v3/replay_v3_d9d_shard.py",
+        "scripts/dynamic_compute/v3/freeze_v3_d9d_collection.py",
+        "scripts/dynamic_compute/v3/validate_v3_d9d_runner_contract.py",
+        "tests/dynamic_compute/v3/test_same_noise_replay.py"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "pip_check": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "WARNING: The directory '/home/haozheng/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nNo broken requirements found.",
+      "pass": true
+    }
+  },
+  "checks": {
+    "D9C_collection_attestation_exact": true,
+    "complete_3700_call_index_from_100_pairs": true,
+    "all_calls_not_only_early_calls_are_indexed": true,
+    "modulo_four_shards_are_exactly_balanced": true,
+    "candidate_layer_order_is_frozen": true,
+    "worker_hashes_NPZ_before_open": true,
+    "worker_reuses_one_teacher_exit_input_for_three_layers": true,
+    "worker_uses_online_FP32_precision_without_BF16_autocast": true,
+    "truth_uses_actual_online_selected_action_against_replayed_L27": true,
+    "worker_requires_clean_worktree_and_nonoverwrite": true,
+    "launcher_hard_limits_physical_GPU_0_to_3": true,
+    "freezer_does_not_aggregate_final_D9_gate": true,
+    "targeted_regression_pass": true,
+    "shell_syntax_pass": true,
+    "python_compile_pass": true,
+    "pip_check_pass": true,
+    "validation_did_not_initialize_CUDA": true,
+    "source_worktree_remains_clean": true,
+    "cache_NPZ_payloads_not_opened": true,
+    "model_router_LIBERO_not_loaded": true
+  },
+  "access_ledger": {
+    "D9C_attestation_opened": true,
+    "D9C_manifest_inventory_runtime_metadata_opened": true,
+    "cache_NPZ_payloads_opened": 0,
+    "LIBERO_environment_created": false,
+    "model_loaded": false,
+    "router_loaded": false,
+    "CUDA_initialized": false,
+    "environment_actions_executed": 0,
+    "D9_gate_aggregate_calls": 0
+  },
+  "authorization": {
+    "next_stage": "D9D_EXACT_FRONT4_SAME_NOISE_REPLAY",
+    "all_3700_calls_only": true,
+    "physical_GPU_4_to_7": false,
+    "interim_aggregate": false
+  },
+  "claim_boundary": {
+    "runner_readiness_is_D9_result": false,
+    "per_call_truth_created": false,
+    "D9_primary_gate_evaluated": false
+  }
+}

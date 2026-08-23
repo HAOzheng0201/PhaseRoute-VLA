@@ -29,6 +29,7 @@ from a1.vla.dynamic_compute.phase_cache import PhaseCacheWriter
 from a1.vla.dynamic_compute.phase_depth_runtime import SafePhaseDepthRuntime
 from a1.vla.dynamic_compute.vision_aggregation import StaticVisionAggregationConfig
 from a1.vla.dynamic_compute.vision_teacher_cache import VisionTeacherCacheWriter
+from a1.vla.dynamic_compute.v3.active_runtime import ActivePhaseRouteRuntime
 
 # 尝试导入torch.profiler用于FLOPs统计
 
@@ -368,6 +369,8 @@ def get_vla_action(
     vision_teacher_cache_writer: Optional[VisionTeacherCacheWriter] = None,
     vision_teacher_cache_context: Optional[Mapping[str, Any]] = None,
     apply_phase_depth_plan: bool = True,
+    phase_route_runtime: Optional[ActivePhaseRouteRuntime] = None,
+    phase_route_context: Optional[Mapping[str, Any]] = None,
 ) -> Tuple[List[np.ndarray], float, float]:
     """
     Generate action predictions with the VLA policy.
@@ -402,6 +405,13 @@ def get_vla_action(
             and exit_controller is not None
             and hasattr(exit_controller, "set_phase_plan")
         )
+        phase_route_enabled = bool(
+            phase_route_runtime is not None
+            and getattr(phase_route_runtime, "enabled", False)
+            and exit_controller is not None
+            and getattr(exit_controller, "phase_route_runtime_adapter", None)
+            is getattr(phase_route_runtime, "adapter", None)
+        )
         learned_vision_aggregation_enabled = learnable_vision_aggregator is not None
         if learned_vision_aggregation_enabled and vision_aggregation_config is not None:
             raise ValueError(
@@ -427,6 +437,7 @@ def get_vla_action(
                 or phase_cache_enabled
                 or phase_depth_enabled
                 or vision_teacher_cache_enabled
+                or phase_route_enabled
             )
             and "state" in obs
             else None
@@ -438,6 +449,10 @@ def get_vla_action(
         normalized_proprio_for_phase = None
 
         def vision_teacher_feature_callback(payload: Mapping[str, Any]) -> None:
+            if phase_route_enabled:
+                phase_route_runtime.capture_visual_features(payload)
+            if not vision_teacher_cache_enabled:
+                return
             projected = payload.get("projected_features")
             positions = payload.get("image_input_idx")
             if not isinstance(projected, torch.Tensor) or projected.ndim != 4:
@@ -480,8 +495,12 @@ def get_vla_action(
 
         def telemetry_event_callback(event_name: str, payload: Mapping[str, Any]) -> None:
             telemetry_events.append({"event": event_name, **dict(payload)})
+            if phase_route_enabled:
+                phase_route_runtime.record_route_event(event_name, payload)
 
         def phase_signal_callback(payload: Mapping[str, Any]) -> None:
+            if phase_route_enabled:
+                phase_route_runtime.prepare_policy_call()
             summaries = {}
             for name in ("visual_summary",):
                 value = payload.get(name)
@@ -764,18 +783,19 @@ def get_vla_action(
             model_inputs["exit_controller"] = exit_controller
             # 拦截 log_fn 以获取 exit_id
             model_inputs["log_fn"] = capturing_log_fn
-        if telemetry_enabled or vision_teacher_cache_enabled:
+        if telemetry_enabled or vision_teacher_cache_enabled or phase_route_enabled:
             model_inputs["telemetry_callback"] = telemetry_event_callback
-        if phase_cache_enabled or phase_depth_enabled:
+        if phase_cache_enabled or phase_depth_enabled or phase_route_enabled:
             model_inputs["phase_signal_callback"] = phase_signal_callback
         if vision_aggregation_config is not None:
             model_inputs["vision_aggregation_config"] = vision_aggregation_config
         if learned_vision_aggregation_enabled:
             model_inputs["learnable_vision_aggregator"] = learnable_vision_aggregator
-        if vision_teacher_cache_enabled:
+        if vision_teacher_cache_enabled or phase_route_enabled:
             model_inputs["vision_teacher_feature_callback"] = (
                 vision_teacher_feature_callback
             )
+        if vision_teacher_cache_enabled:
             model_inputs["fm_trace_callback"] = fm_trace_callback
 
         if (
@@ -783,6 +803,7 @@ def get_vla_action(
             or phase_depth_enabled
             or vision_teacher_cache_enabled
             or learned_vision_aggregation_enabled
+            or phase_route_enabled
         ):
             try:
                 # Use the raw task label rather than the multimodal template:
@@ -809,6 +830,12 @@ def get_vla_action(
                 # Cache integrity checks or the safe runtime fallback handle a
                 # missing instruction summary without changing A1's action.
                 phase_instruction_summary = None
+        if phase_route_enabled:
+            phase_route_runtime.begin_policy_call(
+                context=dict(phase_route_context or {}),
+                instruction_summary=phase_instruction_summary,
+                normalized_proprio=normalized_proprio_for_phase,
+            )
         if learned_vision_aggregation_enabled:
             if phase_instruction_summary is None:
                 raise RuntimeError(
@@ -884,6 +911,8 @@ def get_vla_action(
 
         # if predicted_actions is None:
         #     raise ValueError("Model did not return predicted actions")
+        if phase_route_enabled:
+            phase_route_runtime.commit_selected_action(normalized_actions)
         
         if telemetry_enabled:
             action_shape = list(normalized_actions.shape)

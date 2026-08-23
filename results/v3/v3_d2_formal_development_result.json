@@ -1,0 +1,109 @@
+{
+  "schema_version": "phase-route-vla.v3.d2-formal-development-attestation.v1",
+  "status": "PASS_V3_D2_FULL_DEVELOPMENT_GATE",
+  "role": "development_v2",
+  "suite": "libero_10",
+  "run_timestamp_utc": "2026-08-20T10:07:58.570+00:00",
+  "source_git_commit": "98a6ba5a638d674fe012e6946611a428d3fe7edc",
+  "data_boundary": {
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+    "task_episode_groups": 180,
+    "policy_calls": 6521,
+    "candidate_rows": 13042,
+    "successful_rollouts": 161,
+    "total_rollouts": 180,
+    "calibration_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "legacy_c361_payload_opened": false
+  },
+  "frozen_inputs": {
+    "development_selection_sha256": "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb",
+    "d1_protocol_sha256": "3a5f5ebe49ddee093dc352ab4d46f7bbfea66486bc94d12d925d4eb40d2eaad2",
+    "d2_collection_contract_sha256": "3bb3a1305a51787dd5974ca6722f40ed4e5d89a846f67710f88245c0ef09708a",
+    "a1_model_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1"
+  },
+  "runtime_artifacts": {
+    "context_result_sha256": "b637299ee317caa17472c8202b5477f22b92bd125082dacaec776d222ae7b7a3",
+    "candidate_shard_result_sha256": {
+      "0": "5b68cd3d3a9008355e008795f8779047db1e828bf48774925cc241f4359f2a73",
+      "1": "4d6f47ad8b6a2dbb700a08c4740da20c6b1b5f1d005963a1bb5f0f5fe9d8c964",
+      "2": "9175c3fb5574435f3382320bf490fee5afbaacb6e2f397c6cd007de3cbe7c00b",
+      "3": "dd5ea95fc94cc545cac89de5284191ebf72a7269ba67723e1535252c21c5a2cd"
+    },
+    "dataset_result_sha256": "469ae38e246e473f9df38ee2f2c8b444d853ba27d949d07090f85187cd576b30",
+    "dataset_payload_sha256": "d2e21932cadbf683f8607791627a825efc352fd6677a046670de19d65e51433d",
+    "nested_oof_result_sha256": "09c5e71e656bc434f951b99fe2371abf8d5a4e42afcbbf13047d52520974fa79",
+    "nested_oof_payload_sha256": "8e5a6d14b1b60c4e984fa68f32be063335728bd93678f01b2e9926f3741d3d6b"
+  },
+  "training_audit": {
+    "outer_folds": 18,
+    "inner_folds_per_outer": 17,
+    "inner_cells_per_lambda_per_outer": 170,
+    "inner_fits": 4590,
+    "outer_refits": 90,
+    "final_refits": 5,
+    "total_fits": 4685,
+    "primary_parameter_count": 414,
+    "primary_parameter_limit": 512,
+    "final_lambdas": {
+      "occurrence": 0.01,
+      "zt_step": 0.1,
+      "zt_transition": 0.1,
+      "ordinal_step": 0.1,
+      "ordinal_transition": 0.1
+    },
+    "all_outer_folds_selected_identical_lambdas": true
+  },
+  "development_metrics": {
+    "occurrence": {
+      "step_overall_brier_skill": 0.6280889666227827,
+      "step_overall_auroc": 0.9453224337547173,
+      "transition_overall_brier_skill": 0.6271379727623696,
+      "transition_overall_auroc": 0.9452026743734717
+    },
+    "expected_fraction_sse_ratio": {
+      "step_overall": 0.5311323304573922,
+      "transition_overall": 0.43148040652569014
+    },
+    "ordinal_vs_zt_conditional_nll_ratio": {
+      "step_overall": 0.976650481973771,
+      "step_layer11": 0.967567689312169,
+      "step_layer13": 0.9887767811684876,
+      "transition_overall": 0.9913661653441024,
+      "transition_layer11": 0.9952216172164386,
+      "transition_layer13": 0.9868826127586985
+    },
+    "group_robustness": {
+      "improved_outer_episodes": 18,
+      "conclusive_outer_episodes": 18,
+      "exact_sign_test_upper_tail": 0.000003814697265625
+    }
+  },
+  "gates": {
+    "occurrence_pass": true,
+    "expected_fraction_pass": true,
+    "count_overall_both_targets_pass": true,
+    "strictly_improved_layer_target_scopes": 4,
+    "group_robustness_pass": true,
+    "full_pass": true,
+    "focused_pass_non_deployable": true
+  },
+  "repair_audit": {
+    "rejected_dirty_tasks": [4, 5, 7],
+    "clean_recollection_completed": true,
+    "success_and_policy_call_counts_equal": true,
+    "exit_layer_differences": 0,
+    "task4_semantic_float_difference_calls": 4,
+    "task5_semantic_float_difference_calls": 0,
+    "task7_semantic_float_difference_calls": 0,
+    "interpretation": "The four task4 calls differ in online floating-point state/FM values only; episode identity, exit layer, rollout success, policy-call count, and all candidate-cache manifest records remain aligned."
+  },
+  "authorization": {
+    "d3_calibration_authorized": true,
+    "deployment_authorized": false,
+    "independent_test_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

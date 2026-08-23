@@ -1,0 +1,5 @@
+metric,A1,PhaseRoute,difference_or_reduction,role
+success_rate,0.85,0.88,0.03,primary
+FM_calls_per_policy_call,10.558606124604013,6.696216216216216,0.3658049048148059,primary
+early_exit_call_fraction,NA,0.13837837837837838,NA,primary
+false_safe_cluster_CP_UCB95,NA,0.02951304960703993,NA,primary

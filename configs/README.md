@@ -3,8 +3,9 @@
 当前发布聚焦 A1 + LIBERO。
 
 > 注意：`models/libero.yaml` 是从上游预训练 checkpoint 继续训练用的兼容配方，不是
-> 正式 RP-PEP `model/libero_exit` checkpoint 的运行配置。后者以 checkpoint 自带
-> `config.yaml` 为准，实际是 horizon 8、action dim 7、proprio dim 8、sequence 680。
+> 当前 PhaseRoute V3 使用的 `model/libero_exit` checkpoint 运行配置。后者以
+> checkpoint 自带 `config.yaml` 为准，实际是 horizon 8、action dim 7、proprio dim
+> 8、sequence length 680。
 
 ```text
 configs/

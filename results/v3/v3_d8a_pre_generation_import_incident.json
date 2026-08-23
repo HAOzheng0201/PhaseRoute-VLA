@@ -1,0 +1,36 @@
+{
+  "status": "INFRASTRUCTURE_INCIDENT_V3_D8A_NO_STATE_GENERATED",
+  "schema_version": "phase-route-vla.v3.d8a-pre-generation-incident.v1",
+  "timestamp_utc": "2026-08-21T13:33:00.000+00:00",
+  "source_git_commit": "57b1177715de9f4d8b7da8e96bd3b69c834122e6",
+  "source_worktree_dirty": false,
+  "stage": "D8A_PASS1_BEFORE_ENVIRONMENT_IMPORT",
+  "root_cause": "the checked-out LIBERO repository root was not inserted into sys.path; its nested libero directory was inserted instead",
+  "observed_exception": "ModuleNotFoundError: No module named 'libero.libero'",
+  "attempted_isolated_processes": 200,
+  "completed_state_records": 0,
+  "environment_constructions": 0,
+  "explicit_environment_resets": 0,
+  "fresh_states_generated": 0,
+  "model_checkpoints_loaded": 0,
+  "policy_actions_sampled": 0,
+  "fresh_policy_rollouts": 0,
+  "official_episode_40_49_opened": false,
+  "gpu_query_or_initialization": 0,
+  "representative_log_sha256": "22e38bd62b2e51f3276983934bfce7517a27b27811688f8eb4e96a292a5238d8",
+  "local_preserved_logs": "reports/v3_d8a_generation_incident_import_path_20260821/logs",
+  "resolution": {
+    "implementation_change": "insert robot_experiments/libero/LIBERO rather than robot_experiments/libero/LIBERO/libero into sys.path",
+    "frozen_contract_changed": false,
+    "frozen_schedule_changed": false,
+    "state_or_policy_seed_changed": false,
+    "outcome_based_selection_possible": false,
+    "retry_authorized": true
+  },
+  "claim_boundary": {
+    "this_is_a_negative_state_generation_result": false,
+    "this_is_a_model_or_method_result": false,
+    "any_fresh_outcome_was_observed": false,
+    "superiority_claim_authorized": false
+  }
+}

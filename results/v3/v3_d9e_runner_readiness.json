@@ -1,0 +1,127 @@
+{
+  "status": "PASS_V3_D9E_FROZEN_AGGREGATE_RUNNER_READINESS",
+  "schema_version": "phase-route-vla.v3.d9e-runner-readiness.v1",
+  "timestamp_utc": "2026-08-23T04:18:30.022+00:00",
+  "source_git_commit": "9941c81078605700a8c2fec6ede78f896bcd2dc9",
+  "source_worktree_dirty": false,
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "CUDA_initialized": false
+  },
+  "input_attestation_sha256": {
+    "results/v3/v3_d9c_collection_attestation.json": "e4994368622590ec0cce0beb02b870f9a28e4c2f04fd9f1f93f424cb98d9292d",
+    "results/v3/v3_d9d_collection_attestation.json": "f8b3421948ca6c8ccfda6837afde9cfec0a7dbd6cee61987eb03e2dee2f6ea65"
+  },
+  "bound_code_sha256": {
+    "a1/vla/dynamic_compute/v3/independent_test_aggregate.py": "d051271f49cd076325aa041bea2b2bcb658b0a70346f50567a2bb634c1e5dbcc",
+    "scripts/dynamic_compute/v3/aggregate_v3_d9e_final.py": "063b3cb6a38a61939b329c1f293992a00c54e5b383ade0c4766ad534c232c7e6",
+    "scripts/dynamic_compute/v3/validate_v3_d9e_runner_contract.py": "d509e9602df239c2775e04603cd6e0458f2ce2460a5a169075371dd9dcd304fa",
+    "tests/dynamic_compute/v3/test_independent_test_aggregate.py": "b72cd0e10fbdda4625f991545f9500a235a23bfff79649cf6b6987f2e7689075"
+  },
+  "frozen_statistical_definitions": {
+    "pairs": 100,
+    "pairs_per_task": 10,
+    "bootstrap_resamples": 100000,
+    "bootstrap_seed": 60260821,
+    "bootstrap_percentile": 0.05,
+    "bootstrap_quantile_method": "numpy_linear",
+    "safe_cluster": "unique task_episode with at least one selected L11_or_L13 call",
+    "false_safe_cluster": "safe cluster with any full_action_or_gripper_unsafe early call",
+    "head_range_denominator": "all actually evaluated L11_or_L13 runtime candidate rows",
+    "efficiency": "one_minus_PhaseRoute_FM_per_call_divided_by_A1_FM_per_call",
+    "all_primary_criteria_conjunctive": true
+  },
+  "validation": {
+    "targeted_regression": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--disable-warnings",
+        "tests/dynamic_compute/v3/test_independent_test_aggregate.py",
+        "tests/dynamic_compute/v3/test_independent_test_protocol.py",
+        "tests/dynamic_compute/v3/test_paired_active_collection.py",
+        "tests/dynamic_compute/v3/test_same_noise_replay.py"
+      ],
+      "exit_code": 0,
+      "output": ".................................                                        [100%]\n33 passed, 1 warning in 6.70s",
+      "pass": true
+    },
+    "python_compile": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "py_compile",
+        "a1/vla/dynamic_compute/v3/independent_test_aggregate.py",
+        "scripts/dynamic_compute/v3/aggregate_v3_d9e_final.py",
+        "scripts/dynamic_compute/v3/validate_v3_d9e_runner_contract.py",
+        "tests/dynamic_compute/v3/test_independent_test_aggregate.py"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "pip_check": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "WARNING: The directory '/home/haozheng/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nNo broken requirements found.",
+      "pass": true
+    }
+  },
+  "checks": {
+    "D9_contract_exact": true,
+    "D9C_collection_attestation_SHA_exact": true,
+    "D9D_collection_attestation_SHA_exact": true,
+    "bootstrap_resamples_seed_and_linear_quantile_frozen": true,
+    "safe_cluster_is_unique_episode_with_real_early_exit": true,
+    "false_safe_is_any_full_or_gripper_unsafe_early_call": true,
+    "head_range_denominator_is_all_evaluated_runtime_candidate_rows": true,
+    "FM_efficiency_uses_each_arm_FM_calls_per_policy_call": true,
+    "all_primary_gate_checks_are_conjunctive": true,
+    "one_cross_pair_aggregate_call_in_runner": true,
+    "runner_is_CPU_only_clean_and_nonoverwriting": true,
+    "runner_authenticates_D9C_D9D_and_readiness_before_outcome_load": true,
+    "runner_reports_early_exit_failure_without_causal_claim": true,
+    "runner_records_missing_online_router_predict_latency": true,
+    "targeted_synthetic_regression_pass": true,
+    "python_compile_pass": true,
+    "pip_check_pass": true,
+    "validation_did_not_initialize_CUDA": true,
+    "source_worktree_remains_clean": true,
+    "D9C_success_values_not_opened": true,
+    "D9D_truth_payloads_not_opened": true
+  },
+  "access_ledger": {
+    "D9_contract_opened": true,
+    "D9C_attestation_bytes_hashed": true,
+    "D9D_attestation_bytes_hashed": true,
+    "D9C_attestation_JSON_opened": false,
+    "D9C_pair_or_arm_files_opened": 0,
+    "D9C_success_values_opened": false,
+    "D9D_attestation_JSON_opened": false,
+    "D9D_truth_payloads_opened": 0,
+    "cross_pair_aggregate_calls": 0,
+    "D9_primary_gate_calls": 0,
+    "LIBERO_environment_created": false,
+    "model_or_router_loaded": false,
+    "CUDA_initialized": false
+  },
+  "authorization": {
+    "next_stage": "D9E_ONE_SHOT_FINAL_AGGREGATE",
+    "exact_D9C_and_D9D_evidence_only": true,
+    "second_independent_test_or_result_tuning": false
+  },
+  "claim_boundary": {
+    "readiness_is_D9_result": false,
+    "success_safety_efficiency_seen": false,
+    "D9_primary_gate_evaluated": false
+  }
+}

@@ -1,0 +1,244 @@
+{
+  "schema_version": "phase-route-vla.v3-d0-legacy-evidence-manifest.v1",
+  "manifest_id": "phaseroute-v3-d0-legacy-evidence-20260819-v1",
+  "source_root": "/data3/haozheng/A1/source",
+  "path_semantics": "source-root-relative-posix-no-symlinks",
+  "hash_algorithm": "sha256",
+  "forbidden_suffixes": [
+    ".ckpt",
+    ".init",
+    ".npy",
+    ".npz",
+    ".pickle",
+    ".pkl",
+    ".pt",
+    ".pth"
+  ],
+  "entry_count": 28,
+  "evidence": [
+    {
+      "id": "c2-fresh-offset-fit-report",
+      "stage": "C2",
+      "role": "ep30-39 fit boundary report",
+      "path": "reports/PHASEROUTE_V2_STAGE_C2_FRESH_OFFSET_FIT_PASS_20260810.md",
+      "size_bytes": 4357,
+      "sha256": "0349f2751dd9798c641303be680ce3cda9e698297dbe0c79f23a86a9d328ed1c"
+    },
+    {
+      "id": "c2-teacher-cache-audit-result",
+      "stage": "C2",
+      "role": "ep30-39 teacher cache lineage and episode boundary",
+      "path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_audit_20260810_v1/result.json",
+      "size_bytes": 7049,
+      "sha256": "8980228080f11ffe846e74f7310ab38f14987e8d46ccee068e8335bd69455275"
+    },
+    {
+      "id": "c2-ep30-39-index-result",
+      "stage": "C2",
+      "role": "ep30-39 metadata index publication result",
+      "path": "reports/phase_route_v4_stage_c2_fresh_fit_ep30_39_20260810_v1/result.json",
+      "size_bytes": 4655,
+      "sha256": "c228e4ad8962d50a645949415a00e3c8187f2a963bd01ddbf294183c082f565e"
+    },
+    {
+      "id": "c2-ep30-39-index-records",
+      "stage": "C2",
+      "role": "ep30-39 exact-key metadata rows",
+      "path": "reports/phase_route_v4_stage_c2_fresh_fit_ep30_39_20260810_v1/records.jsonl",
+      "size_bytes": 1048113,
+      "sha256": "416276d500bb0ce0cb584016c6250c6550aab17ea2402fd1784032b27233bc83"
+    },
+    {
+      "id": "c326-independent-selection-report",
+      "stage": "C3.26",
+      "role": "independent selection protocol report",
+      "path": "reports/PHASEROUTE_V2_STAGE_C326_INDEPENDENT_SELECTION_20260814.md",
+      "size_bytes": 6041,
+      "sha256": "0251f8b92894947877166238e5c427a933306031efd80b82c016c594ce39d1fe"
+    },
+    {
+      "id": "c326-independent-selection-audit-result",
+      "stage": "C3.26",
+      "role": "historical boundaries and exact selected episode keys",
+      "path": "reports/phase_route_v2_stage_c326_independent_shadow_selection_audit_20260814_v1/result.json",
+      "size_bytes": 6930,
+      "sha256": "1aa4b25d82b5a79f981d20df83348c0f0709e09fcf81d393ed643dbe4e9c9aab"
+    },
+    {
+      "id": "c327-independent-shadow-report",
+      "stage": "C3.27",
+      "role": "independent shadow execution report",
+      "path": "reports/PHASEROUTE_V2_STAGE_C327_INDEPENDENT_SHADOW_20260814.md",
+      "size_bytes": 7538,
+      "sha256": "21478b94a9ae5df3a4dcf83fb75127f1f44a27533433ada3fbc4e2c7cb371a69"
+    },
+    {
+      "id": "c327-independent-shadow-protocol-result",
+      "stage": "C3.27",
+      "role": "frozen selections and shadow-only protocol",
+      "path": "reports/phase_route_v2_stage_c327_independent_shadow_protocol_20260814_v1/result.json",
+      "size_bytes": 10688,
+      "sha256": "defb7dc0120868910e265652c870d951bde626d1612f419b73823810be2baa41"
+    },
+    {
+      "id": "c327-independent-shadow-summary-result",
+      "stage": "C3.27",
+      "role": "completed shadow pair summary",
+      "path": "reports/phase_route_v2_stage_c327_independent_shadow_summary_20260814_v1/result.json",
+      "size_bytes": 5227,
+      "sha256": "02880b6841c6b1c2f1b9250eee4f5d0e2856161f05135c994f590761cc8c9a81"
+    },
+    {
+      "id": "c349-metadata-index-report",
+      "stage": "C3.49",
+      "role": "metadata-only split and access-policy report",
+      "path": "reports/PHASEROUTE_V2_STAGE_C349_METADATA_INDEX_20260817.md",
+      "size_bytes": 8110,
+      "sha256": "e9d5e0c51ac07ea89a3eab84e5004acf655024662908d169511193b1bf154d96"
+    },
+    {
+      "id": "c349-metadata-index-result",
+      "stage": "C3.49",
+      "role": "metadata index integrity result",
+      "path": "reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/result.json",
+      "size_bytes": 8958,
+      "sha256": "fe45b998efe7a45ea9620937bcfedc4bcd0e3a574ee51409087f50a938f5f868"
+    },
+    {
+      "id": "c349-metadata-index-records",
+      "stage": "C3.49",
+      "role": "historical and prospective exact-key metadata rows",
+      "path": "reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/metadata_index.jsonl",
+      "size_bytes": 299774,
+      "sha256": "0c06574cb526e9068cce2195eacaa9f5ebae8689e527c336a50019dd6a0f5e0b"
+    },
+    {
+      "id": "c359-independent-evaluation-protocol-report",
+      "stage": "C3.59",
+      "role": "formal independent evaluation protocol report",
+      "path": "reports/PHASEROUTE_V2_STAGE_C359_INDEPENDENT_EVALUATION_PROTOCOL_20260819.md",
+      "size_bytes": 20621,
+      "sha256": "4a3163f8a3b61970a533f94354e7fff4eb5b8010aecaa14fcd3140241f3f06fa"
+    },
+    {
+      "id": "c359-independent-evaluation-protocol-result",
+      "stage": "C3.59",
+      "role": "formal scientific contract and one-shot bindings",
+      "path": "reports/phase_route_v2_stage_c359_independent_evaluation_protocol_20260819_v1/result.json",
+      "size_bytes": 111702,
+      "sha256": "d4c2a9f29ebd30903ef5b63402521f076eb15c856f60771f54c00ea9867632e8"
+    },
+    {
+      "id": "c359-independent-test-metadata-index",
+      "stage": "C3.59",
+      "role": "formal independent-test exact-key metadata",
+      "path": "reports/phase_route_v2_stage_c359_independent_evaluation_protocol_20260819_v1/independent_test_metadata_index.jsonl",
+      "size_bytes": 109450,
+      "sha256": "c713cf8e2d4140747cdf119fa9cc552441fafe98b01679120f279608899b0ed8"
+    },
+    {
+      "id": "c360-runner-red-team-report",
+      "stage": "C3.60",
+      "role": "runner red-team and protocol-freeze review",
+      "path": "reports/PHASEROUTE_V2_STAGE_C360_RUNNER_RED_TEAM_REVIEW_20260819.md",
+      "size_bytes": 11963,
+      "sha256": "9b6e0a6196cad8f7c7e0d75a412d03f8c6ab2cbd2ef9d7a7de00840740c6643f"
+    },
+    {
+      "id": "c360-v3-runner-contract-result",
+      "stage": "C3.60",
+      "role": "canonical v3 runner contract and frozen source closure",
+      "path": "reports/phase_route_v2_stage_c360_independent_runner_contract_20260819_v3/result.json",
+      "size_bytes": 39548,
+      "sha256": "976d0ac55ad664427348909a14c94bf19652814ce380ec0ebb5a2a50200a3f03"
+    },
+    {
+      "id": "c360-prefreeze-access-incident",
+      "stage": "C3.60",
+      "role": "pre-freeze access incident boundary",
+      "path": "reports/phase_route_v2_stage_c360_prefreeze_access_incident_20260819_v1/incident.json",
+      "size_bytes": 3078,
+      "sha256": "4abaaef3b9263d7c061ea2f7e6a447a83a4df6dc01bc080241c88fac86c956e5"
+    },
+    {
+      "id": "c360-runtime-readiness-incident",
+      "stage": "C3.60",
+      "role": "pre-marker runtime-readiness incident boundary",
+      "path": "reports/phase_route_v2_stage_c360_runtime_readiness_incident_20260819_v1/incident.json",
+      "size_bytes": 10072,
+      "sha256": "189675fb0d1bc2dac78813dc24d3c75a8f8e0f376c9fcd3f2360823a0997ed2b"
+    },
+    {
+      "id": "c361-independent-evaluation-summary-report",
+      "stage": "C3.61",
+      "role": "formal one-shot results and claim boundary",
+      "path": "reports/PHASEROUTE_V2_STAGE_C361_INDEPENDENT_EVALUATION_SUMMARY_20260819.md",
+      "size_bytes": 8435,
+      "sha256": "0a5e5a05ffc2fa7ec0f1dba2abfa9867bc708c40054338444a7a348bcd9bf60f"
+    },
+    {
+      "id": "c361-global-attempt-consumed-marker",
+      "stage": "C3.61",
+      "role": "irrevocably consumed global one-shot marker",
+      "path": "reports/phase_route_v2_stage_c361_independent_evaluation_20260819_v1.global_attempt_consumed.json",
+      "size_bytes": 662,
+      "sha256": "cc5d4872e0d6ee929ccf9398bad3d6b7f63520c9ad1f248bac1be5824e2c967a"
+    },
+    {
+      "id": "c361-context-result",
+      "stage": "C3.61",
+      "role": "formal context artifact publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_context_20260819_v1/result.json",
+      "size_bytes": 692,
+      "sha256": "91981f1bacbe18da183907152bf37a67107d3a48fd1501a3ce16cb9e475ba009"
+    },
+    {
+      "id": "c361-candidate-shard0-result",
+      "stage": "C3.61",
+      "role": "formal candidate shard 0 publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_candidate_shard00of04_gpu0_20260819_v1/result.json",
+      "size_bytes": 720,
+      "sha256": "26dbd53b4719d28f5bae10f28f7424f0c7059a865d0eabf165c9172b30ef6e8e"
+    },
+    {
+      "id": "c361-candidate-shard1-result",
+      "stage": "C3.61",
+      "role": "formal candidate shard 1 publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_candidate_shard01of04_gpu1_20260819_v1/result.json",
+      "size_bytes": 720,
+      "sha256": "e27a8c52e1ba521cf10d1c08a40d7240f5307acfce9151eed21f76cc02f06e32"
+    },
+    {
+      "id": "c361-candidate-shard2-result",
+      "stage": "C3.61",
+      "role": "formal candidate shard 2 publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_candidate_shard02of04_gpu2_20260819_v1/result.json",
+      "size_bytes": 720,
+      "sha256": "ea3867e538b637c58bfca4c18af20caa2f7b3281c9791444b7bbd98e43c86fc4"
+    },
+    {
+      "id": "c361-candidate-shard3-result",
+      "stage": "C3.61",
+      "role": "formal candidate shard 3 publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_candidate_shard03of04_gpu3_20260819_v1/result.json",
+      "size_bytes": 720,
+      "sha256": "e16322779d4c97a2137528667e77472ad37b06fd0e2a927e9f7d3faba4b935fd"
+    },
+    {
+      "id": "c361-aggregate-result",
+      "stage": "C3.61",
+      "role": "formal aggregate artifact publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_aggregate_20260819_v1/result.json",
+      "size_bytes": 696,
+      "sha256": "16a78d90c3eec9b4bed52756ddc30b8787fbe42f20415ab6fcf997c01b29f118"
+    },
+    {
+      "id": "c361-evaluation-result",
+      "stage": "C3.61",
+      "role": "formal evaluation artifact publication result",
+      "path": "reports/phase_route_v2_stage_c361_independent_evaluation_20260819_v1/result.json",
+      "size_bytes": 698,
+      "sha256": "b696c9df07b1d83282af8699440919e8f6a835cc68f9ebaba3a6339b23d3a7c2"
+    }
+  ]
+}

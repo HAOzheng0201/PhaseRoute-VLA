@@ -1,0 +1,86 @@
+{
+  "status": "PASS_V3_D9A_RUNTIME_ADAPTER_AND_D8_PARITY",
+  "schema_version": "phase-route-vla.v3.d9a-runtime-adapter.v1",
+  "timestamp_utc": "2026-08-22T05:15:37.952+00:00",
+  "source_git_commit": "32c6f704edbd0329713208af62161b05c0a3b573",
+  "source_worktree_dirty": false,
+  "contract_stage": "implement_runtime_adapter_and_prove_synthetic_plus_D8_cached_parity",
+  "frozen_inputs_sha256": {
+    "reports/v3_d8_fresh_context/fresh_context.pt": "3941ea81f1387da819f5ab9c12612bb3aa954d90d2b7e26dd9a7dfc3994b3785",
+    "reports/v3_d8_fresh_dataset/fresh_confirmation_dataset.pt": "411b3d68b2e4326573722a616b5fcf7862fbcc6b85f499be7cdf0877a8889327",
+    "reports/v3_d8_final_router/final_router.pt": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+    "reports/v3_d8_confirmation/confirmation_scoring.pt": "b225ebec9bfd55044a5b856dd09ad9b5b14278164172d93d525d10309472ffba"
+  },
+  "code_sha256": {
+    "a1/vla/dynamic_compute/v3/runtime_adapter.py": "e59e4be457ceeab3e032f0f10eaeb7264ed72422bd0831f8b5bae6720e0b4341",
+    "a1/vla/dynamic_compute/v3/development_collection.py": "de61515a7a75d3173bb93d5516f10143842f12886f80b09c86d1cd2e3aaf71c8",
+    "a1/vla/dynamic_compute/v3/final_router.py": "92561eff0fce05597ade8075731d3c4fa68d75232b7db756476aca8d117ffae7",
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "tests/dynamic_compute/v3/test_runtime_adapter.py": "397f4edd82bc52e7d7908327eab1366bdef5c787ae51943129c6277d82fc5833",
+    "tests/dynamic_compute/test_productive_exit.py": "21f999eb280c34297af3cebf6b23f68cea5f89c45921562f2421db2479bb135f",
+    "scripts/dynamic_compute/v3/validate_v3_d9a_runtime_adapter.py": "4ce62b76707100995bedd09c156b9b5ea6838edcd00280a8c63fcf27925e5fd3"
+  },
+  "router_state_sha256": "d852a08c4d9fefb3884d0a28f47557aac5809ebea5384ed67e20031d1bf8f653",
+  "synthetic_smoke": {
+    "L11_selected": true,
+    "L13_selected_after_L11_veto": true,
+    "L27_fallback": true,
+    "nonfinite_fail_closed": true,
+    "episode_history_reset": true,
+    "selected_action_exactness": true
+  },
+  "shared_noise_RNG_smoke": {
+    "RNG_state_exact_after_every_candidate": true,
+    "L11_L13_shared_input_exact": true,
+    "L11_L27_shared_input_exact": true
+  },
+  "D8_exact_parity": {
+    "policy_calls": 7140,
+    "candidate_rows": 14280,
+    "feature_dimension": 97,
+    "selected_layer_exact_matches": 7140,
+    "candidate_safe_exact_matches": 14280,
+    "five_head_prediction_max_abs_error": 0.0,
+    "selection_counts": {
+      "L11": 234,
+      "L13": 775,
+      "L27": 6131
+    }
+  },
+  "checks": {
+    "synthetic_all_required_branches_pass": true,
+    "shared_candidate_noise_and_RNG_preservation_pass": true,
+    "D8_policy_calls_exactly_7140": true,
+    "D8_candidate_rows_exactly_14280": true,
+    "D8_97D_features_exact": true,
+    "D8_selected_layer_exact_7140_of_7140": true,
+    "D8_candidate_safe_exact_14280_of_14280": true,
+    "D8_five_head_prediction_max_abs_error_at_most_1e-12": true,
+    "router_weights_normalizers_thresholds_unchanged": true,
+    "candidate_identity_not_in_97D_context": true,
+    "official_episode_40_49_not_opened": true,
+    "active_control_not_run": true,
+    "no_fit_threshold_or_feature_selection": true
+  },
+  "access_ledger": {
+    "synthetic_inputs_used": true,
+    "already_analyzed_D8_cached_inputs_opened": 4,
+    "D8_router_payload_opened": true,
+    "independent_test_selection_metadata_opened": false,
+    "independent_test_sample_state_payload_opened": false,
+    "LIBERO_episode_40_49_init_states_opened": false,
+    "model_checkpoint_opened": false,
+    "GPU_query_or_initialization": 0,
+    "fit_calls": 0,
+    "threshold_or_feature_searches": 0,
+    "test_rollouts": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D9B_READINESS_ATTESTATION_ONLY",
+    "episode_40_49_state_access": false,
+    "independent_test_sample_payload_access": false,
+    "active_test_rollout": false,
+    "deployment": false
+  }
+}

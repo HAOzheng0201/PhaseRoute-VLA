@@ -1,0 +1,57 @@
+{
+  "status": "PASS_V3_D8A_D8B_READINESS",
+  "schema_version": "phase-route-vla.v3.d8-readiness-attestation.v1",
+  "timestamp_utc": "2026-08-21T14:02:26.840+00:00",
+  "source_git_commit": "8544d33c23143142d83ddce817cfde7f7549f948",
+  "source_worktree_dirty": false,
+  "bound_artifacts": {
+    "D8_contract_sha256": "148a6e7208582958198b8f1265bb715c75e31bc0c282c7f588412ba9c6ba2c17",
+    "D8_schedule_sha256": "6a532130ec9ddad5d235cc342e44148a9324f9e0592a1554e3dac9f51956b920",
+    "D8A_result_path": "reports/v3_d8_fresh_states/result.json",
+    "D8A_result_sha256": "ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622",
+    "D8A_payload_path": "reports/v3_d8_fresh_states/fresh_states.pt",
+    "D8A_payload_sha256": "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f",
+    "D8B_result_path": "reports/v3_d8_final_router/result.json",
+    "D8B_result_sha256": "76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d",
+    "D8B_payload_path": "reports/v3_d8_final_router/final_router.pt",
+    "D8B_payload_sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830"
+  },
+  "readiness_checks": {
+    "all_200_fresh_states_present": true,
+    "two_generation_passes_byte_identical": true,
+    "all_initial_success_predicates_false": true,
+    "all_task_local_states_unique": true,
+    "final_five_head_router_deserializes": true,
+    "final_threshold_bound": true,
+    "D8A_preceded_policy_rollout": true,
+    "D8B_used_development_only": true,
+    "fresh_policy_rollout_not_started": true,
+    "official_episode_40_49_remain_sealed": true,
+    "active_control_not_run": true
+  },
+  "access_ledger": {
+    "D8A_state_payload_opened_for_readiness_validation": true,
+    "D8B_router_payload_opened_for_readiness_validation": true,
+    "fresh_policy_rollouts": 0,
+    "fresh_candidate_labels_opened": false,
+    "calibration_or_test_payload_opened": false,
+    "official_episode_40_49_opened": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D8C_PROSPECTIVE_SHADOW_COLLECTION_AND_REPLAY",
+    "open_episode_40_49": false,
+    "active_control": false,
+    "deployment": false
+  },
+  "claim_boundary": {
+    "generated_states_are_official_LIBERO_fixed_benchmark_states": false,
+    "confirmation_is_official_independent_test_v2": false,
+    "shadow_consistency_is_closed_loop_D7_success": false,
+    "layer27_is_task_success_or_expert_certificate": false,
+    "estimated_FM_reduction_is_measured_end_to_end_latency": false,
+    "confirmation_pass_alone_authorizes_superiority_claim": false,
+    "confirmation_pass_alone_authorizes_deployment": false
+  }
+}

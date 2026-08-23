@@ -1,0 +1,54 @@
+{
+  "status": "PASS_V3_D7_EPISTEMIC_ENSEMBLE_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d7-contract-validation.v1",
+  "timestamp_utc": "2026-08-21T06:26:53.644+00:00",
+  "source_git_commit": "fe7647844cbb021f9e394cda752b6f0cecdf0707",
+  "source_worktree_dirty": false,
+  "contract": {
+    "path": "configs/research/v3/joint_reliability/d7_epistemic_ensemble_contract.json",
+    "sha256": "7e1f8934e33ae33493b950eabc1142c1f6cd7103ef7b4ad735d6c8b13a5afdea",
+    "contract_id": "phaseroute-v3-d7-delete-group-ucb-20260821-v1"
+  },
+  "bound_sha256": {
+    "D6_formal": "c8bda5b40afb93c5fe815e71224da1e0f99570e4b73970e4cf8489b78fd62fc6",
+    "D6_negative_analysis": "e3005e3dd51b5f712c034607d1130180a7d79e7f8354f7298b7840751f2b9fd7",
+    "D6_contract": "28185ce5431cf438d20cb7cfdfd0e20d5859b6a99f1bdafa81d18faef59fd7a1",
+    "D5_dataset_result": "7b4facd767594974359bef11edec83bbe3df66c3ee4c5c3981814992f792186d"
+  },
+  "frozen_design": {
+    "head_count": 5,
+    "feature_parameters": 970,
+    "full_action_score": "maximum_across_five_heads",
+    "gripper_score": "head_0_only",
+    "fits_per_outer": 260,
+    "total_model_fits": 4680,
+    "minimum_early_exit_fraction": 0.1,
+    "maximum_false_full_action_clusters": 3
+  },
+  "access_ledger": {
+    "JSON_metadata_files_opened": 5,
+    "tensor_payloads_deserialized": 0,
+    "model_fits": 0,
+    "calibration_v2_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "on_contract_validation_pass": "D7_REUSED_DEVELOPMENT_IMPLEMENTATION_AND_RUN",
+    "on_promising_selection": "FRESH_CONFIRMATION_DATA_PROTOCOL_DESIGN_ONLY",
+    "on_negative_selection": "D7_NEGATIVE_RESULT_ANALYSIS_ONLY",
+    "reuse_D3_calibration_for_repair": false,
+    "independent_test_authorized": false,
+    "active_control_authorized": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "D7_reuses_analyzed_development_data": true,
+    "D7_result_is_unbiased_D5_D6_comparison": false,
+    "D7_result_is_fresh_confirmation": false,
+    "D7_result_is_closed_loop_success": false,
+    "estimated_FM_reduction_is_measured_latency": false,
+    "superiority_claim_authorized": false
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "schema_version": "phase-route-vla.v3.gripper-v2-protocol-validation.v1",
+  "stage": "V3-D1",
+  "status": "PASS_D1_GRIPPER_V2_PROTOCOL_FROZEN",
+  "protocol": {
+    "path": "configs/research/v3/gripper_v2/protocol.json",
+    "id": "phaseroute-v3-d1-gripper-v2-20260820-v1",
+    "schema_version": "phase-route-vla.v3.gripper-v2-protocol.v1",
+    "raw_sha256": "3a5f5ebe49ddee093dc352ab4d46f7bbfea66486bc94d12d925d4eb40d2eaad2",
+    "canonical_sha256": "4bc9f362109da704b828b42d49f208e62cdee92a9fe8f13e0e4480500c3678a5"
+  },
+  "verified_bindings": [
+    {
+      "id": "D0 result",
+      "path": "results/v3/v3_d0_data_lineage_audit.json",
+      "sha256": "64d1159b3941fe1e7b806da981a0f47297758dcc2cad87d4e283d03db3a71c4b"
+    },
+    {
+      "id": "legacy evidence manifest",
+      "path": "docs/research/v3/legacy_evidence_manifest.json",
+      "sha256": "4ae5b617525a1f575f62700ab46434a1c9e8b20b9d13863b7ae8787f74c0ea6a"
+    },
+    {
+      "id": "development_v2 selection",
+      "path": "configs/research/v3/data_lineage/development_v2.json",
+      "sha256": "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb"
+    },
+    {
+      "id": "calibration_v2 selection",
+      "path": "configs/research/v3/data_lineage/calibration_v2.json",
+      "sha256": "6f2b2817985740298a06c4412b2f857624ac16c98d174d3ad03f1acca238f79e"
+    },
+    {
+      "id": "independent_test_v2 selection",
+      "path": "configs/research/v3/data_lineage/independent_test_v2.json",
+      "sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4"
+    },
+    {
+      "id": "legacy C3.55 negative result",
+      "path": "<LEGACY_SOURCE>/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json",
+      "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678"
+    }
+  ],
+  "data_roles": [
+    {
+      "role": "development_v2",
+      "key_count": 180,
+      "selection_sha256": "59af8441d4207b23e4ade2dff5b987d70490e9f6ab7aff50b97255e0292436eb",
+      "first_label_access_stage": "V3-D2"
+    },
+    {
+      "role": "calibration_v2",
+      "key_count": 100,
+      "selection_sha256": "6f2b2817985740298a06c4412b2f857624ac16c98d174d3ad03f1acca238f79e",
+      "first_label_access_stage": "V3-D3"
+    },
+    {
+      "role": "independent_test_v2",
+      "key_count": 100,
+      "selection_sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4",
+      "first_label_access_stage": "V3-D7"
+    }
+  ],
+  "legacy_negative_result_preserved": true,
+  "target_contract": {
+    "synthetic_truth_table_sha256": "2cf830527ed04b0a08e2c227c06419097b89e002de7be28a7c5f5eb0a68fa2e4",
+    "step_support": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "transition_support": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "continuous_positive_magnitude_target_allowed": false
+  },
+  "feature_contract": {
+    "dimension": 97,
+    "layout": "82D_legacy_causal_plus_8D_sign_plus_7D_transition",
+    "runtime_input_names": [
+      "instruction_summary",
+      "vision_crop_summary",
+      "vision_crop_mask",
+      "phase_embedding",
+      "phase_scalars",
+      "normalized_proprio",
+      "proprio_history",
+      "action_history",
+      "history_mask",
+      "current_candidate_action",
+      "candidate_layer"
+    ],
+    "forbidden_runtime_names": [
+      "behavior_action",
+      "behavior_exit",
+      "call_ordinal",
+      "dataset_index",
+      "done",
+      "episode_index",
+      "full_depth_action",
+      "full_depth_delta",
+      "future_observation",
+      "future_proprio",
+      "layer27_candidate_action",
+      "other_decision_layer_candidate_action",
+      "reward",
+      "seed",
+      "success",
+      "task_id",
+      "teacher_action"
+    ],
+    "teacher_or_other_candidate_visible": false
+  },
+  "fold_contract": {
+    "outer_folds": 18,
+    "inner_folds_per_outer": 17,
+    "assignment_sha256": "3bde764d07ecf14c1cd3494f21205a70cb714eefefed25c58d4e8bc5d7a91388",
+    "all_calls_and_layers_stay_in_group": true
+  },
+  "model_comparison": {
+    "baseline": "zero_truncated_binomial_glm",
+    "primary": "ordinal_cumulative_link_glm",
+    "primary_fixed_before_labels": true,
+    "post_label_switch_allowed": false
+  },
+  "gate_contract": {
+    "minimum_support": {
+      "zero_per_layer_target": 100,
+      "positive_per_layer_target": 100,
+      "insufficient_support_disposition": "INCONCLUSIVE_NO_FIT_NO_ROW_DROP"
+    },
+    "occurrence": {
+      "targets": [
+        "step",
+        "transition"
+      ],
+      "scopes": [
+        "overall",
+        "layer11",
+        "layer13"
+      ],
+      "brier_skill_strictly_above": 0.0,
+      "auroc_strictly_above": 0.5,
+      "all_target_scopes_required": true
+    },
+    "conditional_count": {
+      "comparator": "zero_truncated_binomial_glm",
+      "primary": "ordinal_cumulative_link_glm",
+      "metric": "positive_only_conditional_nll_ratio",
+      "overall_ratio_strictly_below": 1.0,
+      "layer_target_scope_count": 4,
+      "minimum_strictly_improved_layer_target_scopes": 3,
+      "worst_layer_target_ratio_at_most": 1.01,
+      "crps_required_to_report": true
+    },
+    "expected_fraction": {
+      "comparator": "fold_train_layer_mean_hurdle",
+      "metric": "raw_sse_ratio",
+      "ratio_strictly_below": 1.0,
+      "targets": [
+        "step",
+        "transition"
+      ],
+      "scopes": [
+        "overall",
+        "layer11",
+        "layer13"
+      ],
+      "all_target_scopes_required": true
+    },
+    "group_robustness": {
+      "metric": "outer_episode_conditional_count_nll_improvement",
+      "primary_value": "equal_mean_of_positive_only_ordinal_nll_over_10_tasks_x_2_layers_x_2_targets",
+      "comparator_value": "equal_mean_of_positive_only_zt_binomial_nll_over_10_tasks_x_2_layers_x_2_targets",
+      "missing_positive_task_layer_target_cell": "INCONCLUSIVE",
+      "improvement_formula": "primary_value<comparator_value",
+      "minimum_improved_outer_episodes": 13,
+      "total_outer_episodes": 18,
+      "ties_are_not_improvements": true,
+      "one_sided_exact_sign_test_p_upper_bound": 0.05
+    },
+    "full_pass": "occurrence_pass AND expected_fraction_pass AND group_robustness_pass AND all_4_layer_target_count_nll_ratios_below_1",
+    "focused_pass_non_deployable": "occurrence_pass AND expected_fraction_pass AND group_robustness_pass AND count_overall_both_targets_below_1 AND at_least_3_of_4_layer_target_ratios_below_1 AND worst_layer_target_ratio_at_most_1.01",
+    "failure_disposition": "NEGATIVE_RESULT_FROZEN_NO_CALIBRATION"
+  },
+  "tail_veto_contract": {
+    "independent_head": true,
+    "formula": "route_safe=motion_safe AND tail_ucb_safe AND gripper_safe",
+    "gripper_score_may_compensate_tail_failure": false,
+    "missing_or_nonfinite_tail": "force_deeper_compute",
+    "tail_is_collision_or_success_certificate": false,
+    "tail_calibration_before_runtime_required": true
+  },
+  "access_ledger": {
+    "protocol_json_opened": 1,
+    "d0_result_json_opened": 1,
+    "legacy_manifest_hashed": 1,
+    "selection_json_opened": 3,
+    "legacy_c355_result_json_opened": 1,
+    "fresh_development_payload_opened": 0,
+    "calibration_payload_opened": 0,
+    "independent_test_payload_opened": 0,
+    "c361_row_payload_opened": 0,
+    "model_fits": 0,
+    "gpu_operations": 0
+  },
+  "claim_boundary": {
+    "fresh_development_payload_opened": false,
+    "calibration_payload_opened": false,
+    "independent_test_payload_opened": false,
+    "c361_row_payload_opened": false,
+    "model_trained": false,
+    "checkpoint_selected": false,
+    "calibrator_fitted": false,
+    "runtime_threshold_selected": false,
+    "shadow_rollout_run": false,
+    "active_control_run": false,
+    "method_performance_claim": false,
+    "superiority_claim": false
+  },
+  "process_boundary": {
+    "cuda_visible_devices": "",
+    "forbidden_modules_loaded": [],
+    "stdlib_only": true
+  },
+  "implementation_sha256": {
+    "gripper_v2_protocol.py": "a9d56ccb759c082a27673a4f1297ce6bd0e705d43fa0a3e40b602569af234ec3",
+    "validate_v3_gripper_v2_protocol.py": "4835e1cfd369e99801607ba46de38ef1bb6cac7d4a3286bae86e1b2c3dcb6fd7"
+  },
+  "next_stage": {
+    "authorized": "V3-D2_FRESH_DEVELOPMENT_COLLECTION_AND_NESTED_OOF_ONLY",
+    "development_role": "development_v2",
+    "calibration_or_test_authorized": false,
+    "runtime_or_control_authorized": false
+  }
+}

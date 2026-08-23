@@ -88,8 +88,13 @@ from a1.vla.dynamic_compute.exit_policy import (
 )
 from a1.vla.dynamic_compute.phase_depth_runtime import SafePhaseDepthRuntime
 from a1.vla.dynamic_compute.productive_exit import a1_fm10_rp_pep_plan
+from a1.vla.dynamic_compute.rollout_identity import resolve_policy_episode_id
 from a1.vla.dynamic_compute.vision_aggregation import (
     StaticVisionAggregationConfig,
+)
+from a1.vla.dynamic_compute.v3.active_runtime import (
+    ActivePhaseRouteRuntime,
+    load_frozen_phase_route_runtime,
 )
 
 from a1.data import build_rlds_train_dataloader
@@ -229,6 +234,12 @@ class GenerateConfig:
     # M4.20b RNG-preserving productive-exit pruning. Disabled preserves A1.
     rp_pep_enabled: bool = False
 
+    # V3-D9 frozen active router.  This opt-in mode is deliberately separate
+    # from legacy RP-PEP and M3 flags so libero_10 cannot be enabled by typo.
+    phase_route_v3_enabled: bool = False
+    phase_route_router_checkpoint: Optional[str] = None
+    phase_route_phase_checkpoint: Optional[str] = None
+
     # M4 static visual-token aggregation. Disabled preserves original A1.
     vision_aggregation_enabled: bool = False
     vision_keep_tokens: int = 64
@@ -264,6 +275,33 @@ def validate_config(cfg: GenerateConfig) -> None:
         assert cfg.exit_layer_id is None, (
             "phase-aware routing cannot be combined with a forced exit layer"
         )
+    if cfg.phase_route_v3_enabled:
+        assert cfg.rp_pep_enabled, "PhaseRoute V3 requires the frozen RP-PEP path"
+        assert cfg.task_suite_name == TaskSuite.LIBERO_10, (
+            "PhaseRoute V3 is frozen for libero_10"
+        )
+        assert cfg.phase_route_router_checkpoint, (
+            "phase_route_router_checkpoint is required"
+        )
+        assert Path(cfg.phase_route_router_checkpoint).is_file(), (
+            f"D8 router checkpoint not found: {cfg.phase_route_router_checkpoint}"
+        )
+        assert cfg.phase_route_phase_checkpoint, (
+            "phase_route_phase_checkpoint is required"
+        )
+        assert Path(cfg.phase_route_phase_checkpoint).is_file(), (
+            f"phase checkpoint not found: {cfg.phase_route_phase_checkpoint}"
+        )
+        assert not cfg.phase_depth_enabled, (
+            "PhaseRoute V3 cannot be combined with legacy phase-depth routing"
+        )
+        assert not cfg.vision_aggregation_enabled, (
+            "D9 isolates the frozen depth controller from visual aggregation"
+        )
+        assert cfg.learned_vision_aggregation_checkpoint is None, (
+            "D9 isolates the frozen depth controller from learned aggregation"
+        )
+        assert not cfg.fsdp, "PhaseRoute V3 readiness uses one non-FSDP GPU"
     if cfg.rp_pep_enabled:
         assert not cfg.phase_depth_enabled, (
             "RP-PEP cannot be combined with phase-aware depth routing"
@@ -271,9 +309,12 @@ def validate_config(cfg: GenerateConfig) -> None:
         assert cfg.exit_layer_id is None, (
             "RP-PEP cannot be combined with a forced exit layer"
         )
-        assert cfg.task_suite_name == TaskSuite.LIBERO_SPATIAL, (
-            "RP-PEP v1 is frozen for libero_spatial"
-        )
+        if cfg.phase_route_v3_enabled:
+            assert cfg.task_suite_name == TaskSuite.LIBERO_10
+        else:
+            assert cfg.task_suite_name == TaskSuite.LIBERO_SPATIAL, (
+                "RP-PEP v1 is frozen for libero_spatial unless explicit PhaseRoute V3 is enabled"
+            )
         assert cfg.action_head_flow_matching_inference_steps == 10, (
             "RP-PEP v1 requires exactly 10 flow-matching steps"
         )
@@ -679,6 +720,8 @@ def run_episode(
     vision_teacher_cache_writer=None,
     learnable_vision_aggregator=None,
     phase_depth_control_enabled=True,
+    episode_id_override: Optional[str] = None,
+    phase_route_runtime: Optional[ActivePhaseRouteRuntime] = None,
 ):
     """Run a single episode in the environment."""
     # Reset environment
@@ -715,6 +758,13 @@ def run_episode(
         and getattr(phase_depth_runtime, "enabled", False)
         and exit_controller is not None
     )
+    phase_route_enabled = bool(
+        phase_route_runtime is not None
+        and getattr(phase_route_runtime, "enabled", False)
+        and exit_controller is not None
+        and getattr(exit_controller, "phase_route_runtime_adapter", None)
+        is getattr(phase_route_runtime, "adapter", None)
+    )
     vision_teacher_cache_enabled = bool(
         vision_teacher_cache_writer is not None
         and getattr(vision_teacher_cache_writer, "enabled", False)
@@ -724,6 +774,7 @@ def run_episode(
         or phase_cache_enabled
         or phase_depth_enabled
         or vision_teacher_cache_enabled
+        or phase_route_enabled
     )
     vision_aggregation_config = None
     if cfg.vision_aggregation_enabled:
@@ -736,6 +787,16 @@ def run_episode(
             preserve_position_ids=cfg.vision_preserve_position_ids,
         )
     previous_action = None
+    policy_call_ordinal = 0
+    policy_episode_id = None
+    if phase_route_enabled:
+        policy_episode_id = resolve_policy_episode_id(
+            cfg.task_suite_name,
+            task_id,
+            episode_idx,
+            episode_id_override,
+        )
+        phase_route_runtime.start_episode(policy_episode_id)
 
     def _exit_log_fn(message: str):
         # 始终写入统一日志
@@ -771,8 +832,11 @@ def run_episode(
             # 将日志回调传入模型，收集并记录早退信息
             observability_kwargs = {}
             if observability_enabled:
+                episode_id = policy_episode_id or resolve_policy_episode_id(
+                    cfg.task_suite_name, task_id, episode_idx, episode_id_override
+                )
                 policy_call_context = {
-                    "episode_id": f"{cfg.task_suite_name}:task{task_id}:episode{episode_idx}",
+                    "episode_id": episode_id,
                     "step_id": t,
                     "task_id": task_id,
                     "previous_action": previous_action,
@@ -808,6 +872,18 @@ def run_episode(
                             "vision_teacher_cache_context": policy_call_context,
                         }
                     )
+                if phase_route_enabled:
+                    phase_route_call_context = {
+                        name: policy_call_context[name]
+                        for name in ("episode_id", "step_id", "task_id")
+                    }
+                    phase_route_call_context["call_ordinal"] = policy_call_ordinal
+                    observability_kwargs.update(
+                        {
+                            "phase_route_runtime": phase_route_runtime,
+                            "phase_route_context": phase_route_call_context,
+                        }
+                    )
             actions = get_vla_action(
                 cfg,
                 model,
@@ -821,6 +897,7 @@ def run_episode(
                 learnable_vision_aggregator=learnable_vision_aggregator,
                 **observability_kwargs,
             )
+            policy_call_ordinal += 1
             action_queue.extend(actions)
 
         # Get action from queue
@@ -890,6 +967,7 @@ def run_task(
     vision_teacher_cache_writer=None,
     learnable_vision_aggregator=None,
     phase_depth_control_enabled=True,
+    phase_route_runtime: Optional[ActivePhaseRouteRuntime] = None,
 ):
     """Run evaluation for a single task."""
     # Get task
@@ -954,7 +1032,8 @@ def run_task(
             phase_depth_runtime,
             vision_teacher_cache_writer,
             learnable_vision_aggregator,
-            phase_depth_control_enabled,
+            phase_depth_control_enabled=phase_depth_control_enabled,
+            phase_route_runtime=phase_route_runtime,
         )
 
         # compute episode duration time
@@ -1100,6 +1179,22 @@ def eval_libero(cfg: GenerateConfig) -> float:
             log_file,
         )
 
+    phase_route_runtime = None
+    if cfg.phase_route_v3_enabled:
+        phase_route_runtime = load_frozen_phase_route_runtime(
+            cfg.phase_route_router_checkpoint,
+            cfg.phase_route_phase_checkpoint,
+        )
+        exit_controller.set_phase_route_runtime_adapter(phase_route_runtime.adapter)
+        artifacts = phase_route_runtime.artifacts
+        log_message(
+            "PhaseRoute V3 active runtime: "
+            f"router={artifacts.router_sha256}, "
+            f"phase={artifacts.phase_checkpoint_sha256}, "
+            f"phase_state={artifacts.phase_state_sha256}",
+            log_file,
+        )
+
     learned_vision_runtime = None
     if cfg.learned_vision_aggregation_checkpoint is not None:
         learned_vision_runtime = load_distilled_vision_aggregator(
@@ -1159,6 +1254,8 @@ def eval_libero(cfg: GenerateConfig) -> float:
                 if learned_vision_runtime is not None
                 else None
             ),
+            phase_depth_control_enabled=True,
+            phase_route_runtime=phase_route_runtime,
         )
 
     # Calculate final success rate
@@ -1210,6 +1307,16 @@ def eval_libero(cfg: GenerateConfig) -> float:
             f"plans={phase_depth_runtime.records_prepared}, "
             f"errors={phase_depth_runtime.error_count}, "
             f"last_error={phase_depth_runtime.last_error}",
+            log_file=None,
+        )
+    if phase_route_runtime is not None:
+        log_message(
+            "PhaseRoute V3 runtime: "
+            f"calls={phase_route_runtime.policy_calls}, "
+            f"prepared={phase_route_runtime.prepared_calls}, "
+            f"committed={phase_route_runtime.committed_calls}, "
+            f"errors={phase_route_runtime.error_count}, "
+            f"last_error={phase_route_runtime.last_error}",
             log_file=None,
         )
 

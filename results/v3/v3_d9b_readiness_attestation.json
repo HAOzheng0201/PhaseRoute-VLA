@@ -1,0 +1,206 @@
+{
+  "status": "PASS_V3_D9B_READINESS_FOR_ONE_SHOT_PAIRED_ACTIVE_TEST",
+  "schema_version": "phase-route-vla.v3.d9b-readiness-attestation.v1",
+  "timestamp_utc": "2026-08-22T13:11:04.317+00:00",
+  "source_git_commit": "3fe0c8155efdb13c24d351eaa3487d57e8ff5ea8",
+  "source_worktree_dirty": false,
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "torch_cuda_runtime": "12.4",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "CUDA_initialized": false,
+    "dry_run_physical_GPU": {
+      "physical_index": 0,
+      "uuid": "GPU-f52eda42-a640-8244-bcdb-e6201acae766",
+      "name": "NVIDIA RTX 6000 Ada Generation",
+      "memory_total_mib": 49140,
+      "driver_version": "570.133.07"
+    }
+  },
+  "bound_code_sha256": {
+    "a1/vla/dynamic_compute/v3/active_runtime.py": "c58eb90396c05b4c72af6a0694a1aa3ebe13100c6c93b71f181eca3f74786258",
+    "a1/vla/dynamic_compute/v3/runtime_adapter.py": "6315dce34c4777a8451e13c446b92d404577256d1e0657dc522070e460cbef98",
+    "a1/vla/dynamic_compute/v3/development_collection.py": "de61515a7a75d3173bb93d5516f10143842f12886f80b09c86d1cd2e3aaf71c8",
+    "a1/vla/dynamic_compute/v3/final_router.py": "92561eff0fce05597ade8075731d3c4fa68d75232b7db756476aca8d117ffae7",
+    "a1/vla/dynamic_compute/v3/independent_test_protocol.py": "6fda0cf1802329b9bbc012fdf40e7bea0322d6f69f6ba23b392f8d178a09408f",
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "a1/vla/affordvla_early_exit.py": "7edb6cc8e087a54c89fefbc3a26311b4f012fcab87ffd9771d214b9a1a3dd385",
+    "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+    "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd",
+    "tests/dynamic_compute/v3/test_active_runtime.py": "253d2dad67aff59d4715926d29efeee3eea42b9cc39a2432a37ec865fefeecd9",
+    "tests/dynamic_compute/v3/test_runtime_adapter.py": "41bbe93bc15ac3123e45b97a9c7b34307cfa6c71f7f61027d37857a8bdddc1d7",
+    "tests/dynamic_compute/test_productive_exit.py": "21f999eb280c34297af3cebf6b23f68cea5f89c45921562f2421db2479bb135f",
+    "scripts/dynamic_compute/v3/validate_v3_d9b_model_dry_run.py": "286795afdc380b4d07b7f2133101a13f60bc5a06ce76809f0f79dbcd59ee5878",
+    "scripts/dynamic_compute/v3/freeze_v3_d9b_readiness.py": "f1f3e056df28f65800fc302eb6bcf0cd5f69702ef69c17568a2eb5656b3b5af8"
+  },
+  "bound_artifacts": {
+    "D9_contract": {
+      "path": "configs/research/v3/independent_test/d9_paired_active_test_contract.json",
+      "sha256": "eea74662357d39737a3ac84b2d59059150ac4f098c6bddbfe695ba1ed64e59d3"
+    },
+    "D9_selection_metadata": {
+      "path": "configs/research/v3/data_lineage/independent_test_v2.json",
+      "sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4"
+    },
+    "D9A_result": {
+      "path": "results/v3/v3_d9a_runtime_adapter_validation.json",
+      "sha256": "fbf450a2beaab07e558e8e6d961bf7799b080e4afe98626d7ff477343d434acf"
+    },
+    "dry_run_result": {
+      "path": "/data3/haozheng/A1/worktrees/phaseroute-v3/reports/v3_d9b_model_dry_run/result.json",
+      "sha256": "89a1173023149ae910bb84ade602860eca205450a34a5f5dc0b898c4e0b270c3"
+    },
+    "A1_model": {
+      "directory": "/data3/haozheng/A1/worktrees/phaseroute-v3/model/v3_d2/libero_exit",
+      "model_path": "/data3/haozheng/A1/worktrees/phaseroute-v3/model/v3_d2/libero_exit/model.pt",
+      "model_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+      "model_identity": {
+        "file_size_bytes": 33841175207,
+        "file_inode": 32640614,
+        "file_device": 2080
+      },
+      "attestation_path": "/data3/haozheng/A1/source/reports/model_libero_exit_sha256_attestation_20260809_v1.json",
+      "attestation_sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab",
+      "sidecar_sha256": {
+        "config.yaml": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+        "exit_action_delta_matrix_libero_10_fm_steps10.json": "a0d0399b630953a9e0ef3b4ca09fe8a0fbde4b1ce6539ad5d911ad23fb6c812d",
+        "exit_thresholds_libero_10_exp_1.0.json": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+        "dataset_statistics.json": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3"
+      }
+    },
+    "A1_config_sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+    "A1_action_delta_sha256": "a0d0399b630953a9e0ef3b4ca09fe8a0fbde4b1ce6539ad5d911ad23fb6c812d",
+    "A1_exit_thresholds_sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+    "A1_dataset_statistics_sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3",
+    "A1_model_attestation_sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab",
+    "phase_checkpoint": {
+      "path": "/data3/haozheng/A1/source/reports/m2_phase_estimator_v1_seed20260803/phase_estimator.pt",
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "state_sha256": "8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598"
+    },
+    "D8_router": {
+      "path": "reports/v3_d8_final_router/final_router.pt",
+      "sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+      "state_sha256": "d852a08c4d9fefb3884d0a28f47557aac5809ebea5384ed67e20031d1bf8f653"
+    },
+    "LIBERO_gitlink": "160000 commit 8f1084e3132a39270c3a13ebe37270a43ece2a01\trobot_experiments/libero/LIBERO"
+  },
+  "current_code_D8_parity": {
+    "policy_calls": 7140,
+    "candidate_rows": 14280,
+    "selected_layer_exact_matches": 7140,
+    "candidate_safe_exact_matches": 14280,
+    "five_head_prediction_max_abs_error": 0.0,
+    "router_state_sha256_before": "d852a08c4d9fefb3884d0a28f47557aac5809ebea5384ed67e20031d1bf8f653",
+    "router_state_sha256_after": "d852a08c4d9fefb3884d0a28f47557aac5809ebea5384ed67e20031d1bf8f653",
+    "selection_counts": {
+      "L11": 234,
+      "L13": 775,
+      "L27": 6131
+    },
+    "pass": true
+  },
+  "real_model_dry_run_summary": {
+    "policy_calls": [
+      {
+        "call_ordinal": 0,
+        "shape": [
+          8,
+          7
+        ],
+        "finite": true,
+        "sha256": "321d384e69173c8ed88828ca65615fd3bef923f1dbf8600b7bc29d962a99228c",
+        "latency_seconds": 1.739445727027487,
+        "selected_layer": 27,
+        "history_valid_rows": 0
+      },
+      {
+        "call_ordinal": 1,
+        "shape": [
+          8,
+          7
+        ],
+        "finite": true,
+        "sha256": "9e4f9646cbbdaeff9f270afa5ee64769fdecb3ba1952b8840311faf3a9a94706",
+        "latency_seconds": 1.8794265820179135,
+        "selected_layer": 27,
+        "history_valid_rows": 1
+      }
+    ],
+    "runtime_counters": {
+      "policy_calls": 2,
+      "prepared_calls": 2,
+      "committed_calls": 2,
+      "errors": 0,
+      "last_error": null
+    },
+    "elapsed_seconds": 31.846423076000065
+  },
+  "regression": {
+    "command": [
+      "/home/haozheng/.conda/envs/a1/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "--disable-warnings",
+      "tests/dynamic_compute/v3",
+      "tests/dynamic_compute/test_productive_exit.py",
+      "tests/dynamic_compute/test_phase_estimator.py",
+      "tests/dynamic_compute/test_phase_depth_runtime.py",
+      "tests/dynamic_compute/test_phase_cache.py",
+      "tests/dynamic_compute/test_rollout_telemetry.py"
+    ],
+    "exit_code": 0,
+    "output": ".............................................................. [ 32%]\n............................................................ [ 63%]\n......................................................................   [100%]\n192 passed, 1 warning, 22 subtests passed in 34.52s",
+    "pass": true
+  },
+  "pip_check": {
+    "exit_code": 0,
+    "output": "WARNING: The directory '/home/haozheng/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nNo broken requirements found."
+  },
+  "readiness_checks": {
+    "D9_contract_and_selection_metadata_exact": true,
+    "D9A_frozen_evidence_exact": true,
+    "current_adapter_D8_parity_exact": true,
+    "real_model_non_control_dry_run_pass": true,
+    "dry_run_bound_to_clean_current_commit": true,
+    "A1_model_and_sidecars_attested": true,
+    "phase_checkpoint_exact": true,
+    "D8_router_exact": true,
+    "front_four_physical_GPU_and_UUID_bound": true,
+    "LIBERO_gitlink_exact": true,
+    "CPU_regression_pass": true,
+    "pip_check_pass": true,
+    "readiness_process_did_not_initialize_CUDA": true,
+    "official_episode_40_49_state_not_opened": true,
+    "active_control_not_run": true,
+    "no_fit_threshold_normalizer_or_feature_change": true
+  },
+  "access_ledger": {
+    "independent_test_selection_metadata_opened": true,
+    "independent_test_sample_state_payload_opened": false,
+    "LIBERO_episode_40_49_init_states_opened": false,
+    "already_analyzed_D8_cached_inputs_opened": 4,
+    "real_model_synthetic_policy_calls": 2,
+    "LIBERO_environment_created": false,
+    "environment_steps": 0,
+    "active_control": false,
+    "fit_calls": 0,
+    "threshold_normalizer_or_feature_changes": 0
+  },
+  "authorization": {
+    "authorized": "D9C_ONE_SHOT_PAIRED_ACTIVE_INDEPENDENT_TEST",
+    "exact_schedule_only": true,
+    "open_episode_40_49_only_under_frozen_D9C_runner": true,
+    "additional_test_tuning_or_second_independent_test": false,
+    "deployment": false
+  },
+  "claim_boundary": {
+    "readiness_is_independent_test_result": false,
+    "synthetic_dry_run_is_closed_loop_success": false,
+    "D9C_has_run": false,
+    "active_control_has_run": false,
+    "superiority_or_noninferiority_claim_authorized": false
+  }
+}

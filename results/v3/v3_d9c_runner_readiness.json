@@ -1,0 +1,136 @@
+{
+  "status": "PASS_V3_D9C_FROZEN_RUNNER_READINESS",
+  "schema_version": "phase-route-vla.v3.d9c-runner-readiness.v1",
+  "timestamp_utc": "2026-08-22T14:57:15.625+00:00",
+  "source_git_commit": "d2365349133fccee5f5c0bb569a97e5273f44c18",
+  "source_worktree_dirty": false,
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.6.0+cu124",
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "CUDA_initialized": false
+  },
+  "D9B": {
+    "path": "results/v3/v3_d9b_readiness_attestation.json",
+    "sha256": "a768d7ee3f123d6858fc850467deb7883afec2e3af2cf40921f9b4e7cfcb03f1",
+    "source_git_commit": "3fe0c8155efdb13c24d351eaa3487d57e8ff5ea8",
+    "bound_code_files": 14
+  },
+  "bound_code_sha256": {
+    "a1/vla/dynamic_compute/v3/paired_active_collection.py": "1b84d5546e8a715f7d3864da36e4042dc069f41bd0f66b9a2a2a72e6d48e834b",
+    "scripts/dynamic_compute/v3/run_v3_d9c_task.py": "92ac9cef9d5472394dbac8effdc00df88fbdae88685c4b8aa239df801156b5bb",
+    "scripts/dynamic_compute/v3/run_v3_d9c_front4.sh": "5a8d1d3839d414408d203a2a9abd94d974337ffbc50874ecc9b0d6413b71ef70",
+    "scripts/dynamic_compute/v3/freeze_v3_d9c_collection.py": "ab3b91fd830c74a7b51a59195feedd2ef89956106e6c7958be0de39f811e4151",
+    "scripts/dynamic_compute/v3/validate_v3_d9c_runner_contract.py": "13e32880deee6f5eb662e322e9f72949ce9e62aa8df93280115cc4e58ef422dd",
+    "tests/dynamic_compute/v3/test_paired_active_collection.py": "5f1f589f6ceddae31bca425fc6bb19f32a3e3ec1323f5955c1eb86521f9e9e14"
+  },
+  "schedule_summary": {
+    "tasks": 10,
+    "pairs": 100,
+    "rollouts": 200,
+    "episodes_per_task": 10,
+    "A1_first_pairs": 50,
+    "PhaseRoute_first_pairs": 50,
+    "physical_gpu_allowlist": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "validation": {
+    "targeted_regression": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--disable-warnings",
+        "tests/dynamic_compute/v3/test_paired_active_collection.py",
+        "tests/dynamic_compute/v3/test_active_runtime.py",
+        "tests/dynamic_compute/v3/test_runtime_adapter.py",
+        "tests/dynamic_compute/v3/test_independent_test_protocol.py"
+      ],
+      "exit_code": 0,
+      "output": ".............................                                            [100%]\n29 passed, 1 warning in 6.97s",
+      "pass": true
+    },
+    "shell_syntax": {
+      "command": [
+        "bash",
+        "-n",
+        "scripts/dynamic_compute/v3/run_v3_d9c_front4.sh"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "python_compile": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "py_compile",
+        "a1/vla/dynamic_compute/v3/paired_active_collection.py",
+        "scripts/dynamic_compute/v3/run_v3_d9c_task.py",
+        "scripts/dynamic_compute/v3/freeze_v3_d9c_collection.py",
+        "scripts/dynamic_compute/v3/validate_v3_d9c_runner_contract.py",
+        "tests/dynamic_compute/v3/test_paired_active_collection.py"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "pip_check": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "WARNING: The directory '/home/haozheng/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\nNo broken requirements found.",
+      "pass": true
+    }
+  },
+  "checks": {
+    "D9B_readiness_exact_and_control_code_unchanged": true,
+    "selection_has_exact_100_pairs": true,
+    "ten_tasks_each_have_episode_40_to_49": true,
+    "arm_order_exact_and_balanced": true,
+    "runner_uses_canonical_identity": true,
+    "runner_uses_frozen_arm_order": true,
+    "runner_requires_clean_worktree": true,
+    "runner_requires_explicit_resume": true,
+    "runner_caches_PhaseRoute_only": true,
+    "launcher_hard_limits_front_four": true,
+    "freezer_does_not_aggregate_D9_metrics": true,
+    "targeted_regression_pass": true,
+    "shell_syntax_pass": true,
+    "python_compile_pass": true,
+    "pip_check_pass": true,
+    "validation_did_not_initialize_CUDA": true,
+    "source_worktree_remains_clean": true,
+    "official_test_states_not_opened": true,
+    "active_rollouts_not_run": true
+  },
+  "access_ledger": {
+    "selection_metadata_opened": true,
+    "official_test_states_opened": false,
+    "LIBERO_environment_created": false,
+    "model_loaded": false,
+    "CUDA_initialized": false,
+    "active_rollouts": 0,
+    "success_safety_efficiency_aggregate_calls": 0
+  },
+  "authorization": {
+    "next_stage": "D9C_EXACT_ONE_SHOT_FRONT4_PREFLIGHT_AND_COLLECTION",
+    "exact_episode_40_49_schedule_only": true,
+    "physical_GPU_4_to_7": false,
+    "interim_aggregate": false
+  },
+  "claim_boundary": {
+    "runner_readiness_is_D9_result": false,
+    "active_control_has_run": false,
+    "D9_primary_gate_evaluated": false
+  }
+}

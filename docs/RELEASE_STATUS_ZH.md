@@ -1,47 +1,130 @@
 # PhaseRoute-VLA 发布状态
 
-发布日期：2026-08-05  
-发布方法：`rp_pep`  
-运行时默认：关闭，必须显式启用  
-学习式 router 运行许可：`false`
+更新日期：2026-08-23
 
-## 已验证能力
+当前研究方法：`phase_route_v3`
 
-| 能力 | 状态 | 证据 |
+历史正式 baseline：`rp_pep`
+
+运行时默认：关闭，必须显式启用
+
+授权范围：LIBERO 仿真研究复现；`deployment_authorized=false`
+
+## 1. 当前结论
+
+PhaseRoute V3 已完成从泄漏审计、development、independent calibration、fresh-state
+shadow confirmation、active runtime parity、100-pair active independent test 到冻结
+aggregate 的完整链路。D9 的 18/18 primary gates 全部通过，因此 V3 five-head router
+可以作为当前正式研究方法发布。
+
+这不会覆盖旧负结果：M4.28 task-jackknife router 的科学 gate 仍为 `NOT_VIABLE`，旧
+RP-PEP 的 20-pair exact-equivalence 结果也仍有效。三者必须按名称、suite 与证据分开。
+
+## 2. 已验证能力
+
+| 能力 | 状态 | 冻结证据 |
 |---|---|---|
-| A1 + LIBERO import | PASS | release preflight |
-| PyTorch 2.6 / CUDA 12.4 单卡计算 | PASS | CUDA smoke |
-| dynamic-compute 回归测试 | PASS | `tests/dynamic_compute/` |
-| RP-PEP 20-pair 闭环等价性 | PASS | `results/rp_pep_paired.json` |
-| 物理 GPU 0–3 四卡发布 smoke | PASS | `results/release_smoke_state30.json` |
-| checkpoint / threshold / result SHA gate | PASS | `a1/vla/dynamic_compute/release.py` |
-| learned router 工程完整性 | PASS | `results/router_sealed.json` |
-| learned router 科学安全门 | **NOT_VIABLE** | 10 门通过 5 门 |
+| V3 router + phase payload 严格加载 | PASS | `artifacts/phase_route_v3/MANIFEST.json` |
+| 97D causal context 与 fail-closed runtime | PASS | `tests/dynamic_compute/v3/` |
+| 单卡 active runtime parity | PASS | V3-D9A/D9B readiness |
+| LIBERO-10 100-pair active independent test | PASS | `results/v3/v3_d9_final_result.json` |
+| primary science/engineering gates | 18 / 18 PASS | 同上 |
+| clean-clone CPU release gate | PASS | `scripts/validate_phase_route_v3_release.py` |
+| GPU 0–3 UUID 绑定与单卡 preflight | PASS | V3 launcher/preflight |
+| 通用 task/state 选择与 non-overwrite 输出 | PASS | V3 launcher tests |
+| 真实机器人部署 | **NOT VALIDATED** | 不在当前授权范围 |
 
-## 正式 RP-PEP 结果
+## 3. PhaseRoute V3 正式结果
 
-冻结网格：LIBERO Spatial task 0–9、episode indices 27 和 28、相同 seed/checkpoint，共 20 个配对 episode、40 次 rollout。
+冻结测试：LIBERO-10 task 0–9 × official init-state indices 40–49，共 100 pair、200
+rollout。每对使用相同 task、initial state 和预注册的 arm-specific seed。
 
-| 指标 | 结果 |
+| 指标 | Original A1 | PhaseRoute V3 |
+|---|---:|---:|
+| successes | 85 / 100 | 88 / 100 |
+| success rate | 85% | 88% |
+| FM calls | 39,996 | 24,776 |
+| policy calls | 3,788 | 3,700 |
+| FM calls / policy call | 10.5586 | 6.6962 |
+| normalized FM-call reduction | — | 36.58% |
+| L11 / L13 / L27 | — | 100 / 412 / 3,188 |
+| early-exit calls | — | 512 / 3,700 = 13.84% |
+| false-safe calls / clusters | — | 0 / 0 |
+| exact CP-UCB95 | — | 2.951% |
+
+成功率差为 `+3 pp`，task-stratified one-sided 95% bootstrap lower bound 为 `-2 pp`，
+通过预注册的 non-degradation gate。McNemar equality `p=0.5078`，所以不能写成“显著
+优于 A1”。FM 指标不包含 router latency，因此不能把 36.58% 直接称为 wall-clock
+speedup。
+
+正式 result SHA-256：
+
+```text
+4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952
+```
+
+## 4. 提前退出与失败
+
+| 描述性统计 | 数量 |
 |---|---:|
-| baseline successes | 20 / 20 |
-| RP-PEP successes | 20 / 20 |
-| success mismatches | 0 |
-| action SHA mismatches | 0 |
-| exit-layer sequence mismatches | 0 |
-| policy-call count mismatches | 0 |
-| trajectory mismatches | 0 |
-| FM solve reduction | 41.11% |
-| weighted mean latency reduction | 31.06% |
-| median latency reduction | 29.91% |
+| PhaseRoute failures | 12 |
+| failures with any early exit | 12 |
+| failures with unsafe early call | 0 |
+| A1 success / PhaseRoute failure | 3 |
+| 其中 with unsafe early call | 0 |
 
-可声明：在这组冻结配对实验中，RP-PEP 保持动作、退出序列和轨迹精确一致，同时降低 FM 调用和策略延迟。
+这是共现统计，不是因果统计。same-noise L27 truth 没有发现 unsafe early call，但 L27
+也不是 task-success certificate。只有在全新数据上对事前指定的 early call 做配对 L27
+替换实验，才可能回答 causal effect。
 
-不可声明：这些 20 个配对 episode 不能代替四个 LIBERO suite 的大规模官方 benchmark，也不能单独证明跨 checkpoint、跨硬件或真实机器人泛化。
+## 5. 冻结运行 artifacts
 
-## 学习式 router 负结果
+| Artifact | 字节数 | SHA-256 |
+|---|---:|---|
+| A1 `model.pt`（外部下载） | 33,841,175,207 | `dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f` |
+| V3 five-head router | 22,290 | `9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830` |
+| phase estimator | 11,344,688 | `b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1` |
+| phase state | — | `8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598` |
+| LIBERO-10 threshold JSON | 236 | `a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796` |
 
-M4.28 task-jackknife router 完成了数据协议、训练、校验和一次性 sealed evaluation，但：
+两个小模型与阈值随 Git release 提供；34 GB A1 backbone 从固定 Hugging Face revision
+下载。launcher 在任何模型初始化前完成 byte size、SHA、payload schema、five-head
+数量和 phase-state 校验。
+
+## 6. 正式研究入口
+
+CPU/clean-clone：
+
+```bash
+make preflight-v3
+make test-v3-release
+```
+
+完整 artifact + 单 GPU preflight：
+
+```bash
+GPU_INDEX=0 PREFLIGHT_ONLY=1 make run-v3
+```
+
+普通仿真复现（不使用 D9 的 test schedule）：
+
+```bash
+GPU_INDEX=0 TASK_IDS=0 EPISODE_INDICES=0 make run-v3
+```
+
+launcher 只允许物理 GPU 0–3，用 GPU UUID 将进程限制为一张可见卡，固定
+`libero_10 / FM10 / exit_interval=2 / L11-L13-L27`，并保存 preflight、command、
+telemetry、runtime records、evaluation summary 与最终 attestation。
+
+## 7. 历史结果如何保留
+
+### RP-PEP
+
+LIBERO Spatial 20-pair：20/20 vs 20/20 success、动作/退出/轨迹 mismatch 为 0、FM
+solve reduction 41.11%、weighted mean latency reduction 31.06%。它是固定
+RNG-preserving candidate-pruning baseline，不是 V3 learned router。
+
+### M4.28 learned router
 
 ```text
 router_offline_gate: NOT_VIABLE
@@ -51,41 +134,28 @@ false-shallow records: 4
 affected episode groups: 3
 ```
 
-“3 个 episode group 受影响”不是“3 个闭环失败”。这批数据是离线 teacher-route 审计，不能把 false-shallow record 直接换算为闭环任务失败数。正式入口不会加载该 router。
+该负结果对应不同 feature、router 和 sealed set，不能概括为“所有 learned routing 都
+不可行”。四条 false-shallow 是离线记录，也不能写成四次闭环失败。
 
-## 冻结校验值
+## 8. 数据与声明边界
 
-| Artifact | SHA-256 |
-|---|---|
-| `model/libero_exit/config.yaml` | `9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca` |
-| `model/libero_exit/dataset_statistics.json` | `6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3` |
-| `model/libero_exit/model.pt` | `dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f` |
-| spatial threshold JSON | `5b3a0ee9f3851bf1b0c7f7e2b28bc61898ed0b4bd39f8752007719e9f26d7bd6` |
-| curated paired result | `5e8c2fa2e50a30a5911b29bab796e50d624a2971da649b4aa82333ba9beefb16` |
+LIBERO-10 official states 的角色已全部消耗：
 
-完整 manifest：`artifacts/MANIFEST.json`。
-
-## 正式入口
-
-单卡：
-
-```bash
-GPU_INDEX=0 NUM_EPISODES=50 make run-rp-pep
+```text
+0–11   historical
+12–29  development-v2
+30–39  calibration-v2
+40–49  consumed D9 independent-test-v2
 ```
 
-前四卡 smoke：
+因此：
 
-```bash
-make smoke-front4
-```
+- 不允许再用 40–49 选择模型、阈值或 ablation；
+- 不允许把新的 official-state run 称为第二次 unseen test；
+- 新 trainable ablation 必须各自重新训练 normalizer/router；
+- 新 confirmation 必须先冻结 generated-state protocol；
+- 旧 Spatial 20-pair 与 V3 LIBERO-10 100-pair 不可混表作直接排名；
+- 当前没有真实机器人、跨 suite、wall-clock latency 或 deployment 结论。
 
-两者均限制物理 GPU 0–3，使用 GPU UUID 绑定并拒绝覆盖已有运行目录。
-
-## 仍需由新实验回答的问题
-
-- 在四个 LIBERO suite 和更大 episode 网格上的成功率置信区间；
-- 不同驱动、GPU 和 PyTorch patch 版本下的延迟可迁移性；
-- 新 router 如何在不复用 M4.28 sealed set 的前提下建立独立验证集；
-- 动态视觉压缩与 RP-PEP 组合后能否继续保持闭环等价性。
-
-这些问题属于下一轮实验，不影响当前代码发布的工程完整性，但在论文中必须与已经验证的结论分开表述。
+消融和未来因果实验协议见
+`docs/research/v3/V3_D10_PAPER_ABLATION_MIGRATION_ZH.md`。

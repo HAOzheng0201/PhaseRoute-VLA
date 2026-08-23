@@ -1,0 +1,124 @@
+{
+  "status": "PASS_V3_D9_INDEPENDENT_TEST_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d9-contract-validation.v1",
+  "timestamp_utc": "2026-08-22T03:22:41.704+00:00",
+  "source_git_commit": "7ec913fe41f03888526f73226e365aba2d54823b",
+  "source_worktree_dirty": false,
+  "contract": {
+    "path": "configs/research/v3/independent_test/d9_paired_active_test_contract.json",
+    "sha256": "eea74662357d39737a3ac84b2d59059150ac4f098c6bddbfe695ba1ed64e59d3"
+  },
+  "selection_metadata": {
+    "sha256": "e2c1b2a11f84af9b71d588bf638d794c5a29870ace87b46b65960749e0f9bdf4",
+    "records": 100,
+    "task_counts": {
+      "0": 10,
+      "1": 10,
+      "2": 10,
+      "3": 10,
+      "4": 10,
+      "5": 10,
+      "6": 10,
+      "7": 10,
+      "8": 10,
+      "9": 10
+    },
+    "GPU_assignment_counts_for_future_execution": {
+      "0": 30,
+      "1": 30,
+      "2": 20,
+      "3": 20
+    },
+    "sample_state_payload_opened": false
+  },
+  "future_evaluation": {
+    "arms": [
+      "frozen_original_A1",
+      "frozen_PhaseRoute_D8"
+    ],
+    "pairs": 100,
+    "rollouts": 200,
+    "primary_gate": {
+      "all_criteria_are_conjunctive": true,
+      "required_complete_pairs": 100,
+      "required_complete_pairs_per_task": 10,
+      "required_rollouts": 200,
+      "PhaseRoute_success_rate_at_least": 0.75,
+      "PhaseRoute_minus_A1_success_rate_at_least": -0.05,
+      "PhaseRoute_minus_A1_successes_per_task_at_least": -2,
+      "paired_task_stratified_bootstrap": {
+        "statistic": "PhaseRoute_success_rate_minus_A1_success_rate",
+        "resample_within_each_task": true,
+        "resamples": 100000,
+        "seed": 60260821,
+        "one_sided_confidence": 0.95,
+        "lower_percentile": 0.05,
+        "lower_bound_at_least": -0.1
+      },
+      "PhaseRoute_early_exit_call_fraction_at_least": 0.1,
+      "all_10_tasks_nonzero_PhaseRoute_early_exit_calls": true,
+      "PhaseRoute_safe_clusters_at_least": 60,
+      "PhaseRoute_safe_clusters_per_task_at_least": 2,
+      "false_safe_cluster_exact_CP_UCB95_at_most": 0.05,
+      "false_full_action_clusters_at_most": 2,
+      "false_gripper_calls_at_most": 0,
+      "severe_false_full_action_clusters_at_most": 0,
+      "ensemble_head_range_above_1e-6_rows_at_least_fraction": 0.01,
+      "measured_FM_calls_per_policy_call_reduction_at_least": 0.25,
+      "always_defer_is_pass": false
+    },
+    "execution_order": {
+      "D9_contract": "freeze_and_validate_protocol_without_test_sample_access",
+      "D9A": "implement_runtime_adapter_and_prove_synthetic_plus_D8_cached_parity",
+      "D9B": "freeze_readiness_binding_adapter_router_model_schedule_and_clean_commit",
+      "D9C": "run_all_200_paired_active_rollouts_without_interim_aggregation",
+      "D9D": "same_noise_replay_for_all_PhaseRoute_early_calls",
+      "D9E": "one_shot_aggregate_all_success_efficiency_and_safety_gates",
+      "test_access_before_D9B_readiness": false,
+      "active_control_before_D9B_readiness": false
+    }
+  },
+  "checks": {
+    "D8_prospective_shadow_confirmation_pass_bound": true,
+    "contract_SHA_and_semantics_exact": true,
+    "selection_metadata_SHA_exact": true,
+    "all_100_task_episode_seed_records_exact": true,
+    "all_10_tasks_have_10_episode_records": true,
+    "episode_indices_exactly_40_to_49": true,
+    "paired_A1_and_PhaseRoute_arms_frozen": true,
+    "runtime_adapter_D8_parity_required_before_test_access": true,
+    "front_four_GPU_schedule_only": true,
+    "test_sample_state_payload_not_opened": true,
+    "active_control_not_run": true,
+    "no_fit_threshold_or_feature_selection": true
+  },
+  "access_ledger": {
+    "D8_formal_attestation_opened": true,
+    "independent_test_selection_metadata_opened": true,
+    "independent_test_sample_state_payload_opened": false,
+    "LIBERO_init_state_archive_opened": false,
+    "D8_router_model_payload_opened": false,
+    "model_checkpoint_opened": false,
+    "GPU_query_or_initialization": 0,
+    "fit_calls": 0,
+    "threshold_or_feature_searches": 0,
+    "test_rollouts": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "D9A_RUNTIME_ADAPTER_IMPLEMENTATION_AND_D8_PARITY_ONLY",
+    "episode_40_49_state_access": false,
+    "independent_test_sample_payload_access": false,
+    "active_control": false,
+    "deployment": false
+  },
+  "claim_boundary": {
+    "contract_validation_is_independent_test_result": false,
+    "D8_shadow_confirmation_is_active_control_success": false,
+    "paired_test_pass_is_universal_robot_safety": false,
+    "paired_test_pass_is_wall_clock_superiority": false,
+    "paired_test_pass_alone_authorizes_deployment": false,
+    "McNemar_equality_test_is_noninferiority_test": false,
+    "empirical_and_bootstrap_success_gates_must_be_reported_with_exact_definition": true
+  }
+}

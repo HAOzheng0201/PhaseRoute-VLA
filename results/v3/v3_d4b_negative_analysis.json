@@ -1,0 +1,97 @@
+{
+  "status": "PASS_V3_D4B_NEGATIVE_RESULT_ANALYSIS",
+  "schema_version": "phase-route-vla.v3.d4b-negative-analysis-attestation.v1",
+  "source_git_commit": "5e9936216d903c174c356c52f151407dadf3dcb6",
+  "source_worktree_dirty": false,
+  "formal_negative_result_reproduced": true,
+  "formal_report": {
+    "path": "reports/v3_d4b_negative_analysis/result.json",
+    "sha256": "77167b2f12c54375c0fb69ac8dd143fb844d128ff9e6f86f897236c843a02ca2"
+  },
+  "gate_support": {
+    "action_consistency": {
+      "L11_pass_calls": 2098,
+      "L13_pass_calls": 2804,
+      "unique_candidate_vetoes": 2,
+      "uncovered_clusters_with_sole_veto_near_miss": 0
+    },
+    "motion_safe": {
+      "L11_pass_calls": 1558,
+      "L13_pass_calls": 1555,
+      "unique_candidate_vetoes": 455,
+      "uncovered_clusters_with_sole_veto_near_miss": 42
+    },
+    "tail_ucb_safe": {
+      "L11_pass_calls": 3272,
+      "L13_pass_calls": 3271,
+      "unique_candidate_vetoes": 0,
+      "uncovered_clusters_with_sole_veto_near_miss": 0
+    },
+    "gripper_safe": {
+      "L11_pass_calls": 145,
+      "L13_pass_calls": 526,
+      "unique_candidate_vetoes": 2189,
+      "uncovered_clusters_with_sole_veto_near_miss": 42
+    }
+  },
+  "frozen_four_gate": {
+    "early_exit_calls": 152,
+    "safe_clusters": 58,
+    "false_safe_calls": 0,
+    "false_safe_clusters": 0,
+    "ucb95": 0.0503393383304201,
+    "formal_pass": false
+  },
+  "diagnostic_ablations": {
+    "leave_out_motion": {
+      "early_exit_calls": 515,
+      "safe_clusters": 100,
+      "false_safe_calls": 1,
+      "false_safe_clusters": 1,
+      "ucb95": 0.046559811453538935,
+      "diagnostic_gate_would_pass": true,
+      "runtime_authorized": false
+    },
+    "leave_out_tail": {
+      "early_exit_calls": 152,
+      "safe_clusters": 58,
+      "false_safe_calls": 0,
+      "false_safe_clusters": 0,
+      "ucb95": 0.0503393383304201,
+      "diagnostic_gate_would_pass": false,
+      "runtime_authorized": false
+    },
+    "leave_out_action_consistency": {
+      "early_exit_calls": 152,
+      "safe_clusters": 58,
+      "false_safe_calls": 1,
+      "false_safe_clusters": 1,
+      "ucb95": 0.07919781050002477,
+      "diagnostic_gate_would_pass": false,
+      "runtime_authorized": false
+    },
+    "leave_out_gripper": {
+      "early_exit_calls": 1357,
+      "safe_clusters": 100,
+      "false_safe_calls": 553,
+      "false_safe_clusters": 100,
+      "ucb95": 1.0,
+      "diagnostic_gate_would_pass": false,
+      "runtime_authorized": false
+    }
+  },
+  "scientific_interpretation": {
+    "gripper_gate_is_indispensable_on_calibration": true,
+    "action_consistency_catches_observed_full_action_error": true,
+    "tail_gate_is_redundant_within_current_four_gate_intersection": true,
+    "legacy_motion_gate_is_primary_coverage_bottleneck": true,
+    "posthoc_motion_removal_allowed": false,
+    "same_calibration_data_repair_allowed": false
+  },
+  "authorization": {
+    "next_stage": "NEW_DEVELOPMENT_ONLY_JOINT_RELIABILITY_PROTOCOL_DESIGN",
+    "active_control_authorized": false,
+    "independent_test_authorized": false,
+    "deployment_authorized": false
+  }
+}

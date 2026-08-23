@@ -1,0 +1,55 @@
+{
+  "status": "PASS_V3_D4A_SIGNAL_ADAPTER_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d4a-contract-validation.v1",
+  "source_git_commit": "b89982793c38e71a78381772169d1cc048b61ac5",
+  "contract": {
+    "path": "configs/research/v3/gripper_v2/d4a_signal_adapter_contract.json",
+    "sha256": "4c0a53521eaeac2be845cbafaba80c51596a89257e93bcfd78247df684aad13a",
+    "contract_id": "phaseroute-v3-d4a-signal-adapter-20260820-v1"
+  },
+  "bound_sha256": {
+    "d4_contract_validation": "8afdaac48a82a291f3602a1e3f87fccfe296658db3b80eb65053ec5cc4af5dcc",
+    "checkpoint": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+    "tail_calibration": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5"
+  },
+  "frozen_thresholds": {
+    "motion": {
+      "11": {
+        "translation_rms": 0.03213280713194666,
+        "rotation_rms": 0.038649997499361995
+      },
+      "13": {
+        "translation_rms": 0.014665028945979288,
+        "rotation_rms": 0.017045890401760883
+      }
+    },
+    "tail": {
+      "11": 0.16203777492046356,
+      "13": 0.0802953913807869
+    },
+    "action_consistency": 0.00390625,
+    "selected_from_v3_shadow_distribution": false
+  },
+  "access_ledger": {
+    "d4_validation_json_opened": true,
+    "legacy_artifacts_byte_hashed": 2,
+    "legacy_tensor_artifacts_deserialized": 0,
+    "v3_calibration_tensor_payload_opened": false,
+    "shadow_distribution_viewed": false,
+    "independent_test_payload_opened": false,
+    "gpu_query_or_initialization": 0,
+    "model_fit_or_threshold_search": 0
+  },
+  "next_stage": {
+    "authorized": "V3-D4A_SIGNAL_ADAPTER_IMPLEMENTATION_ONLY",
+    "formal_shadow_authorized": false,
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  },
+  "claim_boundary": {
+    "adapter_implemented": false,
+    "shadow_decision_run": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

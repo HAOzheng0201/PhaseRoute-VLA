@@ -1,0 +1,43 @@
+{
+  "status": "PASS_V3_D10_FROZEN_PAPER_ASSET_EXPORT",
+  "schema_version": "phase-route-vla.v3.d10-paper-analysis.v1",
+  "timestamp_utc": "2026-08-23T08:39:59.333+00:00",
+  "source_git_commit": "7ab230f7e31dfa592b6460df0ede7572d42330f5",
+  "source_worktree_dirty_at_entry": false,
+  "input": {
+    "path": "results/v3/v3_d9_final_result.json",
+    "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952"
+  },
+  "output_directory": "docs/research/v3/paper_assets",
+  "artifact_sha256": {
+    "d9_main_results.csv": "08e09a7b8473f85ddba3a6f7fa816ae5564838b8c2c495296159d87122e0dca0",
+    "d9_paired_outcomes.csv": "f545b5d4da84235b9f30fbd19ef776104dbba1656708335716175f2be51700e4",
+    "d9_per_task_results.csv": "119f0e13094d5bc8a96eb87fe03c9d620368179b52d51df78266700452a4c3c3",
+    "d9_primary_gates.csv": "23ff4c7d7dcf9bd929d792a1d7b9cb73fdb949e965b1f35b58a970db0f04fa1f",
+    "d9_result_overview.svg": "b9c9a3c155b7c097491294f4a049be7cd4236944ee7d881cbd4f0e6f8de85862"
+  },
+  "checks": {
+    "D9_formal_result_SHA_exact": true,
+    "D9_status_and_all_18_primary_gates_PASS": true,
+    "main_table_exported": true,
+    "per_task_table_exported": true,
+    "paired_outcome_table_exported": true,
+    "primary_gate_table_exported": true,
+    "vector_overview_exported": true,
+    "no_new_model_fit_threshold_search_or_rollout": true
+  },
+  "access_ledger": {
+    "frozen_D9_formal_results_opened": 1,
+    "raw_D9C_rollouts_opened": 0,
+    "raw_D9D_truth_payloads_opened": 0,
+    "new_model_fits": 0,
+    "new_threshold_searches": 0,
+    "new_rollouts": 0,
+    "CUDA_initialized": false
+  },
+  "claim_boundary": {
+    "paper_assets_add_new_experimental_evidence": false,
+    "cross_suite_or_real_robot_generalization_authorized": false,
+    "early_exit_failure_causality_authorized": false
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "status": "PASS_V3_D4_SHADOW_CONTRACT_FROZEN",
+  "schema_version": "phase-route-vla.v3.d4-contract-validation.v1",
+  "source_git_commit": "d9367afcd761c24eb9420345c4d0753273f49541",
+  "contract": {
+    "status": "D4_SHADOW_CONTRACT_FROZEN",
+    "path": "configs/research/v3/gripper_v2/d4_shadow_contract.json",
+    "sha256": "286a359af14ac89c5952c1ba924a64aa2aeeeed89fb6762f71343b7bb0118d10",
+    "contract_id": "phaseroute-v3-d4-shadow-20260820-v1"
+  },
+  "prerequisite_sha256": {
+    "d3_attestation": "904fb3db1230b5d6fbc449c1c4265128b0e48b829f37aa5f4d9c17be7d6bf3cb",
+    "d3_calibration_result": "9a9cd80193dc71fe8459becebfdfb71cb2581bd9ecc5ff42ca06af1ced276d4c",
+    "d3_dataset_payload": "5780e5949bc5b1ded15483ef84a08994ed099cd1a7604fb5c1c2082d7db4f005",
+    "d3_predictions": "55dfae85be7609c5fe2319752dc17538b042eed2fec8fb02afce1faabedea607"
+  },
+  "decision_audit": {
+    "formula": "route_safe=original_action_consistency AND motion_safe AND tail_ucb_safe AND gripper_safe",
+    "priority": [
+      11,
+      13,
+      27
+    ],
+    "both_safe_selects": 11,
+    "missing_motion_or_tail_selects": 27,
+    "action_consistency_threshold": 0.00390625,
+    "gripper_threshold": 0.043773197319646726,
+    "returns_action": false,
+    "active_control": false
+  },
+  "access_ledger": {
+    "d3_attestation_json_opened": true,
+    "d3_artifacts_byte_hashed": 4,
+    "d3_tensor_payload_deserialized": 0,
+    "independent_test_selection_opened": false,
+    "independent_test_sample_payload_opened": false,
+    "gpu_query_or_initialization": 0,
+    "model_fit_or_threshold_selection": 0,
+    "shadow_distribution_viewed": false
+  },
+  "readiness": {
+    "decision_engine": "PASS",
+    "motion_runtime_threshold_frozen": false,
+    "tail_runtime_threshold_frozen": false,
+    "formal_shadow_execution_authorized": false,
+    "reason": "motion and tail-UCB signal adapter thresholds require separate pre-distribution attestation"
+  },
+  "next_stage": {
+    "authorized": "V3-D4A_SIGNAL_ADAPTER_IMPLEMENTATION_AND_ATTESTATION_ONLY",
+    "active_control_authorized": false,
+    "independent_test_authorized": false
+  },
+  "claim_boundary": {
+    "shadow_decision_run": false,
+    "active_control_run": false,
+    "independent_test_run": false,
+    "deployment_authorized": false,
+    "superiority_claim_authorized": false
+  }
+}

@@ -1,6 +1,17 @@
 # A1 项目中文阅读指南：从 LIBERO 观测到机器人动作
 
-> 发布说明：本文解释标准 A1 完整层主线；本分支正式的动态计算路径 RP-PEP 及其 8×7 动作契约见 [仓库映射](repo_map.md) 和 [发布状态](RELEASE_STATUS_ZH.md)。
+> 发布说明：本文解释标准 A1 完整层主线；本分支当前正式研究路径 PhaseRoute V3 及其
+> 8×7 动作契约见 [仓库映射](repo_map.md) 和 [发布状态](RELEASE_STATUS_ZH.md)。
+
+> [!CAUTION]
+> **checkpoint 维度勘误（2026-08-17）**：本文正文保留的是上游标准
+> `model/libero` baseline 的 `600-token / 10×32 / resize` 契约，不是当前正式
+> `model/libero_exit` checkpoint。后者的真实运行时张量为：
+> `input_ids=(B,680)`、proprio `(B,1,1,8)`、动作 `(B,8,7)`、视觉
+> `(B,5,144,3584)`（4 个有效 crop + 1 个 padded crop；576 个 source feature
+> 映射到 288 个 unique slots）。解释 PhaseRoute V3/RP-PEP 时请以
+> [PhaseRoute-VLA 架构文档](PHASEROUTE_ARCHITECTURE_ZH.md) 为准，不能机械套用
+> 本文正文的旧维度。
 
 > [!CAUTION]
 > **checkpoint 维度勘误（2026-08-17）**：本文正文保留的是上游标准

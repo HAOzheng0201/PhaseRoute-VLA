@@ -1,0 +1,60 @@
+{
+  "status": "RESOLVED_V3_D9D_PRE_TRUTH_PRECISION_INCIDENT",
+  "schema_version": "phase-route-vla.v3.d9d-precision-incident.v1",
+  "timestamp_utc": "2026-08-23T03:14:00.000+00:00",
+  "failed_runner_git_commit": "e7d5c1b90eab227e9721c7c47a7eaabb542c4999",
+  "failed_runner_readiness_sha256": "cf85e8b2e306170e50fdb591503a96b714b0f70610b5c7fefae7c89050be8506",
+  "formal_attempt": {
+    "physical_gpu_indices": [0, 1, 2, 3],
+    "workers_started": 4,
+    "workers_fail_closed": 4,
+    "accepted_truth_rows": 0,
+    "possible_truth_rows": 3700,
+    "failure_type": "RuntimeError",
+    "failure_message": "D9D selected-layer replay differs from the online selected action",
+    "failure_before_any_truth_row": true,
+    "outcome_or_gate_inspected": false,
+    "archive_root": "reports/v3_d9d_failed_attempt_20260823_1107",
+    "gpu_preflight_sha256": "4bf10c83757c6da7599e81eff65c69f0e0de6d6027c8a3d2c7c2637458c68b60",
+    "shard_log_sha256": {
+      "0": "04e3587a09e621dcf8db812fd1409e341647bc2700129bef4018373618fa07d1",
+      "1": "e132b3a4dd7072ff139be068f839005313320096401c7c33f4329fd8c9184680",
+      "2": "b1e47aeeb22e9d3e3c5e75354e158fc1aaa1d28e7852dc4c2f48d872bd02c08f",
+      "3": "ff041f33fa9ac5c065104ca3fed1415aeabb13198161e5a586689a69dcc96a23"
+    },
+    "abort_sha256_all_shards": "f1e71c06b176a80e100b02101c66d5a5be4b076b2aa072b39e33e245d77dd7d5"
+  },
+  "root_cause": {
+    "online_D9C_forward_precision": "float32_without_autocast",
+    "failed_D9D_forward_precision": "bfloat16_autocast",
+    "D9C_cached_projected_features_dtype": "float16",
+    "bit_exact_offline_selected_replay_possible": false,
+    "explanation": "BF16 replay did not match the FP32 online policy; even FP32 replay retains a small, expected discrepancy because D9C intentionally stored projected visual features as float16 rather than the online unquantized tensor."
+  },
+  "read_only_single_call_diagnostic": {
+    "dataset_index": 0,
+    "selected_layer": 13,
+    "FP32_replay_max_abs_error_vs_online_selected_action": 0.000019535422325134277,
+    "BF16_replay_max_abs_error_vs_online_selected_action": 0.008451581001281738,
+    "environment_created": false,
+    "environment_action_executed": false,
+    "router_loaded": false,
+    "success_or_D9_gate_computed": false
+  },
+  "correction": {
+    "replay_precision": "float32_matching_D9C_online_forward",
+    "selected_action_for_truth": "cached_teacher_normalized_action_exactly_bound_to_online_selected_trace",
+    "layer27_for_truth": "offline_FP32_same_noise_replay_from_frozen_float16_projected_features",
+    "selected_layer_replay_error_role": "cache_quantization_diagnostic_only",
+    "router_model_or_safety_threshold_changed": false,
+    "D9C_rollout_or_environment_action_changed": false,
+    "new_runner_readiness_required": true
+  },
+  "claim_boundary": {
+    "incident_is_D9_result": false,
+    "truth_or_gate_result_selected": false,
+    "test_outcome_based_retry": false,
+    "same_frozen_D9C_inputs_required": true,
+    "all_3700_rows_still_required": true
+  }
+}
