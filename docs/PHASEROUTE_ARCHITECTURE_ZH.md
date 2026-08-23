@@ -1,243 +1,368 @@
 # PhaseRoute-VLA：从输入到输出的完整结构
 
-本文描述改进后的正式运行路径，而不是只描述上游 A1。固定维度对应 A1 LIBERO early-exit checkpoint、Flow Matching 10-step 推理和 LIBERO 双相机设置。换 checkpoint 后，应以其 `config.yaml` 为准重新核对维度。
+本文描述当前正式研究方法 PhaseRoute V3 的真实在线路径。固定维度对应
+`model/libero_exit` checkpoint、LIBERO-10、Flow-Matching 10-step inference 和
+batch size 1；不是上游另一份 `model/libero` 的 600-token / 10×32 简化契约。
 
-## 1. 系统总览
+## 1. 一张图看完整模型
 
 ```mermaid
 flowchart TD
-    subgraph ENV["LIBERO 环境"]
+    subgraph INPUT["t 时刻输入"]
       RGB1["agentview RGB<br/>256×256×3"]
       RGB2["wrist RGB<br/>256×256×3"]
-      LANG["任务指令<br/>string"]
-      STATE["EEF + gripper<br/>8D"]
+      LANG["instruction string"]
+      PROP["EEF pose + gripper<br/>8D"]
+      HIST["过去最多 8 次<br/>proprio + selected 8×7 chunk"]
     end
 
     RGB1 --> PRE
     RGB2 --> PRE
     LANG --> PRE
-    STATE --> PRE
-    PRE["A1 预处理器<br/>patch / token / normalize"] --> VIS["ViT-L/14 + Connector<br/>B×2×144×3584"]
-    PRE --> TOK["input_ids / mask<br/>B×600"]
-    PRE --> PRO["normalized proprio<br/>B×1×1×32"]
-    VIS --> VLM
-    TOK --> VLM["Early-exit A1 VLM<br/>28 layers, D=3584"]
-    VLM --> KV["逐层 KV cache<br/>K,V: B×4×600×128"]
-    KV --> ROUTE{"RP-PEP 候选<br/>3 / 11 / 13 / 27"}
+    PROP --> PRE
+    PRE["A1 preprocessing<br/>global/local crops + tokenizer"] --> IMG["image patches<br/>1×5×576×588<br/>4 valid + 1 padded"]
+    PRE --> TOK["multimodal ids/masks<br/>1×680"]
+    PRE --> PRO["normalized proprio<br/>1×1×1×8"]
+
+    IMG --> VIS["ViT-L/14 + connector<br/>1×5×144×3584"]
+    VIS --> VLM["Frozen A1 VLM<br/>28 layers, hidden 3584"]
+    TOK --> VLM
+    VLM --> KV["layer-wise KV<br/>K,V: 1×4×680×128"]
+    KV --> FM["Flow-Matching expert<br/>10 Euler steps per solve"]
     PRO --> FM
-    ROUTE --> FM["Flow-Matching Qwen2 expert<br/>28 layers, D=1024"]
-    FM --> DELTA["候选动作差异 + 冻结阈值"]
-    DELTA --> EXIT["选择退出层<br/>并保持 RNG stream"]
-    EXIT --> ACT32["B×10×32"]
-    ACT32 --> ACT7["反归一化并取前 7 维<br/>B×10×7"]
-    ACT7 --> QUEUE["执行前 8 个动作"]
-    QUEUE --> ENV
+
+    VIS --> POOL["global/crop pooling<br/>3584 + 5×3584 + mask"]
+    LANG --> IL["raw instruction embedding mean<br/>1×3584"]
+    PROP --> PHASE
+    HIST --> PHASE
+    POOL --> PHASE["Frozen PhaseStateEstimator<br/>CPU"]
+    IL --> PHASE
+    PHASE --> PS["stage 128D<br/>progress/boundary/uncertainty 3D"]
+
+    FM --> C11["L11 candidate<br/>1×8×7"]
+    C11 --> F11["82D causal/continuous feature<br/>+ 15D gripper pattern = 97D"]
+    PS --> F11
+    HIST --> F11
+    F11 --> R11{"A1 consistency AND<br/>max(5 full-risk heads) safe AND<br/>head-0 gripper risk safe?"}
+    R11 -->|yes| A11["select exact L11 action"]
+    R11 -->|no| C13["L13 candidate<br/>1×8×7"]
+    C13 --> F13["isolated L13 97D feature"]
+    PS --> F13
+    HIST --> F13
+    F13 --> R13{"same three gates"}
+    R13 -->|yes| A13["select exact L13 action"]
+    R13 -->|no / malformed| A27["select exact L27 action<br/>fail closed"]
+
+    A11 --> POST["Q01/Q99 unnormalize<br/>gripper binarize/sign conversion"]
+    A13 --> POST
+    A27 --> POST
+    POST --> QUEUE["execute complete 8×7 chunk"]
+    QUEUE --> ENV["LIBERO env.step ×8"]
+    ENV --> INPUT
 ```
 
-在线推理的控制粒度是一次策略调用产生一个动作 chunk；不是每个仿真步都重新调用模型。
+核心边界：PhaseRoute 不是另一个 action generator。A1 先生成 candidate，router 只选择
+哪一层已经生成的 **精确 action tensor** 进入环境。
 
 ## 2. 固定符号与维度
 
-| 符号 | 含义 | 固定值或范围 |
+| 符号 | 含义 | 正式值 |
 |---|---|---:|
-| `B` | 在线 batch size | 通常 1 |
-| `C` | 相机数 | 2 |
-| `P_img` | 每张图原始 ViT patch 数 | 576 |
-| `M` | 每张图连接器输出 token 数 | 144 |
-| `S` | padding 后多模态前缀长度 | 600 |
-| `D_vlm` | 主 VLM hidden size | 3584 |
-| `L_vlm` | 主 VLM 层数 | 28 |
-| `D_fm` | 动作专家 hidden size | 1024 |
-| `L_fm` | 动作专家层数 | 28 |
-| `T` | 模型动作 horizon | 10 |
-| `A` | 模型统一动作维度 | 32 |
-| `A_libero` | LIBERO 有效动作维度 | 7 |
-| `T_exec` | 每次策略调用实际执行步数 | 8 |
+| `B` | online batch | 1 |
+| `C_cam` | 原始相机 | 2 |
+| `C_valid` | 每个相机 1 global + 1 local | 4 |
+| `C_pad` | collator 固定 crop 轴 | 5 |
+| `P_img` | 每 crop ViT source patches | 576 |
+| `M` | 每 crop connector tokens | 144 |
+| `S` | padding 后多模态序列 | 680 |
+| `D_vlm` | A1 VLM hidden | 3584 |
+| `L_vlm` | A1 VLM layers | 28（0–27） |
+| `D_fm` | action expert hidden | 1024 |
+| `H` | action horizon | 8 |
+| `A` | checkpoint 原生 action dimension | 7 |
+| `H_hist` | past-only policy-call history | 8 |
+| `D_phase` | stage embedding | 128 |
+| `D_base` | causal/continuous router feature | 82 |
+| `D_grip` | gripper sign/transition feature | 15 |
+| `D_route` | 每个 candidate 的 router feature | 97 |
 
-## 3. 输入与预处理
+## 3. 输入与 A1 预处理
 
-### 3.1 环境观测
-
-| 输入 | 原始形状 | 处理后形状 | 功能 |
-|---|---:|---:|---|
-| 主视角 RGB | `(256,256,3)` | `(B,1,576,588)` patches | 场景和目标物体 |
-| 腕部 RGB | `(256,256,3)` | `(B,1,576,588)` patches | 接触与末端局部状态 |
-| 自然语言 | `str` | 合并进 `(B,600)` token 序列 | 指定任务目标 |
-| EEF 位置 | `(3,)` | — | 末端平移状态 |
-| EEF 四元数 | `(4,)` | axis-angle `(3,)` | 末端旋转状态 |
-| 夹爪位置 | `(2,)` | — | 夹爪状态 |
-
-状态拼接为：
+### 3.1 机器人状态
 
 ```text
-[eef_xyz(3), eef_axis_angle(3), gripper_qpos(2)] -> (8,)
+eef_xyz(3) + quat_to_axis_angle(3) + gripper_qpos(2) = proprio(8)
+Q01/Q99 normalization
+-> (B,1,1,8)
 ```
 
-Q01/Q99 归一化后补零到 32 维：
+该 checkpoint 原生 proprio 是 8D，不补零到 32D。
+
+### 3.2 图像 crop 与 connector
+
+每个相机产生一个 global resize crop 和一个 local crop：
 
 ```text
-(8,) -> (1,1,32) -> batch 后 (B,1,1,32)
+RGB (256,256,3)
+-> crop/resize (336,336,3)
+-> patch tensor (576,588)
+-> ViT-L/14, take -2/-9 features
+-> concatenate (576,2048)
+-> 2×2 attention pooling (144,1024)
+-> connector (144,3584)
 ```
 
-### 3.2 图像 token
+双相机得到 4 个有效 crop，collator 输出固定 5-crop axis：
 
 ```text
-单张 RGB (256,256,3)
--> resize/crop (336,336,3)
--> 14×14 patchify: (576,588)
--> ViT-L/14: (577,1024)，含 CLS
--> 取 -2/-9 层并拼接: (576,2048)
--> 2×2 attention pooling: (144,1024)
--> connector: (144,3584)
+images               (B,5,576,588)
+projected_features   (B,5,144,3584)
+image_input_idx      (B,5,144)
+valid crop counts    [144,144,144,144,0]
 ```
 
-双相机最终得到 `(B,2,144,3584)`。288 个视觉 feature 被加到主序列中的图像占位位置，主序列仍 padding 到 `(B,600)`。
+第 5 crop 全 padding。四个有效 crop 有 576 个 source projected tokens，但两对 crop
+复用两个视觉位置区间，只有 288 个 unique visual slots；不能把 5 crop 误写成 5 个
+有效相机视图，也不能把 576 source tokens 误写成 576 unique sequence positions。
 
-### 3.3 文字与序列布局
+### 3.3 多模态序列
 
-每张图使用 158 个结构位置，其中 144 个位置接收视觉 feature，另外 14 个是图像首尾和行分隔 token。双图共占 316 个结构位置，后接语言 token，最后右侧 padding：
+图像结构 token、instruction/control token 和 padding 组成：
 
 ```text
-[image-1:158][image-2:158][instruction][padding] -> input_ids (B,600)
+input_ids / attention mask     (B,680)
+token hidden                   (B,680,3584)
+image_input_idx                (B,5,144)
 ```
 
-`image_input_idx` 的典型形状为 `(B,2,144)`，用于把连接器输出写入正确序列位置。
+`projected_features` 根据 `image_input_idx` scatter-add 到对应 token hidden；物理长度固定
+680，有效长度随 instruction 变化。
 
-## 4. A1 主 VLM
+## 4. Frozen A1 backbone 与候选动作
 
-| 项目 | 值 |
-|---|---:|
-| 层数 | 28 |
-| hidden | 3584 |
-| query heads / KV heads | 28 / 4 |
-| head dim | 128 |
-| 输入 | token embedding `(B,600,3584)` |
-| 每层输出 KV | K/V 各 `(B,4,600,128)` |
-
-主 VLM 的关键输出不是离散动作 token，而是 28 层的 KV memory。Flow-Matching 专家在对应深度读取这些 KV。Early-exit checkpoint 允许在中间层截断 KV 列表，从而只执行所需的主 VLM 深度。
-
-## 5. Flow-Matching 动作专家
-
-状态 token：
+主 VLM 为 28 层，query/KV heads 为 28/4、head dim 128。每层产生：
 
 ```text
-(B,1,1,32) -> Linear 32→1024 -> (B,1,1024)
+K_i, V_i: (B,4,680,128)
 ```
 
-噪声动作与时间 token：
+Flow-Matching expert 将 proprio 和 noisy action 投影到 hidden 1024：
 
 ```text
-x_t: (B,10,32)
-action projection: (B,10,1024)
-time embedding:    (B,10,1024)
-fusion:            (B,10,1024)
+proprio             (B,1,1,8) -> (B,1,1024)
+x_t / time           (B,8,7)   -> (B,8,1024)
+expert input                      (B,9,1024)
+velocity field                    (B,8,7)
+10 Euler updates                  (B,8,7)
 ```
 
-二者拼接为 `(B,11,1024)`，经过 28 层 Qwen2 动作专家并读取主 VLM KV，输出速度场 `(B,10,32)`。从 `x_1 ~ N(0,I)` 开始进行 10 次 Euler 更新，得到归一化动作 `(B,10,32)`。
+原 A1 在奇数层 1,3,...,27 都可做候选 FM solve。V3 复用 RP-PEP 的 RNG-preserving
+productive schedule：L3 只保留计算/RNG 合同，不允许作为 V3 决策；真正 route layers
+是 L11、L13，L27 是 fallback。选中 L11/L13/L27 时解析 FM-call 成本分别为 4/5/7。
 
-每次 candidate action 计算都意味着一次完整的 10-step FM solve，因此减少没有决策价值的候选层会直接降低推理成本。
+## 5. 在线 causal context
 
-## 6. 原始 A1 Early Exit
+一次 policy call 开始时，runtime 先安装 fail-closed placeholder，再收集：
 
-当 `exit_interval=2` 时，原始候选层为：
+| tensor | shape | 来源 |
+|---|---:|---|
+| `instruction_summary` | `(B,3584)` | raw task label token embedding mean |
+| `vision_crop_summary` | `(B,5,3584)` | 每 crop 有效 projected token mean |
+| `vision_crop_mask` | `(B,5)` bool | `image_input_idx>=0` |
+| `phase_embedding` | `(B,128)` | phase estimator stage state |
+| `phase_scalars` | `(B,3)` | progress, boundary probability, uncertainty |
+| `normalized_proprio` | `(B,8)` | 当前状态 |
+| `proprio_history` | `(B,8,8)` | 仅过去 policy calls，右对齐 |
+| `action_history` | `(B,8,8,7)` | 过去实际选中的 normalized chunks |
+| `history_mask` | `(B,8)` bool | 有效历史行 |
 
-```text
-(1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27)
-```
+task ID、episode ID、call ordinal 只用于顺序校验和 telemetry，不进入 feature。episode
+开始时 history 清空；当前 action 只有在 route 结束并被实际选中后才 commit，因此不会
+把当前/未来 action 泄漏进“过去历史”。
 
-在某个候选层 `i`，`ActionValueNet` 使用当前层 KV 得到候选动作 `(B,10,32)`，再与参考动作计算 cosine delta。`ExitController` 将 delta 与该层冻结阈值比较；满足条件则退出，否则继续执行更深 VLM 层。
+## 6. Frozen phase estimator
 
-这个实现的成本不只来自 VLM 深度，还来自候选层上的多次 FM solve。
-
-## 7. RP-PEP 改进
-
-正式计划由 `a1/vla/dynamic_compute/productive_exit.py` 定义：
-
-| 项目 | 冻结设置 |
-|---|---|
-| 原候选层 | `1,3,5,7,9,11,13,15,17,19,21,23,25,27` |
-| 保留候选层 | `3,11,13,27` |
-| 显式比较参考 | `3←1`, `11←9`, `27←25` |
-| 延续前一候选 | `13←11` |
-| RNG burn 数 | `3:1`, `11:2`, `27:5` |
+PhaseStateEstimator 全程在 detached CPU tensor 上运行：
 
 ```mermaid
-sequenceDiagram
-    participant V as A1 VLM
-    participant P as RP-PEP Plan
-    participant F as FM Expert
-    participant C as Exit Controller
-
-    V->>P: 到达保留候选层 i
-    P->>F: 消耗冻结数量的高斯 RNG（不做 FM）
-    P->>F: 用参考层 KV 计算 reference action（需要时）
-    P->>F: 用层 i KV 计算 candidate action
-    F->>C: cosine delta, action=(B,10,32)
-    C-->>V: exit 或继续
+flowchart LR
+    V["global visual 3584"] --> VP["MLP -> 256"]
+    I["instruction 3584"] --> IP["MLP -> 256"]
+    P["current proprio 8"] --> PP["MLP -> 128"]
+    HP["history proprio<br/>8×8"] --> TP["MLP -> 128"]
+    HA["history action<br/>8×8×7"] --> TA["flatten chunk + MLP -> 128"]
+    TP --> GRU["masked GRUCell<br/>hidden 256"]
+    TA --> GRU
+    VP --> F["fusion 896D"]
+    IP --> F
+    PP --> F
+    GRU --> F
+    F --> ST["stage MLP -> 128"]
+    ST --> PR["progress sigmoid -> 1"]
+    ST --> BD["boundary sigmoid -> 1"]
+    BD --> U["Bernoulli entropy -> uncertainty 1"]
 ```
 
-RNG burn 只生成与基线相同形状的高斯噪声 `(B,10,32)`，不运行动作专家。这样既删除无生产性的 FM solve，又保持后续随机流一致。代码还强制：
+它输出 phase 表示，不直接作退出决策。checkpoint file SHA 和 parameter/buffer state SHA
+分别校验，避免“文件容器能打开但权重语义已变”。
 
-- 模型必须是 `flow_matching`；
-- checkpoint 必须配置 10 个 FM inference steps；
-- 原候选层必须完全匹配冻结网格；
-- 被删除候选的阈值必须为非正，最终层阈值必须为正；
-- RP-PEP 不能与 anchor 模式同时启用。
+## 7. 97D candidate feature
 
-任何条件不满足都会 fail closed，而不是静默退化为未经验证的路径。
+每个 layer 只用该层自己的 current candidate 构造 feature；L11 feature 不能看到 L13
+或 L27 action，L13 feature 不能看到 L27 action。
 
-## 8. 动作后处理与环境输出
+### 7.1 82D causal/continuous block
+
+| 分量 | 维度 |
+|---|---:|
+| progress / boundary / uncertainty | 3 |
+| phase embedding mean/std/RMS/max-abs | 4 |
+| current proprio | 8 |
+| current - previous proprio | 8 |
+| previous selected chunk first action | 7 |
+| current candidate first action | 7 |
+| current first - previous first | 7 |
+| current candidate temporal mean | 7 |
+| current candidate temporal std | 7 |
+| history first-action mean | 7 |
+| history first-action std | 7 |
+| history fill + candidate/previous RMS scalars | 6 |
+| pooled visual mean/std/RMS/inter-crop RMS | 4 |
+| **合计** | **82** |
+
+这 82D 是 causal feature，但并非“完全不含 current candidate”：它显式包含 current
+candidate 的连续统计。其因果含义是“不用 future、teacher、另一候选层或 outcome”。
+
+### 7.2 15D gripper pattern
 
 ```text
-model output             (B,10,32)
-取 LIBERO 有效维         (B,10,7)
-Q01/Q99 反归一化         (B,10,7)
-夹爪二值化与符号转换     (B,10,7)
-动作队列保留前 8 步      8 × (7,)
-env.step(action)         新 observation
+sign(candidate[:, gripper])             8D
+sign transition between adjacent steps  7D
+                                      ------
+                                        15D
 ```
 
-7 维动作依次是平移 3 维、axis-angle 旋转 3 维和夹爪 1 维。模型输出的后 25 维是跨机器人统一动作槽位，在 LIBERO 中不执行。
+最终：
 
-## 9. 实现模块及 I/O
+```text
+82D + 15D = feature (B,97)
+```
 
-| 模块 | 主要输入 | 主要输出 | 作用 |
+## 8. Five-head risk 与分层路由
+
+每个 frozen head 是带独立 normalizer 的 severity-weighted CPU GLM，对 L11/L13 输出
+full-action risk 与 gripper occurrence risk。在线聚合：
+
+```text
+full_risk    = max(full_risk_head_0 ... full_risk_head_4)
+gripper_risk = gripper_risk_head_0
+```
+
+candidate safe 当且仅当三个条件同时成立：
+
+```text
+A1 action-consistency gate == true
+AND full_risk <= frozen runtime threshold
+AND gripper_risk <= frozen gripper threshold
+```
+
+优先级固定：
+
+```text
+if L11 safe: select exact L11
+else if L13 safe: select exact L13
+else: select exact L27
+```
+
+五头 maximum 是保守 epistemic gate；head range 记录不同 head 的分歧。router 不用
+softmax 在三层间直接分类，也不生成新动作。
+
+## 9. Fail-closed 语义
+
+以下任一情况都会否决 L11/L13，并保留 L27：
+
+- router/phase/threshold SHA 不一致；
+- payload schema、head 数量、phase geometry 不一致；
+- visual/instruction/proprio/history 缺失；
+- tensor shape、dtype、finite 检查失败；
+- candidate 到达顺序不是 L11→L13→L27；
+- episode/call ordinal 不连续；
+- router state 在 inference 中发生 mutation；
+- callback 或 context preparation 失败。
+
+“fail closed”是计算深度安全回退，不是任务一定成功的证书。
+
+## 10. 动作后处理与下一次调用
+
+```text
+selected normalized action        (1,8,7)
+-> Q01/Q99 unnormalize            (8,7)
+-> gripper normalize/binarize/sign conversion
+-> queue executes all 8 actions
+-> new RGB/proprio observation
+-> selected normalized chunk commits to past-only history
+```
+
+7D 顺序为 translation 3、axis-angle rotation 3、gripper 1。该 checkpoint 直接生成
+8×7，不存在“从 10×32 截取前 7 维”。
+
+## 11. CPU/GPU 与精度边界
+
+| 路径 | device / dtype |
+|---|---|
+| A1 ViT/VLM/FM | selected CUDA GPU，checkpoint dtype |
+| projected visual capture | GPU → CPU float16 cache boundary → float32 |
+| instruction/proprio/history | detached CPU float32 |
+| phase estimator | CPU float32，eval，no grad |
+| candidate copy for router | detached CPU float32 |
+| five GLM heads | CPU float64 |
+| selected action sent back | 原 A1 candidate tensor，不用 CPU score 重建 |
+
+D9 的 36.58% 是 normalized FM calls/policy call reduction，未把 CPU router latency
+纳入该指标，因此不是 wall-clock 加速结论。
+
+## 12. 代码映射
+
+| 模块 | 输入 | 输出 | 功能 |
 |---|---|---|---|
-| `affordvla_early_exit.py` | `(B,600)` token、`(B,2,576,588)` 图像、32D state | 截断层 KV、candidate action | 可截断的 A1 主干与可观测 hook |
-| `value_net.py` | 层级 KV、state、退出层 | delta、`(B,10,32)` action | 候选动作与阈值控制 |
-| `productive_exit.py` | 原退出层、阈值 | 保留层、参考层、RNG burn | 冻结 RP-PEP 计划 |
-| `eval_libero_early_exit.py` | CLI/config/checkpoint | controller + episode 结果 | 初始化、合法性检查和闭环调度 |
-| `exit_vla_utils.py` | 当前 observation 与 controller | 最多 8 个 7D 动作 | 在线推理、后处理与 side-channel |
-| `release.py` | checkpoint、阈值、paired JSON | PASS/FAIL 审计对象 | 校验 SHA 和冻结科学门 |
-| `telemetry.py` | scalar/摘要事件 | 一条 JSONL policy-call record | 不影响控制流的可审计日志 |
-| `phase_cache.py` | visual `(B,C,M,D)`、instruction embedding | 各 `(B,D)` summary + NPZ | 研究数据收集；默认关闭 |
-| `temporal_route_features.py` | 历史 proprio/action | 对齐窗口与 mask | 只使用过去信息的路由特征 |
-| `*_router.py` | 离线特征数组 | route 11/13/27 或风险分数 | 学习式研究路径；不进入正式运行时 |
+| `affordvla_early_exit.py` | 680-token / 5-crop / 8D proprio | layer KV、visual callback | frozen A1 可截断主干 |
+| `value_net.py` | KV、candidate layer、state | A1 delta、candidate 8×7 | RP-PEP candidate solve + V3 adapter hook |
+| `phase_estimator.py` | visual/language/proprio/history | 128D stage + 3 scalars | causal phase representation |
+| `v3/active_runtime.py` | live callbacks + history | 9-tensor runtime context | CPU context、phase、commit、fail closed |
+| `v3/development_collection.py` | context + one candidate | 97D feature | runtime/offline exact feature parity |
+| `v3/final_router.py` | 97D + layer | five risk heads | immutable payload loader/predictor |
+| `v3/runtime_adapter.py` | candidate sequence | L11/L13/L27 decision | three-gate hierarchical router |
+| `eval_libero_early_exit.py` | config/checkpoint/LIBERO | success + telemetry | closed-loop orchestration |
+| `v3/release.py` | artifacts/result/backbone | PASS/FAIL JSON | SHA/payload/science-boundary gate |
 
-所有 callback 和 cache writer 都是 opt-in，并用异常隔离保证日志失败不会改变机器人动作。
-
-## 10. 学习式 router 的边界
-
-研究管线尝试根据视觉摘要、指令摘要、状态和历史动作预测安全深度，经历了 causal router、risk route13、task jackknife 和 sealed evaluation。最终 sealed gate 为 `NOT_VIABLE`：出现 4 条 false-shallow record，分布于 3 个 episode group。
-
-因此学习式 router 的输出维度和实现仍完整保留以便继续研究，但 `runtime_integration_allowed=false`，正式入口不会加载它。这个边界防止离线指标改善被误写成闭环可靠性提升。
-
-## 11. 正式调用链
+## 13. 正式调用链
 
 ```text
-scripts/run_libero_rp_pep.sh
-├── scripts/validate_phase_route_release.py
-│   └── a1.vla.dynamic_compute.release.validate_rp_pep_release
+scripts/run_libero_phase_route_v3.sh
+├── scripts/validate_phase_route_v3_release.py
+├── checkpoint overlay (symlinks; no 34 GB copy)
 └── robot_experiments/libero/eval_libero_early_exit.py
-    ├── initialize_and_load_model
-    ├── initialize_exit_controller
-    │   └── a1_fm10_rp_pep_plan
-    └── run_task / run_episode
-        └── exit_vla_utils.get_vla_action
-            ├── AffordVLAEarlyExit.forward
-            ├── ActionValueNet / ExitController
-            ├── predict_actions_flow_matching
-            └── LIBERO action postprocess
+    ├── load frozen A1 + RP-PEP-compatible candidate controller
+    ├── load_frozen_phase_route_runtime
+    └── run_task / run_episode / get_vla_action
+        ├── begin_policy_call
+        ├── capture_visual_features
+        ├── prepare_policy_call
+        ├── consider L11 -> consider L13 -> fallback L27
+        ├── commit_selected_action
+        └── write telemetry/runtime/evaluation summary
 ```
 
-基线网络更细的图像、注意力、KV 和训练损失推导见 [A1 项目阅读指南](A1_PROJECT_READING_GUIDE_ZH.md)。
+运行结束后 `validate_phase_route_v3_run.py` 要求 records、policy calls、prepared、
+committed 和 L11/L13/L27 计数完全对齐且 error 为 0，才生成 PASS attestation。
+
+## 14. 与历史模块的边界
+
+- RP-PEP：固定 pruning 与 RNG preservation，仍是 V3 candidate-cost compatibility path；
+- M4.28 router：保留 `NOT_VIABLE` 负结果，不进入 V3；
+- CogVLA：只提供 phase-aware computation inspiration，V3 未融合其 token compression；
+- visual aggregation M4/M4.7、legacy phase-depth M3：V3 active run 中明确互斥并关闭。
+
+正式指标、数据消耗和禁止表述见 [发布状态](RELEASE_STATUS_ZH.md)；A1 标准 baseline
+的更完整训练推导见 [A1 项目阅读指南](A1_PROJECT_READING_GUIDE_ZH.md)，阅读时必须注意
+其开头的 checkpoint 维度勘误。

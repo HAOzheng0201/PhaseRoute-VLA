@@ -1,79 +1,114 @@
 # PhaseRoute-VLA 代码映射
 
-本文给出改进代码的实际接入点。张量推导见 `PHASEROUTE_ARCHITECTURE_ZH.md`，目录发布策略见 `REPOSITORY_LAYOUT.md`。
+本文给出当前 PhaseRoute V3 的实际接入点。张量推导见
+`PHASEROUTE_ARCHITECTURE_ZH.md`，发布策略见 `REPOSITORY_LAYOUT.md`。
 
-## 正式运行路径
+## 正式研究运行路径
 
 ```text
-scripts/run_libero_rp_pep.sh
+scripts/run_libero_phase_route_v3.sh
+├── scripts/validate_phase_route_v3_release.py
+├── artifacts/phase_route_v3/
 └── robot_experiments/libero/eval_libero_early_exit.py
     ├── a1/vla/affordvla_early_exit.py
     ├── a1/vla/value_net.py
     ├── a1/vla/dynamic_compute/productive_exit.py
-    ├── a1/vla/dynamic_compute/release.py
-    └── robot_experiments/libero/exit_vla_utils.py
+    └── a1/vla/dynamic_compute/v3/
+        ├── active_runtime.py
+        ├── development_collection.py
+        ├── final_router.py
+        ├── runtime_adapter.py
+        └── release.py
 ```
 
-| 文件 | 当前职责 | 正式路径 |
+| 文件 | 当前职责 | V3 active path |
 |---|---|---|
-| `affordvla_early_exit.py` | 中间层 KV、视觉压缩 hook、telemetry hook | 是 |
-| `value_net.py` | candidate/reference FM solve、RNG burn、阈值判断 | 是 |
-| `productive_exit.py` | 冻结 RP-PEP 候选层和随机流规则 | 是 |
-| `release.py` | checkpoint、阈值、paired result 科学门 | 是 |
-| `eval_libero_early_exit.py` | 配置合法性、模型/controller 初始化、闭环调度 | 是 |
-| `exit_vla_utils.py` | observation→action、side-channel 与 postprocess | 是 |
-| `run_libero_rp_pep.sh` | GPU 0–3 guard、preflight、正式命令 | 是 |
+| `affordvla_early_exit.py` | 680-token/5-crop A1、layer KV、visual/phase callbacks | 是 |
+| `value_net.py` | RP-PEP candidate/reference FM solve、V3 adapter hook | 是 |
+| `productive_exit.py` | L3/L11/L13/L27 productive schedule 与 RNG 规则 | 是 |
+| `phase_estimator.py` | causal phase embedding/progress/boundary/uncertainty | 是 |
+| `v3/active_runtime.py` | live context、past-only history、phase、commit/fallback | 是 |
+| `v3/development_collection.py` | 9-tensor context validation 与 exact 97D feature | 是 |
+| `v3/final_router.py` | five-head payload loader 与 risk prediction | 是 |
+| `v3/runtime_adapter.py` | L11→L13→L27 hierarchical selection | 是 |
+| `v3/release.py` | small artifacts、A1 backbone、D9 result SHA gate | 是 |
+| `eval_libero_early_exit.py` | task/state selection、闭环、telemetry/result output | 是 |
+| `run_libero_phase_route_v3.sh` | GPU 0–3、UUID、overlay、non-overwrite | 是 |
 
-## 动态计算包
+## V3 包结构
 
-`a1/vla/dynamic_compute/` 按功能分为：
+`a1/vla/dynamic_compute/v3/` 按研究阶段保留完整代码：
 
-| 类别 | 文件 |
+| 类别 | 代表文件 |
 |---|---|
-| 正式 RP-PEP | `productive_exit.py`, `release.py`, `device_guard.py` |
-| 可观测性 | `telemetry.py`, `fm_diagnostics.py`, `vision_teacher_cache.py` |
-| phase 信号与缓存 | `phase_cache.py`, `phase_observer.py`, `phase_dataset.py`, `weak_labels.py` |
-| phase 模型 | `phase_estimator.py`, `phase_training.py`, `phase_depth_runtime.py` |
-| 视觉聚合 | `vision_aggregation.py`, `learnable_vision_aggregation.py`, `*_runtime.py` |
-| 预算与安全控制 | `budget_profiles.py`, `budget_controller.py`, `exit_policy.py`, `depth_hysteresis.py` |
-| 学习式路由研究 | `causal_route_router.py`, `temporal_route_router.py`, `risk_route13_router.py`, `m427_task_jackknife_router.py` |
+| 数据泄漏与协议 | `data_lineage.py`, `gripper_v2_protocol.py`, `d9_protocol.py` |
+| feature/target collection | `development_collection.py`, `same_noise_replay.py` |
+| 模型与校准 | `gripper_v2_models.py`, `severity_reliability*.py`, `joint_reliability.py` |
+| epistemic ensemble | `epistemic_ensemble*.py`, `final_router.py` |
+| active runtime | `runtime_adapter.py`, `active_runtime.py` |
+| paired test/aggregate | `paired_active_collection.py`, `d9_final_analysis.py` |
+| release | `release.py` |
 
-只有第一行进入当前正式 release。其他模块完整保留用于后续研究，但均默认关闭或离线运行。
+`scripts/dynamic_compute/v3/` 是 D0–D10 的可审计 runner；通用用户入口不调用硬绑定
+D9 state 40–49 的研究 runner。
 
-## 数据契约
+## 真实数据契约
 
 | 数据 | 形状 / 类型 | 产生位置 | 消费位置 |
 |---|---|---|---|
-| projected vision | `(B,2,144,3584)` | A1 vision backbone | 主 VLM / phase cache |
-| input sequence | `(B,600)` | preprocessor/collator | 主 VLM |
-| proprio | `(B,1,1,32)` | `vla_utils` | FM state projector |
-| layer KV | 28 × K/V `(B,4,600,128)` | 主 VLM | FM expert / early exit |
-| candidate action | `(B,10,32)` | FM expert | delta / controller |
-| LIBERO action | `(B,10,7)` | postprocess | action queue |
-| telemetry | strict JSON object | rollout side channel | JSONL / analyzer |
-| teacher cache | NPZ + manifest JSONL | collection scripts | offline router training |
+| raw image crops | `(B,5,576,588)`；4 valid + 1 pad | preprocessor/collator | ViT |
+| projected vision | `(B,5,144,3584)` | vision backbone | main VLM / V3 runtime |
+| visual mapping | `(B,5,144)`；576 source / 288 unique slots | collator | indexed write/pooling |
+| input sequence | `(B,680)` | preprocessor/collator | main VLM |
+| proprio | `(B,1,1,8)` | `exit_vla_utils` | FM state projector |
+| layer KV | 28 × K/V `(B,4,680,128)` | main VLM | FM expert |
+| candidate action | `(B,8,7)` | FM expert | A1 delta / V3 router |
+| phase state | `(B,128)` + `(B,3)` | phase estimator | 82D feature |
+| histories | `(B,8,8)`, `(B,8,8,7)`, `(B,8)` | active runtime | phase/97D feature |
+| route feature | `(B,97)` per current candidate | feature builder | five-head router |
+| selected action | `(B,8,7)` exact L11/L13/L27 | runtime adapter | postprocess/queue |
+| policy telemetry | strict JSONL | rollout side channel | run audit |
+| V3 runtime records | strict JSONL | active runtime | run attestation |
+
+`configs/models/libero.yaml` 是另一套上游兼容 10×32 训练配方，不能用来解释当前
+`model/libero_exit` checkpoint。
 
 ## 不变式
 
-1. 所有新功能默认关闭时必须保持 A1 baseline 行为。
-2. 日志、cache 和 callback 异常不得传播进机器人控制流。
-3. route 不能比 teacher/原始提议更浅，除非有独立冻结安全证据。
-4. 当前正式计划只接受 A1-FM10 固定候选层网格。
-5. episode 边界必须重置所有时序状态。
-6. 研究输出不得写入 Git 跟踪目录。
-7. 物理 GPU 4–7 不得由项目 launcher 使用。
+1. V3 默认关闭时必须保持 A1 baseline 行为。
+2. L11 feature 不看 L13/L27，L13 feature 不看 L27/future/outcome。
+3. episode 开始清空 history；selected action 在 route 完成后才 commit。
+4. task/episode identity 只能做 telemetry/order check，不能进入 97D。
+5. missing/nonfinite/shape/order/artifact drift 一律 veto early exit 到 L27。
+6. router 只选择 exact candidate，不修改 candidate action。
+7. 正式 A1/FM10/threshold/router/phase/result 都必须通过 SHA gate。
+8. 运行输出只能进入 ignored `runs/`，且禁止覆盖。
+9. 项目 launcher 不得使用物理 GPU 4–7。
+10. D9 states 40–49 不得再次用于模型/阈值选择。
+
+## 历史模块
+
+| 模块 | 状态 |
+|---|---|
+| RP-PEP | 保留的固定裁剪 baseline；仍提供 V3 productive/RNG path |
+| M4.28 task-jackknife router | `NOT_VIABLE` 负结果；不进入 V3 |
+| M3 phase-depth | legacy research；与 V3 互斥 |
+| M4 static / M4.7 learned vision aggregation | research；D9/V3 active path 关闭 |
+| CogVLA mapping | 设计参考；没有直接复制模型或 token compression |
 
 ## 测试映射
 
-每个 dynamic-compute 模块在 `tests/dynamic_compute/` 有对应测试。高风险发布路径额外由以下测试覆盖：
+高风险路径由以下测试覆盖：
 
 ```text
-test_productive_exit.py
-test_m420b_paired_rollouts.py
-test_m420b_replay_analysis.py
-test_release_gate.py
-test_release_smoke_summary.py
-test_m429_failure_analysis.py
+tests/dynamic_compute/v3/test_active_runtime.py
+tests/dynamic_compute/v3/test_runtime_adapter.py
+tests/dynamic_compute/v3/test_development_collection.py
+tests/dynamic_compute/v3/test_final_router.py
+tests/dynamic_compute/v3/test_paired_active_collection.py
+tests/dynamic_compute/v3/test_d9_final_analysis.py
+tests/dynamic_compute/v3/test_release.py
 ```
 
-运行 `make test` 可以执行完整回归网格。
+`make test-v3-release` 执行快速 artifact/launcher gate，`make test` 执行完整历史与 V3
+regression grid。

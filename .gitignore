@@ -76,6 +76,12 @@ core
 *.mp4
 *.avi
 
+# Small immutable PhaseRoute-V3 runtime artifacts are release payloads, not
+# experiment checkpoints.  Their exact bytes are pinned by MANIFEST.json and
+# the fail-closed release gate.
+!/artifacts/phase_route_v3/
+!/artifacts/phase_route_v3/*.pt
+
 # model
 /model
 *.part

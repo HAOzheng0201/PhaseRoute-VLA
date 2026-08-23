@@ -15,7 +15,9 @@ PhaseRoute-VLA 是一个聚焦 A1 + LIBERO 动态计算的独立项目，不是�
 │       ├── action_heads.py    Flow Matching 等动作头
 │       ├── value_net.py       Early-exit controller 接口
 │       └── dynamic_compute/   PhaseRoute-VLA 改进模块
-├── artifacts/                可下载 artifact 的不可变清单
+├── artifacts/
+│   ├── MANIFEST.json         全局不可变清单
+│   └── phase_route_v3/       V3 小模型、阈值和子清单
 ├── configs/
 │   ├── datasets/             LIBERO 与上游预训练数据配置
 │   ├── experiments/          组合配置
@@ -31,7 +33,9 @@ PhaseRoute-VLA 是一个聚焦 A1 + LIBERO 动态计算的独立项目，不是�
 │   ├── download_checkpoint.sh
 │   ├── setup_libero.sh
 │   ├── run_libero_rp_pep.sh
-│   └── validate_phase_route_release.py
+│   ├── run_libero_phase_route_v3.sh
+│   ├── validate_phase_route_release.py
+│   └── validate_phase_route_v3_release.py
 └── tests/dynamic_compute/     单元、回归与 release gate
 ```
 
@@ -40,7 +44,7 @@ PhaseRoute-VLA 是一个聚焦 A1 + LIBERO 动态计算的独立项目，不是�
 PhaseRoute-VLA 的改进发生在 A1 的 Early Exit、Flow-Matching candidate evaluation 和 LIBERO rollout 中，不能只发布一个外部 wrapper。完整保留 `a1/` 的原因是：
 
 - checkpoint 需要原模型定义才能加载；
-- RP-PEP 改变的是候选计算调度，不是替代动作模型；
+- PhaseRoute V3 改变的是候选动作深度选择，不是替代动作模型；
 - 训练和离线 teacher collection 依赖同一预处理与动作头；
 - 单元测试需要验证默认关闭时不改变 A1 行为。
 
@@ -72,11 +76,21 @@ eval_libero_exit.sh
 ## 发布前目录审计
 
 ```bash
-rg '/home/|/mnt/|/data[0-9]/' .
-find . -type f -size +10M -not -path './.git/*'
+rg '/home/|/mnt/|/data[0-9]/' README.md docs configs scripts \
+  -g '!docs/research/v3/**' -g '!configs/research/v3/**' \
+  -g '!scripts/dynamic_compute/v3/**'
+find . -type f -size +10M -not -path './.git/*' \
+  -not -path './artifacts/phase_route_v3/phase_estimator.pt'
 find . -name __pycache__ -o -name .pytest_cache -o -name '*.egg-info'
 git diff --check
 git status --short
 ```
 
-正常发布仓库不应包含个人绝对路径、大于 10 MB 的跟踪文件、Python cache 或未解释的顶层脚本。
+正常发布仓库不应包含个人绝对路径、Python cache、未解释的顶层脚本或未登记的大文件。
+`phase_estimator.pt` 是唯一受 manifest/SHA gate 约束的大于 10 MB release artifact。
+
+D0–D10 的 protocol/result 与一次性 research runner 是证据绑定的历史快照，其中少量
+绝对路径属于 provenance 或 frozen command defaults；修改会破坏已有 SHA/attestation。
+它们集中在 `configs|docs|scripts|results/.../v3`，不被 QuickStart、Makefile `run-v3`
+或通用 launcher 调用。发布验收因此分别检查“通用入口无个人路径”和“历史证据字节
+不变”，不能为了表面搜索结果而重写 consumed-test evidence。

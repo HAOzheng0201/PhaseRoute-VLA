@@ -1,0 +1,50 @@
+{
+  "schema_version": "phase-route-vla.v3.runtime-artifacts.v1",
+  "method": "phase_route_v3",
+  "scope": "frozen_libero_10_research_runtime",
+  "deployment_authorized": false,
+  "files": {
+    "router": {
+      "path": "artifacts/phase_route_v3/final_router.pt",
+      "bytes": 22290,
+      "sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830"
+    },
+    "phase_estimator": {
+      "path": "artifacts/phase_route_v3/phase_estimator.pt",
+      "bytes": 11344688,
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "state_sha256": "8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598"
+    },
+    "libero_10_thresholds": {
+      "path": "artifacts/phase_route_v3/exit_thresholds_libero_10_exp_1.0.json",
+      "bytes": 236,
+      "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+    }
+  },
+  "backbone": {
+    "repository": "spatialtemporal-ai/a1-libero-exit",
+    "revision": "a014b84203c6fb981d3f6181dc3bc7207610b2a3",
+    "local_directory": "model/libero_exit",
+    "files": {
+      "model.pt": {
+        "bytes": 33841175207,
+        "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f"
+      },
+      "config.yaml": {
+        "bytes": 8369,
+        "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca"
+      },
+      "dataset_statistics.json": {
+        "bytes": 11871,
+        "sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3"
+      }
+    }
+  },
+  "formal_result": {
+    "path": "results/v3/v3_d9_final_result.json",
+    "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952",
+    "status": "PASS_V3_D9_PAIRED_ACTIVE_INDEPENDENT_TEST",
+    "suite": "libero_10",
+    "pairs": 100
+  }
+}

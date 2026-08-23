@@ -42,7 +42,36 @@
     "commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
     "compatibility_patch": "patches/libero-pytorch-2.6.patch"
   },
+  "phase_route_v3": {
+    "manifest": "artifacts/phase_route_v3/MANIFEST.json",
+    "scope": "frozen_libero_10_research_runtime",
+    "deployment_authorized": false,
+    "router": {
+      "path": "artifacts/phase_route_v3/final_router.pt",
+      "bytes": 22290,
+      "sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830"
+    },
+    "phase_estimator": {
+      "path": "artifacts/phase_route_v3/phase_estimator.pt",
+      "bytes": 11344688,
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "state_sha256": "8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598"
+    },
+    "libero_10_thresholds": {
+      "path": "artifacts/phase_route_v3/exit_thresholds_libero_10_exp_1.0.json",
+      "bytes": 236,
+      "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+    }
+  },
   "frozen_results": {
+    "phase_route_v3_d9": {
+      "path": "results/v3/v3_d9_final_result.json",
+      "sha256": "4df77237e84ad82b05ae67145e52000b0e3430f34b6f69fcbee743687ac11952"
+    },
+    "phase_route_v3_d10": {
+      "path": "results/v3/v3_d10_paper_analysis.json",
+      "sha256": "60b451a32b2966bdc9d888c137eb93d903a9aa5268219f6f7c8116c3a248187d"
+    },
     "rp_pep_paired": {
       "path": "results/rp_pep_paired.json",
       "sha256": "5e8c2fa2e50a30a5911b29bab796e50d624a2971da649b4aa82333ba9beefb16"

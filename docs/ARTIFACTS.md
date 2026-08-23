@@ -12,6 +12,7 @@ PhaseRoute-VLA 将“可审查的发布材料”和“体积很大的本地实�
 | `docs/` | 架构、复现和研究说明 | 提交 |
 | `results/` | 小型、冻结、机器可读结果与摘要 | 提交 |
 | `artifacts/MANIFEST.json` | 权重、第三方代码和结果的 revision/SHA | 提交 |
+| `artifacts/phase_route_v3/` | 冻结 router、phase estimator、V3 threshold 与子清单 | 提交 |
 | `model/` | 约 34 GB checkpoint 与训练权重 | 忽略 |
 | `reports/` | 原始 result、teacher cache、hidden、NPZ | 忽略 |
 | `runs/` | rollout、stdout、视频与临时 preflight | 忽略 |
@@ -23,13 +24,16 @@ PhaseRoute-VLA 将“可审查的发布材料”和“体积很大的本地实�
 
 | 文件 | 用途 |
 |---|---|
+| `v3/v3_d9_final_result.json` | PhaseRoute V3 LIBERO-10 100-pair active independent test |
+| `v3/v3_d10_paper_analysis.json` | 冻结论文资产与 post-D9 消融边界 |
 | `rp_pep_paired.json` | 20-pair RP-PEP 与原始 early-exit 的严格配对证据 |
 | `release_smoke_state30.json` | 前四卡、10-task、state-30 发布 smoke 汇总 |
 | `router_sealed.json` | 学习式 router 一次性 sealed gate |
 | `router_failure_analysis.json` | 4 条 false-shallow record 的后验诊断 |
 | `FINAL_VALIDATION.md` | 发布级验证结论 |
 
-这些 JSON 中的原始实验输入路径已规范化为仓库相对路径，唯一 GPU UUID 已替换为四个稳定的伪标识；原始输入内容的 SHA-256 仍保留。发布副本自身的 hash 记录在 `artifacts/MANIFEST.json`。
+历史 release JSON 中的原始实验输入路径已规范化；V3 results 保留可审计 protocol、
+input binding 和 access ledger。发布副本自身的 hash 记录在 `artifacts/MANIFEST.json`。
 
 ## checkpoint
 
@@ -49,9 +53,30 @@ revision:   a014b84203c6fb981d3f6181dc3bc7207610b2a3
 
 正式 release gate 同时验证 config、dataset statistics、checkpoint、阈值、paired result 的 hash 和科学门。只改文件名但不匹配内容不会通过。
 
+## PhaseRoute V3 小模型
+
+V3 的 34 GB A1 backbone 与上表相同，不复制到 Git；三个足以定义 controller 的小
+artifact 随 release 直接提交：
+
+| 文件 | 字节数 | SHA-256 |
+|---|---:|---|
+| `phase_route_v3/final_router.pt` | 22,290 | `9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830` |
+| `phase_route_v3/phase_estimator.pt` | 11,344,688 | `b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1` |
+| `phase_route_v3/exit_thresholds_libero_10_exp_1.0.json` | 236 | `a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796` |
+
+phase estimator 的 parameter/buffer state 另有内部 hash：
+`8c0021be43d1cea28890833fd5e1faa8ee0191e809cbf3b1df0d3c36010d7598`。
+11.3 MB 文件是仓库中“不能重建就无法执行 V3”的唯一大于 10 MB 受控例外，仍低于
+GitHub 100 MB 限制；它不是中间 checkpoint。
+
+`a1/vla/dynamic_compute/v3/release.py` 同时验证 file SHA、payload schema、五个 router
+heads、phase state、D9 formal result 与 `deployment_authorized=false`。通用 launcher
+在 run 目录创建只含 symlink 的 checkpoint overlay，把 bundled LIBERO-10 threshold
+放到 evaluator 要求的位置；不会修改外部 34 GB checkpoint 目录。
+
 ## 为什么不提交原始 reports
 
-研究归档包含约数十 GB 的以下数据：
+研究归档包含数十 GB 的以下数据：
 
 - 每次 policy call 的 teacher action 与 FM trace；
 - visual/language hidden summary 和 layer-13 hidden；
@@ -70,7 +95,7 @@ revision:   a014b84203c6fb981d3f6181dc3bc7207610b2a3
 
 ## 大文件发布建议
 
-若公开原始 artifacts，应使用带版本与 checksum 的对象存储、Hugging Face Dataset 或 Zenodo，而不是 Git history。建议每个外部 bundle 至少包含：
+若公开 raw artifacts，应使用带版本与 checksum 的对象存储、Hugging Face Dataset 或 Zenodo，而不是 Git history。建议每个外部 bundle 至少包含：
 
 ```text
 MANIFEST.json

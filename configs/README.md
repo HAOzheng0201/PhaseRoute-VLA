@@ -2,13 +2,18 @@
 
 当前发布聚焦 A1 + LIBERO。
 
+> 注意：`models/libero.yaml` 是从上游预训练 checkpoint 继续训练用的兼容配方，不是
+> 当前 PhaseRoute V3 使用的 `model/libero_exit` checkpoint 运行配置。后者以
+> checkpoint 自带 `config.yaml` 为准，实际是 horizon 8、action dim 7、proprio dim
+> 8、sequence length 680。
+
 ```text
 configs/
 ├── experiments/
 │   ├── libero_simulation.yaml   # 正式 LIBERO 训练组合配置
 │   └── pretrain.yaml            # 上游 A1 预训练组合配置
 ├── models/
-│   ├── libero.yaml              # horizon=10, fixed action dim=32
+│   ├── libero.yaml              # 可选上游兼容配方：horizon=10, action dim=32
 │   └── pretrain.yaml
 └── datasets/
     ├── libero_4_tasks.yaml       # 四个 LIBERO suite RLDS 训练集
