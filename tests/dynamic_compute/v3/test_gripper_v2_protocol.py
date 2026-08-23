@@ -13,6 +13,9 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 MODULE_DIRECTORY = REPO_ROOT / "a1" / "vla" / "dynamic_compute" / "v3"
+LEGACY_EVIDENCE_ROOT = (
+    REPO_ROOT / "artifacts" / "phase_route_v3" / "legacy_source"
+)
 sys.path.insert(0, str(MODULE_DIRECTORY))
 import gripper_v2_protocol as gp  # noqa: E402
 
@@ -319,7 +322,7 @@ def test_cli_relocated_validation_is_stdlib_only_and_fail_closed(tmp_path: Path)
         "reports/phase_route_v2_stage_c355_development_predictor_training_"
         "20260818_v1/result.json"
     )
-    legacy_source = REPO_ROOT.parents[1] / "source" / legacy_relative
+    legacy_source = LEGACY_EVIDENCE_ROOT / legacy_relative
     legacy_destination = relocated_legacy / legacy_relative
     legacy_destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(legacy_source, legacy_destination)

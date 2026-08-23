@@ -29,6 +29,14 @@ def test_clean_clone_v3_release_gate_loads_exact_frozen_payloads() -> None:
     assert result["deployment_authorized"] is False
     assert result["payload_validation"]["router_models"] == 5
     assert result["payload_validation"]["phase_state_sha256"] == PHASE_STATE_SHA256
+    assert result["historical_validation"]["legacy_evidence"] == {
+        "verified": True,
+        "verified_count": 28,
+        "total_bytes": 1_737_937,
+        "manifest_sha256": (
+            "4ae5b617525a1f575f62700ab46434a1c9e8b20b9d13863b7ae8787f74c0ea6a"
+        ),
+    }
     assert all(result["checks"].values())
 
 

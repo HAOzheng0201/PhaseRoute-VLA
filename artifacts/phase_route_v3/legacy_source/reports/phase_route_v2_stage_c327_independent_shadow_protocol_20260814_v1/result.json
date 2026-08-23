@@ -1,0 +1,204 @@
+{
+  "status": "PROTOCOL_FROZEN",
+  "schema_version": "phase-route-vla.stage-c327-independent-shadow-protocol.v1",
+  "scope": "stage_c327_independent_multiepisode_shadow_protocol",
+  "timestamp_utc": "2026-08-14T14:54:44.321+00:00",
+  "source_git_commit": "2fcb07da2932eaaad441cddea91179845aa23c9c",
+  "source_worktree_dirty": true,
+  "runner": "/data3/haozheng/A1/source/scripts/dynamic_compute/run_stage_c327_independent_shadow_pair.py",
+  "runner_source_sha256": "edf7cc1e7cbe84f718a2abb7762b0f224a7bc90851598d16b56987f520ffb7ab",
+  "protocol_freezer_source_sha256": "9440c26d1de0de9741381fcb71132167801bbaa8e3641368086c91dbf715221a",
+  "implementation_source_sha256": {
+    "a1/vla/dynamic_compute/c325_shadow_rollout_audit.py": "71c9bb13c2707c27777d605324ae0c09df4a53a5d6e169497278e43b5773612e",
+    "a1/vla/dynamic_compute/frozen_a1_distillation.py": "7738cf9d0343654d2857beb509be41331f6e54f69a905b994016182d29a0150a",
+    "a1/vla/dynamic_compute/hierarchical_residual_online.py": "8251b2d2e9352b38fb8fc559eed347ce64e1ba1b2c7eed84ebad52351f7b70ab",
+    "a1/vla/dynamic_compute/hierarchical_residual_runtime.py": "0362e3fcd9fcd8322798734e97baaec4de4992712c5dafa03ef3324f3b5a12a1",
+    "a1/vla/dynamic_compute/joint_width_depth_controller.py": "006da99f75a86ff969a0bca050ed90a593129a609deb7bf2c95cc0e2e68e9155",
+    "a1/vla/dynamic_compute/phase_conditioned_vision_aggregation.py": "f18bb2b57f2d112a42a520653fb39954adcc21c6b6831cfdb07519dc3f70fffd",
+    "a1/vla/dynamic_compute/phase_depth_runtime.py": "2853037cea96cadd4dec79b7840c100f1934372b3a038d280258ce9eed8d5b11",
+    "a1/vla/dynamic_compute/telemetry.py": "63e03e87f0a23a2087f0962d7d4faa29552bdaf112cf3b196f35cda78b8826ab",
+    "robot_experiments/libero/eval_libero_early_exit.py": "b364ffee7550e75d093636048cdffb759479da2c9043b2225bff52c4ba6591dc",
+    "robot_experiments/libero/exit_vla_utils.py": "3aee959727c475657e2d8bc72d625e9aad8e0632817dc46e2f510118319f16d0",
+    "robot_experiments/libero/libero_utils.py": "4a54f663f6d5534662a4dbce09619fad3407a9c8421e5b913040296e077baced",
+    "robot_experiments/vla_utils.py": "1df05770a9d5598ab828c991f00037e5e2f1d109c3f8b95aa36f196153cee165",
+    "scripts/dynamic_compute/run_stage_c2_width_shadow_closed_loop_pair.py": "d13fdaccfd721ddbc0b2ddd3703e8d674d6bf44438838f037c0ca7d6f755736a",
+    "scripts/dynamic_compute/smoke_m1_telemetry.py": "74247e542d1469152023679a74fc4d54c6fcdba8a5a843d8801f0e1cd94cac11"
+  },
+  "selections": [
+    {
+      "key": "libero_10:task0:episode10",
+      "task_suite": "libero_10",
+      "task_id": 0,
+      "episode_id": 10,
+      "episode_seed": 20260821,
+      "task_description": "put both the alphabet soup and the tomato sauce in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "3988ee9439224b6e6d9593dc8a29e4f71cca93d8884075fab53b72f6b71dc574",
+      "episode_partition": "exact_initial_state_independent_for_current_phase_route",
+      "fm_steps": 10,
+      "arm_order": [
+        "baseline",
+        "hierarchical_online_shadow"
+      ]
+    },
+    {
+      "key": "libero_10:task0:episode11",
+      "task_suite": "libero_10",
+      "task_id": 0,
+      "episode_id": 11,
+      "episode_seed": 20260822,
+      "task_description": "put both the alphabet soup and the tomato sauce in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "d5da74b098488c072f6d9f1f23bed4d90df373cc8f99333408c1c108263c1331",
+      "episode_partition": "exact_initial_state_independent_for_current_phase_route",
+      "fm_steps": 10,
+      "arm_order": [
+        "baseline",
+        "hierarchical_online_shadow"
+      ]
+    },
+    {
+      "key": "libero_10:task1:episode10",
+      "task_suite": "libero_10",
+      "task_id": 1,
+      "episode_id": 10,
+      "episode_seed": 20270821,
+      "task_description": "put both the cream cheese box and the butter in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "fcb0fba58a3af4f23239186812db2a952f05aae7fa3f9e59027adcac54b29f15",
+      "episode_partition": "exact_initial_state_independent_for_current_phase_route",
+      "fm_steps": 10,
+      "arm_order": [
+        "baseline",
+        "hierarchical_online_shadow"
+      ]
+    },
+    {
+      "key": "libero_10:task1:episode11",
+      "task_suite": "libero_10",
+      "task_id": 1,
+      "episode_id": 11,
+      "episode_seed": 20270822,
+      "task_description": "put both the cream cheese box and the butter in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "2da19a1dc24a4904221f6f831ce4b494768485387a321766bfe28e1fedb9e8c8",
+      "episode_partition": "exact_initial_state_independent_for_current_phase_route",
+      "fm_steps": 10,
+      "arm_order": [
+        "baseline",
+        "hierarchical_online_shadow"
+      ]
+    }
+  ],
+  "selection_audit": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c326_independent_shadow_selection_audit_20260814_v1/result.json",
+  "selection_audit_sha256": "1aa4b25d82b5a79f981d20df83348c0f0709e09fcf81d393ed643dbe4e9c9aab",
+  "c325_protocol": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c325_hierarchical_shadow_pair_protocol_20260814_v1/result.json",
+  "c325_protocol_sha256": "aa3b3be119d0e0fa2bf38b0407e936f123592840c8a431278b66f0bb7646f9cd",
+  "c325_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c325_hierarchical_shadow_pair_task0_ep0_gpu0_20260814_v1/result.json",
+  "c325_result_sha256": "32293b98f5ed2a4dd408ad7296f78a641ad4e4a4e194339e00cb45d3293fdafc",
+  "artifacts": {
+    "a1_checkpoint_directory": "/data3/haozheng/A1/source/model/libero_exit",
+    "phase_checkpoint": "/data3/haozheng/A1/source/reports/m2_phase_estimator_v1_seed20260803/phase_estimator.pt",
+    "joint_checkpoint": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c33_joint_controller_pilot_seed20260811_gpu0_20260812_v1/joint_width_depth_controller.pt",
+    "joint_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c33_joint_controller_pilot_seed20260811_gpu0_20260812_v1/result.json",
+    "aggregator_checkpoint": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c38b_contextual_bypass_cvar_smoke_seed20260811_gpu0_20260813_v4/contextual_bypass_cvar_aggregator.pt",
+    "aggregator_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c38b_contextual_bypass_cvar_smoke_seed20260811_gpu0_20260813_v4/result.json",
+    "residual_candidate": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c321_hierarchical_candidate_seed20260811_cpu_20260814_v1/hierarchical_width_route_ood_candidate.pt",
+    "residual_validation_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c322_independent_validation_seed20260811_gpu0_20260814_v1/result.json",
+    "a1_attestation": "/data3/haozheng/A1/source/reports/model_libero_exit_sha256_attestation_20260809_v1.json",
+    "c324_gpu_smoke_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c324_online_shadow_gpu0_20260814_v1/result.json",
+    "prior_c2_pair_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_shadow_closed_loop_pair_task0_ep0_gpu0_20260811_v1/result.json",
+    "a1_checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+    "joint_checkpoint_sha256": "8abacc4493d409a26d4d459debeb98cdc5b5311354986ce6606e498bc7e0bd18",
+    "aggregator_checkpoint_sha256": "1a91188457b54980e4bf031e2da48e1b0fdb65a4effeded6ae9b7f956ee70d6a",
+    "residual_candidate_sha256": "bc72287484befb13520ea5baeab6125639dbe8c21017129005b456c011b3583c",
+    "residual_validation_result_sha256": "eeed0c8de895085556f197afbe374e62f322d066348c8af341e0d69607be9407",
+    "a1_attestation_sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab",
+    "c324_gpu_smoke_result_sha256": "1274e12b8f996c1e991de26f828ca0cb72fd566d675a44380591c8017b51f00f",
+    "prior_c2_pair_result_sha256": "eb2e61ba67a40dda96984d4a7d7dd68d811d7746715fd471e7f05b792a9fe0c0",
+    "joint_result_sha256": "63d8eb7e25af4f6bbf9a2bc1d76a894c2f24484a186faf8d97b7c78051d3fbe8",
+    "aggregator_result_sha256": "8998b5f800f8ee671e43bb55381f79cd7645d63eb5a199f2a7509fa0fbf83549"
+  },
+  "pair_pass_gates": {
+    "selected_initial_state_matches_audit": true,
+    "paired_success_equal": true,
+    "policy_call_count_equal": true,
+    "all_action_chunks_bitwise_equal": true,
+    "all_policy_observations_equal": true,
+    "all_exit_layers_equal": true,
+    "one_telemetry_record_per_shadow_call": true,
+    "one_online_event_per_shadow_call": true,
+    "all_online_events_well_formed": true,
+    "all_shadow_calls_classified": true,
+    "phase_runtime_error_free": true,
+    "producer_calls_aligned": true,
+    "residual_calls_aligned": true,
+    "unexpected_online_errors": 0,
+    "telemetry_error_free": true,
+    "controls_main_action": false
+  },
+  "aggregate_metrics_preregistered": [
+    "paired_success_equality_count",
+    "shadow_only_failure_count",
+    "action_observation_exit_mismatch_count",
+    "policy_call_count",
+    "certificate_accepted_calls",
+    "certificate_rejected_calls",
+    "allowed_error_fallback_calls",
+    "unexpected_error_count",
+    "certificate_evaluation_coverage",
+    "early_exit_call_count"
+  ],
+  "gpu_policy": {
+    "physical_gpu_indices_allowed": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "physical_gpu_indices_forbidden": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "one_pair_per_process": true,
+    "one_visible_gpu": true,
+    "gpu_uuid_must_match_preflight": true
+  },
+  "authorization": {
+    "run_four_paired_shadow_rollouts": true,
+    "residual_controls_main_action": false,
+    "use_result_for_tuning": false,
+    "replace_failed_pair": false,
+    "active_canary": false,
+    "performance_claim": false
+  },
+  "claim_boundary": {
+    "exact_initial_states_independent_for_current_phase_route": true,
+    "globally_untouched_benchmark_tasks": false,
+    "a1_pretraining_independent": false,
+    "full_depth_arm_included": false,
+    "early_exit_causal_failure_count_identifiable": false,
+    "result_used_for_tuning": false,
+    "active_canary_authorized": false,
+    "end_to_end_latency_claim": false,
+    "performance_claim": false,
+    "superiority_claim": false,
+    "purpose": "independent exact-initial-state closed-loop reliability and zero-interference audit of the observational online side channel"
+  },
+  "selection_audit_status": "INDEPENDENT_SELECTION_AUDIT_PASS"
+}

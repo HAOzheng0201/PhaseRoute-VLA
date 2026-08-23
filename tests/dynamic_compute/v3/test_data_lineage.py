@@ -14,6 +14,9 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 MODULE_DIRECTORY = REPO_ROOT / "a1" / "vla" / "dynamic_compute" / "v3"
+LEGACY_EVIDENCE_ROOT = (
+    REPO_ROOT / "artifacts" / "phase_route_v3" / "legacy_source"
+)
 sys.path.insert(0, str(MODULE_DIRECTORY))
 import data_lineage as dl  # noqa: E402
 
@@ -358,7 +361,7 @@ def test_cli_is_reproducible_stdlib_only_and_emits_expected_counts(tmp_path: Pat
     manifest_path = REPO_ROOT / "docs/research/v3/legacy_evidence_manifest.json"
     manifest_value = json.loads(manifest_path.read_text(encoding="utf-8"))
     relocated_source = tmp_path / "source"
-    original_source = REPO_ROOT.parents[1] / "source"
+    original_source = LEGACY_EVIDENCE_ROOT
     for entry in manifest_value["evidence"]:
         source = original_source / entry["path"]
         destination = relocated_source / entry["path"]

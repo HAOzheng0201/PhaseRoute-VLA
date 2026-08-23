@@ -1,0 +1,135 @@
+{
+  "status": "AUDIT_PASS",
+  "scope": "stage_c2_fresh_offset_fit_teacher_cache",
+  "source_git_commit": "2fcb07da2932eaaad441cddea91179845aa23c9c",
+  "source_worktree_dirty": true,
+  "protocol_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_recovery_protocol_20260810_v1/result.json",
+  "protocol_result_sha256": "36ea7273e49519c8fdf558282819f70583c411e1349fa02ef16f2f63805047e2",
+  "protocol_sha256": "c0c4d9a44d6d6ada0b1fd6fab5066e2e2b60db0ec3715069dbdc01a5271353af",
+  "cache_root": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1",
+  "tasks": 10,
+  "episodes_per_task": 10,
+  "episode_indices": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "task_episode_groups": 100,
+  "teacher_cache_records": 1345,
+  "successes": 96,
+  "success_rate": 0.96,
+  "cache_bytes": 6991667808,
+  "sources": [
+    {
+      "task_id": 0,
+      "physical_gpu_index": 0,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task0/result.json",
+      "result_sha256": "8f2a88338fdcda688d6b957a8f5c7a0cb7623eb748ce1aedc8a3e729bd935eb0",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task0/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "64852188dc06f012b7d0271fd800d8d230ee87d596cab5ed0bd85b183b25c5a7",
+      "records": 96,
+      "successes": 10
+    },
+    {
+      "task_id": 1,
+      "physical_gpu_index": 1,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task1/result.json",
+      "result_sha256": "8f98501d5fcdaa543c75ea2e3086da8a82cca8789e325c121ae6457c1cfe46b6",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task1/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "40aedd9b4b0a29f411d5845f4631d78e5b16a5a9577c0c45f259eaf9d441dd84",
+      "records": 139,
+      "successes": 10
+    },
+    {
+      "task_id": 2,
+      "physical_gpu_index": 2,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task2/result.json",
+      "result_sha256": "4b3fec4165027aff57236b8546da40b8885f2d95677950b850d04624dda2f865",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task2/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "4f7a0b75bc221a99cafc2345e4eec8e63eed01f7209c766b1926a52e9ab25615",
+      "records": 119,
+      "successes": 10
+    },
+    {
+      "task_id": 3,
+      "physical_gpu_index": 3,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task3/result.json",
+      "result_sha256": "b78fe0d5f44b84831b4211af7b2ade0ba033317d7333333ec01b93e1b65394e0",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task3/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "facc901d00679b094e56e5b84e06485f23f2da94d0cc36364138ca1cc7ebb4f7",
+      "records": 124,
+      "successes": 9
+    },
+    {
+      "task_id": 4,
+      "physical_gpu_index": 0,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task4/result.json",
+      "result_sha256": "ca71b363836a5e0f29e4b5ddc4505f2e6430f628e0971d3d8f8f65695f5d3272",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task4/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "a5df5f9d1c95ac6744491b442284d8cb6f54401a884573a2fa28ae26a3567ec8",
+      "records": 174,
+      "successes": 9
+    },
+    {
+      "task_id": 5,
+      "physical_gpu_index": 1,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task5/result.json",
+      "result_sha256": "a3e8515ffe7d34b4dda7931809d27689f4d8893e1ea7d3f821eec6a2da87a54b",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task5/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "4601cb5a7b1e6cd774e9b1e549726c3ebbec05cf130f67b14d4e429205a51194",
+      "records": 117,
+      "successes": 10
+    },
+    {
+      "task_id": 6,
+      "physical_gpu_index": 2,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task6/result.json",
+      "result_sha256": "75205407a5b9d3130adf7597f7ba117653c8aed6fd58c0eb2cfc387ce1cfcd36",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task6/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "e5b5d4ad02eff049f892a72dee3b75d9a0a1700f96dac00fbf25a66be28dc87f",
+      "records": 135,
+      "successes": 10
+    },
+    {
+      "task_id": 7,
+      "physical_gpu_index": 3,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task7/result.json",
+      "result_sha256": "a11f9a646bd873519a268ffa8862ced3ab67d88da2d30c9cd035c02c3c70c021",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task7/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "204f5f655fd656ddfba224dfad51b43d8bba888f4f7b124a746a2a5b71439be8",
+      "records": 145,
+      "successes": 10
+    },
+    {
+      "task_id": 8,
+      "physical_gpu_index": 0,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task8/result.json",
+      "result_sha256": "4f4d4184dab039a100b7380b1d3b0e5366cefd04dd0c9032d941dc377bc52ae8",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task8/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "2129762a165d07f3d0ee2c9b56b0bab4e9ced527078d9988a7fd9454b74cc452",
+      "records": 121,
+      "successes": 10
+    },
+    {
+      "task_id": 9,
+      "physical_gpu_index": 1,
+      "result_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task9/result.json",
+      "result_sha256": "20337229b4d30c070c94d400d0d1dd1c18401c39ca745b4b4576c68d295ed334",
+      "manifest_path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task9/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "90a810098586754542bdfa5c2d1b756671b3eb442bcc9636d40e95eb723ffe87",
+      "records": 175,
+      "successes": 8
+    }
+  ],
+  "consumed_legacy_gate_accessed": false,
+  "sealed_test_accessed": false,
+  "fresh_one_time_gate_accessed": false,
+  "runtime_integrated": false
+}

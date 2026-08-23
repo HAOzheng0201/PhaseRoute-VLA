@@ -61,6 +61,12 @@
       "path": "artifacts/phase_route_v3/exit_thresholds_libero_10_exp_1.0.json",
       "bytes": 236,
       "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+    },
+    "historical_validation": {
+      "root": "artifacts/phase_route_v3/legacy_source",
+      "legacy_manifest": "docs/research/v3/legacy_evidence_manifest.json",
+      "legacy_manifest_sha256": "4ae5b617525a1f575f62700ab46434a1c9e8b20b9d13863b7ae8787f74c0ea6a",
+      "d8_fresh_states_sha256": "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f"
     }
   },
   "frozen_results": {

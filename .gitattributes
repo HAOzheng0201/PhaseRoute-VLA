@@ -1,0 +1,4 @@
+# Authenticated legacy evidence must preserve its original bytes, including
+# Markdown hard-break spaces. Normal source and documentation remain subject
+# to the repository-wide whitespace gate.
+artifacts/phase_route_v3/legacy_source/** -whitespace

@@ -12,7 +12,7 @@ PhaseRoute-VLA 将“可审查的发布材料”和“体积很大的本地实�
 | `docs/` | 架构、复现和研究说明 | 提交 |
 | `results/` | 小型、冻结、机器可读结果与摘要 | 提交 |
 | `artifacts/MANIFEST.json` | 权重、第三方代码和结果的 revision/SHA | 提交 |
-| `artifacts/phase_route_v3/` | 冻结 router、phase estimator、V3 threshold 与子清单 | 提交 |
+| `artifacts/phase_route_v3/` | 冻结 runtime artifact 与完整测试所需的小型认证证据 | 提交 |
 | `model/` | 约 34 GB checkpoint 与训练权重 | 忽略 |
 | `reports/` | 原始 result、teacher cache、hidden、NPZ | 忽略 |
 | `runs/` | rollout、stdout、视频与临时 preflight | 忽略 |
@@ -74,6 +74,18 @@ heads、phase state、D9 formal result 与 `deployment_authorized=false`。通�
 在 run 目录创建只含 symlink 的 checkpoint overlay，把 bundled LIBERO-10 threshold
 放到 evaluator 要求的位置；不会修改外部 34 GB checkpoint 目录。
 
+### 自包含回归证据
+
+为了让正式发布目录脱离旧研究工作区后仍可运行完整 201 项 V3 测试，
+`artifacts/phase_route_v3/` 还保存约 2.7 MB 的认证证据：D8 的 200 个生成状态、D8A/D8B
+结果，以及 D0/D1 lineage 测试读取的 28 项 legacy manifest 文件和 C3.55 结果。
+这些文件逐项保持原 SHA，不含图像、视频、teacher cache、hidden state 或 rollout。
+
+历史 manifest 中的绝对 `source_root` 是 provenance，不是当前运行路径。测试从
+`artifacts/phase_route_v3/legacy_source/` 复制相同字节到临时目录，验证 relocated
+CLI 和 fail-closed 行为；因此 clean clone 不再依赖 `/data3/haozheng/A1/source`。
+完整登记见 `artifacts/phase_route_v3/MANIFEST.json`。
+
 ## 为什么不提交原始 reports
 
 研究归档包含数十 GB 的以下数据：
@@ -83,7 +95,7 @@ heads、phase state、D9 formal result 与 `deployment_authorized=false`。通�
 - episode 视频、日志、rollout 与临时缓存；
 - router feature matrix、checkpoint 和中间拟合输出。
 
-这些内容不适合作为 Git 仓库的一部分，也可能包含机器绝对路径。保留它们不会增强普通用户的代码复现，反而会使 clone、review 和版本管理不可用。因此发布仓库只保存生成它们的源码、测试、冻结统计量和哈希。
+这些内容不适合作为 Git 仓库的一部分，也可能包含机器绝对路径。保留它们不会增强普通用户的代码复现，反而会使 clone、review 和版本管理不可用。因此发布仓库只保存生成它们的源码、测试、冻结统计量、哈希，以及上一节所述的最小回归证据。
 
 ## 不可变与防覆盖约定
 

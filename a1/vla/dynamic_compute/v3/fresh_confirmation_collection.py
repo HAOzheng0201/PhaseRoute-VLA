@@ -64,19 +64,23 @@ D8_READINESS_RELATIVE_PATH = Path("results/v3/v3_d8_readiness_attestation.json")
 D8_READINESS_SHA256 = (
     "cb13d48898c189814cc3bf02b2cb3171f7df307c3261a2fb7378c8c7a8b34829"
 )
-D8A_RESULT_RELATIVE_PATH = Path("reports/v3_d8_fresh_states/result.json")
+D8A_RESULT_RELATIVE_PATH = Path(
+    "artifacts/phase_route_v3/d8_fresh_states_result.json"
+)
 D8A_RESULT_SHA256 = (
     "ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622"
 )
-D8A_PAYLOAD_RELATIVE_PATH = Path("reports/v3_d8_fresh_states/fresh_states.pt")
+D8A_PAYLOAD_RELATIVE_PATH = Path("artifacts/phase_route_v3/fresh_states.pt")
 D8A_PAYLOAD_SHA256 = (
     "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f"
 )
-D8B_RESULT_RELATIVE_PATH = Path("reports/v3_d8_final_router/result.json")
+D8B_RESULT_RELATIVE_PATH = Path(
+    "artifacts/phase_route_v3/d8_final_router_result.json"
+)
 D8B_RESULT_SHA256 = (
     "76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d"
 )
-D8B_PAYLOAD_RELATIVE_PATH = Path("reports/v3_d8_final_router/final_router.pt")
+D8B_PAYLOAD_RELATIVE_PATH = Path("artifacts/phase_route_v3/final_router.pt")
 D8B_PAYLOAD_SHA256 = (
     "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830"
 )

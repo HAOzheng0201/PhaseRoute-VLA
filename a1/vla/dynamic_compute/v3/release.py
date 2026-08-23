@@ -26,6 +26,43 @@ THRESHOLD_RELATIVE_PATH = Path(
     "artifacts/phase_route_v3/exit_thresholds_libero_10_exp_1.0.json"
 )
 FORMAL_RESULT_RELATIVE_PATH = Path("results/v3/v3_d9_final_result.json")
+HISTORICAL_VALIDATION_FILES = {
+    "d8_fresh_states_result": {
+        "path": Path("artifacts/phase_route_v3/d8_fresh_states_result.json"),
+        "bytes": 101_912,
+        "sha256": "ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622",
+    },
+    "d8_fresh_states_payload": {
+        "path": Path("artifacts/phase_route_v3/fresh_states.pt"),
+        "bytes": 195_114,
+        "sha256": "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f",
+    },
+    "d8_final_router_result": {
+        "path": Path("artifacts/phase_route_v3/d8_final_router_result.json"),
+        "bytes": 3_194,
+        "sha256": "76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d",
+    },
+    "legacy_c355_result": {
+        "path": Path(
+            "artifacts/phase_route_v3/legacy_source/reports/"
+            "phase_route_v2_stage_c355_development_predictor_training_"
+            "20260818_v1/result.json"
+        ),
+        "bytes": 566_731,
+        "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678",
+    },
+}
+LEGACY_EVIDENCE_MANIFEST_RELATIVE_PATH = Path(
+    "docs/research/v3/legacy_evidence_manifest.json"
+)
+LEGACY_EVIDENCE_MANIFEST_SHA256 = (
+    "4ae5b617525a1f575f62700ab46434a1c9e8b20b9d13863b7ae8787f74c0ea6a"
+)
+LEGACY_EVIDENCE_ROOT_RELATIVE_PATH = Path(
+    "artifacts/phase_route_v3/legacy_source"
+)
+LEGACY_EVIDENCE_COUNT = 28
+LEGACY_EVIDENCE_BYTES = 1_737_937
 
 BACKBONE_FILENAMES = (
     "model.pt",
@@ -179,6 +216,7 @@ def _manifest_checks(manifest: Mapping[str, Any]) -> dict[str, bool]:
     files = manifest.get("files")
     backbone = manifest.get("backbone")
     formal_result = manifest.get("formal_result")
+    historical = manifest.get("historical_validation")
     checks = {
         "schema_version": manifest.get("schema_version")
         == V3_ARTIFACT_SCHEMA_VERSION,
@@ -187,6 +225,7 @@ def _manifest_checks(manifest: Mapping[str, Any]) -> dict[str, bool]:
         "files_object": isinstance(files, dict),
         "backbone_object": isinstance(backbone, dict),
         "formal_result_object": isinstance(formal_result, dict),
+        "historical_validation_object": isinstance(historical, dict),
     }
     if not isinstance(files, dict):
         return checks
@@ -209,6 +248,24 @@ def _manifest_checks(manifest: Mapping[str, Any]) -> dict[str, bool]:
             == "PASS_V3_D9_PAIRED_ACTIVE_INDEPENDENT_TEST"
             and formal_result.get("suite") == "libero_10"
             and formal_result.get("pairs") == 100
+        )
+    if isinstance(historical, dict):
+        for name, expected in HISTORICAL_VALIDATION_FILES.items():
+            entry = historical.get(name)
+            checks[f"manifest_historical_{name}"] = isinstance(entry, dict) and (
+                entry.get("path") == str(expected["path"])
+                and entry.get("bytes") == expected["bytes"]
+                and entry.get("sha256") == expected["sha256"]
+            )
+        legacy = historical.get("legacy_evidence")
+        checks["manifest_legacy_evidence"] = isinstance(legacy, dict) and (
+            legacy.get("root") == str(LEGACY_EVIDENCE_ROOT_RELATIVE_PATH)
+            and legacy.get("manifest")
+            == str(LEGACY_EVIDENCE_MANIFEST_RELATIVE_PATH)
+            and legacy.get("manifest_sha256")
+            == LEGACY_EVIDENCE_MANIFEST_SHA256
+            and legacy.get("manifest_entries") == LEGACY_EVIDENCE_COUNT
+            and legacy.get("manifest_bytes") == LEGACY_EVIDENCE_BYTES
         )
     if isinstance(backbone, dict) and isinstance(backbone.get("files"), dict):
         for name, expected in BACKBONE_EXPECTED.items():
@@ -318,6 +375,57 @@ def validate_phase_route_v3_release(
             }
         )
 
+    historical_validation: dict[str, Any] = {"files": {}}
+    for name, expected in HISTORICAL_VALIDATION_FILES.items():
+        evidence = _file_evidence(
+            root / expected["path"],
+            expected_bytes=int(expected["bytes"]),
+            expected_sha256=str(expected["sha256"]),
+        )
+        historical_validation["files"][name] = evidence
+        checks[f"historical_{name}_present"] = evidence["present"]
+        checks[f"historical_{name}_size"] = evidence["size_matches"]
+        checks[f"historical_{name}_sha256"] = evidence["sha256_matches"]
+
+    legacy_manifest_path = root / LEGACY_EVIDENCE_MANIFEST_RELATIVE_PATH
+    legacy_manifest_sha256 = (
+        sha256_file(legacy_manifest_path) if legacy_manifest_path.is_file() else None
+    )
+    checks["legacy_evidence_manifest_sha256"] = (
+        legacy_manifest_sha256 == LEGACY_EVIDENCE_MANIFEST_SHA256
+    )
+    legacy_report: dict[str, Any]
+    try:
+        from .evidence_manifest import verify_evidence_manifest
+
+        verified = verify_evidence_manifest(
+            legacy_manifest_path,
+            source_root=root / LEGACY_EVIDENCE_ROOT_RELATIVE_PATH,
+            allow_relocated_root=True,
+        )
+        legacy_report = {
+            "verified": True,
+            "verified_count": verified.verified_count,
+            "total_bytes": verified.total_bytes,
+            "manifest_sha256": legacy_manifest_sha256,
+        }
+    except Exception as error:
+        legacy_report = {
+            "verified": False,
+            "verified_count": None,
+            "total_bytes": None,
+            "manifest_sha256": legacy_manifest_sha256,
+            "error": f"{type(error).__name__}: {error}",
+        }
+    checks["legacy_evidence_verified"] = legacy_report["verified"] is True
+    checks["legacy_evidence_count"] = (
+        legacy_report["verified_count"] == LEGACY_EVIDENCE_COUNT
+    )
+    checks["legacy_evidence_bytes"] = (
+        legacy_report["total_bytes"] == LEGACY_EVIDENCE_BYTES
+    )
+    historical_validation["legacy_evidence"] = legacy_report
+
     payload_validation: dict[str, Any] = {"requested": bool(validate_payloads)}
     if validate_payloads and all(
         checks.get(f"{name}_sha256") for name in ("router", "phase_estimator")
@@ -378,6 +486,7 @@ def validate_phase_route_v3_release(
         "manifest": str(manifest_path),
         "artifacts": artifacts,
         "payload_validation": payload_validation,
+        "historical_validation": historical_validation,
         "backbone": backbone,
         "checks": checks,
     }

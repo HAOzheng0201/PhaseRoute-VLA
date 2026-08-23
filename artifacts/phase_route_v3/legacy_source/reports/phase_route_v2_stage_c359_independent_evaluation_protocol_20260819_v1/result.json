@@ -1,0 +1,2067 @@
+{
+  "status": "C359_INDEPENDENT_EVALUATION_PROTOCOL_FROZEN",
+  "schema_version": "phase-route-vla.stage-c359-independent-evaluation-protocol.v1",
+  "scope": "metadata_only_design_only_one_shot_independent_evaluation",
+  "timestamp_utc": "2026-08-18T21:58:34.054601+00:00",
+  "command": {
+    "artifact": "command.txt",
+    "bytes": 124,
+    "sha256": "b570cd2b2c3cb913b2791cd4ad1516a4848c9ddab0de0af8b0abcb96cb082543"
+  },
+  "parent_bindings": {
+    "c348_independent_validation_protocol": {
+      "path": "reports/phase_route_v2_stage_c348_independent_validation_protocol_20260817_v1/result.json",
+      "sha256": "e3c5ae5d49f3b6c88b62809a263834ded6bd4291df257d44d9da5ede3e029b92"
+    },
+    "c349_metadata_index": {
+      "path": "reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/result.json",
+      "sha256": "fe45b998efe7a45ea9620937bcfedc4bcd0e3a574ee51409087f50a938f5f868"
+    },
+    "c355_development_predictor_training": {
+      "path": "reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json",
+      "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678"
+    },
+    "c356_calibration_protocol": {
+      "path": "reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/result.json",
+      "sha256": "9b48bbb1a438ff5c9ef107b05421743ff7220c34431e307b7faca5c81bad7f3c"
+    },
+    "c357_calibration_runner_contract": {
+      "path": "reports/phase_route_v2_stage_c357_calibration_runner_contract_20260819_v1/result.json",
+      "sha256": "5f9af77deca432270373e7ace1d0166423fc651a7b04a6f7e19b82fe1bf38955"
+    },
+    "c358_tail_calibration_finalizer": {
+      "path": "reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/result.json",
+      "sha256": "116571455a7e2e210bcfd71d8e06a6cf20eb43ee4619ce6435e3e2d3e10a5afc"
+    }
+  },
+  "bound_artifacts": {
+    "c349_metadata_index": {
+      "path": "reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/metadata_index.jsonl",
+      "sha256": "0c06574cb526e9068cce2195eacaa9f5ebae8689e527c336a50019dd6a0f5e0b",
+      "access": "strict_same_fd_hash_then_five_field_metadata_parse"
+    },
+    "c355_development_checkpoint": {
+      "path": "reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/development_checkpoint_candidates.pt",
+      "sha256": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+      "access": "byte_hash_only_no_deserialization"
+    },
+    "c356_calibration_selection": {
+      "path": "reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/calibration_metadata_index.jsonl",
+      "sha256": "5341d6b60c2688e03e19d23548710ae523481230ce32425cab53a258adf5f636",
+      "access": "byte_hash_only_lineage_not_test_input"
+    },
+    "c358_tail_calibration_records": {
+      "path": "reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_records.jsonl",
+      "sha256": "a2c1789578105a302f200289e1b7e767d5c075ba0bed7be3954b8c4e8cd0215c",
+      "access": "byte_hash_only_calibration_lineage"
+    },
+    "c358_tail_calibration_artifact": {
+      "path": "reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_artifact.pt",
+      "sha256": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5",
+      "access": "byte_hash_only_no_deserialization"
+    }
+  },
+  "c357_source_closure_revalidated": {
+    "implementation_sources": 10,
+    "runner_sources": 5,
+    "test_sources": 6,
+    "runtime_dependency_sources": 227
+  },
+  "independent_test_metadata_selection": {
+    "schema_version": "phase-route-vla.stage-c359-independent-test-metadata-selection.v1",
+    "artifact": "independent_test_metadata_index.jsonl",
+    "artifact_bytes": 109450,
+    "artifact_sha256": "c713cf8e2d4140747cdf119fa9cc552441fafe98b01679120f279608899b0ed8",
+    "fields": [
+      "dataset_index",
+      "task_id",
+      "episode_index",
+      "call_ordinal",
+      "shard_assignment"
+    ],
+    "episodes": [
+      7,
+      10,
+      13,
+      16,
+      19,
+      22,
+      25,
+      28,
+      29
+    ],
+    "task_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "global_c349_dataset_index_preserved": true,
+    "source_order_preserved": true,
+    "sample_paths_persisted": false,
+    "step_or_behavior_fields_persisted": false,
+    "rows": 1192,
+    "task_episode_cells": 90,
+    "cell_rows_min": 9,
+    "cell_rows_max": 28,
+    "dataset_index_sha256": "4ca81655ca3943428315c371ed7fc734491ea07b049ee734616ab66860950236",
+    "task_rows": {
+      "0": 91,
+      "1": 121,
+      "2": 108,
+      "3": 97,
+      "4": 158,
+      "5": 110,
+      "6": 114,
+      "7": 131,
+      "8": 125,
+      "9": 137
+    },
+    "episode_rows": {
+      "7": 126,
+      "10": 131,
+      "13": 129,
+      "16": 143,
+      "19": 126,
+      "22": 133,
+      "25": 128,
+      "28": 130,
+      "29": 146
+    },
+    "shards": [
+      {
+        "shard_index": 0,
+        "rows": 300,
+        "dataset_index_sha256": "6ac2812114b1ce0299432db5310b93b7d9cfd84ef249b7b404187790c641428b"
+      },
+      {
+        "shard_index": 1,
+        "rows": 300,
+        "dataset_index_sha256": "a88a23506c2f6df5a32ec44fa806bc68abf91b000b8eeffdced18221b79180cf"
+      },
+      {
+        "shard_index": 2,
+        "rows": 299,
+        "dataset_index_sha256": "cbd2033c22dd58ea68630069c12b80c96709ea64b71af860b0e93672b0b30a82"
+      },
+      {
+        "shard_index": 3,
+        "rows": 293,
+        "dataset_index_sha256": "ce875918b45d0853f5ace823fd2eb9366227c7bf8846fbb8fefd22ecb70920a8"
+      }
+    ]
+  },
+  "metric_contract": {
+    "evaluation_unit": "1192_source_rows_x_fixed_layers_11_13",
+    "teacher": {
+      "layer": 27,
+      "role": "same_noise_consistency_teacher_not_expert_or_success_label"
+    },
+    "motion": {
+      "disposition": "ONE_SHOT_INDEPENDENT_EVALUATION_AUTHORIZED_AFTER_C360",
+      "checkpoint": "frozen_c355_full_development_refit",
+      "targets": [
+        "translation_rms",
+        "rotation_rms"
+      ],
+      "translation_target_formula": "sqrt(mean(delta[:,:,:,0:3]^2 over axes=(horizon,action_component)))",
+      "rotation_target_formula": "sqrt(mean(delta[:,:,:,3:6]^2 over axes=(horizon,action_component)))",
+      "target_delta": "input_contract_decision_delta_float32_[1192,2,8,7]",
+      "target_reduction_axes": [
+        2,
+        3
+      ],
+      "target_construction_dtype": "float32_without_intermediate_cast",
+      "target_dtype_and_shape": "float32_[1192,2,2]",
+      "frozen_inference": {
+        "feature_cast": "float32_[1192,2,82]_to_cpu_float64_contiguous",
+        "standardization": "(feature-feature_mean_by_layer[2,82])/feature_scale_by_layer[2,82]_all_checkpoint_float64",
+        "subhead": "exact_frozen_c355_motion_weight[2,82]_and_correction[2,2]",
+        "residual": "matmul(standardized_feature,weight.T)_float64_[1192,2,2]",
+        "prediction": "motion_anchor[None,:,:]*exp(residual-correction[None,:,:])",
+        "motion_anchor_shape": [
+          2,
+          2
+        ],
+        "correction_shape": [
+          2,
+          2
+        ],
+        "prediction_dtype_and_shape": "cpu_float64_[1192,2,2]",
+        "parameter_or_preprocessing_change": false
+      },
+      "baseline": "checkpoint_motion_anchor.unsqueeze(0).expand(1192,-1,-1)",
+      "baseline_dtype": "cpu_float64",
+      "baseline_reestimation_from_test": false,
+      "metric_inputs": "target_cast_once_float32_to_float64; prediction_and_anchor_float64",
+      "metric_accumulation_dtype": "cpu_float64",
+      "pooled_ratio": "sum_over_rows_and_layers((prediction-target)^2)/sum_over_rows_and_layers((anchor-target)^2)",
+      "per_layer_ratio": "for_each_fixed_layer_sum_over_rows((prediction-target)^2)/sum_over_rows((anchor-target)^2)",
+      "primary_gate": {
+        "translation_ratio_strictly_below": 1.0,
+        "rotation_ratio_strictly_below": 1.0,
+        "pooled_and_each_layer_must_all_pass": true,
+        "each_target_episode_improvements_at_least": 7,
+        "episode_count": 9
+      },
+      "episode_improvement": "for_each_target_and_episode_strict_model_sse_below_baseline_sse_summed_over_all_tasks_calls_and_both_layers",
+      "epsilon_or_tolerance": false
+    },
+    "tail": {
+      "disposition": "ONE_SHOT_INDEPENDENT_EVALUATION_AUTHORIZED_AFTER_C360",
+      "target_formula": "max_abs_over_8x7(candidate_layer_action-layer27_action)",
+      "target_delta": "input_contract_decision_delta_float32_[1192,2,8,7]",
+      "target_reduction_axes": [
+        2,
+        3
+      ],
+      "target_construction_dtype": "float32_without_intermediate_cast",
+      "target_dtype_and_shape": "float32_[1192,2]",
+      "frozen_inference": {
+        "feature_cast": "float32_[1192,2,82]_to_cpu_float64_contiguous",
+        "standardization": "(feature-feature_mean_by_layer[2,82])/feature_scale_by_layer[2,82]_all_checkpoint_float64",
+        "subhead": "exact_frozen_c355_tail_weight[1,82]_and_correction[2,1]",
+        "residual": "matmul(standardized_feature,weight.T)_float64_[1192,2,1]",
+        "q90_prediction": "tail_q90_anchor[None,:,:]*exp(residual-correction[None,:,:])",
+        "tail_q90_anchor_shape": [
+          2,
+          1
+        ],
+        "correction_shape": [
+          2,
+          1
+        ],
+        "prediction_dtype_and_shape": "cpu_float64_[1192,2]_after_squeeze",
+        "parameter_or_preprocessing_change": false
+      },
+      "prediction": "frozen_c355_q90_fp64_cast_exactly_to_fp32",
+      "decision_layers": [
+        11,
+        13
+      ],
+      "fixed_layer_corrections": [
+        0.009694024920463562,
+        0.0036352351307868958
+      ],
+      "correction_source": "frozen_c358_tail_calibration_artifact_float32_tensor_not_json_refit",
+      "upper_construction_dtype": "float32_exact_add_then_float32_contiguous",
+      "upper_construction_formula": "float32(q90_prediction)+float32(fixed_layer_correction)[None,:]",
+      "coverage_comparison_dtype": "float32_target_less_equal_float32_upper",
+      "metric_accumulation_dtype": "float64_after_frozen_fp32_upper_construction",
+      "conformal_refit_or_recalibration": false,
+      "coverage_interval_closed": [
+        0.85,
+        0.98
+      ],
+      "coverage_gate_scope": "each_layer_and_pooled_all_must_pass",
+      "pinball_q": 0.9,
+      "pinball_formula": "0.9*max(target-z,0)+0.1*max(z-target,0)",
+      "baseline": "frozen_c355_layer_specific_tail_q90_anchor",
+      "baseline_dtype_and_broadcast": "checkpoint_float64_layer_anchor_broadcast_over_test_rows",
+      "baseline_reestimation_from_test": false,
+      "pinball_ratio_formula": "sum_equal_weight_row_layer_pinball(target,upper)/sum_equal_weight_row_layer_pinball(target,broadcast_anchor)",
+      "pinball_ratio_gate": "each_layer_and_pooled_strictly_below_one",
+      "lower_endpoint": 0.0,
+      "upper_bound_width": "upper_prediction_minus_zero",
+      "mean_width_ratio_formula": "sum_equal_weight_row_layer_upper/sum_equal_weight_row_layer_broadcast_anchor",
+      "mean_width_ratio_gate": "each_layer_and_pooled_strictly_below_one",
+      "epsilon_or_tolerance": false
+    },
+    "gripper": {
+      "disposition": "NOT_EVALUATED_DUE_TO_FROZEN_DEVELOPMENT_FAILURE",
+      "target_construction": false,
+      "frozen_inference": false,
+      "metric_computation": false,
+      "test_based_repair_or_promotion": false
+    }
+  },
+  "input_contract": {
+    "source_rows": 1192,
+    "candidate_layers": [
+      11,
+      13,
+      27
+    ],
+    "candidate_layer_axis_order": [
+      11,
+      13,
+      27
+    ],
+    "decision_layers": [
+      11,
+      13
+    ],
+    "teacher_layer": 27,
+    "teacher_candidate_axis_index": 2,
+    "action_dtype": "float32",
+    "candidate_action_shape": [
+      1192,
+      3,
+      8,
+      7
+    ],
+    "full_depth_delta_shape": [
+      1192,
+      3,
+      8,
+      7
+    ],
+    "full_depth_delta_definition": "candidate_actions-candidate_actions[:,2:3,:,:]",
+    "layer27_self_delta_slice": "full_depth_delta[:,2,:,:]",
+    "layer27_self_delta_exact_zero": true,
+    "decision_delta_definition": "full_depth_delta[:,0:2,:,:]",
+    "decision_delta_shape": [
+      1192,
+      2,
+      8,
+      7
+    ],
+    "runtime_context_input_names": [
+      "instruction_summary",
+      "vision_crop_summary",
+      "vision_crop_mask",
+      "phase_embedding",
+      "phase_scalars",
+      "normalized_proprio",
+      "proprio_history",
+      "action_history",
+      "history_mask"
+    ],
+    "runtime_context_dtype_and_trailing_shape": {
+      "instruction_summary": [
+        "float32",
+        3584
+      ],
+      "vision_crop_summary": [
+        "float32",
+        5,
+        3584
+      ],
+      "vision_crop_mask": [
+        "bool",
+        5
+      ],
+      "phase_embedding": [
+        "float32",
+        128
+      ],
+      "phase_scalars": [
+        "float32",
+        3
+      ],
+      "normalized_proprio": [
+        "float32",
+        8
+      ],
+      "proprio_history": [
+        "float32",
+        8,
+        8
+      ],
+      "action_history": [
+        "float32",
+        8,
+        8,
+        7
+      ],
+      "history_mask": [
+        "bool",
+        8
+      ]
+    },
+    "candidate_context_feature_shape": [
+      1192,
+      2,
+      82
+    ],
+    "candidate_context_feature_dtype_before_inference": "float32",
+    "candidate_context_feature_builder": "C354_two_isolated_single_candidate_calls_to_C340_then_drop_final_4D_exit_layer_one_hot",
+    "pre_drop_exit_layer_one_hot_slice_half_open": [
+      82,
+      86
+    ],
+    "exit_layer_one_hot_dropped_from_82D_feature": true,
+    "instruction_summary_directly_concatenated_into_82D_feature": false,
+    "candidate_context_feature_visibility": "ordered_nine_runtime_context_tensors_plus_only_the_current_candidate_action; no_other_candidate_or_layer27_teacher",
+    "candidate_context_feature_components_in_order": [
+      [
+        "phase_scalars",
+        3
+      ],
+      [
+        "phase_embedding_mean_population_std_rms_maxabs",
+        4
+      ],
+      [
+        "normalized_proprio",
+        8
+      ],
+      [
+        "normalized_proprio_minus_latest_past_proprio",
+        8
+      ],
+      [
+        "latest_past_action_chunk_first_step",
+        7
+      ],
+      [
+        "current_candidate_action_first_step",
+        7
+      ],
+      [
+        "current_minus_latest_past_action_first_step",
+        7
+      ],
+      [
+        "current_candidate_action_horizon_mean",
+        7
+      ],
+      [
+        "current_candidate_action_horizon_population_std",
+        7
+      ],
+      [
+        "past_first_action_mean",
+        7
+      ],
+      [
+        "past_first_action_population_std",
+        7
+      ],
+      [
+        "six_scalar_action_history_context",
+        6
+      ],
+      [
+        "four_vision_crop_summary_statistics",
+        4
+      ]
+    ],
+    "candidate_context_feature_offsets_half_open": [
+      [
+        "phase_scalars",
+        0,
+        3
+      ],
+      [
+        "phase_embedding_mean_population_std_rms_maxabs",
+        3,
+        7
+      ],
+      [
+        "normalized_proprio",
+        7,
+        15
+      ],
+      [
+        "normalized_proprio_minus_latest_past_proprio",
+        15,
+        23
+      ],
+      [
+        "latest_past_action_chunk_first_step",
+        23,
+        30
+      ],
+      [
+        "current_candidate_action_first_step",
+        30,
+        37
+      ],
+      [
+        "current_minus_latest_past_action_first_step",
+        37,
+        44
+      ],
+      [
+        "current_candidate_action_horizon_mean",
+        44,
+        51
+      ],
+      [
+        "current_candidate_action_horizon_population_std",
+        51,
+        58
+      ],
+      [
+        "past_first_action_mean",
+        58,
+        65
+      ],
+      [
+        "past_first_action_population_std",
+        65,
+        72
+      ],
+      [
+        "six_scalar_action_history_context",
+        72,
+        78
+      ],
+      [
+        "four_vision_crop_summary_statistics",
+        78,
+        82
+      ]
+    ],
+    "six_scalar_action_history_context_formulas_in_order": [
+      "history_mask_mean",
+      "current_candidate_consecutive_step_rms",
+      "current_candidate_all_values_rms",
+      "latest_past_action_chunk_all_values_rms_or_zero",
+      "current_candidate_minus_latest_past_action_chunk_rms",
+      "past_first_action_consecutive_valid_pair_rms_or_zero"
+    ],
+    "four_vision_crop_summary_statistics_formulas_in_order": [
+      "valid_crop_pooled_vector_mean",
+      "valid_crop_pooled_vector_population_std",
+      "valid_crop_pooled_vector_rms",
+      "valid_crop_centered_all_values_rms"
+    ],
+    "same_noise_source": "cached_teacher_exit_input_x_per_source_row",
+    "shared_fm_input_dtype_and_shape": "float32_[1192,8,7]",
+    "same_noise_reuse": "bit_identical_for_frozen_A1_fixed_depth_replay_at_layers_11_13_27",
+    "fixed_depth_replay_contract": {
+      "fm_steps": 10,
+      "shard_seed_formula": "20260817+shard_index",
+      "seeded_rngs": [
+        "python_random",
+        "numpy",
+        "torch_cpu",
+        "torch_cuda_all"
+      ],
+      "torch_deterministic_algorithms": true,
+      "mode": "torch_inference_mode",
+      "cuda_autocast_dtype": "bfloat16",
+      "candidate_layer_iteration_order": [
+        11,
+        13,
+        27
+      ],
+      "a1_config_sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+      "a1_checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+      "shared_input_identity_check": "per_row_tensor_sha256_before_replay_equals_after_all_three_replays",
+      "output_storage": "detach_cpu_float32_contiguous",
+      "frozen_a1_parameter_training": false
+    },
+    "candidate_action_extraction": "first_8x7_action_block_float32",
+    "history": "strictly_past_only_within_same_task_episode",
+    "history_state_key": [
+      "task_id",
+      "episode_index"
+    ],
+    "history_length": 8,
+    "history_order": "ascending_call_ordinal_within_each_task_episode_cell",
+    "history_call_ordinal_contract": "contiguous_zero_based_per_task_episode_cell",
+    "history_valid_count": "min(call_ordinal,8)",
+    "history_window_materialization": "right_aligned_FP32_zero_padding_then_return_window_then_commit_current",
+    "history_mask": "right_aligned_bool_true_only_for_past_rows",
+    "history_commit_values": "current_normalized_proprio_FP32[8]_and_source_teacher_normalized_action_behavior_action_FP32[8,7]",
+    "history_reset": "empty_at_every_task_episode_cell_boundary_no_cross_cell_state",
+    "new_cell_initial_window": "all_zero_values_and_all_false_history_mask",
+    "current_or_future_call_visible_in_history": false,
+    "task_episode_call_identity": "audit_and_grouping_only_not_model_input",
+    "behavior_exit_layer": "audit_only_not_model_input",
+    "future_observation_or_task_success_is_model_input": false,
+    "gripper_target_or_feature_computed": false
+  },
+  "reporting_contract": {
+    "required_scopes": [
+      "pooled",
+      "by_layer",
+      "by_task",
+      "by_task_and_layer",
+      "by_episode",
+      "by_episode_and_layer",
+      "by_task_and_episode",
+      "by_task_episode_and_layer"
+    ],
+    "raw_numerator_denominator_support_required": true,
+    "all_1192_rows_and_both_layers_required": true,
+    "canonical_source_order": "strictly_increasing_global_dataset_index",
+    "fixed_layer_order": [
+      11,
+      13
+    ],
+    "pooled_flatten_order": "canonical_source_row_then_layer_11_13",
+    "group_membership_source": "frozen_task_id_episode_index_call_ordinal_audit_only",
+    "group_reduction_order": "canonical_dataset_index_order_then_fixed_layer_order_where_applicable",
+    "floating_reduction": "cpu_float64_direct_sum_no_chunk_or_shard_mean_averaging",
+    "deterministic_metric_runtime": "contiguous_cpu_tensors_torch_float64_torch_sum_single_thread",
+    "metric_thread_contract": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1,
+      "torch_deterministic_algorithms": true
+    },
+    "primary_support": {
+      "pooled_source_layer_pairs_per_target": 2384,
+      "per_layer_source_rows_per_target": 1192
+    },
+    "ratio_reduction": "separate_direct_numerator_and_denominator_sums_then_one_final_division",
+    "primary_ratio_aggregation": "micro_sum_only_no_per_row_ratio_no_group_macro_average_no_shard_average",
+    "row_and_layer_weights": "equal_one_per_source_row_layer_pair",
+    "group_metrics_are_diagnostic_not_selection_inputs": true,
+    "target_or_metric_aware_row_drop": false,
+    "primary_nonfinite_or_nonpositive_denominator": "FAMILY_INCONCLUSIVE",
+    "diagnostic_group_nonpositive_denominator": "INCONCLUSIVE_DIAGNOSTIC_DOES_NOT_OVERRIDE_PRIMARY_FAMILY_GATE",
+    "motion_episode_improvement_rule": "strict_raw_model_sse_below_raw_baseline_sse; zero_equal_is_non_improving",
+    "missing_duplicate_or_invalid_cell": "ABORT_IMMUTABLE_INCONCLUSIVE",
+    "strict_comparisons_without_epsilon": true
+  },
+  "decision_contract": {
+    "family_results_reported_independently": true,
+    "motion_tail_allowed_statuses": [
+      "PASS",
+      "FAIL",
+      "INCONCLUSIVE"
+    ],
+    "gripper_status_fixed": "NOT_EVALUATED_DUE_TO_FROZEN_DEVELOPMENT_FAILURE",
+    "joint_shadow_disposition_fixed": "SHADOW_NOT_AUTHORIZED_GRIPPER_DEVELOPMENT_FAILURE",
+    "motion_or_tail_pass_may_be_reported_as_component_evidence": true,
+    "component_evidence_semantics": "offline_layer27_teacher_consistency_only",
+    "motion_or_tail_pass_authorizes_joint_shadow_or_active_control": false,
+    "component_task_layer_specific_shadow_router_scoring_authorized": false,
+    "complete_finite_gate_miss_status": "FAIL_NOT_INCONCLUSIVE",
+    "test_result_may_change_model_checkpoint_layer_correction_or_threshold": false
+  },
+  "one_shot_contract": {
+    "test_payload_open_before_c360_runner_protocol_freeze": false,
+    "test_payload_open_only_after_all_source_and_artifact_sha_revalidation": true,
+    "scientific_attempt_consumption_event": "durable_global_attempt_marker_creation",
+    "durable_global_attempt_marker_creation": "atomic_exclusive_file_create_then_file_and_parent_directory_fsync",
+    "marker_must_precede_every_marker_protected_event": true,
+    "marker_fsync_success_is_irreversible_consumption_point": true,
+    "marker_creation_consumes_attempt_even_without_payload_open": true,
+    "marker_may_be_deleted_replaced_or_recreated": false,
+    "any_marker_protected_event_without_marker": "ABORT_SECURITY_INCIDENT",
+    "marker_protected_events": [
+      "independent_test_source_manifest_open_or_parse",
+      "independent_test_array_path_parse_or_follow",
+      "independent_test_sample_path_resolution",
+      "independent_test_sample_payload_open"
+    ],
+    "pre_marker_failure_without_any_marker_protected_event": "PRE_ATTEMPT_ABORT_MAY_RETRY_AFTER_FIX",
+    "first_test_payload_open_occurs_only_after_attempt_is_already_consumed": true,
+    "any_one_of_four_shards_open_consumes_global_attempt": true,
+    "any_failure_after_marker_creation_status": "IMMUTABLE_INCONCLUSIVE_EXECUTION_FAILURE",
+    "post_marker_rerun_or_resume_to_change_outcome": false,
+    "post_marker_resume_authorized": false,
+    "complete_finite_scientific_gate_miss_status": "FAIL",
+    "fail_or_inconclusive_may_be_rerun_to_seek_pass": false,
+    "same_test_may_repair_model_checkpoint_correction_layer_or_threshold": false,
+    "same_test_regains_eligibility_under_new_protocol_version": false,
+    "method_change_requires_new_untouched_independent_data": true,
+    "post_test_locked_choices": [
+      "model_weights",
+      "checkpoint",
+      "candidate_layers",
+      "features",
+      "preprocessing",
+      "past_only_history_definition",
+      "baselines",
+      "metric_code",
+      "dtypes",
+      "row_weights",
+      "group_definitions",
+      "task_or_episode_selection",
+      "corrections",
+      "runtime_thresholds",
+      "scientific_gate_thresholds_and_status_logic",
+      "aggregation_and_reduction_order",
+      "same_noise_and_fixed_depth_generation_contract",
+      "metric_dtype_and_cast_boundaries",
+      "attempt_consumption_and_failure_semantics"
+    ],
+    "invalid_row_policy": "abort_preserve_incident_no_drop_or_role_fallback",
+    "independent_result_is_immutable": true,
+    "c361_must_bind_both_c359_and_c360_result_sha": true
+  },
+  "access_policy": {
+    "stage_kind": "cpu_only_metadata_only_design_only",
+    "independent_test_metadata_access": true,
+    "independent_test_sample_path_resolution": false,
+    "independent_test_sample_payload_access": false,
+    "source_manifest_access": false,
+    "array_path_parse_or_follow": false,
+    "tensor_deserialization": false,
+    "gpu_query_or_cuda_initialization": false,
+    "model_or_calibrator_fit": false,
+    "optimizer_step": false,
+    "checkpoint_write_or_selection": false,
+    "conformal_fit_or_recalibration": false,
+    "runtime_threshold_selection": false,
+    "rollout_or_active_control": false,
+    "cluster_robust_coverage_guarantee_established": false,
+    "early_exit_caused_task_failure_count_available": false
+  },
+  "access_audit_basis": {
+    "forbidden_operation_counters_are_kernel_syscall_trace": false,
+    "evidence": [
+      "python_isolated_mode_required",
+      "forbidden_heavy_module_roots_absent",
+      "all_protocol_reads_use_openat_nofollow_same_fd_helpers",
+      "all_readable_inputs_are_sha_bound",
+      "c359_implementation_and_tests_sha_bound",
+      "c357_closed_world_runtime_source_closure_revalidated",
+      "ast_tests_reject_payload_loaders_gpu_and_training_calls",
+      "file_access_receipts_revalidated_by_allowlist"
+    ],
+    "limitation": "counters summarize the frozen control flow and recorded helpers; they are not an external kernel audit trace"
+  },
+  "future_runtime_trust_anchors": {
+    "phase_estimator": {
+      "path": "reports/m2_phase_estimator_v1_seed20260803/phase_estimator.pt",
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "verified_in_c359": false
+    },
+    "a1_config": {
+      "path": "model/libero_exit/config.yaml",
+      "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+      "verified_in_c359": false
+    },
+    "a1_checkpoint": {
+      "path": "model/libero_exit/model.pt",
+      "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+      "verified_in_c359": false
+    },
+    "a1_checkpoint_attestation": {
+      "path": "reports/model_libero_exit_sha256_attestation_20260809_v1.json",
+      "sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab",
+      "verified_in_c359": false
+    }
+  },
+  "implementation_source_sha256": {
+    "scripts/dynamic_compute/freeze_stage_c359_independent_evaluation_protocol.py": "acac180a4aea2496d96c3d6d9bcc4f4d3b9cb12caf9e31e2a6eb8549322265a8",
+    "scripts/dynamic_compute/validate_stage_c359_independent_evaluation_protocol.py": "499a9b6eaf9b0e1e862bbd1f1070735e2b4707c0b71e9deba8369b20d6961fb8"
+  },
+  "test_source_sha256": {
+    "tests/dynamic_compute/test_c359_independent_evaluation_protocol.py": "4ea7a8c6953616d7606608008ca30699de9b9bb61f4f3f54b296ffdc2330bfbf",
+    "tests/dynamic_compute/test_c359_independent_evaluation_protocol_freezer.py": "d3ced10ebfb5035e8f11d3adfd9dd12472baebb33f60d6835cd36e531b3db010"
+  },
+  "checks": {
+    "six_parent_results_status_schema_claim_and_sha_exact": true,
+    "c355_c356_c358_artifacts_byte_hash_current_no_deserialization": true,
+    "c349_five_field_index_sha_and_schema_exact": true,
+    "independent_selection_1192_rows_90_cells_and_global_ids_exact": true,
+    "four_shards_300_300_299_293_and_modulo_assignment_exact": true,
+    "selection_bytes_sha_and_roundtrip_exact": true,
+    "motion_tail_metrics_and_strict_gates_prefrozen": true,
+    "gripper_not_evaluated_and_joint_shadow_denied": true,
+    "one_shot_failure_and_no_test_repair_semantics_prefrozen": true,
+    "sample_manifest_tensor_gpu_fit_threshold_rollout_control_absent": true,
+    "c357_closed_world_10_5_6_227_source_closure_current": true,
+    "all_inputs_sources_tests_and_pre_result_outputs_rehashed_before_publish": true
+  },
+  "atomic_publish_threat_model": {
+    "exclusive_incomplete_directory": true,
+    "exclusive_artifact_creation": true,
+    "file_and_directory_fsync_before_publish": true,
+    "linux_renameat2_rename_noreplace_required": true,
+    "existing_final_directory_overwrite": false,
+    "input_reads_use_openat_nofollow_and_same_fd_identity": true,
+    "hostile_same_host_mutation_of_open_output_directory_defended": false,
+    "cooperative_single_publisher_still_required_for_output_file_writes": true
+  },
+  "claim_boundary": {
+    "independent_test_metadata_selection_frozen": true,
+    "independent_test_sample_payload_opened": false,
+    "independent_test_metric_computed": false,
+    "motion_or_tail_independent_performance_claim": false,
+    "gripper_negative_result_preserved": true,
+    "joint_shadow_authorized": false,
+    "checkpoint_deployable": false,
+    "runtime_threshold_selected": false,
+    "online_rollout": false,
+    "active_action_control": false,
+    "task_success_safety_efficiency_or_superiority_claim": false,
+    "coverage_claim_scope": "future_row_level_marginal_empirical_only",
+    "cluster_task_episode_or_per_task_guarantee": false,
+    "layer27_teacher_consistency_is_task_success_or_safety": false
+  },
+  "next_stage_authorization": {
+    "stage": "C3.60_IMPLEMENT_TEST_REVIEW_AND_SHA_FREEZE_RUNNERS",
+    "runner_implementation_and_synthetic_testing": true,
+    "freeze_runner_source_and_runtime_dependency_sha": true,
+    "rehash_future_runtime_trust_anchors": true,
+    "source_manifest_open_or_parse": false,
+    "array_path_parse_or_follow": false,
+    "independent_test_sample_path_resolution": false,
+    "independent_test_sample_payload_access": false,
+    "checkpoint_or_tensor_deserialization": false,
+    "gpu_query_or_cuda_initialization": false,
+    "model_or_calibrator_fit": false,
+    "conformal_fit_or_recalibration": false,
+    "checkpoint_or_threshold_selection": false,
+    "rollout_or_active_control": false,
+    "c361_execution_authorized_by_c359_alone": false,
+    "future_c361_physical_gpu_allowlist": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "future_c361_physical_gpu_forbidden": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "future_c361_requires_external_c359_and_c360_result_sha": true
+  },
+  "next_step": "implement, synthetically test, independently review, and SHA-freeze the C3.60 independent-test runners while keeping every test sample sealed",
+  "runtime_environment": {
+    "python": "3.10.20",
+    "python_executable": "/home/haozheng/.conda/envs/a1/bin/python",
+    "isolated": true,
+    "cuda_visible_devices": "",
+    "python_no_user_site": true,
+    "python_dont_write_bytecode": true,
+    "gpu_queried": false
+  },
+  "access_audit": {
+    "failure_stage": "result_write_and_atomic_publish",
+    "file_accesses": {
+      "/data3/haozheng/A1/source/a1/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/aliases.py": [
+        "c357_closure_initial:runtime_dependency:a1/aliases.py",
+        "c357_closure_prepublish:runtime_dependency:a1/aliases.py"
+      ],
+      "/data3/haozheng/A1/source/a1/beam_search.py": [
+        "c357_closure_initial:runtime_dependency:a1/beam_search.py",
+        "c357_closure_prepublish:runtime_dependency:a1/beam_search.py"
+      ],
+      "/data3/haozheng/A1/source/a1/checkpoint.py": [
+        "c357_closure_initial:runtime_dependency:a1/checkpoint.py",
+        "c357_closure_prepublish:runtime_dependency:a1/checkpoint.py"
+      ],
+      "/data3/haozheng/A1/source/a1/config.py": [
+        "c357_closure_initial:runtime_dependency:a1/config.py",
+        "c357_closure_prepublish:runtime_dependency:a1/config.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/A1_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/A1_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/A1_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/academic_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/academic_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/academic_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/academic_datasets_manual.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/academic_datasets_manual.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/academic_datasets_manual.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/collator.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/collator.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/collator.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/data_formatter.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/data_formatter.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/data_formatter.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/dataset.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/dataset.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/dataset.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/download_urls.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/download_urls.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/download_urls.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/iterable_dataset_mixture.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/iterable_dataset_mixture.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/iterable_dataset_mixture.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/lerobot_dataset_replace.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/lerobot_dataset_replace.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/lerobot_dataset_replace.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/model_preprocessor.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/model_preprocessor.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/model_preprocessor.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/pixmo_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/pixmo_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/pixmo_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/agibot_dataset.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/agibot_dataset.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/agibot_dataset.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/agibot_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/agibot_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/agibot_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/compute_lerobot_stats.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/compute_lerobot_stats.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/compute_lerobot_stats.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/compute_lerobot_stats_traverse.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/compute_lerobot_stats_traverse.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/compute_lerobot_stats_traverse.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/dataset_builders.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/dataset_builders.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/dataset_builders.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/dummy_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/dummy_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/dummy_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/lerobot_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/lerobot_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/lerobot_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rc_reader.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rc_reader.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rc_reader.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/dataset.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/dataset.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/dataset.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/obs_transforms.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/obs_transforms.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/obs_transforms.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/configs.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/configs.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/configs.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/materialize.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/materialize.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/materialize.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/mixtures.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/mixtures.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/mixtures.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/transforms.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/transforms.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/transforms.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/oxe/utils/droid_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/oxe/utils/droid_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/oxe/utils/droid_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/traj_transforms.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/traj_transforms.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/traj_transforms.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/utils/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/utils/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/utils/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/utils/data_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/utils/data_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/utils/data_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/utils/goal_relabeling.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/utils/goal_relabeling.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/utils/goal_relabeling.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds/utils/task_augmentation.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds/utils/task_augmentation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds/utils/task_augmentation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/rlds_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/rlds_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/rlds_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/robocoin_reader.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/robocoin_reader.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/robocoin_reader.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/robomind_datasets.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/robomind_datasets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/robomind_datasets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/test_dataloader.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/test_dataloader.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/test_dataloader.py"
+      ],
+      "/data3/haozheng/A1/source/a1/data/vla/utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/data/vla/utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/data/vla/utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/api_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/api_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/api_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/evaluators.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/evaluators.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/evaluators.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/inf_evaluator.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/inf_evaluator.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/inf_evaluator.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/loss_evaluator.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/loss_evaluator.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/loss_evaluator.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/math_vista_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/math_vista_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/math_vista_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/mmmu_eval_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/mmmu_eval_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/mmmu_eval_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/eval/vqa.py": [
+        "c357_closure_initial:runtime_dependency:a1/eval/vqa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/eval/vqa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/exceptions.py": [
+        "c357_closure_initial:runtime_dependency:a1/exceptions.py",
+        "c357_closure_prepublish:runtime_dependency:a1/exceptions.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/a_okvqa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/a_okvqa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/a_okvqa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/ai2d.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/ai2d.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/ai2d.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/android_control.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/android_control.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/android_control.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/android_control_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/android_control_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/android_control_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/clock_bench.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/clock_bench.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/clock_bench.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/count_qa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/count_qa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/count_qa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/dv_qa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/dv_qa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/dv_qa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/figure_qa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/figure_qa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/figure_qa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/plot_qa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/plot_qa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/plot_qa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/tabmwp.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/tabmwp.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/tabmwp.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/tally_qa.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/tally_qa.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/tally_qa.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_datasets/vqa_v2.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_datasets/vqa_v2.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_datasets/vqa_v2.py"
+      ],
+      "/data3/haozheng/A1/source/a1/hf_molmo.py": [
+        "c357_closure_initial:runtime_dependency:a1/hf_molmo.py",
+        "c357_closure_prepublish:runtime_dependency:a1/hf_molmo.py"
+      ],
+      "/data3/haozheng/A1/source/a1/html_utils.py": [
+        "c357_closure_initial:runtime_dependency:a1/html_utils.py",
+        "c357_closure_prepublish:runtime_dependency:a1/html_utils.py"
+      ],
+      "/data3/haozheng/A1/source/a1/image_vit.py": [
+        "c357_closure_initial:runtime_dependency:a1/image_vit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/image_vit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/initialization.py": [
+        "c357_closure_initial:runtime_dependency:a1/initialization.py",
+        "c357_closure_prepublish:runtime_dependency:a1/initialization.py"
+      ],
+      "/data3/haozheng/A1/source/a1/model.py": [
+        "c357_closure_initial:runtime_dependency:a1/model.py",
+        "c357_closure_prepublish:runtime_dependency:a1/model.py"
+      ],
+      "/data3/haozheng/A1/source/a1/optim.py": [
+        "c357_closure_initial:runtime_dependency:a1/optim.py",
+        "c357_closure_prepublish:runtime_dependency:a1/optim.py"
+      ],
+      "/data3/haozheng/A1/source/a1/safetensors_util.py": [
+        "c357_closure_initial:runtime_dependency:a1/safetensors_util.py",
+        "c357_closure_prepublish:runtime_dependency:a1/safetensors_util.py"
+      ],
+      "/data3/haozheng/A1/source/a1/tokenizer.py": [
+        "c357_closure_initial:runtime_dependency:a1/tokenizer.py",
+        "c357_closure_prepublish:runtime_dependency:a1/tokenizer.py"
+      ],
+      "/data3/haozheng/A1/source/a1/torch_util.py": [
+        "c357_closure_initial:runtime_dependency:a1/torch_util.py",
+        "c357_closure_prepublish:runtime_dependency:a1/torch_util.py"
+      ],
+      "/data3/haozheng/A1/source/a1/train.py": [
+        "c357_closure_initial:runtime_dependency:a1/train.py",
+        "c357_closure_prepublish:runtime_dependency:a1/train.py"
+      ],
+      "/data3/haozheng/A1/source/a1/util.py": [
+        "c357_closure_initial:runtime_dependency:a1/util.py",
+        "c357_closure_prepublish:runtime_dependency:a1/util.py"
+      ],
+      "/data3/haozheng/A1/source/a1/version.py": [
+        "c357_closure_initial:runtime_dependency:a1/version.py",
+        "c357_closure_prepublish:runtime_dependency:a1/version.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/action_heads.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/action_heads.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/action_heads.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/affordvla.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/affordvla.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/affordvla.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/affordvla_early_exit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/affordvla_early_exit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/affordvla_early_exit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/config_loader.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/config_loader.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/config_loader.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/constants.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/constants.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/constants.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dit/blocks.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dit/blocks.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dit/blocks.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dit/model.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dit/model.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dit/model.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dit_action.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dit_action.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dit_action.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/__init__.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/__init__.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/__init__.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/budget_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/budget_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/budget_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/budget_profiles.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/budget_profiles.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/budget_profiles.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c325_shadow_rollout_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c325_shadow_rollout_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c325_shadow_rollout_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c328_decision_rollout_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c328_decision_rollout_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c328_decision_rollout_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c329_active_canary.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c329_active_canary.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c329_active_canary.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c329_active_canary_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c329_active_canary_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c329_active_canary_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_bounded_residual.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_residual.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_residual.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_bounded_residual_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_residual_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_residual_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_bounded_shadow_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_shadow_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_shadow_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_bounded_shadow_observer.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_shadow_observer.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_bounded_shadow_observer.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_real_direction_stress.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_real_direction_stress.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_real_direction_stress.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_real_direction_stress_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_real_direction_stress_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_real_direction_stress_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_reference_frame_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_reference_frame_shadow_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_shadow_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_shadow_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c330_reference_frame_shadow_observer.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_shadow_observer.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c330_reference_frame_shadow_observer.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c331_executed_a1_anchor_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c331_executed_a1_anchor_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c331_executed_a1_anchor_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c332_paired_depth_target_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c332_paired_depth_target_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c332_paired_depth_target_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c333_phase_residual_head.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c333_phase_residual_head.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c333_phase_residual_head.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c333_residual_evaluation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c333_residual_evaluation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c333_residual_evaluation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c333_residual_training_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c333_residual_training_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c333_residual_training_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c334_selective_certificate.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c334_selective_certificate.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c334_selective_certificate.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c334_selective_certificate_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c334_selective_certificate_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c334_selective_certificate_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c334_shadow_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c334_shadow_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c334_shadow_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c335_independent_validation_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c335_independent_validation_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c335_independent_validation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c336_phase_risk_certificate.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c336_phase_risk_certificate.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c336_phase_risk_certificate.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c336_validation_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c336_validation_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c336_validation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c337_gain_lower_bound_certificate.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c337_gain_lower_bound_certificate.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c337_gain_lower_bound_certificate.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c338_residual_diagnostics.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c338_residual_diagnostics.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c338_residual_diagnostics.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c338_residual_training_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c338_residual_training_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c338_residual_training_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c338_robust_residual_objective.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c338_robust_residual_objective.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c338_robust_residual_objective.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c339_loeo_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c339_loeo_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c339_loeo_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c339_low_rank_trajectory_residual.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c339_low_rank_trajectory_residual.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c339_low_rank_trajectory_residual.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c340_failure_audit_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c340_failure_audit_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c340_failure_audit_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c340_failure_root_cause.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c340_failure_root_cause.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c340_failure_root_cause.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c341_shared_noise_candidate_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c341_shared_noise_candidate_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c341_shared_noise_candidate_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c341_shared_noise_candidates.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c341_shared_noise_candidates.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c341_shared_noise_candidates.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c342_component_risk_targets.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c342_component_risk_targets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c342_component_risk_targets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c342_risk_target_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c342_risk_target_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c342_risk_target_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c343_component_risk_head.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c343_component_risk_head.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c343_component_risk_head.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c343_risk_head_training_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c343_risk_head_training_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c343_risk_head_training_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c344_nested_oof_diagnostic.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c344_nested_oof_diagnostic.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c344_nested_oof_diagnostic.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c344_nested_oof_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c344_nested_oof_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c344_nested_oof_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c345_anchored_risk_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c345_anchored_risk_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c345_anchored_risk_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c345_anchored_risk_residual.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c345_anchored_risk_residual.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c345_anchored_risk_residual.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c346_anchored_oof_evaluation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c346_anchored_oof_evaluation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c346_anchored_oof_evaluation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c346_anchored_oof_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c346_anchored_oof_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c346_anchored_oof_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c347_continue_value_evaluation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_evaluation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_evaluation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c347_continue_value_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c347_continue_value_targets.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_targets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c347_continue_value_targets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c348_independent_validation_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c348_independent_validation_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c348_independent_validation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c349_metadata_index.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c349_metadata_index.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c349_metadata_index.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c350_development_artifacts.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c350_development_artifacts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c350_development_artifacts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c350_development_collection_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c350_development_collection_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c350_development_collection_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c350_development_selection.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c350_development_selection.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c350_development_selection.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c350_protocol_validation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c350_protocol_validation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c350_protocol_validation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c352_development_targets.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c352_development_targets.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c352_development_targets.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c352_target_construction_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c352_target_construction_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c352_target_construction_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c353_development_target_artifacts.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c353_development_target_artifacts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c353_development_target_artifacts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c354_development_predictor_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c354_development_predictor_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c354_development_predictor_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c354_development_predictors.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c354_development_predictors.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c354_development_predictors.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c355_development_evaluation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c355_development_evaluation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c355_development_evaluation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c355_development_training.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c355_development_training.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c355_development_training.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c355_nested_oof_training.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c355_nested_oof_training.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c355_nested_oof_training.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c356_calibration_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c356_calibration_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c356_calibration_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c356_calibration_selection.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c356_calibration_selection.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c356_calibration_selection.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c357_calibration_artifacts.py": [
+        "c357_closure_initial:frozen_source:a1/vla/dynamic_compute/c357_calibration_artifacts.py",
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c357_calibration_artifacts.py",
+        "c357_closure_prepublish:frozen_source:a1/vla/dynamic_compute/c357_calibration_artifacts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c357_calibration_artifacts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c357_calibration_runner_contract.py": [
+        "c357_closure_initial:frozen_source:a1/vla/dynamic_compute/c357_calibration_runner_contract.py",
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c357_calibration_runner_contract.py",
+        "c357_closure_prepublish:frozen_source:a1/vla/dynamic_compute/c357_calibration_runner_contract.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c357_calibration_runner_contract.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c357_runner_validation.py": [
+        "c357_closure_initial:frozen_source:a1/vla/dynamic_compute/c357_runner_validation.py",
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c357_runner_validation.py",
+        "c357_closure_prepublish:frozen_source:a1/vla/dynamic_compute/c357_runner_validation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c357_runner_validation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/c357_tail_calibration.py": [
+        "c357_closure_initial:frozen_source:a1/vla/dynamic_compute/c357_tail_calibration.py",
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/c357_tail_calibration.py",
+        "c357_closure_prepublish:frozen_source:a1/vla/dynamic_compute/c357_tail_calibration.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/c357_tail_calibration.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/causal_direction_predictor.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/causal_direction_predictor.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/causal_direction_predictor.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/causal_route_router.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/causal_route_router.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/causal_route_router.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/config.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/config.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/config.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/contextual_bypass_upgrade.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/contextual_bypass_upgrade.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/contextual_bypass_upgrade.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/contextual_exact_bypass.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/contextual_exact_bypass.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/contextual_exact_bypass.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/contextwise_action_projection.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/contextwise_action_projection.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/contextwise_action_projection.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/depth_hysteresis.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/depth_hysteresis.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/depth_hysteresis.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/device_guard.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/device_guard.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/device_guard.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/episode_robust_residual_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/episode_robust_residual_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/episode_robust_residual_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/executed_a1_anchored_residual.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/executed_a1_anchored_residual.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/executed_a1_anchored_residual.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/executed_a1_anchored_residual_audit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/executed_a1_anchored_residual_audit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/executed_a1_anchored_residual_audit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/exit_policy.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/exit_policy.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/exit_policy.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/fit_only_sharded_artifacts.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/fit_only_sharded_artifacts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/fit_only_sharded_artifacts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/fm_diagnostics.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/fm_diagnostics.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/fm_diagnostics.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/frozen_a1_distillation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/frozen_a1_distillation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/frozen_a1_distillation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/hierarchical_residual_online.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_online.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_online.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/hierarchical_residual_online_v2.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_online_v2.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_online_v2.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/hierarchical_residual_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/hierarchical_residual_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/hierarchical_width_route_ood_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/hierarchical_width_route_ood_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/hierarchical_width_route_ood_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/isolated_direction_experts.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/isolated_direction_experts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/isolated_direction_experts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/joint_width_depth_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/joint_width_depth_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/joint_width_depth_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/learnable_vision_aggregation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/learnable_vision_aggregation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/learnable_vision_aggregation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/learnable_vision_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/learnable_vision_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/learnable_vision_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/m427_task_jackknife_router.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/m427_task_jackknife_router.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/m427_task_jackknife_router.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/multitask_gradient_geometry.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/multitask_gradient_geometry.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/multitask_gradient_geometry.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/paired_full_depth_target.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/paired_full_depth_target.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/paired_full_depth_target.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_cache.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_cache.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_cache.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_conditioned_vision_aggregation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_conditioned_vision_aggregation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_conditioned_vision_aggregation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_dataset.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_dataset.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_dataset.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_depth_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_depth_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_depth_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_estimator.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_estimator.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_estimator.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_observer.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_observer.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_observer.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_route_training_loss.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_route_training_loss.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_route_training_loss.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_route_v4_cache.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_route_v4_cache.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_route_v4_cache.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_training.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_training.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_training.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_vision_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_vision_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_vision_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_width_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_width_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_width_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_width_dataset.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_width_dataset.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_width_dataset.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_width_runtime.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_width_runtime.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_width_runtime.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/phase_width_teacher_cache.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/phase_width_teacher_cache.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/phase_width_teacher_cache.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/productive_exit.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/productive_exit.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/productive_exit.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/release.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/release.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/release.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/reserved_validation_schedule.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/reserved_validation_schedule.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/reserved_validation_schedule.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/risk_route13_router.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/risk_route13_router.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/risk_route13_router.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/rollout_episode_selection.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/rollout_episode_selection.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/rollout_episode_selection.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/runtime_scale_predictor.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/runtime_scale_predictor.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/runtime_scale_predictor.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/selective_residual_action.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/selective_residual_action.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/selective_residual_action.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/selective_safety_gate.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/selective_safety_gate.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/selective_safety_gate.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/soft_intent_training_data.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/soft_intent_training_data.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/soft_intent_training_data.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/stage_c2_recovery_protocol.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/stage_c2_recovery_protocol.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/stage_c2_recovery_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/stage_c319_validation_schedule.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/stage_c319_validation_schedule.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/stage_c319_validation_schedule.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/stage_c31_safe_soft_intent.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/stage_c31_safe_soft_intent.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/stage_c31_safe_soft_intent.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/stage_c322_validation_schedule.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/stage_c322_validation_schedule.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/stage_c322_validation_schedule.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/stage_c32_function_space_tailguard.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/stage_c32_function_space_tailguard.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/stage_c32_function_space_tailguard.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/telemetry.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/telemetry.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/telemetry.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/temporal_route_features.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/temporal_route_features.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/temporal_route_features.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/temporal_route_router.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/temporal_route_router.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/temporal_route_router.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/train_time_tailguard.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/train_time_tailguard.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/train_time_tailguard.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/vision_aggregation.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/vision_aggregation.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/vision_aggregation.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/vision_teacher_cache.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/vision_teacher_cache.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/vision_teacher_cache.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/weak_labels.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/weak_labels.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/weak_labels.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/width_isolated_direction_experts.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/width_isolated_direction_experts.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/width_isolated_direction_experts.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/dynamic_compute/width_route_ood_residual_controller.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/dynamic_compute/width_route_ood_residual_controller.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/dynamic_compute/width_route_ood_residual_controller.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/model_selector.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/model_selector.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/model_selector.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/modeling_qwen2_custom.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/modeling_qwen2_custom.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/modeling_qwen2_custom.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/overwatch.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/overwatch.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/overwatch.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/projectors.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/projectors.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/projectors.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/util.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/util.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/util.py"
+      ],
+      "/data3/haozheng/A1/source/a1/vla/value_net.py": [
+        "c357_closure_initial:runtime_dependency:a1/vla/value_net.py",
+        "c357_closure_prepublish:runtime_dependency:a1/vla/value_net.py"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c348_independent_validation_protocol_20260817_v1/result.json": [
+        "read_hash_same_fd:c348_independent_validation_protocol",
+        "read_hash_same_fd:prepublish_c348_independent_validation_protocol"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/metadata_index.jsonl": [
+        "read_hash_same_fd:c349_metadata_index",
+        "read_hash_same_fd:prepublish_c349_metadata_index"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/result.json": [
+        "read_hash_same_fd:c349_metadata_index",
+        "read_hash_same_fd:prepublish_c349_metadata_index"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/development_checkpoint_candidates.pt": [
+        "read_hash_same_fd:c355_development_checkpoint",
+        "read_hash_same_fd:prepublish_c355_development_checkpoint"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json": [
+        "read_hash_same_fd:c355_development_predictor_training",
+        "read_hash_same_fd:prepublish_c355_development_predictor_training"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/calibration_metadata_index.jsonl": [
+        "read_hash_same_fd:c356_calibration_selection",
+        "read_hash_same_fd:prepublish_c356_calibration_selection"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/result.json": [
+        "read_hash_same_fd:c356_calibration_protocol",
+        "read_hash_same_fd:prepublish_c356_calibration_protocol"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_calibration_runner_contract_20260819_v1/result.json": [
+        "read_hash_same_fd:c357_calibration_runner_contract",
+        "read_hash_same_fd:prepublish_c357_calibration_runner_contract"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/result.json": [
+        "read_hash_same_fd:c358_tail_calibration_finalizer",
+        "read_hash_same_fd:prepublish_c358_tail_calibration_finalizer"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_artifact.pt": [
+        "read_hash_same_fd:c358_tail_calibration_artifact",
+        "read_hash_same_fd:prepublish_c358_tail_calibration_artifact"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_records.jsonl": [
+        "read_hash_same_fd:c358_tail_calibration_records",
+        "read_hash_same_fd:prepublish_c358_tail_calibration_records"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c359_independent_evaluation_protocol_20260819_v1.incomplete/command.txt": [
+        "read_output:command_prepublish"
+      ],
+      "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c359_independent_evaluation_protocol_20260819_v1.incomplete/independent_test_metadata_index.jsonl": [
+        "read_output:selection_prepublish",
+        "read_output:selection_roundtrip"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/aggregate_stage_c357_calibration_candidates.py": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/aggregate_stage_c357_calibration_candidates.py",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/aggregate_stage_c357_calibration_candidates.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/build_m425b_temporal_features.py": [
+        "c357_closure_initial:runtime_dependency:scripts/dynamic_compute/build_m425b_temporal_features.py",
+        "c357_closure_prepublish:runtime_dependency:scripts/dynamic_compute/build_m425b_temporal_features.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/collect_m425_causal_route_features.py": [
+        "c357_closure_initial:runtime_dependency:scripts/dynamic_compute/collect_m425_causal_route_features.py",
+        "c357_closure_prepublish:runtime_dependency:scripts/dynamic_compute/collect_m425_causal_route_features.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/collect_stage_c357_calibration_candidate_shard.py": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/collect_stage_c357_calibration_candidate_shard.py",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/collect_stage_c357_calibration_candidate_shard.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/finalize_stage_c357_tail_calibration.py": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/finalize_stage_c357_tail_calibration.py",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/finalize_stage_c357_tail_calibration.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/freeze_stage_c357_calibration_runner_contract.py": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/freeze_stage_c357_calibration_runner_contract.py",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/freeze_stage_c357_calibration_runner_contract.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/freeze_stage_c359_independent_evaluation_protocol.py": [
+        "hash_source:scripts/dynamic_compute/freeze_stage_c359_independent_evaluation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/prepare_stage_c357_calibration_context.py": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/prepare_stage_c357_calibration_context.py",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/prepare_stage_c357_calibration_context.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/replay_m420b_rp_pep.py": [
+        "c357_closure_initial:runtime_dependency:scripts/dynamic_compute/replay_m420b_rp_pep.py",
+        "c357_closure_prepublish:runtime_dependency:scripts/dynamic_compute/replay_m420b_rp_pep.py"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/run_stage_c357_calibration_front4.sh": [
+        "c357_closure_initial:frozen_source:scripts/dynamic_compute/run_stage_c357_calibration_front4.sh",
+        "c357_closure_prepublish:frozen_source:scripts/dynamic_compute/run_stage_c357_calibration_front4.sh"
+      ],
+      "/data3/haozheng/A1/source/scripts/dynamic_compute/validate_stage_c359_independent_evaluation_protocol.py": [
+        "hash_source:scripts/dynamic_compute/validate_stage_c359_independent_evaluation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_calibration_artifacts.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_calibration_artifacts.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_calibration_artifacts.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_calibration_runner_contract.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_calibration_runner_contract.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_calibration_runner_contract.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_calibration_runner_contract_freezer.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_calibration_runner_contract_freezer.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_calibration_runner_contract_freezer.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_calibration_runners.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_calibration_runners.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_calibration_runners.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_runner_validation.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_runner_validation.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_runner_validation.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c357_tail_calibration.py": [
+        "c357_closure_initial:frozen_source:tests/dynamic_compute/test_c357_tail_calibration.py",
+        "c357_closure_prepublish:frozen_source:tests/dynamic_compute/test_c357_tail_calibration.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c359_independent_evaluation_protocol.py": [
+        "hash_source:tests/dynamic_compute/test_c359_independent_evaluation_protocol.py"
+      ],
+      "/data3/haozheng/A1/source/tests/dynamic_compute/test_c359_independent_evaluation_protocol_freezer.py": [
+        "hash_source:tests/dynamic_compute/test_c359_independent_evaluation_protocol_freezer.py"
+      ]
+    },
+    "json_documents": [
+      {
+        "role": "c348_independent_validation_protocol",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c348_independent_validation_protocol_20260817_v1/result.json",
+        "bytes": 10154,
+        "sha256": "e3c5ae5d49f3b6c88b62809a263834ded6bd4291df257d44d9da5ede3e029b92",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c349_metadata_index",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/result.json",
+        "bytes": 8958,
+        "sha256": "fe45b998efe7a45ea9620937bcfedc4bcd0e3a574ee51409087f50a938f5f868",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c355_development_predictor_training",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json",
+        "bytes": 566731,
+        "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c356_calibration_protocol",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/result.json",
+        "bytes": 50688,
+        "sha256": "9b48bbb1a438ff5c9ef107b05421743ff7220c34431e307b7faca5c81bad7f3c",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c357_calibration_runner_contract",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_calibration_runner_contract_20260819_v1/result.json",
+        "bytes": 176569,
+        "sha256": "5f9af77deca432270373e7ace1d0166423fc651a7b04a6f7e19b82fe1bf38955",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c358_tail_calibration_finalizer",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/result.json",
+        "bytes": 6780,
+        "sha256": "116571455a7e2e210bcfd71d8e06a6cf20eb43ee4619ce6435e3e2d3e10a5afc",
+        "sample_payload_path_followed": false
+      }
+    ],
+    "metadata_documents": [
+      {
+        "role": "c349_metadata_index",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/metadata_index.jsonl",
+        "bytes": 299774,
+        "sha256": "0c06574cb526e9068cce2195eacaa9f5ebae8689e527c336a50019dd6a0f5e0b",
+        "sample_payload_path_followed": false
+      }
+    ],
+    "opaque_artifacts": [
+      {
+        "role": "c355_development_checkpoint",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/development_checkpoint_candidates.pt",
+        "bytes": 16288,
+        "sha256": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c356_calibration_selection",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/calibration_metadata_index.jsonl",
+        "bytes": 95497,
+        "sha256": "5341d6b60c2688e03e19d23548710ae523481230ce32425cab53a258adf5f636",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c358_tail_calibration_records",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_records.jsonl",
+        "bytes": 656281,
+        "sha256": "a2c1789578105a302f200289e1b7e767d5c075ba0bed7be3954b8c4e8cd0215c",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "c358_tail_calibration_artifact",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_artifact.pt",
+        "bytes": 748024,
+        "sha256": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c348_independent_validation_protocol",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c348_independent_validation_protocol_20260817_v1/result.json",
+        "bytes": 10154,
+        "sha256": "e3c5ae5d49f3b6c88b62809a263834ded6bd4291df257d44d9da5ede3e029b92",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c349_metadata_index",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/result.json",
+        "bytes": 8958,
+        "sha256": "fe45b998efe7a45ea9620937bcfedc4bcd0e3a574ee51409087f50a938f5f868",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c355_development_predictor_training",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json",
+        "bytes": 566731,
+        "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c356_calibration_protocol",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/result.json",
+        "bytes": 50688,
+        "sha256": "9b48bbb1a438ff5c9ef107b05421743ff7220c34431e307b7faca5c81bad7f3c",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c357_calibration_runner_contract",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_calibration_runner_contract_20260819_v1/result.json",
+        "bytes": 176569,
+        "sha256": "5f9af77deca432270373e7ace1d0166423fc651a7b04a6f7e19b82fe1bf38955",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c358_tail_calibration_finalizer",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/result.json",
+        "bytes": 6780,
+        "sha256": "116571455a7e2e210bcfd71d8e06a6cf20eb43ee4619ce6435e3e2d3e10a5afc",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c349_metadata_index",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c349_metadata_index_20260817_v1/metadata_index.jsonl",
+        "bytes": 299774,
+        "sha256": "0c06574cb526e9068cce2195eacaa9f5ebae8689e527c336a50019dd6a0f5e0b",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c355_development_checkpoint",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/development_checkpoint_candidates.pt",
+        "bytes": 16288,
+        "sha256": "b4cbf36c84767e5d17cffc36790571fcbc34b06cd77252b5e1bad50dfe53d823",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c356_calibration_selection",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c356_calibration_protocol_20260819_v1/calibration_metadata_index.jsonl",
+        "bytes": 95497,
+        "sha256": "5341d6b60c2688e03e19d23548710ae523481230ce32425cab53a258adf5f636",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c358_tail_calibration_records",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_records.jsonl",
+        "bytes": 656281,
+        "sha256": "a2c1789578105a302f200289e1b7e767d5c075ba0bed7be3954b8c4e8cd0215c",
+        "sample_payload_path_followed": false
+      },
+      {
+        "role": "prepublish_c358_tail_calibration_artifact",
+        "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c357_tail_calibration_finalizer_20260819_v1/tail_calibration_artifact.pt",
+        "bytes": 748024,
+        "sha256": "e90efd1d825cca46bc0aec1be48146aaa1a1e82fba5b8fba0075941e317e7ba5",
+        "sample_payload_path_followed": false
+      }
+    ],
+    "operation_counts": {
+      "sample_payload_paths_resolved": 0,
+      "sample_payload_files_opened": 0,
+      "independent_test_sample_payloads_opened": 0,
+      "source_manifests_opened": 0,
+      "array_paths_parsed_or_followed": 0,
+      "numpy_payload_loads": 0,
+      "torch_payload_deserializations": 0,
+      "checkpoint_deserializations": 0,
+      "gpu_queries": 0,
+      "cuda_initializations": 0,
+      "model_fits": 0,
+      "optimizer_steps": 0,
+      "conformal_fits": 0,
+      "checkpoint_writes": 0,
+      "runtime_threshold_selections": 0,
+      "online_rollouts": 0,
+      "active_action_controls": 0
+    },
+    "output_writes": {
+      "command_txt": 1,
+      "independent_test_metadata_index": 1,
+      "result_json": 1,
+      "abort_json": 0
+    },
+    "sample_payload_paths_resolved": 0,
+    "sample_payload_files_opened": 0,
+    "independent_test_sample_payloads_opened": 0,
+    "source_manifests_opened": 0,
+    "array_paths_parsed_or_followed": 0,
+    "numpy_payload_loads": 0,
+    "torch_payload_deserializations": 0,
+    "checkpoint_deserializations": 0,
+    "gpu_queries": 0,
+    "cuda_initializations": 0,
+    "model_fits": 0,
+    "optimizer_steps": 0,
+    "conformal_fits": 0,
+    "checkpoint_writes": 0,
+    "runtime_threshold_selections": 0,
+    "online_rollouts": 0,
+    "active_action_controls": 0,
+    "visible_gpu_count": 0,
+    "cuda_initialized": false
+  }
+}

@@ -17,7 +17,7 @@ PhaseRoute-VLA 是一个聚焦 A1 + LIBERO 动态计算的独立项目，不是�
 │       └── dynamic_compute/   PhaseRoute-VLA 改进模块
 ├── artifacts/
 │   ├── MANIFEST.json         全局不可变清单
-│   └── phase_route_v3/       V3 小模型、阈值和子清单
+│   └── phase_route_v3/       V3 小模型、阈值、子清单与最小回归证据
 ├── configs/
 │   ├── datasets/             LIBERO 与上游预训练数据配置
 │   ├── experiments/          组合配置

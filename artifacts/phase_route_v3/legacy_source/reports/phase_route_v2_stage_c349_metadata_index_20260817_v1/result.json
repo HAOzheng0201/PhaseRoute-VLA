@@ -1,0 +1,225 @@
+{
+  "status": "C349_METADATA_INDEX_FROZEN",
+  "schema_version": "phase-route-vla.stage-c349-metadata-index.v1",
+  "scope": "stage_c349_jsonl_only_prospective_metadata_index",
+  "parent": {
+    "c348_result": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c348_independent_validation_protocol_20260817_v1/result.json",
+    "c348_result_sha256": "e3c5ae5d49f3b6c88b62809a263834ded6bd4291df257d44d9da5ede3e029b92"
+  },
+  "source_manifests": [
+    {
+      "task_id": 0,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task0/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "33a9bc1c8521fe8097be89f35acc02ff9aa0b9cf5043848d07669bf02b6f07bf",
+      "source_rows": 291,
+      "manifest_bytes": 556380
+    },
+    {
+      "task_id": 1,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task1/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "be4647f31ac6dcae400740d68c3b83b91fd1765fce08061627bc00f18b5e1e27",
+      "source_rows": 413,
+      "manifest_bytes": 789114
+    },
+    {
+      "task_id": 2,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task2/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "477e31e0151399a5654147c4decb17c5efb9aef325fc91e2cd37e83972f4e882",
+      "source_rows": 360,
+      "manifest_bytes": 687905
+    },
+    {
+      "task_id": 3,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task3/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "f2ba27bafbbe94120d19ddc0e94d4ab14c22e79b3fcd8f1e15ae17d63c635a18",
+      "source_rows": 326,
+      "manifest_bytes": 623270
+    },
+    {
+      "task_id": 4,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task4/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "f50170bc18c025ec7fb877a7ba248d19cb7a81bddca8aefff2d14125f9f3c778",
+      "source_rows": 526,
+      "manifest_bytes": 1006262
+    },
+    {
+      "task_id": 5,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task5/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "5c5c5fb4f20fb4f7207fffba303f5545cb1abb17198f0df5fb42deb6f473b5a5",
+      "source_rows": 350,
+      "manifest_bytes": 668984
+    },
+    {
+      "task_id": 6,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task6/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "78c1378b6ecf12ad1b4b3edfc2928eed250995ff62e50b58c05e72ecdb50c9c3",
+      "source_rows": 386,
+      "manifest_bytes": 737701
+    },
+    {
+      "task_id": 7,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task7/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "07d56d5027834e0f45f151460c331d5710a0f9ebaf8b4245bc86438ad726b9fc",
+      "source_rows": 437,
+      "manifest_bytes": 834905
+    },
+    {
+      "task_id": 8,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task8/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "289984aa27ae8741317f8787e0c8be538e236162695969e089266b401fafee1e",
+      "source_rows": 377,
+      "manifest_bytes": 721041
+    },
+    {
+      "task_id": 9,
+      "manifest": "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task9/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "4372a7460b5a15de3dc7e620d999517ee8596b3e0426a60f83d4bca577ebac73",
+      "source_rows": 480,
+      "manifest_bytes": 917694
+    }
+  ],
+  "source_manifest_top_level_keys": [
+    "array_path",
+    "candidate_layers",
+    "candidate_trace_count",
+    "checkpoint_sha256",
+    "comparison_trace_count",
+    "dtypes",
+    "episode_id",
+    "fm_calls",
+    "fm_steps_total",
+    "fm_trace_count",
+    "instruction_hash",
+    "schema_version",
+    "sequence_length",
+    "shapes",
+    "source_projected_tokens",
+    "step_id",
+    "task_id",
+    "teacher_exit_layer",
+    "teacher_kind",
+    "teacher_trace_max_abs_error",
+    "timestamp_utc",
+    "unique_visual_slots",
+    "valid_crop_count"
+  ],
+  "source_manifest_bytes": 7543256,
+  "source_rows": 3946,
+  "historical_episode_0_4_rows": 677,
+  "prospective_episode_5_29_rows": 3269,
+  "prospective_task_episode_cells": 250,
+  "prospective_cell_rows_min": 9,
+  "prospective_cell_rows_max": 28,
+  "role_rows": {
+    "model_development": 1035,
+    "calibration": 1042,
+    "independent_test": 1192
+  },
+  "role_shard_rows": {
+    "model_development": {
+      "0": 260,
+      "1": 256,
+      "2": 258,
+      "3": 261
+    },
+    "calibration": {
+      "0": 258,
+      "1": 261,
+      "2": 260,
+      "3": 263
+    },
+    "independent_test": {
+      "0": 300,
+      "1": 300,
+      "2": 299,
+      "3": 293
+    }
+  },
+  "index_fields": [
+    "dataset_index",
+    "task_id",
+    "episode_index",
+    "call_ordinal",
+    "shard_assignment"
+  ],
+  "metadata_index": "metadata_index.jsonl",
+  "metadata_index_sha256": "0c06574cb526e9068cce2195eacaa9f5ebae8689e527c336a50019dd6a0f5e0b",
+  "metadata_index_bytes": 299774,
+  "shard_assignment": {
+    "formula": "dataset_index_mod_4",
+    "physical_gpu_indices_for_future_collection": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "physical_gpu_indices_forbidden": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "gpu_used_by_this_stage": false
+  },
+  "access_audit": {
+    "opened_files": [
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task0/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task1/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task2/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task3/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task4/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task5/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task6/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task7/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task8/teacher_calls/manifest.jsonl",
+      "/data3/haozheng/A1/source/reports/m428_teacher_cache_spatial_tasks0_9_30ep_20260805_v1/task9/teacher_calls/manifest.jsonl"
+    ],
+    "opened_file_count": 10,
+    "all_opened_files_are_manifest_jsonl": true,
+    "npz_or_sample_payload_files_opened": 0,
+    "persisted_fields_are_exactly_c348_allowlist": true,
+    "numpy_or_torch_payload_loader_imported": false
+  },
+  "authorization": {
+    "read_frozen_jsonl_manifests": true,
+    "persist_five_field_metadata_index": true,
+    "freeze_four_shard_assignment": true,
+    "open_npz_or_other_sample_payload": false,
+    "compute_risk_targets": false,
+    "train_model_or_calibrator": false,
+    "select_checkpoint_or_threshold": false,
+    "run_gpu_or_rollout": false,
+    "active_action_control": false,
+    "method_performance_claim": false
+  },
+  "implementation_source_sha256": {
+    "a1/vla/dynamic_compute/c349_metadata_index.py": "06832ddca7316abd80069ac443f54d449fbea19c6f42b902bd340338eb3d59de"
+  },
+  "protocol_freezer_source_sha256": "c836eeb52c6ec5e7eac6cce0b6022b9f148d2c2bf5e663c50ef6bc813b003fa7",
+  "checks": {
+    "c348_parent_and_source_current": true,
+    "ten_source_manifest_hashes_exact": true,
+    "all_300_source_task_episode_cells_nonempty": true,
+    "all_250_prospective_task_episode_cells_nonempty": true,
+    "dataset_indices_contiguous": true,
+    "five_field_schema_exact": true,
+    "four_shard_assignment_deterministic": true,
+    "only_manifest_jsonl_opened": true,
+    "no_npz_checkpoint_tensor_or_sample_payload_opened": true,
+    "no_target_training_threshold_rollout_or_control": true
+  },
+  "claim_boundary": {
+    "metadata_index_complete": true,
+    "episode_5_29_metadata_accessed": true,
+    "episode_5_29_sample_payload_accessed": false,
+    "candidate_actions_or_risk_targets_computed": false,
+    "model_or_calibrator_trained": false,
+    "checkpoint_or_threshold_selected": false,
+    "independent_test_sample_payload_opened": false,
+    "gpu_used": false,
+    "online_rollout": false,
+    "active_action_control": false,
+    "method_performance_claim": false
+  },
+  "next_step": "freeze a development-role-only candidate collection protocol and runner; calibration and independent-test sample payloads remain sealed"
+}

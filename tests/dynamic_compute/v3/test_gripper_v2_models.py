@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from pathlib import Path
 import sys
 
@@ -159,4 +158,3 @@ def test_invalid_lambda_layer_and_zero_count_fail_closed() -> None:
         )
     with pytest.raises(gm.GripperV2ModelError, match="positive support"):
         gm.conditional_nll(torch.full((2, 3), 1 / 3), torch.tensor([0, 1]))
-

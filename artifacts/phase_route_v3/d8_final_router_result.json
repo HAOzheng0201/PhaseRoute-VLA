@@ -1,0 +1,103 @@
+{
+  "status": "PASS_V3_D8B_FINAL_ROUTER_FROZEN",
+  "schema_version": "phase-route-vla.v3.d8b-final-router-result.v1",
+  "timestamp_utc": "2026-08-21T13:49:57.128+00:00",
+  "source_git_commit": "8544d33c23143142d83ddce817cfde7f7549f948",
+  "source_worktree_dirty": false,
+  "role": "development_only_final_router_for_prospective_confirmation",
+  "head_count": 5,
+  "lambda": 0.01,
+  "final_model_fits": 5,
+  "fit_rows_per_head": [
+    13042,
+    9596,
+    9146,
+    10106,
+    10278
+  ],
+  "threshold": {
+    "feasible": true,
+    "full_threshold": 0.5172957158188132,
+    "runtime_threshold": 0.49143093002787247,
+    "fixed_safety_multiplier": 0.95,
+    "full_summary": {
+      "early_exit_calls": 912,
+      "early_exit_fraction": 0.13985585032970405,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "per_task_early_calls": [
+        40,
+        136,
+        122,
+        170,
+        37,
+        46,
+        51,
+        84,
+        89,
+        137
+      ],
+      "feasible": true
+    },
+    "runtime_summary": {
+      "early_exit_calls": 911,
+      "early_exit_fraction": 0.1397024996166232,
+      "safe_clusters": 179,
+      "false_safe_clusters": 3,
+      "false_safe_ucb95": 0.04274434632269861,
+      "per_task_early_calls": [
+        40,
+        136,
+        122,
+        170,
+        37,
+        46,
+        51,
+        84,
+        89,
+        136
+      ],
+      "feasible": true
+    },
+    "evaluated_thresholds": 1130,
+    "failure_reason": null
+  },
+  "gripper_threshold": 0.043773197319646726,
+  "action_consistency_threshold": 0.00390625,
+  "development_diagnostic": {
+    "rows": 13042,
+    "calls": 6521,
+    "head_range_rows_above_1e-6": 13042,
+    "head_range_fraction_above_1e-6": 1.0,
+    "all_predictions_finite": true
+  },
+  "payload": "final_router.pt",
+  "payload_sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+  "input_sha256": {
+    "D8_contract": "148a6e7208582958198b8f1265bb715c75e31bc0c282c7f588412ba9c6ba2c17",
+    "D8_schedule": "6a532130ec9ddad5d235cc342e44148a9324f9e0592a1554e3dac9f51956b920",
+    "D8_contract_validation": "ccda03321468f78eb483b0fe276b7d3eed4e92653968abd53ba83c4986f60f1f",
+    "D5_dataset_result": "7b4facd767594974359bef11edec83bbe3df66c3ee4c5c3981814992f792186d",
+    "D5_dataset_payload": "cf40a9802e37d2335668db7f7e24194a3316d552183151cc780fecb5424137df",
+    "D7_OOF_result": "600370bf978450afc8756cfe7929b36b33ed9d7da716a463902e13c2d0ab3ea9",
+    "D7_OOF_payload": "ada55c17e7bbf7c6a5833c2a832c77f13249a9fd3c7aff6d6e0c842dd242a35d"
+  },
+  "access_ledger": {
+    "development_payloads_opened": 2,
+    "development_final_model_fits": 5,
+    "confirmation_state_or_rollout_accessed": false,
+    "fresh_policy_rollout": false,
+    "calibration_or_test_payload_opened": false,
+    "official_episode_40_49_opened": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "claim_boundary": {
+    "development_diagnostic_is_fresh_confirmation": false,
+    "router_is_closed_loop_validated": false,
+    "superiority_claim_authorized": false,
+    "deployment_authorized": false
+  },
+  "elapsed_seconds": 2.2513899280456826
+}

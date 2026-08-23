@@ -1,5 +1,4 @@
 # V3-D2 fresh development 采集与训练协议
-
 ## 结论
 
 V3-D2 在读取任何 fresh development label 之前，已经固定了数据边界、A1 权重、phase 权重、同噪声重放层、97D 特征、离散 gripper target、模型家族和 nested OOF 选择规则。当前协议状态为：
@@ -130,4 +129,3 @@ PASS_V3_D2_RAW_TASK_PREFLIGHT   # task0 / physical GPU0，只读预检
 ```
 
 预检确认 task0 的 ep12–29 seed、18 个 initial-state SHA、A1 hard-link inode/device/size、全部 sidecar hash 和 GPU0 UUID 均一致；预检没有加载模型、没有 rollout、没有打开 calibration/test payload。
-

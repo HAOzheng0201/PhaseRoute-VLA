@@ -1,0 +1,205 @@
+{
+  "schema_version": "phase-route-vla.stage-c360-runtime-readiness-incident.v1",
+  "status": "C360_PRE_MARKER_RUNTIME_READINESS_FAILURES_WITHOUT_C361_ATTEMPT_CONSUMPTION",
+  "date": "2026-08-19",
+  "scope": "two_c361_operational_readiness_invocations_before_formal_c360_v3_freeze",
+  "invocations": [
+    {
+      "id": "sandboxed_gpu_unavailable",
+      "log_directory": "/tmp/phaseroute_c361_front4.08v7q2o8",
+      "log_manifest_definition": "sha256sum ABSOLUTE_DIRECTORY/*.log | LC_ALL=C sort | sha256sum",
+      "log_manifest_sha256": "877bdda73437f62dab614ae348f77f9c25e87d3354c67b598f34eb087820dc41",
+      "logs": [
+        {
+          "name": "context.log",
+          "bytes": 2583,
+          "sha256": "e61538effdbe7695227b864e5b739b9e03e9f714d0037833e42a3c24e07e1c25",
+          "mtime": "2026-08-19T14:55:15.699826845+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "nvidia-smi front-four query returned exit status 9"
+        },
+        {
+          "name": "candidate_shard_0.log",
+          "bytes": 2331,
+          "sha256": "57e69682aed1852cdf7e2bf663e064e2c13689276326920a788f5d65ac8b7d40",
+          "mtime": "2026-08-19T14:54:48.779695176+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "torch.cuda.is_available returned false"
+        },
+        {
+          "name": "candidate_shard_1.log",
+          "bytes": 2331,
+          "sha256": "57e69682aed1852cdf7e2bf663e064e2c13689276326920a788f5d65ac8b7d40",
+          "mtime": "2026-08-19T14:54:52.551713617+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "torch.cuda.is_available returned false"
+        },
+        {
+          "name": "candidate_shard_2.log",
+          "bytes": 2331,
+          "sha256": "57e69682aed1852cdf7e2bf663e064e2c13689276326920a788f5d65ac8b7d40",
+          "mtime": "2026-08-19T14:54:51.875710313+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "torch.cuda.is_available returned false"
+        },
+        {
+          "name": "candidate_shard_3.log",
+          "bytes": 2331,
+          "sha256": "57e69682aed1852cdf7e2bf663e064e2c13689276326920a788f5d65ac8b7d40",
+          "mtime": "2026-08-19T14:55:04.791773477+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "torch.cuda.is_available returned false"
+        },
+        {
+          "name": "aggregate.log",
+          "bytes": 454,
+          "sha256": "d6355ef314260a9994b037a6560731426982f9c4333a0440f04ea3217e91df24",
+          "mtime": "2026-08-19T14:53:59.735455651+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        },
+        {
+          "name": "evaluate.log",
+          "bytes": 454,
+          "sha256": "d6355ef314260a9994b037a6560731426982f9c4333a0440f04ea3217e91df24",
+          "mtime": "2026-08-19T14:53:59.655455261+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        }
+      ]
+    },
+    {
+      "id": "real_gpu_readiness_code_defects",
+      "log_directory": "/tmp/phaseroute_c361_front4.9bvaffrp",
+      "log_manifest_definition": "sha256sum ABSOLUTE_DIRECTORY/*.log | LC_ALL=C sort | sha256sum",
+      "log_manifest_sha256": "149d665ecfcab4825c3de9ebf77ca84e424fb6ce7d077ed2ea723aeeeda7902d",
+      "logs": [
+        {
+          "name": "context.log",
+          "bytes": 3126,
+          "sha256": "7901b0d4cec403bbb2ae39944ecf253befaa47bd70d2d7146368d3b887a333d6",
+          "mtime": "2026-08-19T14:57:15.696415227+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "phase readiness smoke passed visual_summary [1,5,3584] to an estimator requiring [B,3584]"
+        },
+        {
+          "name": "candidate_shard_0.log",
+          "bytes": 2325,
+          "sha256": "9f30cd237d06682dfba8ea8575d10b6eaf430edc61a24f27684f719bad7432d7",
+          "mtime": "2026-08-19T14:57:14.932411474+08:00",
+          "classification": "local_readiness_failure",
+          "terminal_error": "PyTorch visible GPU UUID string differed from the frozen nvidia-smi UUID spelling"
+        },
+        {
+          "name": "candidate_shard_1.log",
+          "bytes": 1607,
+          "sha256": "ce721ad91857dabaec4d3d5768fad4947719cc1e2a04ec5769a4ad8b3d10c048",
+          "mtime": "2026-08-19T14:56:21.168147576+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        },
+        {
+          "name": "candidate_shard_2.log",
+          "bytes": 1607,
+          "sha256": "ce721ad91857dabaec4d3d5768fad4947719cc1e2a04ec5769a4ad8b3d10c048",
+          "mtime": "2026-08-19T14:56:21.160147537+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        },
+        {
+          "name": "candidate_shard_3.log",
+          "bytes": 1607,
+          "sha256": "ce721ad91857dabaec4d3d5768fad4947719cc1e2a04ec5769a4ad8b3d10c048",
+          "mtime": "2026-08-19T14:56:21.160147537+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        },
+        {
+          "name": "aggregate.log",
+          "bytes": 454,
+          "sha256": "d6355ef314260a9994b037a6560731426982f9c4333a0440f04ea3217e91df24",
+          "mtime": "2026-08-19T14:56:18.784135885+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        },
+        {
+          "name": "evaluate.log",
+          "bytes": 454,
+          "sha256": "d6355ef314260a9994b037a6560731426982f9c4333a0440f04ea3217e91df24",
+          "mtime": "2026-08-19T14:56:18.892136415+08:00",
+          "classification": "supervisor_collateral_abort_without_local_traceback"
+        }
+      ]
+    }
+  ],
+  "confirmed_findings": {
+    "first_invocation_failed_before_all_workers_ready": true,
+    "first_invocation_cuda_or_nvml_was_unavailable_to_the_processes": true,
+    "second_invocation_reached_real_front_four_gpu_access": true,
+    "phase_smoke_bug_is_shape_only_and_pre_marker": true,
+    "real_context_builder_already_uses_global_visual_shape": [
+      1,
+      3584
+    ],
+    "torch_2_6_uuid_type": "torch._C._CUuuid",
+    "torch_2_6_shard0_uuid_string": "f52eda42-a640-8244-bcdb-e6201acae766",
+    "frozen_nvidia_smi_shard0_uuid": "GPU-f52eda42-a640-8244-bcdb-e6201acae766",
+    "uuid_identity_matches_after_strict_optional_GPU_prefix_canonicalization": true
+  },
+  "hypotheses_not_claimed_as_facts": [
+    "nvidia-smi exit status 9 was caused specifically by the filesystem sandbox",
+    "a worker with no local traceback reached any later readiness or protected-access event"
+  ],
+  "source_bindings_at_failure": {
+    "scripts/dynamic_compute/run_stage_c360_independent_front4.sh": "ea26d139d70d30ec37f675b702c999410b745f4d62d7068b7ed19f8bee0e7b18",
+    "scripts/dynamic_compute/stage_c360_live_supervisor.py": "2fb7c0712184162a011f940b91414d74db999693cfbfee4881732c698dfad4fe",
+    "scripts/dynamic_compute/c361_bound_context_adapter.py": "e14f38950bcc6f7baeddd1477f9d00d96462b2b612b454a2579c24be23de35ed",
+    "scripts/dynamic_compute/c361_bound_candidate_adapter.py": "e95ddd063a56eaf7344cddc2cd23b383d1b23cfdcab90844ff953af746468e59",
+    "scripts/dynamic_compute/stage_c360_independent_execution_models.py": "29b4b874f7cf8d0da6f9f80a632e586557712eab2ea91c4fec886c1b9972a7f5",
+    "scripts/dynamic_compute/stage_c360_independent_runner_runtime.py": "ba0ad9bdd0d7428aa8bbadbda399b9ee45eb55c7a26f006cd3c896fe60931537",
+    "a1/vla/dynamic_compute/phase_estimator.py": "ca3ba413b715cc118e9909bc3f7e4639c876998df312847928bc6086f8054255",
+    "scripts/dynamic_compute/prepare_stage_c360_independent_context.py": "7bd76008f71af3aa15bf7b1a851ce2980fe9a0cf4e6af507c71dec9853bd58eb"
+  },
+  "protected_event_counts": {
+    "independent_test_selection_semantic_parse": 0,
+    "independent_test_source_manifest_open_or_parse": 0,
+    "independent_test_array_path_parse_or_follow": 0,
+    "independent_test_sample_path_resolution": 0,
+    "independent_test_sample_payload_open": 0
+  },
+  "allowed_pre_marker_readiness_access": {
+    "front_four_gpu_probe_attempted": true,
+    "torch_cuda_readiness_attempted": true,
+    "fixed_trust_anchor_byte_authentication_attempted": true,
+    "phase_checkpoint_deserialized_during_second_context_readiness": true,
+    "scientific_outcome_information_exposed": false
+  },
+  "marker_nonconsumption_proof": {
+    "workers_ready_required": 7,
+    "workers_ready_observed_before_each_abort": 0,
+    "all_workers_ready_message_reached": false,
+    "commit_prompt_reached": false,
+    "commit_token_sent": false,
+    "start_signal_sent": false,
+    "context_marker_creation_control_flow_reached": false,
+    "marker_lstat_equivalent_check_at": "2026-08-19T15:05:40+08:00",
+    "marker_lstat_equivalent_result": "ENOENT"
+  },
+  "attempt_state": {
+    "global_marker": "reports/phase_route_v2_stage_c361_independent_evaluation_20260819_v1.global_attempt_consumed.json",
+    "operational_readiness_invocations": 2,
+    "durable_attempt_consumption_event_occurred": false,
+    "scientific_attempt_consumed": false,
+    "one_shot_remains_eligible": true
+  },
+  "scientific_scope": {
+    "c359_result_sha256": "d4c2a9f29ebd30903ef5b63402521f076eb15c856f60771f54c00ea9867632e8",
+    "c359_scientific_contract_sha256": "fd60edbe4f76f252b3b97a09a75dd2f3c86826627ce90068316ff0ca8520869b",
+    "c360_v2_result_sha256": "b4ba00e88bd893f3f06b9d8305b726d499af697c7accdfb4159057e5213699b7",
+    "model_weight_metric_threshold_or_selection_change": false,
+    "outcome_information_exposed": false
+  },
+  "recovery": {
+    "c360_v1_result_authorized_for_future_c361": false,
+    "c360_v2_result_authorized_for_future_c361": false,
+    "phase_smoke_geometry_must_be_fixed_and_regression_tested": true,
+    "uuid_comparison_must_preserve_exact_physical_index_to_uuid_binding": true,
+    "formal_c360_v3_must_bind_this_incident_by_path_and_sha256": true,
+    "fresh_c360_v3_freeze_and_external_validation_required": true,
+    "c361_forbidden_before_c360_v3_external_validator_pass": true
+  }
+}

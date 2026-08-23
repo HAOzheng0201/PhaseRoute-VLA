@@ -1,0 +1,183 @@
+{
+  "status": "INDEPENDENT_SELECTION_AUDIT_PASS",
+  "schema_version": "phase-route-vla.stage-c326-shadow-selection-audit.v1",
+  "scope": "stage_c326_independent_multiepisode_shadow_selection_audit",
+  "timestamp_utc": "2026-08-14T14:42:53.321+00:00",
+  "source_git_commit": "2fcb07da2932eaaad441cddea91179845aa23c9c",
+  "source_worktree_dirty": true,
+  "source_script_sha256": "69c207a4546bebfc25827517997f64b8c2dc22d74fd57c9cbd2e594577e8a399",
+  "selection_rule": "development-spec ordered LIBERO-Long first two tasks crossed with the first two initial-state indices after historical trials 0--9",
+  "selection_uses_policy_output": false,
+  "selection_uses_success_outcome": false,
+  "selection_uses_exit_layer": false,
+  "selection_uses_certificate_acceptance": false,
+  "selection_uses_latency": false,
+  "base_seed": 20260811,
+  "episode_seed_formula": "base_seed + task_id * 10000 + episode_id",
+  "pairs": [
+    {
+      "key": "libero_10:task0:episode10",
+      "task_suite": "libero_10",
+      "task_id": 0,
+      "episode_id": 10,
+      "episode_seed": 20260821,
+      "task_description": "put both the alphabet soup and the tomato sauce in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "3988ee9439224b6e6d9593dc8a29e4f71cca93d8884075fab53b72f6b71dc574"
+    },
+    {
+      "key": "libero_10:task0:episode11",
+      "task_suite": "libero_10",
+      "task_id": 0,
+      "episode_id": 11,
+      "episode_seed": 20260822,
+      "task_description": "put both the alphabet soup and the tomato sauce in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "d5da74b098488c072f6d9f1f23bed4d90df373cc8f99333408c1c108263c1331"
+    },
+    {
+      "key": "libero_10:task1:episode10",
+      "task_suite": "libero_10",
+      "task_id": 1,
+      "episode_id": 10,
+      "episode_seed": 20270821,
+      "task_description": "put both the cream cheese box and the butter in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "fcb0fba58a3af4f23239186812db2a952f05aae7fa3f9e59027adcac54b29f15"
+    },
+    {
+      "key": "libero_10:task1:episode11",
+      "task_suite": "libero_10",
+      "task_id": 1,
+      "episode_id": 11,
+      "episode_seed": 20270822,
+      "task_description": "put both the cream cheese box and the butter in the basket",
+      "initial_state_shape": [
+        123
+      ],
+      "initial_state_dtype": "float64",
+      "initial_state_sha256": "2da19a1dc24a4904221f6f831ce4b494768485387a321766bfe28e1fedb9e8c8"
+    }
+  ],
+  "pair_count": 4,
+  "text_evidence_key_search": {
+    "project_root": "/data3/haozheng/A1",
+    "globs": [
+      "*.json",
+      "*.jsonl",
+      "*.md",
+      "*.txt",
+      "*.log",
+      "*.yaml",
+      "*.yml"
+    ],
+    "selected_key_matches": 0
+  },
+  "historical_boundary_audit": {
+    "historical_a1_attribution_rows": 400,
+    "historical_a1_long_rows": 100,
+    "historical_a1_long_trial_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "phase_training_suite": "libero_spatial",
+    "phase_training_exact_episode_keys": 20,
+    "spatial_c319_consumed_episode_indices": [
+      10,
+      11
+    ],
+    "spatial_c322_consumed_episode_indices": [
+      12,
+      13
+    ],
+    "spatial_fresh_gate_consumed_episode_indices": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ]
+  },
+  "historical_a1_attribution": "/data3/haozheng/A1/validation_runs/libero_early_exit_attribution/results.json",
+  "historical_a1_attribution_sha256": "9230760196343b4d218c755fed1c6128e7f28789069cc9d3763dca68f14e8885",
+  "frozen_long_threshold": "/data3/haozheng/A1/source/model/libero_exit/exit_thresholds_libero_10_exp_1.0.json",
+  "frozen_long_threshold_sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+  "lineage_evidence_sha256": {
+    "c325_result": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c325_hierarchical_shadow_pair_task0_ep0_gpu0_20260814_v1/result.json",
+      "sha256": "32293b98f5ed2a4dd408ad7296f78a641ad4e4a4e194339e00cb45d3293fdafc"
+    },
+    "c325_protocol": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c325_hierarchical_shadow_pair_protocol_20260814_v1/result.json",
+      "sha256": "aa3b3be119d0e0fa2bf38b0407e936f123592840c8a431278b66f0bb7646f9cd"
+    },
+    "c322_validation": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c322_independent_validation_seed20260811_gpu0_20260814_v1/result.json",
+      "sha256": "eeed0c8de895085556f197afbe374e62f322d066348c8af341e0d69607be9407"
+    },
+    "c319_validation": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c319_independent_validation_seed20260811_gpu0_20260814_v1/result.json",
+      "sha256": "01c480f549ce66242cbffbb65f31418d8a09f1042538e32bc91257969706261c"
+    },
+    "spatial_fresh_gate": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_recovery_gate_evaluation_20260811_v1/result.json",
+      "sha256": "622ec38f9db785078751c83427fd5f4be5c36ce109b7c08770e7b2f00f615d14"
+    },
+    "spatial_fresh_gate_dataset": {
+      "path": "/data3/haozheng/A1/source/reports/phase_route_v2_stage_c2_fresh_gate_width_controller_dataset_20260811_v1/result.json",
+      "sha256": "48b33593a7b46fc6f2993e71fdbd2862e799dae29a2809b2fa7c6145a1cb5360"
+    },
+    "phase_metadata": {
+      "path": "/data3/haozheng/A1/source/caches/m2_phase_dataset_v1_20260801/metadata.json",
+      "sha256": "e7915f4b8718b6815899e55841f9319bfbbffe89ef9da759d2e96fe304f3a727"
+    },
+    "artifact_policy": {
+      "path": "/data3/haozheng/A1/source/docs/ARTIFACTS.md",
+      "sha256": "ec2d809c80e1ee3c6ffc5ed4732fa2a79f32a05dbeeaa625b17e705cf5906d61"
+    },
+    "development_spec": {
+      "path": "/data3/haozheng/A1/PhaseRoute_VLA_开发包/PhaseRoute_VLA_开发与验证文档.md",
+      "sha256": "3e14fe6a69f5d0769b115cb1cc151780c45ff7721adacaf39cf79d538e9bd3dc"
+    }
+  },
+  "independence_boundary": {
+    "exact_suite_task_episode_keys_absent_from_local_text_evidence": true,
+    "exact_initial_states_unused_by_phase_route_training_or_tuning": true,
+    "independent_for_current_phase_route_components": true,
+    "globally_untouched_benchmark_tasks": false,
+    "a1_pretraining_independent": false,
+    "same_suite_historical_a1_trials_0_9_exist": true,
+    "architecture_informed_by_prior_libero_results": true
+  },
+  "authorization": {
+    "freeze_c327_shadow_protocol": true,
+    "execute_policy_during_c326": false,
+    "read_selected_outcomes_during_c326": false,
+    "residual_controls_main_action": false,
+    "use_c327_result_for_tuning": false,
+    "active_canary": false,
+    "performance_claim": false
+  }
+}

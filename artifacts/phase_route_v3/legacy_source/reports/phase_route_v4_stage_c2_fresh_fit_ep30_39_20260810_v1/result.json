@@ -1,0 +1,101 @@
+{
+  "status": "PASS",
+  "scope": "phase_route_v2_training_cache",
+  "schema_version": "phase-route-vla.training-cache-overlay.v4",
+  "schema_sha256": "0e892a5533863ed70071b0b14cf9079ed03cafb1724a515e046f4156ddc27ccd",
+  "config": {
+    "history_len": 8,
+    "include_roles": [
+      "calibration"
+    ],
+    "candidate_policy": "all role=1 FM traces; same cached input_x across widths",
+    "safety_target": "candidate layer >= frozen A1 teacher exit layer",
+    "executed_action": "first row of frozen teacher_normalized_action chunk",
+    "temporal_protocol": "stage_c2_fresh_fit",
+    "temporal_schema": "phase-route-vla.stage-c2-fresh-temporal-features.v1"
+  },
+  "config_sha256": "28665ebd56955d9e04b1aa219196ef80b1f4b5f95ee94799ce170c5e95a26a81",
+  "source_root": "/data3/haozheng/A1/source",
+  "paths_are_relative_to": "source_root",
+  "checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+  "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+  "temporal_result_path": "reports/phase_route_v2_stage_c2_fresh_fit_temporal_20260810_v1/result.json",
+  "temporal_result_sha256": "78b3f3cba83fc7988ddb46a7f9588fe59c00ef9019926aee8f51fd46d7e70175",
+  "temporal_arrays_path": "reports/phase_route_v2_stage_c2_fresh_fit_temporal_20260810_v1/features.npz",
+  "temporal_arrays_sha256": "e81b569dfbb01a5c681b0702f71ee34b30605e4346ebda5fa9253720934990cb",
+  "source_manifests": [
+    {
+      "task_id": 0,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task0/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "64852188dc06f012b7d0271fd800d8d230ee87d596cab5ed0bd85b183b25c5a7",
+      "records": 96
+    },
+    {
+      "task_id": 1,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task1/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "40aedd9b4b0a29f411d5845f4631d78e5b16a5a9577c0c45f259eaf9d441dd84",
+      "records": 139
+    },
+    {
+      "task_id": 2,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task2/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "4f7a0b75bc221a99cafc2345e4eec8e63eed01f7209c766b1926a52e9ab25615",
+      "records": 119
+    },
+    {
+      "task_id": 3,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task3/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "facc901d00679b094e56e5b84e06485f23f2da94d0cc36364138ca1cc7ebb4f7",
+      "records": 124
+    },
+    {
+      "task_id": 4,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task4/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "a5df5f9d1c95ac6744491b442284d8cb6f54401a884573a2fa28ae26a3567ec8",
+      "records": 174
+    },
+    {
+      "task_id": 5,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task5/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "4601cb5a7b1e6cd774e9b1e549726c3ebbec05cf130f67b14d4e429205a51194",
+      "records": 117
+    },
+    {
+      "task_id": 6,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task6/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "e5b5d4ad02eff049f892a72dee3b75d9a0a1700f96dac00fbf25a66be28dc87f",
+      "records": 135
+    },
+    {
+      "task_id": 7,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task7/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "204f5f655fd656ddfba224dfad51b43d8bba888f4f7b124a746a2a5b71439be8",
+      "records": 145
+    },
+    {
+      "task_id": 8,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task8/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "2129762a165d07f3d0ee2c9b56b0bab4e9ced527078d9988a7fd9454b74cc452",
+      "records": 121
+    },
+    {
+      "task_id": 9,
+      "manifest_path": "reports/phase_route_v2_stage_c2_fresh_fit_teacher_cache_ep30_39_20260810_v1/task9/teacher_calls/manifest.jsonl",
+      "manifest_sha256": "90a810098586754542bdfa5c2d1b756671b3eb442bcc9636d40e95eb723ffe87",
+      "records": 175
+    }
+  ],
+  "source_records": 1345,
+  "indexed_records": 1345,
+  "indexed_role_counts": {
+    "calibration": 1345
+  },
+  "source_role_counts": {
+    "calibration": 1345,
+    "development": 0,
+    "test": 0
+  },
+  "records_path": "records.jsonl",
+  "records_sha256": "416276d500bb0ce0cb584016c6250c6550aab17ea2402fd1784032b27233bc83",
+  "sealed_test_included": false
+}

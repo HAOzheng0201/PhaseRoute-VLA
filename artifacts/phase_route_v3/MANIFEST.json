@@ -21,6 +21,36 @@
       "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
     }
   },
+  "historical_validation": {
+    "purpose": "self-contained D0/D1/D8 regression evidence; no raw trajectories",
+    "d8_fresh_states_result": {
+      "path": "artifacts/phase_route_v3/d8_fresh_states_result.json",
+      "bytes": 101912,
+      "sha256": "ff45ff5cc5e4e9f9f61b9ee8d80cbe54b896760e066f11710a063c4b0914d622"
+    },
+    "d8_fresh_states_payload": {
+      "path": "artifacts/phase_route_v3/fresh_states.pt",
+      "bytes": 195114,
+      "sha256": "203e34b0049148b9954c42b6d44ceeb9408edaf0fd073080b95e4d2958c6d56f"
+    },
+    "d8_final_router_result": {
+      "path": "artifacts/phase_route_v3/d8_final_router_result.json",
+      "bytes": 3194,
+      "sha256": "76d209ef3e92dcf2a4edb329337a0481d8976ee2382d634de172904724cda70d"
+    },
+    "legacy_evidence": {
+      "root": "artifacts/phase_route_v3/legacy_source",
+      "manifest": "docs/research/v3/legacy_evidence_manifest.json",
+      "manifest_sha256": "4ae5b617525a1f575f62700ab46434a1c9e8b20b9d13863b7ae8787f74c0ea6a",
+      "manifest_entries": 28,
+      "manifest_bytes": 1737937
+    },
+    "legacy_c355_result": {
+      "path": "artifacts/phase_route_v3/legacy_source/reports/phase_route_v2_stage_c355_development_predictor_training_20260818_v1/result.json",
+      "bytes": 566731,
+      "sha256": "ba9da228f2607a22b9839e630c332e88c032ae91fdaa0f62efbb7cbcca55e678"
+    }
+  },
   "backbone": {
     "repository": "spatialtemporal-ai/a1-libero-exit",
     "revision": "a014b84203c6fb981d3f6181dc3bc7207610b2a3",
