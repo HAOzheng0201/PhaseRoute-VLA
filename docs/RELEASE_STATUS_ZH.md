@@ -1,6 +1,6 @@
 # PhaseRoute-VLA 发布状态
 
-更新日期：2026-08-23
+更新日期：2026-08-24
 
 当前研究方法：`phase_route_v3`
 
@@ -202,29 +202,60 @@ SHA-256 0d0800acc4dcf7e37ba9dd6c57283bba70f18a3a9120ef0f6dfa34a7a2ffb041
 ### 9.1 Post-release GPU 工程验证
 
 在 commit `e213844a3a6e78fcd2d876a1d29bac5c81c5c602` 的 clean worktree 上，只使用
-物理 GPU 0 完成以下验证；GPU 4--7 未访问：
+物理 GPU 0 完成 V3 验证；随后在 commit `a1e0145` 上只使用物理 GPU 1 补齐 original
+A1 配对臂。两张卡均为 RTX 6000 Ada 48 GB；GPU 2--7 在这组验证中未访问：
 
 | 范围 | 结果 | 关键指标 |
 |---|---|---|
 | 完整 GPU preflight | PASS | UUID 单卡绑定、CUDA 12.4、backbone 与所有 V3 SHA/payload gate 通过 |
 | task 0 / state 0 单 episode | PASS | 1/1 success，34 policy calls，L13/L27=4/30，0 error |
 | 10 task × state 0 | PASS engineering smoke | 9/10 success，362 policy calls，L11/L13/L27=8/52/302，0 error |
+| original A1 10 task × state 0 | PASS engineering run | 10/10 success，326 policy calls，L11/L27=199/127，0 runtime error |
+| identity-checked paired summary | PASS integrity | 10/10 task/state/seed/instruction grids 对齐，9 both-success + 1 A1-only-success |
 
-10-task smoke 使用与冻结 runtime 一致的 FM10 配置，但属于普通 simulator engineering
-run；它没有使用 D9 states 40--49，也不构成第二次 independent test。其描述性统计为：
+两臂均使用冻结 checkpoint、FM10、相同 task/state/seed，未修改权重、阈值或
+controller。它们属于普通 simulator engineering run，没有使用 D9 states 40--49，也
+不构成第二次 independent test。identity-checked 汇总器逐 task 核验了 seed、instruction
+hash、policy-call 数与退出层序列；总体描述性统计为：
 
-```text
-successes                         9 / 10
-early exits                      60 / 362 = 16.57%
-FM calls / policy call           2406 / 362 = 6.6464
-policy-call latency mean         1422.65 ms
-policy-call latency median       1538.10 ms
-10-episode rollout wall time     681.18 s
-```
+| 指标 | Original A1 | PhaseRoute V3 | 描述性变化 |
+|---|---:|---:|---:|
+| successes | 10 / 10 | 9 / 10 | −10 pp |
+| policy calls | 326 | 362 | +11.04% |
+| L11 / L13 / L27 | 199 / 0 / 127 | 8 / 52 / 302 | — |
+| early-exit fraction | 61.04% | 16.57% | −44.47 pp |
+| FM calls | 3,298 | 2,406 | −27.05%（轨迹长度未归一） |
+| FM calls / policy call | 10.1166 | 6.6464 | **−34.30%** |
+| policy latency mean | 1425.08 ms | 1422.65 ms | −0.17% |
+| policy latency median | 720.69 ms | 1538.10 ms | +113.42% |
+| summed episode wall | 583.01 s | 643.07 s | +10.30% |
 
-唯一失败为 task 4/state 0：65 次调用中 L13 仅 2 次、L27 为 63 次，runtime error 为
-0。该结果不能证明两次 L13 导致失败；在相同 state/seed 的 original A1 arm 完成前，也
-不能形成 paired attribution。
+因此，这组小样本复核支持“V3 端到端可运行，并把每次 policy call 的 FM solver 调用
+降低 34.30%”；它不支持“当前 state-0 上整体效果优于 A1”或“已获得 wall-clock
+speedup”。平均 policy latency 基本持平，而中位延迟与 episode wall 更差：V3 的
+conservative router 仅 16.57% 调用提前退出，original A1 则有 61.04% 落在 L11。更少的
+FM 调用没有抵消 V3 更高的 transformer depth 与不同闭环轨迹。
+
+逐 task 审计表如下；`1/0` 分别表示成功/失败，wall 只包含 evaluator 记录的 episode
+时段：
+
+| task | seed | A1 / V3 success | calls A1 / V3 | FM/call A1 / V3 | mean ms A1 / V3 | wall s A1 / V3 |
+|---:|---:|:---:|---:|---:|---:|---:|
+| 0 | 20260823 | 1 / 1 | 38 / 37 | 9.95 / 6.78 | 1389.8 / 1467.1 | 68.04 / 69.35 |
+| 1 | 20270823 | 1 / 1 | 31 / 29 | 9.32 / 6.38 | 1243.0 / 1302.1 | 51.62 / 49.38 |
+| 2 | 20280823 | 1 / 1 | 31 / 31 | 10.87 / 6.39 | 1586.5 / 1310.0 | 59.08 / 50.34 |
+| 3 | 20290823 | 1 / 1 | 27 / 34 | 9.07 / 6.44 | 1210.2 / 1360.5 | 42.47 / 58.03 |
+| 4 | 20300823 | 1 / 0 | 32 / 65 | 10.50 / 6.94 | 1508.3 / 1533.3 | 61.98 / 123.50 |
+| 5 | 20310823 | 1 / 1 | 20 / 20 | 7.80 / 6.55 | 887.7 / 1389.6 | 24.89 / 35.34 |
+| 6 | 20320823 | 1 / 1 | 33 / 36 | 12.09 / 6.72 | 1867.2 / 1460.4 | 74.23 / 65.24 |
+| 7 | 20330823 | 1 / 1 | 37 / 30 | 11.32 / 6.67 | 1700.0 / 1445.5 | 75.30 / 53.86 |
+| 8 | 20340823 | 1 / 1 | 47 / 48 | 9.21 / 6.71 | 1226.6 / 1439.5 | 72.12 / 83.57 |
+| 9 | 20350823 | 1 / 1 | 30 / 32 | 10.20 / 6.47 | 1439.5 / 1362.4 | 53.28 / 54.46 |
+
+唯一不一致为 task 4/state 0。Original A1 在 32 次调用后成功（L11/L27=18/14），V3
+在 65 次调用后失败（L13/L27=2/63），两臂 runtime error 均为 0。该配对结果证明闭环
+outcome 不同，但不能证明两次 L13 导致失败；V3 大部分调用实际运行到了 L27，且策略
+改变后轨迹已分叉。需要预注册的逐调用反事实干预才能形成 causal attribution。
 
 本地、被 Git 忽略的原始记录及其 sealed SHA 为：
 
@@ -240,10 +271,26 @@ runs/stage5_phase_route_v3/libero_10_20260824_003703/run_attestation.json
 
 runs/stage5_phase_route_v3/libero_10_20260824_003703/evaluation_summary.json
 079b90281e3dd77d3f3bb2e6d66beb8f23a71c202dec8b2868316b98e955d155
+
+runs/stage5_original_a1/libero_10_20260824_003216/preflight.json
+1f7105ff05c724263ddd91c3ad9bb9605ef48e1171f957416cc03ab4dfe01e8f
+
+runs/stage5_original_a1/libero_10_20260824_003216/eval_logs/EVAL-*.txt
+622a285b4cebdac62dc9fb03147a01c81fd35c062a1ef6ecc5c787d3c38ae03c
+
+runs/stage5_original_a1/libero_10_20260824_003216/policy_telemetry.jsonl
+f1578d9507b6fa5f106ed2d996eb7a36943a4847abc8cfa11979f81061b31da2
+
+runs/stage5_paired_comparison/libero_10_state0_20260824/paired_summary.json
+e89c0d3f52bab4e5b82b9b60d216c230ce799685b63950ac690c3231c482c5da
 ```
 
-original A1 的 GPU 1 preflight 已通过，但 rollout 尚未完成，因此本节不声明 paired
-success difference、paired latency reduction 或 wall-clock speedup。
+汇总可由 `scripts/summarize_stage5_paired_smoke.py` 从上述原始记录确定性重建。由于两臂
+运行在不同物理 GPU、闭环调用数不同且样本仅为每 task 一个 state，latency 与 wall
+只作描述性工程诊断，不作正式 speedup 或显著性结论。
+
+补齐配对汇总器后重新执行质量门：`make test` 为 **475 passed + 22 subtests**，
+`make test-v3-release` 为 **13 passed**，`make check` 为 **PASS**。
 
 ### 9.2 Clean-clone 复现
 
