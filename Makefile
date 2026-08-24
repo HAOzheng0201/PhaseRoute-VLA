@@ -7,7 +7,7 @@ help:
 	@echo "make preflight     CPU environment + artifact audit"
 	@echo "make preflight-v3  CPU V3 bundle + five-head payload audit"
 	@echo "make install       Install PhaseRoute-VLA and pinned LIBERO dependencies"
-	@echo "make setup-libero  Initialize, patch and install the pinned LIBERO submodule"
+	@echo "make setup-libero  Patch and install an isolated copy of pinned LIBERO"
 	@echo "make download-checkpoint  Download and verify the frozen A1 early-exit checkpoint"
 	@echo "make test-release  Fast release-gate unit tests"
 	@echo "make test-v3-release  Fast V3 artifact/launcher tests"

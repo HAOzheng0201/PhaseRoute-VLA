@@ -310,4 +310,33 @@ final clone git status          clean
 
 这证明源码、bundled runtime artifacts 与最小历史证据可从 clean Git clone 自包含验证。
 它仍不等于“从零创建全新依赖环境”：当前 Python/CUDA 依赖继续来自已验证的 `a1` conda
-环境；完全从零的环境安装验收需要在后续单独执行并记录。
+环境；该缺口已由下一节的独立全新环境验收补齐。
+
+### 9.3 全新依赖环境验收
+
+2026-08-24 在独立 Python 3.10.8 venv 中从网络重新安装 PyTorch 2.6.0+cu124、
+`.[libero]` 与开发验收依赖，且使用 `PYTHONNOUSERSITE=1`、`CUDA_VISIBLE_DEVICES=`，
+没有继承旧 `a1` 环境，也没有占用 GPU。安装修复冻结在 commit
+`d2853ad00a1f66381adcfcce7c29fab5117cab52`。
+
+```text
+pip check                         PASS
+A1 / LIBERO / dlimp imports       PASS
+LIBERO-10 init-state load         PASS (10 tasks, 50 states, shape=(123,))
+full dynamic-compute tests        478 passed + 22 subtests, 0 failed
+V3 release tests                  13 passed, 0 failed
+make check                        PASS
+CPU V3 preflight                  PASS (clean tree, physical_gpu_index=null)
+sdist + wheel                     PASS
+twine check --strict              PASS / PASS
+wheel ZIP integrity               PASS
+```
+
+固定 LIBERO 的 setuptools namespace 声明不兼容较新的 setuptools，因此安装流程改为
+在 `.cache/libero-build/` 隔离副本中应用补丁；pinned submodule 保持 clean。开发 extra
+同时约束 `twine<7`，避免 twine 7 的 `rich>=14.3` 与 `cached_path 1.8.10` 的
+`rich<14` 发生不可满足冲突。
+
+完整环境、命令、哈希与边界说明见
+`docs/research/v3/V3_D12_FRESH_ENVIRONMENT_QUALIFICATION_ZH.md`。这次只补齐工程可复现
+资格，没有重跑 GPU rollout，因此 D9、stage-5 配对结果和论文科学结论均未改变。

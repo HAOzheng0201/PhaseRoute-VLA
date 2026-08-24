@@ -48,8 +48,20 @@ make setup-libero
 ```
 
 `make install` 使用 `requirements/constraints-cu124.txt` 固定关键版本；不要安装
-`ai2-molmo[dev,serve,train]`。`make setup-libero` 会安装 pinned submodule、幂等应用
-PyTorch 2.6 patch，并非交互创建 LIBERO config。
+`ai2-molmo[dev,serve,train]`。`make setup-libero` 会：
+
+1. 验证 submodule 严格固定在 `8f1084e...`；
+2. 复制源码到被 Git 忽略的 `.cache/libero-build/`；
+3. 在副本上幂等应用 PyTorch 2.6 和 setuptools editable-install 补丁；
+4. 从副本安装 LIBERO，并非交互创建配置。
+
+因此上游 submodule 会一直保持 clean。不要直接修改或从 submodule 目录手工安装
+LIBERO。若希望使用其他配置目录，应在 setup 之前覆盖变量：
+
+```bash
+export LIBERO_CONFIG_PATH="/absolute/path/to/libero-config"
+make setup-libero
+```
 
 设置本地缓存：
 
@@ -245,6 +257,15 @@ make setup-libero
 make setup-libero
 python -c "from libero.libero import benchmark; print('LIBERO PASS')"
 ```
+
+固定 LIBERO 的旧 `setup.py` 在较新 setuptools 下可能只生成 `libero==0.1.0` metadata，
+却没有可导入包。不要绕过安装脚本；仓库内的 setuptools 兼容补丁正是为此问题准备。
+
+### `twine` 与 `cached_path` 报 `rich` 冲突
+
+开发 extra 固定 `twine<7`。`twine 7` 要求 `rich>=14.3`，而 A1 使用的
+`cached_path 1.8.10` 要求 `rich<14`；请执行 `make install` 或按本项目约束安装，不要
+单独升级 twine。
 
 ### GitHub/Hugging Face 中断
 

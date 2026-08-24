@@ -102,6 +102,11 @@ PhaseRoute-VLA/
 已验证环境：Python 3.10、PyTorch 2.6.0+cu124、CUDA 12.4、driver 570.133.07、
 单卡约 48 GiB。
 
+2026-08-24 另在不继承旧 `a1` site-packages 的全新 Python 3.10 venv 中，从网络重新
+安装全部依赖并完成 CPU release qualification：478 tests、22 subtests、V3 release
+gate、LIBERO init-state load、sdist/wheel 检查均通过。证据见
+[`V3_D12_FRESH_ENVIRONMENT_QUALIFICATION_ZH.md`](docs/research/v3/V3_D12_FRESH_ENVIRONMENT_QUALIFICATION_ZH.md)。
+
 ```bash
 git clone --recurse-submodules <your-phase-route-vla-repository>
 cd PhaseRoute-VLA
@@ -117,6 +122,11 @@ make install
 make setup-libero
 make download-checkpoint
 ```
+
+`make setup-libero` 不修改 pinned submodule；它会复制 LIBERO 到被 Git 忽略的
+`.cache/libero-build/`，在副本上应用 PyTorch 2.6 与 setuptools editable-install
+兼容补丁，再安装该副本。需要自定义配置目录时，在执行 `make setup-libero` 前设置
+`LIBERO_CONFIG_PATH=/absolute/path`。
 
 不要安装上游不可从 PyPI 获取的 `ai2-molmo[dev,serve,train]` extra。完整说明见
 [`docs/QUICKSTART_ZH.md`](docs/QUICKSTART_ZH.md)。
