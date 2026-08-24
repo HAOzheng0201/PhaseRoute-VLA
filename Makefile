@@ -44,7 +44,7 @@ test:
 
 check:
 	PYTHONNOUSERSITE=1 $(PYTHON) -m pip check
-	$(PYTHON) -m py_compile scripts/validate_phase_route_release.py scripts/validate_phase_route_v3_release.py scripts/validate_phase_route_v3_run.py scripts/run_phase_route_v3.py scripts/run_fixed_layer_baseline.py a1/vla/dynamic_compute/release.py a1/vla/dynamic_compute/fixed_layer_controller.py a1/vla/dynamic_compute/stage1_measurement.py a1/vla/dynamic_compute/v3/release.py robot_experiments/libero/stage1_vla_utils.py scripts/dynamic_compute/summarize_release_smoke.py
+	$(PYTHON) -m py_compile scripts/validate_phase_route_release.py scripts/validate_phase_route_v3_release.py scripts/validate_phase_route_v3_run.py scripts/run_phase_route_v3.py scripts/run_fixed_layer_baseline.py scripts/summarize_stage1_five_arm_smoke.py a1/vla/dynamic_compute/release.py a1/vla/dynamic_compute/fixed_layer_controller.py a1/vla/dynamic_compute/stage1_measurement.py a1/vla/dynamic_compute/v3/release.py robot_experiments/libero/stage1_vla_utils.py scripts/dynamic_compute/summarize_release_smoke.py
 	bash -n eval_libero.sh eval_libero_exit.sh train_libero.sh
 	bash -n scripts/*.sh
 	bash -n scripts/dynamic_compute/*.sh
