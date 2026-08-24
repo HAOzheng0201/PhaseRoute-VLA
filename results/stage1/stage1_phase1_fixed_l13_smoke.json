@@ -1,0 +1,85 @@
+{
+  "schema_version": "phase-route-vla.stage1.fixed-l13-smoke-result.v1",
+  "status": "PASS",
+  "timestamp": "2026-08-24T23:26:09+08:00",
+  "branch": "research/stage1-measurement",
+  "base_commit": "7479d6eef1d1562be92099927ef97b40dc16c8a0",
+  "scope": "ordinary_engineering_smoke_not_D9_retest",
+  "run": {
+    "local_run_directory": "runs/stage1_fixed_baselines/fixed_l13_20260824_232431",
+    "method": "fixed_l13",
+    "suite": "libero_10",
+    "task_id": 0,
+    "episode_index": 0,
+    "seed": 20260824,
+    "successes": 1,
+    "episodes": 1,
+    "policy_calls": 33,
+    "model_parameters": 8460174855,
+    "peak_gpu_memory_before_fsdp_mib": 33844,
+    "physical_gpu_index": 4,
+    "gpu_uuid": "GPU-535e41e1-a1ac-af65-a015-fc281644709e"
+  },
+  "invariant_audit": {
+    "measurement_records": 33,
+    "telemetry_records": 33,
+    "selected_layer_13_records": 33,
+    "fm_calls_per_policy_call": 1,
+    "finite_action_records": 33,
+    "action_shape": [8, 7],
+    "telemetry_action_shape": [1, 8, 7],
+    "measurement_errors": 0,
+    "cuda_timing_records": 33,
+    "measurement_is_control_input": false,
+    "d9_protected_source_modified": false
+  },
+  "latency_ms": {
+    "policy_wall": {
+      "mean": 498.7374528484848,
+      "p50": 482.842157,
+      "p95": 590.422315,
+      "max": 632.767882
+    },
+    "policy_cuda_event": {
+      "mean": 498.72395093513256,
+      "p50": 482.8313903808594,
+      "p95": 590.4119262695312,
+      "max": 632.68994140625
+    }
+  },
+  "code_gate": {
+    "targeted_tests_passed": 17,
+    "full_tests_passed": 484,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "pip_check": "PASS",
+    "python_syntax": "PASS",
+    "shell_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "protected_d9_sha256": "PASS_EXACT"
+  },
+  "artifact_sha256": {
+    "evaluation_summary.json": "ee6e45f735b2ee89f1e854b886b5a35337bbef712b6b33d9de3c5b91d2fab906",
+    "policy_telemetry.jsonl": "f4813a4ef0f2479a8afd1bd989bb45c7401c89f36ec0711262a46537d6fe64bc",
+    "stage1_measurement.jsonl": "a4251045e807cc28b6d4a7bd58a31b946650a239e9a3738b7b98db26b98e07da"
+  },
+  "retained_negative_runs": [
+    {
+      "local_run_directory": "runs/stage1_fixed_baselines/fixed_l13_20260824_224621",
+      "result": "FAIL_BEFORE_MODEL_LOAD",
+      "cause": "EGL device unavailable in restricted execution context"
+    },
+    {
+      "local_run_directory": "runs/stage1_fixed_baselines/fixed_l13_20260824_224820",
+      "result": "FAIL_FIRST_POLICY_CALL",
+      "cause": "legacy exit_id path did not produce flow-matching exit_action"
+    }
+  ],
+  "claim_boundary": {
+    "D9_retest": false,
+    "new_independent_test": false,
+    "success_rate_improvement_established": false,
+    "wall_clock_speedup_established": false,
+    "deployment_authorized": false
+  }
+}

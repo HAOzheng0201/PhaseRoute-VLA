@@ -1,0 +1,54 @@
+{
+  "schema_version": "phase-route-vla.stage1.cpu-gate-result.v1",
+  "status": "PASS_CPU_WAIT_GPU_BUSY",
+  "timestamp": "2026-08-24T22:26:58+08:00",
+  "branch": "research/stage1-measurement",
+  "base_commit": "7479d6eef1d1562be92099927ef97b40dc16c8a0",
+  "scope": "stage1_measurement_infrastructure_and_cpu_qualification",
+  "results": {
+    "targeted_tests": {
+      "passed": 17,
+      "failed": 0
+    },
+    "full_dynamic_compute_tests": {
+      "passed": 482,
+      "subtests_passed": 22,
+      "failed": 0,
+      "warnings": 3
+    },
+    "v3_release_tests": {
+      "passed": 13,
+      "failed": 0
+    },
+    "pip_check": "PASS",
+    "python_syntax": "PASS",
+    "shell_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "protected_d9_sha256": "PASS_EXACT"
+  },
+  "negative_result_retained": {
+    "initial_full_test": "478 passed, 22 subtests passed, 1 failed",
+    "failure": "D9-protected files changed after direct instrumentation",
+    "resolution": "restored exact protected bytes and moved timing to external overlay",
+    "historical_hashes_rewritten": false
+  },
+  "gpu_gate": {
+    "allowed_physical_indices": [0, 1, 2, 3],
+    "checked": true,
+    "launched": false,
+    "reason": "all allowed GPUs had active OceanGym/Isaac Sim compute processes",
+    "snapshot": [
+      {"index": 0, "memory_used_mib": 6230, "utilization_percent": 100},
+      {"index": 1, "memory_used_mib": 6085, "utilization_percent": 100},
+      {"index": 2, "memory_used_mib": 6021, "utilization_percent": 100},
+      {"index": 3, "memory_used_mib": 4618, "utilization_percent": 37}
+    ],
+    "physical_indices_4_to_7_used": false
+  },
+  "claim_boundary": {
+    "D9_retest": false,
+    "new_independent_test": false,
+    "GPU_model_smoke_complete": false,
+    "deployment_authorized": false
+  }
+}

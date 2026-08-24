@@ -43,19 +43,37 @@ def validate_run(run_dir: str | Path) -> dict[str, Any]:
     runtime_path = root / "phase_route_runtime.jsonl"
     telemetry_path = root / "policy_telemetry.jsonl"
     stdout_path = root / "stdout.log"
-    paths = (preflight_path, evaluation_path, runtime_path, telemetry_path, stdout_path)
-    missing = [str(path) for path in paths if not path.is_file()]
+    required_paths = (
+        preflight_path,
+        evaluation_path,
+        runtime_path,
+        telemetry_path,
+        stdout_path,
+    )
+    missing = [str(path) for path in required_paths if not path.is_file()]
     if missing:
         raise FileNotFoundError(f"missing run artifacts: {missing}")
 
     preflight = load_object(preflight_path)
     evaluation = load_object(evaluation_path)
+    measurement = evaluation.get("stage1_measurement")
+    measurement_path = root / "stage1_measurement.jsonl"
+    if measurement is not None and not isinstance(measurement, dict):
+        raise ValueError("stage1_measurement must be an object or null")
+    if isinstance(measurement, dict) and not measurement_path.is_file():
+        raise FileNotFoundError(f"missing Stage-1 measurement: {measurement_path}")
+    paths = required_paths + (
+        (measurement_path,) if isinstance(measurement, dict) else ()
+    )
     runtime = evaluation.get("runtime")
     if not isinstance(runtime, dict):
         raise ValueError("evaluation summary has no runtime object")
     runtime_records = line_count(runtime_path)
     telemetry_records = line_count(telemetry_path)
     layer_counts = runtime.get("selected_layers", {})
+    measurement_records = (
+        line_count(measurement_path) if isinstance(measurement, dict) else None
+    )
     checks = {
         "preflight_pass": preflight.get("status") == "PASS",
         "preflight_v3_scope": preflight.get("scope")
@@ -76,6 +94,16 @@ def validate_run(run_dir: str | Path) -> dict[str, Any]:
         "route_counts_complete": runtime_records
         == sum(int(layer_counts.get(str(layer), -1)) for layer in (11, 13, 27)),
         "telemetry_present": telemetry_records > 0,
+        "measurement_complete_or_disabled": (
+            measurement is None
+            or (
+                measurement_records == int(measurement.get("records", -1))
+                and measurement_records == runtime_records
+                and int(measurement.get("records_with_errors", -1)) == 0
+                and int(measurement.get("records_with_nonfinite_actions", -1)) == 0
+                and int(measurement.get("records_without_action_audit", -1)) == 0
+            )
+        ),
     }
     status = "PASS" if all(checks.values()) else "FAIL"
     return {

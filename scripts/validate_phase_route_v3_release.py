@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--require-backbone", action="store_true")
     parser.add_argument("--require-cuda", action="store_true")
     parser.add_argument("--physical-gpu-index", type=int)
+    parser.add_argument("--allowed-gpu-count", type=int, choices=(4, 8), default=4)
     parser.add_argument("--expected-gpu-uuid")
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
@@ -70,6 +71,17 @@ def _normalize_uuid(value: str) -> str:
     return normalized[4:] if normalized.startswith("gpu-") else normalized
 
 
+def validate_physical_gpu_index(index: int | None, allowed_gpu_count: int) -> None:
+    """Preserve the four-GPU default while allowing an explicit eight-GPU scope."""
+
+    if allowed_gpu_count not in (4, 8):
+        raise ValueError("allowed GPU count must be 4 or 8")
+    if index is not None and index not in range(allowed_gpu_count):
+        raise ValueError(
+            f"physical GPU must be in 0-{allowed_gpu_count - 1} for this run"
+        )
+
+
 def _write_exclusive(path: Path, text: str) -> None:
     target = path.resolve()
     temporary = target.with_name(target.name + ".incomplete")
@@ -85,8 +97,7 @@ def main() -> None:
     root = args.repo_root.resolve()
     if args.require_backbone and args.checkpoint is None:
         raise ValueError("--checkpoint is required with --require-backbone")
-    if args.physical_gpu_index is not None and args.physical_gpu_index not in range(4):
-        raise ValueError("only physical GPUs 0-3 are permitted")
+    validate_physical_gpu_index(args.physical_gpu_index, args.allowed_gpu_count)
     if args.require_cuda and args.physical_gpu_index is None:
         raise ValueError("--physical-gpu-index is required with --require-cuda")
     if args.require_cuda and not args.expected_gpu_uuid:
@@ -149,7 +160,8 @@ def main() -> None:
             {
                 "cuda_available": bool(cuda.get("available")),
                 "exactly_one_visible_gpu": cuda.get("visible_device_count") == 1,
-                "physical_gpu_index_front4": args.physical_gpu_index in range(4),
+                "physical_gpu_index_allowed": args.physical_gpu_index
+                in range(args.allowed_gpu_count),
                 "visible_gpu_uuid_matches_expected": _normalize_uuid(
                     cuda.get("visible_uuid", "")
                 )
@@ -176,6 +188,7 @@ def main() -> None:
         "missing_packages": missing_packages,
         "import_errors": import_errors,
         "physical_gpu_index": args.physical_gpu_index,
+        "allowed_gpu_count": args.allowed_gpu_count,
         "expected_gpu_uuid": args.expected_gpu_uuid,
         "cuda": cuda,
         "release": release,

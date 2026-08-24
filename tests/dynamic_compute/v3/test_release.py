@@ -13,9 +13,19 @@ from a1.vla.dynamic_compute.v3.release import (
     validate_phase_route_v3_release,
 )
 from scripts.validate_phase_route_v3_run import validate_run
+from scripts.validate_phase_route_v3_release import validate_physical_gpu_index
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+
+
+def test_v3_preflight_preserves_default_gpu_scope_and_allows_explicit_all8() -> None:
+    validate_physical_gpu_index(3, 4)
+    validate_physical_gpu_index(7, 8)
+    with pytest.raises(ValueError, match="0-3"):
+        validate_physical_gpu_index(4, 4)
+    with pytest.raises(ValueError, match="must be 4 or 8"):
+        validate_physical_gpu_index(0, 16)
 
 
 def test_clean_clone_v3_release_gate_loads_exact_frozen_payloads() -> None:
@@ -82,7 +92,10 @@ def test_general_release_selection_accepts_engineering_smoke() -> None:
     )
 
 
-def test_completed_general_run_attestation_is_machine_checkable(tmp_path) -> None:
+@pytest.mark.parametrize("measurement_enabled", (False, True))
+def test_completed_general_run_attestation_is_machine_checkable(
+    tmp_path, measurement_enabled
+) -> None:
     (tmp_path / "preflight.json").write_text(
         json.dumps(
             {"status": "PASS", "scope": "phase_route_v3_release_preflight"}
@@ -98,20 +111,29 @@ def test_completed_general_run_attestation_is_machine_checkable(tmp_path) -> Non
         "records_with_errors": 0,
         "selected_layers": {"11": 1, "13": 0, "27": 0},
     }
+    evaluation = {
+        "schema_version": "phase-route-vla.libero-evaluation-summary.v1",
+        "method": "phase_route_v3",
+        "suite": "libero_10",
+        "task_ids": [0],
+        "episode_indices": [0],
+        "total_episodes": 1,
+        "total_successes": 1,
+        "success_rate": 1.0,
+        "runtime": runtime,
+    }
+    if measurement_enabled:
+        evaluation["stage1_measurement"] = {
+            "records": 1,
+            "records_with_errors": 0,
+            "records_with_nonfinite_actions": 0,
+            "records_without_action_audit": 0,
+        }
+        (tmp_path / "stage1_measurement.jsonl").write_text(
+            "{}\n", encoding="utf-8"
+        )
     (tmp_path / "evaluation_summary.json").write_text(
-        json.dumps(
-            {
-                "schema_version": "phase-route-vla.libero-evaluation-summary.v1",
-                "method": "phase_route_v3",
-                "suite": "libero_10",
-                "task_ids": [0],
-                "episode_indices": [0],
-                "total_episodes": 1,
-                "total_successes": 1,
-                "success_rate": 1.0,
-                "runtime": runtime,
-            }
-        ),
+        json.dumps(evaluation),
         encoding="utf-8",
     )
     (tmp_path / "phase_route_runtime.jsonl").write_text("{}\n", encoding="utf-8")

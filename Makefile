@@ -1,7 +1,7 @@
 PYTHON ?= python
 LIBERO_CONFIG_PATH ?= $(CURDIR)/.cache/libero
 
-.PHONY: help install setup-libero download-checkpoint preflight preflight-v3 test test-release test-v3-release check run-rp-pep run-v3 smoke-front4
+.PHONY: help install setup-libero download-checkpoint preflight preflight-v3 test test-release test-v3-release check run-rp-pep run-v3 run-fixed smoke-front4
 
 help:
 	@echo "make preflight     CPU environment + artifact audit"
@@ -15,6 +15,7 @@ help:
 	@echo "make check         pip check + shell/Python syntax + git diff check"
 	@echo "make run-rp-pep    Validated LIBERO Spatial runtime on GPU_INDEX=0..3"
 	@echo "make run-v3        Frozen V3 LIBERO-10 research runtime on GPU_INDEX=0..3"
+	@echo "make run-fixed     Fixed L11/L13/L27 Stage-1 baseline on GPU_INDEX=0..7"
 	@echo "make smoke-front4  Ten-task state-30 release smoke on physical GPUs 0..3"
 
 install:
@@ -43,7 +44,7 @@ test:
 
 check:
 	PYTHONNOUSERSITE=1 $(PYTHON) -m pip check
-	$(PYTHON) -m py_compile scripts/validate_phase_route_release.py scripts/validate_phase_route_v3_release.py scripts/validate_phase_route_v3_run.py scripts/run_phase_route_v3.py a1/vla/dynamic_compute/release.py a1/vla/dynamic_compute/v3/release.py scripts/dynamic_compute/summarize_release_smoke.py
+	$(PYTHON) -m py_compile scripts/validate_phase_route_release.py scripts/validate_phase_route_v3_release.py scripts/validate_phase_route_v3_run.py scripts/run_phase_route_v3.py scripts/run_fixed_layer_baseline.py a1/vla/dynamic_compute/release.py a1/vla/dynamic_compute/fixed_layer_controller.py a1/vla/dynamic_compute/stage1_measurement.py a1/vla/dynamic_compute/v3/release.py robot_experiments/libero/stage1_vla_utils.py scripts/dynamic_compute/summarize_release_smoke.py
 	bash -n eval_libero.sh eval_libero_exit.sh train_libero.sh
 	bash -n scripts/*.sh
 	bash -n scripts/dynamic_compute/*.sh
@@ -54,6 +55,9 @@ run-rp-pep:
 
 run-v3:
 	bash scripts/run_libero_phase_route_v3.sh
+
+run-fixed:
+	bash scripts/run_fixed_layer_baseline.sh
 
 smoke-front4:
 	bash scripts/dynamic_compute/run_release_smoke_front4.sh "reports/release_smoke_$$(date +%Y%m%d_%H%M%S)"
