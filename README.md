@@ -128,6 +128,10 @@ make download-checkpoint
 兼容补丁，再安装该副本。需要自定义配置目录时，在执行 `make setup-libero` 前设置
 `LIBERO_CONFIG_PATH=/absolute/path`。
 
+Python wheel 只发布 `a1` 代码，不包含仓库顶层的 `artifacts/`、`results/`、`configs/`
+和运行脚本。完整研究复现必须使用带 submodule 的 Git release/source tree；wheel 可用于
+安装代码，但不能单独视为可运行的 PhaseRoute V3 发布包。
+
 不要安装上游不可从 PyPI 获取的 `ai2-molmo[dev,serve,train]` extra。完整说明见
 [`docs/QUICKSTART_ZH.md`](docs/QUICKSTART_ZH.md)。
 

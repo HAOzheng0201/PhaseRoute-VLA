@@ -340,3 +340,20 @@ wheel ZIP integrity               PASS
 完整环境、命令、哈希与边界说明见
 `docs/research/v3/V3_D12_FRESH_ENVIRONMENT_QUALIFICATION_ZH.md`。这次只补齐工程可复现
 资格，没有重跑 GPU rollout，因此 D9、stage-5 配对结果和论文科学结论均未改变。
+
+### 9.4 rc1 wheel 独立安装验收
+
+2026-08-24 在第二个空 Python 3.10.8 venv 中重新下载 PyTorch 2.6.0+cu124 和全部
+LIBERO 依赖，从最终构建的 wheel 安装 `phase-route-vla==0.1.0`，并在 `/tmp` 中执行
+仓库外 smoke。`a1.__file__` 指向该 venv 的 site-packages，不是工作区源码；`pip check`
+无冲突，LIBERO-10 init-state、RP-PEP plan 与 V3 五头 payload gate 均通过。
+
+GitHub smart-HTTP 两次在固定 dlimp commit 上发生 TLS 中断；验收改从 codeload 获取同一
+`040105d256bd28866cc6620621a3d5f7b6b91b46` commit tarball，本地构建 `dlimp 0.0.1`，
+没有放宽 revision。完整记录见
+`docs/research/v3/V3_D13_RC1_WHEEL_QUALIFICATION_ZH.md`。
+
+本次也明确了包边界：wheel 只包含 Python 代码；完整 PhaseRoute V3 发布物是 Git tag
+对应的 source tree，因为冻结 artifacts、formal results、configs、launcher 和 LIBERO
+submodule 不进入 wheel。独立 wheel smoke 使用 wheel 中的 V3 代码校验 source tree 的
+冻结 bundle，不能解读为 wheel 单文件即可运行 rollout。
