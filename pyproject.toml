@@ -47,7 +47,7 @@ dev = [
     "isort>=5.12,<5.13",
     "pytest",
     "pytest-sphinx",
-    "twine>=1.11.0",
+    "twine>=1.11.0,<7",
     "setuptools",
     "wheel",
     "build",

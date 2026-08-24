@@ -1,4 +1,5 @@
 PYTHON ?= python
+LIBERO_CONFIG_PATH ?= $(CURDIR)/.cache/libero
 
 .PHONY: help install setup-libero download-checkpoint preflight preflight-v3 test test-release test-v3-release check run-rp-pep run-v3 smoke-front4
 
@@ -20,16 +21,16 @@ install:
 	$(PYTHON) -m pip install -e ".[libero]" -c requirements/constraints-cu124.txt
 
 setup-libero:
-	PYTHON_BIN="$(PYTHON)" LIBERO_CONFIG_PATH="$(CURDIR)/.cache/libero" bash scripts/setup_libero.sh
+	PYTHON_BIN="$(PYTHON)" LIBERO_CONFIG_PATH="$(LIBERO_CONFIG_PATH)" bash scripts/setup_libero.sh
 
 download-checkpoint:
 	bash scripts/download_checkpoint.sh
 
 preflight:
-	PYTHONNOUSERSITE=1 LIBERO_CONFIG_PATH="$(CURDIR)/.cache/libero" VLA_CONFIG_YAML=libero_simulation.yaml MUJOCO_GL=egl PYOPENGL_PLATFORM=egl $(PYTHON) scripts/validate_phase_route_release.py
+	PYTHONNOUSERSITE=1 LIBERO_CONFIG_PATH="$(LIBERO_CONFIG_PATH)" VLA_CONFIG_YAML=libero_simulation.yaml MUJOCO_GL=egl PYOPENGL_PLATFORM=egl $(PYTHON) scripts/validate_phase_route_release.py
 
 preflight-v3:
-	PYTHONNOUSERSITE=1 LIBERO_CONFIG_PATH="$(CURDIR)/.cache/libero" VLA_CONFIG_YAML=libero_simulation.yaml MUJOCO_GL=egl PYOPENGL_PLATFORM=egl $(PYTHON) scripts/validate_phase_route_v3_release.py
+	PYTHONNOUSERSITE=1 LIBERO_CONFIG_PATH="$(LIBERO_CONFIG_PATH)" VLA_CONFIG_YAML=libero_simulation.yaml MUJOCO_GL=egl PYOPENGL_PLATFORM=egl $(PYTHON) scripts/validate_phase_route_v3_release.py
 
 test-release:
 	PYTHONNOUSERSITE=1 $(PYTHON) -m pytest -q tests/dynamic_compute/test_release_gate.py tests/dynamic_compute/test_release_smoke_summary.py
