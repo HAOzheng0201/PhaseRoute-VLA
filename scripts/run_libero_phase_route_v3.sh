@@ -13,6 +13,7 @@ hf_home="${HF_HOME:-${repo_root}/.cache/huggingface}"
 libero_config="${LIBERO_CONFIG_PATH:-${repo_root}/.cache/libero}"
 preflight_only="${PREFLIGHT_ONLY:-0}"
 stage1_measurement="${STAGE1_MEASUREMENT:-0}"
+route_first_teacher_collection="${ROUTE_FIRST_TEACHER_COLLECTION:-0}"
 allow_all_gpus="${ALLOW_ALL_GPUS:-0}"
 router="${repo_root}/artifacts/phase_route_v3/final_router.pt"
 phase_checkpoint="${repo_root}/artifacts/phase_route_v3/phase_estimator.pt"
@@ -40,6 +41,10 @@ if [[ "${preflight_only}" != "0" && "${preflight_only}" != "1" ]]; then
 fi
 if [[ "${stage1_measurement}" != "0" && "${stage1_measurement}" != "1" ]]; then
   echo "STAGE1_MEASUREMENT must be 0 or 1." >&2
+  exit 2
+fi
+if [[ "${route_first_teacher_collection}" != "0" && "${route_first_teacher_collection}" != "1" ]]; then
+  echo "ROUTE_FIRST_TEACHER_COLLECTION must be 0 or 1." >&2
   exit 2
 fi
 if ! command -v "${python_bin}" >/dev/null 2>&1; then
@@ -114,8 +119,10 @@ ln -s "$(realpath "${thresholds}")" "${overlay}/exit_thresholds_libero_10_exp_1.
 {
   printf 'GPU_INDEX=%q GPU_UUID=%q TASK_IDS=%q EPISODE_INDICES=%q SEED=%q ' \
     "${gpu_index}" "${gpu_uuid}" "${task_ids}" "${episode_indices}" "${seed}"
-  printf 'CHECKPOINT=%q OUTPUT_ROOT=%q PYTHON_BIN=%q STAGE1_MEASUREMENT=%q ALLOW_ALL_GPUS=%q ' \
-    "${checkpoint}" "${output_root}" "${python_bin}" "${stage1_measurement}" \
+  printf 'CHECKPOINT=%q OUTPUT_ROOT=%q PYTHON_BIN=%q STAGE1_MEASUREMENT=%q ' \
+    "${checkpoint}" "${output_root}" "${python_bin}" "${stage1_measurement}"
+  printf 'ROUTE_FIRST_TEACHER_COLLECTION=%q ALLOW_ALL_GPUS=%q ' \
+    "${route_first_teacher_collection}" \
     "${allow_all_gpus}"
   printf 'bash %q\n' "${repo_root}/scripts/run_libero_phase_route_v3.sh"
 } > "${run_dir}/command.sh"
@@ -123,6 +130,12 @@ ln -s "$(realpath "${thresholds}")" "${overlay}/exit_thresholds_libero_10_exp_1.
 measurement_args=()
 if [[ "${stage1_measurement}" == "1" ]]; then
   measurement_args=(--measurement-output "${run_dir}/stage1_measurement.jsonl")
+fi
+teacher_collection_args=()
+if [[ "${route_first_teacher_collection}" == "1" ]]; then
+  teacher_collection_args=(
+    --route-first-teacher-output "${run_dir}/route_first_teacher_context.npz"
+  )
 fi
 
 env \
@@ -149,6 +162,7 @@ env \
     --seed "${seed}" \
     --output-dir "${run_dir}" \
     "${measurement_args[@]}" \
+    "${teacher_collection_args[@]}" \
     2>&1 | tee "${run_dir}/stdout.log"
 
 "${python_bin}" "${repo_root}/scripts/validate_phase_route_v3_run.py" "${run_dir}"

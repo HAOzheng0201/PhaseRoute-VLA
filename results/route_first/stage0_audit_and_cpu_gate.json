@@ -1,0 +1,59 @@
+{
+  "schema_version": "phase-route-vla.route-first.stage0-result.v1",
+  "date": "2026-08-25",
+  "status": "CPU_GATE_PASS_GPU_SMOKE_PENDING",
+  "scope": "route_first_feasibility_data_contract_and_collection_overlay",
+  "control_method_changed": false,
+  "findings": {
+    "route_first_timing_feasible": true,
+    "frozen_D8_router_directly_reusable_before_action": false,
+    "reason": "D8 97D features and action-consistency gate require a generated candidate action",
+    "surviving_release_artifacts_sufficient_for_context_router_training": false,
+    "new_collection_required": true
+  },
+  "implementation": {
+    "feature_schema": "phase-route-vla.route-first-context.v1",
+    "feature_dimension": 199,
+    "candidate_action_is_feature": false,
+    "identity_is_feature": false,
+    "teacher": "frozen_PhaseRoute_V3_selected_layer",
+    "teacher_layers": [11, 13, 27],
+    "collection_control_influence": false
+  },
+  "cpu_gate": {
+    "command": "DATA_DIR=/data3/haozheng/A1/PhaseRoute-VLA HF_HOME=/data3/haozheng/A1/PhaseRoute-VLA/.cache/huggingface VLA_CONFIG_YAML=libero_simulation.yaml /home/haozheng/.conda/envs/a1/bin/python -m pytest -q tests",
+    "passed": 492,
+    "failed": 0,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "wall_seconds": 71.05
+  },
+  "protected_D9_hashes_unchanged": true,
+  "gpu_smoke_attempts": [
+    {
+      "path": "runs/route_first_teacher_smoke/libero_10_20260825_120853",
+      "physical_gpu": 4,
+      "task_id": 0,
+      "episode_index": 0,
+      "seed": 20260824,
+      "preflight": "PASS",
+      "policy_calls": 0,
+      "teacher_rows": 0,
+      "status": "INFRASTRUCTURE_FAILURE_BEFORE_MODEL_LOAD",
+      "reason": "incorrect explicit HF_HOME did not contain the cached Qwen tokenizer; offline lookup failed",
+      "is_model_negative_result": false
+    }
+  ],
+  "corrected_gpu_retry": {
+    "status": "NOT_STARTED_APPROVAL_CHANNEL_REJECTED",
+    "same_gpu_task_state_seed": true,
+    "approval_error": "automatic approval review stream disconnected",
+    "workaround_used": false
+  },
+  "claim_boundary": {
+    "route_first_router_trained": false,
+    "route_first_active_control_run": false,
+    "efficiency_improvement_claimed": false,
+    "D9_retest": false
+  }
+}

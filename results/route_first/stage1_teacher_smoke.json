@@ -1,0 +1,72 @@
+{
+  "schema_version": "phase-route-vla.route-first.stage1-teacher-smoke.v1",
+  "date": "2026-08-25",
+  "status": "PASS",
+  "scope": "observation_only_teacher_collection_smoke_not_route_first_control",
+  "run": {
+    "path": "runs/route_first_teacher_smoke/libero_10_20260825_170835",
+    "physical_gpu": 4,
+    "gpu_uuid": "GPU-535e41e1-a1ac-af65-a015-fc281644709e",
+    "task_id": 0,
+    "episode_index": 0,
+    "seed": 20260824,
+    "success": true,
+    "policy_calls": 35,
+    "prepared_calls": 35,
+    "committed_calls": 35,
+    "runtime_errors": 0,
+    "selected_layers": {
+      "11": 0,
+      "13": 4,
+      "27": 31
+    }
+  },
+  "teacher_collection": {
+    "path": "runs/route_first_teacher_smoke/libero_10_20260825_170835/route_first_teacher_context.npz",
+    "rows": 35,
+    "feature_shape": [35, 199],
+    "feature_dtype": "float32",
+    "all_features_finite": true,
+    "identity_rows_unique": true,
+    "call_ordinals_canonical": true,
+    "control_influence": false,
+    "teacher_layer_counts": {
+      "11": 0,
+      "13": 4,
+      "27": 31
+    },
+    "payload_sha256": "f2881e133fc61b580e11b1a3240a964da4f6eef008d7a93c776737e39606e329",
+    "file_sha256": "fac473f7c2fc48d4c48bc01274adb42b29cd787997200059a422cfff62fd3fdb"
+  },
+  "paired_no_influence_check": {
+    "reference": "runs/stage1_phase_route_v3/libero_10_20260825_000644",
+    "same_task_state_seed": true,
+    "reference_policy_calls": 35,
+    "collected_policy_calls": 35,
+    "selected_layer_sequences_exact": true,
+    "action_sha256_sequences_exact": true,
+    "all_actions_finite": true,
+    "action_shape": [8, 7]
+  },
+  "descriptive_timing": {
+    "reference_mean_policy_wall_ms": 1518.364372,
+    "collection_mean_policy_wall_ms": 1533.7930848285714,
+    "difference_ms": 15.428712828571406,
+    "difference_fraction": 0.010161403358173242,
+    "interpretation": "single-episode uncontrolled timing; not an efficiency claim"
+  },
+  "checks": {
+    "release_preflight_pass": true,
+    "general_run_attestation_pass": true,
+    "teacher_rows_equal_policy_calls": true,
+    "teacher_collection_error_count_zero": true,
+    "feature_contract_pass": true,
+    "control_equivalence_pass": true
+  },
+  "claim_boundary": {
+    "route_first_router_trained": false,
+    "route_first_active_control_run": false,
+    "teacher_label_is_task_success_certificate": false,
+    "D9_retest": false
+  }
+}

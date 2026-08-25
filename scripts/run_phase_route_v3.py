@@ -37,6 +37,9 @@ from a1.vla.dynamic_compute.v3.release import (  # noqa: E402
 from a1.vla.dynamic_compute.stage1_measurement import (  # noqa: E402
     summarize_stage1_records,
 )
+from a1.vla.dynamic_compute.route_first_collection import (  # noqa: E402
+    RouteFirstTeacherCollector,
+)
 import robot_experiments.libero.eval_libero_early_exit as frozen_evaluator  # noqa: E402
 from robot_experiments.libero.eval_libero_early_exit import (  # noqa: E402
     GenerateConfig,
@@ -63,6 +66,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--measurement-output", type=Path)
+    parser.add_argument(
+        "--route-first-teacher-output",
+        type=Path,
+        help=(
+            "Optional observation-only NPZ of pre-action context features paired "
+            "with frozen V3 selected layers. It never changes control."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -138,6 +149,11 @@ def main() -> None:
         if args.measurement_output is not None
         else None
     )
+    teacher_output_path = (
+        args.route_first_teacher_output.resolve()
+        if args.route_first_teacher_output is not None
+        else None
+    )
     episode_log_dir = output / "episode_logs"
     for path in (telemetry_path, runtime_path, evaluation_path):
         if path.exists() or path.with_name(path.name + ".incomplete").exists():
@@ -149,6 +165,15 @@ def main() -> None:
             raise FileExistsError(f"refusing to overwrite {measurement_path}")
         os.environ[STAGE1_TIMING_ENV] = str(measurement_path)
         frozen_evaluator.get_vla_action = get_stage1_vla_action
+    if teacher_output_path is not None:
+        if teacher_output_path.parent != output:
+            raise ValueError(
+                "route-first teacher output must be a direct child of output-dir"
+            )
+        if teacher_output_path.exists() or teacher_output_path.with_name(
+            teacher_output_path.name + ".incomplete"
+        ).exists():
+            raise FileExistsError(f"refusing to overwrite {teacher_output_path}")
     episode_log_dir.mkdir(exist_ok=False)
 
     cfg = _config(args)
@@ -160,6 +185,15 @@ def main() -> None:
     controller = initialize_exit_controller(cfg, model, None, device)
     controller.set_phase_route_runtime_adapter(runtime.adapter)
     controller.eval()
+    teacher_collector = None
+    if teacher_output_path is not None:
+        teacher_collector = RouteFirstTeacherCollector(runtime)
+        teacher_collector.install()
+        print(
+            "[PhaseRoute-V3] route-first teacher collection enabled "
+            "(observation only)",
+            flush=True,
+        )
     print(
         "[PhaseRoute-V3] loaded five-head router and phase estimator: "
         f"{runtime.artifacts}",
@@ -254,6 +288,8 @@ def main() -> None:
                     close()
     finally:
         telemetry.close()
+        if teacher_collector is not None:
+            teacher_collector.uninstall()
 
     if telemetry.error_count:
         raise RuntimeError(
@@ -288,6 +324,16 @@ def main() -> None:
             or measurement_summary["records_without_action_audit"] != 0
         ):
             raise RuntimeError("Stage-1 measurement records are incomplete")
+    teacher_collection_summary = None
+    if teacher_collector is not None:
+        if teacher_collector.error_count:
+            raise RuntimeError(
+                "route-first teacher collection failed: "
+                + "; ".join(teacher_collector.errors[:3])
+            )
+        if len(teacher_collector.rows) != runtime.policy_calls:
+            raise RuntimeError("route-first teacher collection missed policy calls")
+        teacher_collection_summary = teacher_collector.save(teacher_output_path)
     _write_jsonl(runtime_path, records)
     total_episodes = len(episode_results)
     summary = {
@@ -306,6 +352,7 @@ def main() -> None:
         "telemetry_errors": telemetry.error_count,
         "runtime": runtime_summary,
         "stage1_measurement": measurement_summary,
+        "route_first_teacher_collection": teacher_collection_summary,
         "claim_boundary": {
             "D9_retest": False,
             "deployment_authorized": False,
