@@ -1,0 +1,136 @@
+{
+  "schema_version": "phase-route-vla.route-first-holdout-verification.v1",
+  "status": "PASS_STAGE7_ENGINEERING_HOLDOUT_AND_FULL_REGRESSION",
+  "date": "2026-08-25",
+  "source_git_commit": "693a0d895624cff5d30de2227aaeebe2c1b75b78",
+  "preregistration": {
+    "path": "results/route_first/route_first_stage7_holdout_preregistration.json",
+    "sha256": "2670a6770a9d438b16973ee8486b86097b289cdbbce2f9f3f2c38f61462e1a3b",
+    "protocol_sha256": "f7b79d0706f836bf6df56548b64cce076a258c183fddc19c6dac7188f9681a14"
+  },
+  "collection": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [10, 11],
+    "episodes": 20,
+    "successes": 19,
+    "policy_calls": 681,
+    "runtime_errors": 0,
+    "teacher_layer_counts": {"11": 26, "13": 72, "27": 583},
+    "failed_episodes_retained": [
+      {"task_id": 8, "episode_index": 10, "policy_calls": 65}
+    ],
+    "attestations": [
+      {
+        "gpu": 4,
+        "tasks": [0, 4, 8],
+        "path": "runs/route_first_teacher_holdout_states10_11/libero_10_gpu4_20260825_225654_116354613/run_attestation.json",
+        "sha256": "dcc981428cc2e460c902475f7785d86bb9f11c99248b5f97fb97794067edb255"
+      },
+      {
+        "gpu": 5,
+        "tasks": [1, 5, 9],
+        "path": "runs/route_first_teacher_holdout_states10_11/libero_10_gpu5_20260825_225801_600732073/run_attestation.json",
+        "sha256": "cc9f6432475e9bf049d307138c2abcc4f407e27c92b4cc81c3f0fff65cc6a2bf"
+      },
+      {
+        "gpu": 6,
+        "tasks": [2, 6],
+        "path": "runs/route_first_teacher_holdout_states10_11/libero_10_gpu6_20260825_225925_006932544/run_attestation.json",
+        "sha256": "d9b150311add000ceee97cc4c60c832f141392976cb9e19238c5465bccd0b1fe"
+      },
+      {
+        "gpu": 7,
+        "tasks": [3, 7],
+        "path": "runs/route_first_teacher_holdout_states10_11/libero_10_gpu7_20260825_230050_763070903/run_attestation.json",
+        "sha256": "ad5c5819274c7d34732cad04404684939cb5ba890c7fee0bcdacd7a4d42335f2"
+      }
+    ],
+    "excluded_infrastructure_attempts": {
+      "preflight_cuda_unavailable": 4,
+      "empty_directory_after_approval_service_interruption": 1,
+      "episodes_opened": 0,
+      "teacher_shards_emitted": 0
+    }
+  },
+  "aggregate": {
+    "path": "runs/route_first_teacher_holdout_states10_11/aggregate_states10_11.npz",
+    "rows": 681,
+    "episodes": 20,
+    "feature_dimension": 199,
+    "payload_sha256": "fe0b60bfc6412be345f3b442b59ca02724c05c74f6e3414d6852bcdefe08ff98",
+    "file_sha256": "4948ae68b8b9eca77a2f0615ac6a8001f1eac9df4ae996a735b1288e443d2950"
+  },
+  "holdout_result": {
+    "path": "results/route_first/route_first_stage7_holdout.json",
+    "sha256": "d9780a5e4765ee9a80165eb790b99b4e9e85fcb1ae6d34ae006ddb72ce48f258",
+    "status": "PASS_ENGINEERING_HOLDOUT_RUNTIME_INTEGRATION_READY",
+    "threshold13": 0.9174261218080999,
+    "threshold_changed": false,
+    "pooled": {
+      "passed": true,
+      "selected_rows": 67,
+      "coverage": 0.10556689754566889,
+      "empirical_false_safe": 0.06652545034257888,
+      "false_safe_upper_bound_90": 0.11791824173649573,
+      "effective_selected_rows": 64.67815051900975
+    },
+    "state10": {
+      "passed": true,
+      "selected_rows": 34,
+      "coverage": 0.11083882348588232,
+      "empirical_false_safe": 0.09761890291766102,
+      "false_safe_upper_bound_90": 0.1844012436394186
+    },
+    "state11": {
+      "passed": true,
+      "selected_rows": 33,
+      "coverage": 0.1002949716054555,
+      "empirical_false_safe": 0.03216319223163763,
+      "false_safe_upper_bound_90": 0.10022988777987858
+    },
+    "selected_layers": {"11": 0, "13": 67, "27": 614},
+    "raw_selected13_teacher_counts": {"11": 24, "13": 39, "27": 4},
+    "raw_false_safe_records": [
+      {"task_id": 1, "episode_index": 10, "call_ordinal": 19, "score13": 0.999498724937439},
+      {"task_id": 1, "episode_index": 11, "call_ordinal": 20, "score13": 0.9927388429641724},
+      {"task_id": 5, "episode_index": 10, "call_ordinal": 0, "score13": 0.9453814029693604},
+      {"task_id": 9, "episode_index": 10, "call_ordinal": 24, "score13": 0.9559211134910583}
+    ]
+  },
+  "artifacts": {
+    "holdout_scores": {
+      "path": "runs/route_first_holdout_stage7/holdout_scores.npz",
+      "sha256": "c6b8872a18ca44e7762f05cbef29967aea06cde5c9324da392d93d8398326a45"
+    },
+    "semantic_result_audit": "PASS"
+  },
+  "tests": {
+    "targeted": {
+      "passed": 12,
+      "failed": 0,
+      "warnings": 1,
+      "wall_seconds": 6.48
+    },
+    "full_cpu_regression": {
+      "passed": 514,
+      "failed": 0,
+      "subtests_passed": 22,
+      "warnings": 3,
+      "pytest_seconds": 74.36,
+      "wall_seconds": 76.65
+    }
+  },
+  "authorization": {
+    "runtime_integration_implementation": true,
+    "active_control": false,
+    "generated_state_active_test": false,
+    "historical_D9_states40_to49": false
+  },
+  "claim_boundary": {
+    "formal_safety_guarantee": false,
+    "active_control_run": false,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false
+  }
+}

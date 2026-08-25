@@ -1,0 +1,218 @@
+{
+  "schema_version": "phase-route-vla.route-first-holdout-result.v1",
+  "status": "PASS_ENGINEERING_HOLDOUT_RUNTIME_INTEGRATION_READY",
+  "created_at": "2026-08-25T23:14:24.521144+08:00",
+  "scope": "states10_to11_engineering_holdout_observation_only",
+  "inputs": {
+    "aggregate": "runs/route_first_teacher_holdout_states10_11/aggregate_states10_11.npz",
+    "aggregate_rows": 681,
+    "aggregate_episodes": 20,
+    "aggregate_payload_sha256": "fe0b60bfc6412be345f3b442b59ca02724c05c74f6e3414d6852bcdefe08ff98",
+    "aggregate_file_sha256": "4948ae68b8b9eca77a2f0615ac6a8001f1eac9df4ae996a735b1288e443d2950",
+    "teacher_layer_counts": {
+      "11": 26,
+      "13": 72,
+      "27": 583
+    },
+    "calibrated_router": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "calibrated_router_file_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "calibrated_router_metadata": {
+      "source_router_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+      "calibration_payload_sha256": "da0912c44348d33ea52a6c56210f2c9c02778bccfa34555b6807e5b54ce361ad",
+      "calibration_file_sha256": "896e1644c45b45168d9d3216863fe69f1c6114ee70f08e6a1a1fad28b6fb73f5",
+      "protocol_file_sha256": "c1ab2aef44595d3d86b04684155a74302d2bb70b91bf01c1722f86d0790ce1d1",
+      "threshold11": 0.9807427653025883,
+      "enabled11": false,
+      "threshold13": 0.9174261218080999,
+      "enabled13": true,
+      "engineering_holdout_authorized": true,
+      "active_control_authorized": false,
+      "calibration_status": "SET_ONE_SHOT_CONFIRMED_FAIL_CLOSED"
+    },
+    "protocol": "configs/route_first_holdout_protocol.json",
+    "protocol_file_sha256": "f7b79d0706f836bf6df56548b64cce076a258c183fddc19c6dac7188f9681a14"
+  },
+  "holdout_audit": {
+    "status": "PASS_ENGINEERING_HOLDOUT_RUNTIME_INTEGRATION_READY",
+    "passed": true,
+    "threshold13": 0.9174261218080999,
+    "threshold_changed": false,
+    "pooled_safe13": {
+      "passed": true,
+      "metrics": {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 67,
+        "actual_coverage": 0.10556689754566889,
+        "empirical_false_safe_rate": 0.06652545034257888,
+        "false_safe_upper_bound": 0.11791824173649573,
+        "effective_selected_rows": 64.67815051900975,
+        "confidence_level": 0.9
+      }
+    },
+    "per_episode_index_safe13": {
+      "10": {
+        "passed": true,
+        "metrics": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 34,
+          "actual_coverage": 0.11083882348588232,
+          "empirical_false_safe_rate": 0.09761890291766102,
+          "false_safe_upper_bound": 0.1844012436394186,
+          "effective_selected_rows": 32.79818806644713,
+          "confidence_level": 0.9
+        }
+      },
+      "11": {
+        "passed": true,
+        "metrics": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 33,
+          "actual_coverage": 0.1002949716054555,
+          "empirical_false_safe_rate": 0.03216319223163763,
+          "false_safe_upper_bound": 0.10022988777987858,
+          "effective_selected_rows": 31.96919079508945,
+          "confidence_level": 0.9
+        }
+      }
+    },
+    "failures": [],
+    "routing": {
+      "selected_layer_counts": {
+        "11": 0,
+        "13": 67,
+        "27": 614
+      },
+      "raw_selected13_teacher_counts": {
+        "11": 24,
+        "13": 39,
+        "27": 4
+      }
+    },
+    "diagnostics": {
+      "score13_quantiles": {
+        "0": 1.726013163617883e-15,
+        "0.01": 1.4838069192388796e-14,
+        "0.05": 1.729076446597942e-11,
+        "0.1": 3.5310939007570694e-10,
+        "0.25": 2.6139759560927615e-07,
+        "0.5": 0.00028574634976070957,
+        "0.75": 0.22730931069346724,
+        "0.9": 0.9097824550635225,
+        "0.95": 0.9928022062899974,
+        "0.99": 0.9997180820316522,
+        "1": 0.999994875536833
+      },
+      "per_task_safe13": {
+        "0": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 2,
+          "actual_coverage": 0.026262626262626265,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.45670586599644086,
+          "effective_selected_rows": 1.9537572254335254,
+          "confidence_level": 0.9
+        },
+        "1": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 11,
+          "actual_coverage": 0.1806451612903226,
+          "empirical_false_safe_rate": 0.181547619047619,
+          "false_safe_upper_bound": 0.36790973303573593,
+          "effective_selected_rows": 10.997077732320284,
+          "confidence_level": 0.9
+        },
+        "2": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 10,
+          "actual_coverage": 0.16145833333333331,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.14119474923403524,
+          "effective_selected_rows": 9.98960498960499,
+          "confidence_level": 0.9
+        },
+        "3": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 17,
+          "actual_coverage": 0.29569892473118287,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.08847654867181576,
+          "effective_selected_rows": 16.920447482908646,
+          "confidence_level": 0.9
+        },
+        "4": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 3,
+          "actual_coverage": 0.054232804232804264,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.35384695873316274,
+          "effective_selected_rows": 2.9991079393398747,
+          "confidence_level": 0.9
+        },
+        "5": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 2,
+          "actual_coverage": 0.047727272727272736,
+          "empirical_false_safe_rate": 0.47619047619047616,
+          "false_safe_upper_bound": 0.8226877460804616,
+          "effective_selected_rows": 1.9954751131221722,
+          "confidence_level": 0.9
+        },
+        "6": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 4,
+          "actual_coverage": 0.0633116883116883,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.29220736564511474,
+          "effective_selected_rows": 3.9782040104620746,
+          "confidence_level": 0.9
+        },
+        "7": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 5,
+          "actual_coverage": 0.07619047619047617,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.24834610241348531,
+          "effective_selected_rows": 4.970873786407767,
+          "confidence_level": 0.9
+        },
+        "8": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 4,
+          "actual_coverage": 0.03216783216783217,
+          "empirical_false_safe_rate": 0.0,
+          "false_safe_upper_bound": 0.2922469033846854,
+          "effective_selected_rows": 3.977443609022556,
+          "confidence_level": 0.9
+        },
+        "9": {
+          "threshold": 0.9174261218080999,
+          "selected_rows": 9,
+          "actual_coverage": 0.11797385620915031,
+          "empirical_false_safe_rate": 0.12465373961218836,
+          "false_safe_upper_bound": 0.32688722243675095,
+          "effective_selected_rows": 8.835921079395215,
+          "confidence_level": 0.9
+        }
+      }
+    }
+  },
+  "authorization": {
+    "runtime_integration_implementation": true,
+    "active_control": false,
+    "generated_state_active_test": false,
+    "historical_D9_states40_to49": false
+  },
+  "artifacts": {
+    "holdout_scores": "runs/route_first_holdout_stage7/holdout_scores.npz",
+    "holdout_scores_file_sha256": "c6b8872a18ca44e7762f05cbef29967aea06cde5c9324da392d93d8398326a45"
+  },
+  "claim_boundary": {
+    "engineering_holdout_passed": true,
+    "formal_safety_guarantee": false,
+    "states10_to11_opened": true,
+    "historical_D9_states40_to49_opened": false,
+    "active_control_run": false,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false
+  }
+}
