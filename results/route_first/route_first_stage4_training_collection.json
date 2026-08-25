@@ -1,0 +1,156 @@
+{
+  "schema_version": "phase-route-vla.route-first-training-collection.v1",
+  "status": "PASS_DATA_GATE_WITH_CONTROL_FAILURES",
+  "date": "2026-08-25",
+  "scope": "ordinary_training_states_0_to_7_not_calibration_not_holdout_not_D9",
+  "source_git_commit": "bc1c54a505d315218a4088eb9039c325b38b5707",
+  "protocol": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+    "seed_base": 20260824,
+    "checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "feature_schema_version": "phase-route-vla.route-first-context.v1",
+    "feature_dimension": 199,
+    "candidate_action_is_input": false,
+    "identity_is_model_input": false,
+    "control_influence": false
+  },
+  "collection": {
+    "episodes": 80,
+    "successes": 72,
+    "failures": 8,
+    "success_rate": 0.9,
+    "policy_calls": 2763,
+    "prepared_calls": 2763,
+    "committed_calls": 2763,
+    "runtime_errors": 0,
+    "teacher_layer_counts": {
+      "11": 94,
+      "13": 323,
+      "27": 2346
+    },
+    "early_exit_calls": 417,
+    "early_exit_fraction": 0.1509229098805646,
+    "executed_depth_ratio_to_l27": 0.9192236029007648,
+    "layer_count_reduction_ratio": 0.08077639709923523,
+    "policy_calls_per_episode": {
+      "min": 18,
+      "max": 65,
+      "mean": 34.5375
+    },
+    "task_successes": {
+      "0": [8, 8],
+      "1": [8, 8],
+      "2": [7, 8],
+      "3": [8, 8],
+      "4": [7, 8],
+      "5": [7, 8],
+      "6": [8, 8],
+      "7": [8, 8],
+      "8": [5, 8],
+      "9": [6, 8]
+    },
+    "failed_episodes": [
+      {"task_id": 2, "episode_index": 7, "policy_calls": 65, "selected_layers": {"11": 1, "13": 8, "27": 56}},
+      {"task_id": 4, "episode_index": 2, "policy_calls": 65, "selected_layers": {"11": 0, "13": 2, "27": 63}},
+      {"task_id": 5, "episode_index": 0, "policy_calls": 65, "selected_layers": {"11": 1, "13": 2, "27": 62}},
+      {"task_id": 8, "episode_index": 1, "policy_calls": 65, "selected_layers": {"11": 0, "13": 4, "27": 61}},
+      {"task_id": 8, "episode_index": 3, "policy_calls": 65, "selected_layers": {"11": 0, "13": 3, "27": 62}},
+      {"task_id": 8, "episode_index": 4, "policy_calls": 65, "selected_layers": {"11": 0, "13": 3, "27": 62}},
+      {"task_id": 9, "episode_index": 3, "policy_calls": 65, "selected_layers": {"11": 2, "13": 3, "27": 60}},
+      {"task_id": 9, "episode_index": 4, "policy_calls": 65, "selected_layers": {"11": 2, "13": 6, "27": 57}}
+    ],
+    "failed_episode_route_totals": {
+      "11": 6,
+      "13": 31,
+      "27": 483,
+      "l27_fraction": 0.9288461538461539
+    }
+  },
+  "dataset_gate": {
+    "status": "PASS",
+    "rows": 2763,
+    "episodes": 80,
+    "features_shape": [2763, 199],
+    "features_dtype": "float32",
+    "all_features_finite": true,
+    "exact_task_episode_grid": true,
+    "call_ordinals_contiguous": true,
+    "call_identity_unique": true,
+    "source_payload_hashes_recomputed": true,
+    "aggregate_payload_sha256": "ffbda4bcf8d47447e09a163d58a73c234e6731b8f370abca4e9dba5e2403fe92",
+    "aggregate_file_sha256": "e9f9a27090318d86ff2cd1ceb1949037fbf7c5d489a870898761a0e4b2f33683"
+  },
+  "label_distribution_by_task": {
+    "0": {"11": 0, "13": 22, "27": 256},
+    "1": {"11": 18, "13": 44, "27": 181},
+    "2": {"11": 10, "13": 50, "27": 228},
+    "3": {"11": 30, "13": 47, "27": 148},
+    "4": {"11": 3, "13": 13, "27": 256},
+    "5": {"11": 3, "13": 20, "27": 198},
+    "6": {"11": 4, "13": 26, "27": 182},
+    "7": {"11": 12, "13": 23, "27": 215},
+    "8": {"11": 0, "13": 36, "27": 408},
+    "9": {"11": 14, "13": 42, "27": 274}
+  },
+  "label_distribution_by_episode_index": {
+    "0": {"11": 12, "13": 51, "27": 305},
+    "1": {"11": 20, "13": 29, "27": 279},
+    "2": {"11": 10, "13": 37, "27": 309},
+    "3": {"11": 13, "13": 35, "27": 313},
+    "4": {"11": 10, "13": 40, "27": 310},
+    "5": {"11": 11, "13": 42, "27": 275},
+    "6": {"11": 11, "13": 44, "27": 257},
+    "7": {"11": 7, "13": 45, "27": 298}
+  },
+  "feature_audit": {
+    "minimum": -3.0901999473571777,
+    "maximum": 3.5583901405334473,
+    "mean": 0.09112008667032687,
+    "standard_deviation": 0.8225214994245781,
+    "zero_variance_dimensions": 8,
+    "varying_dimensions": 191,
+    "zero_variance_groups": {
+      "per_crop_vision_stats": 3,
+      "vision_crop_mask": 5
+    },
+    "fold_local_standardization_required": true,
+    "constant_dimensions_must_not_cause_division_by_zero": true
+  },
+  "source_shards": [
+    {"split": "state0", "tasks": [0, 3, 6, 9], "rows": 127, "payload_sha256": "9572c8f28f426c6712aa7aac62205adabe15c6bc82760a1d0612a113a4453458", "file_sha256": "88b90d99a18c3598e48d82d911ecca3deb7461b4c6ddca1e684853c5e75a693a"},
+    {"split": "state0", "tasks": [1, 4, 7], "rows": 92, "payload_sha256": "6592093e10c5163ea7df1501c2626e863a297ab2dcd0a6d63a0ce5f5f1ab1ec2", "file_sha256": "62110c078e13662552aff81bafcf6908e20bdb3d2aef102146625271ed046639"},
+    {"split": "state0", "tasks": [2, 5, 8], "rows": 149, "payload_sha256": "44b7a7faff11b95b521df5fc5bf7e020307ab1f9d6b4ba061939b44eb6378d8d", "file_sha256": "c2bb87fb77dd6116811677b073a63faf663ea662a7d98c9fd3f2542147380cda"},
+    {"split": "states1_7", "tasks": [5, 8], "rows": 548, "payload_sha256": "b88e1153cbcd521673180b0a0fe5e497998ba3aaf596188ecbf23525ff9e78b6", "file_sha256": "67eb8256ffc526b4ccc142db9e820f3f43f0207ef98c03d1a31910eeb72d9cb8"},
+    {"split": "states1_7", "tasks": [0, 2, 4, 6], "rows": 924, "payload_sha256": "0d17268e4ef0e6375a02dfc1907d6b6573db6ce200afc48a82e9385c132fa486", "file_sha256": "564470e53769f0d07233cdd6d0d80a18359033c2734ed7ccc7036c8cfe6deea5"},
+    {"split": "states1_7", "tasks": [1, 3, 7, 9], "rows": 923, "payload_sha256": "b3992283079609184fb1eac4cccc446bc7d2ee076a6fee91af06c61064c666c6", "file_sha256": "fe31fadc65d884a16b8efea19b12588056e68c4ad76a966968ce9e95ec3f3c74"}
+  ],
+  "training_constraints": {
+    "ordinary_accuracy_is_primary_metric": false,
+    "false_shallow_is_primary_error": true,
+    "group_by_task_and_episode": true,
+    "fit_scaler_inside_each_training_fold": true,
+    "task_and_episode_identity_are_grouping_only": true,
+    "l11_positive_absent_tasks": [0, 8],
+    "all_tasks_have_l13_positive_examples": true,
+    "thresholds_may_use_states0_to7": false,
+    "thresholds_must_use_calibration_states8_to9": true
+  },
+  "interpretation": {
+    "control_failures_are_collection_failures": false,
+    "control_failures_can_be_attributed_to_early_exit_from_this_dataset": false,
+    "failure_calls_using_l27_fraction": 0.9288461538461539,
+    "training_grid_complete": true,
+    "context_only_router_training_authorized": true
+  },
+  "claim_boundary": {
+    "new_route_first_router_trained": false,
+    "new_route_first_runtime_evaluated": false,
+    "latency_or_speedup_claim_authorized": false,
+    "calibration_states8_to9_opened": false,
+    "engineering_holdout_states10_to11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "deployment_authorized": false
+  }
+}
