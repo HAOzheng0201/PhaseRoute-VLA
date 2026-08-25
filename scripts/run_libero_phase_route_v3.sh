@@ -65,8 +65,12 @@ if [[ ! "${gpu_uuid}" =~ ^GPU-[0-9a-fA-F-]+$ ]]; then
   exit 2
 fi
 
-timestamp="$(date +%Y%m%d_%H%M%S)"
-run_dir="${output_root}/libero_10_${timestamp}"
+# A shared OUTPUT_ROOT is useful for multi-GPU collection, so the directory
+# identity must remain unique even when several workers start in the same
+# second.  The physical-GPU suffix also makes the binding auditable from the
+# path without replacing the UUID recorded in command.sh/preflight.json.
+timestamp="$(date +%Y%m%d_%H%M%S_%N)"
+run_dir="${output_root}/libero_10_gpu${gpu_index}_${timestamp}"
 if [[ -e "${run_dir}" ]]; then
   echo "Refusing to overwrite existing run directory: ${run_dir}" >&2
   exit 2
