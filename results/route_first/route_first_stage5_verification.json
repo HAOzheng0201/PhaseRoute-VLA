@@ -1,0 +1,39 @@
+{
+  "schema_version": "phase-route-vla.route-first-router-verification.v1",
+  "status": "PASS_STAGE5_FULL_CPU_REGRESSION_AND_BOUNDARY_AUDIT",
+  "date": "2026-08-25",
+  "training_result": {
+    "path": "results/route_first/route_first_stage5_router_training.json",
+    "sha256": "c73c475d47c7e82afb35c3bfa52ab58dd4eca8171fe77692a0c11f3b027d7a6d",
+    "status": "PASS_RANKING_GATES_UNCALIBRATED"
+  },
+  "targeted_tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "full_cpu_regression": {
+    "command": "DATA_DIR=/data3/haozheng/A1/PhaseRoute-VLA HF_HOME=/data3/haozheng/A1/PhaseRoute-VLA/.cache/huggingface VLA_CONFIG_YAML=libero_simulation.yaml CUDA_VISIBLE_DEVICES=-1 /home/haozheng/.conda/envs/a1/bin/python -m pytest -q tests",
+    "passed": 502,
+    "failed": 0,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "wall_seconds": 72.39
+  },
+  "artifact_replay": {
+    "router_file_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+    "oof_scores_file_sha256": "3cfa0b6f18e48cfa3ae8a8e7b9f718419b6eefe6ea82365f23ed120205a7ae3b",
+    "roundtrip_maximum_absolute_score_error": 2.4783165664121753e-7,
+    "metadata_roundtrip_exact": true,
+    "threshold_fields_absent": true
+  },
+  "protected_boundary_audit": {
+    "git_diff_under_configs_research_v3": [],
+    "git_diff_under_results_v3": [],
+    "git_diff_under_v3_runtime_code": [],
+    "git_diff_under_frozen_libero_evaluator": [],
+    "calibration_states8_to9_opened": false,
+    "engineering_holdout_states10_to11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "gpu_used": false
+  }
+}

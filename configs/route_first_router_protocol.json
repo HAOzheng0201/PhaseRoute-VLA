@@ -1,0 +1,58 @@
+{
+  "schema_version": "phase-route-vla.route-first-router-protocol.v1",
+  "seed": 20260825,
+  "training_episode_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+  "calibration_episode_indices_not_opened": [8, 9],
+  "engineering_holdout_episode_indices_not_opened": [10, 11],
+  "historical_D9_episode_indices_forbidden": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
+  "training_dataset": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "rows": 2763,
+    "episodes": 80,
+    "payload_sha256": "ffbda4bcf8d47447e09a163d58a73c234e6731b8f370abca4e9dba5e2403fe92",
+    "file_sha256": "e9f9a27090318d86ff2cd1ceb1949037fbf7c5d489a870898761a0e4b2f33683"
+  },
+  "targets": {
+    "safe11": "teacher_layer == 11",
+    "safe13": "teacher_layer <= 13",
+    "nested_scores": "score11 <= score13"
+  },
+  "candidate_grid": {
+    "pca_rank": [8, 16, 32, 64],
+    "l2": [0.3, 1.0, 3.0, 10.0]
+  },
+  "optimization": {
+    "maximum_newton_iterations": 100,
+    "deterministic": true
+  },
+  "selection": {
+    "split": "leave_one_episode_index_out_across_all_10_tasks",
+    "primary": "harmonic_mean_of_group_equal_safe11_and_safe13_average_precision",
+    "tie_breakers": ["macro_roc_auc", "lower_pca_rank", "higher_l2"]
+  },
+  "robustness": {
+    "split": "leave_one_task_out_across_all_8_training_episode_indices",
+    "used_for_candidate_selection": false
+  },
+  "weighting": {
+    "episode_cells": "equal",
+    "binary_classes_during_fit": "balanced_after_episode_weighting"
+  },
+  "ranking_gates": {
+    "episode_oof_safe11_ap_lift_strictly_above": 1.25,
+    "episode_oof_safe13_ap_lift_strictly_above": 1.25,
+    "task_oof_safe11_ap_lift_strictly_above": 1.05,
+    "task_oof_safe13_ap_lift_strictly_above": 1.05,
+    "episode_oof_safe11_false_safe_at_1pct_at_most": 0.5,
+    "episode_oof_safe13_false_safe_at_5pct_at_most": 0.5,
+    "task_oof_safe11_false_safe_at_1pct_at_most": 0.75,
+    "task_oof_safe13_false_safe_at_5pct_at_most": 0.65
+  },
+  "calibration_boundary": {
+    "thresholds_in_training_artifact": false,
+    "states_0_to_7_may_set_deployment_thresholds": false,
+    "states_8_to_9_required_for_thresholds": true,
+    "active_control_before_calibration_gate": false
+  }
+}

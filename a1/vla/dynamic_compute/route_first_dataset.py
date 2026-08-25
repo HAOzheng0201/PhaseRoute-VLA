@@ -84,6 +84,32 @@ class RouteFirstTeacherShard:
         return int(self.features.shape[0])
 
 
+@dataclass(frozen=True)
+class RouteFirstTeacherAggregate:
+    path: Path
+    file_sha256: str
+    payload_sha256: str
+    source_file_sha256: tuple[str, ...]
+    features: np.ndarray
+    teacher_layer: np.ndarray
+    teacher_fallback: np.ndarray
+    episode_id: np.ndarray
+    task_id: np.ndarray
+    episode_index: np.ndarray
+    step_id: np.ndarray
+    call_ordinal: np.ndarray
+
+    @property
+    def rows(self) -> int:
+        return int(self.features.shape[0])
+
+    @property
+    def episode_grid(self) -> tuple[tuple[int, int], ...]:
+        return tuple(
+            sorted(set(zip(self.task_id.tolist(), self.episode_index.tolist())))
+        )
+
+
 def load_route_first_teacher_shard(path: str | Path) -> RouteFirstTeacherShard:
     """Load one collector NPZ with ``allow_pickle=False`` and strict hashes."""
 
@@ -184,6 +210,149 @@ def load_route_first_teacher_shard(path: str | Path) -> RouteFirstTeacherShard:
         path=target,
         file_sha256=_sha256_file(target),
         payload_sha256=recomputed,
+        features=features,
+        teacher_layer=teacher,
+        teacher_fallback=fallback,
+        episode_id=episode_id,
+        task_id=task_id,
+        episode_index=episode_index,
+        step_id=step_id,
+        call_ordinal=call_ordinal,
+    )
+
+
+def load_route_first_teacher_aggregate(
+    path: str | Path,
+) -> RouteFirstTeacherAggregate:
+    """Load one published aggregate with strict schema, order, and hash checks."""
+
+    target = Path(path).expanduser().resolve(strict=True)
+    if not target.is_file():
+        raise RouteFirstDatasetError(f"teacher aggregate is not a file: {target}")
+    with np.load(target, allow_pickle=False) as arrays:
+        required = {
+            "schema_version",
+            "feature_schema_version",
+            "feature_dimension",
+            "feature_group_names",
+            "feature_group_widths",
+            "control_influence",
+            "payload_sha256",
+            "source_file_sha256",
+            "features",
+            "teacher_layer",
+            "teacher_fallback",
+            "episode_id",
+            "task_id",
+            "episode_index",
+            "step_id",
+            "call_ordinal",
+        }
+        if set(arrays.files) != required:
+            raise RouteFirstDatasetError("teacher aggregate fields differ")
+        if arrays["schema_version"].item() != ROUTE_FIRST_AGGREGATE_SCHEMA_VERSION:
+            raise RouteFirstDatasetError("teacher aggregate schema differs")
+        if arrays["feature_schema_version"].item() != ROUTE_FIRST_FEATURE_SCHEMA_VERSION:
+            raise RouteFirstDatasetError("aggregate feature schema differs")
+        if int(arrays["feature_dimension"].item()) != ROUTE_FIRST_FEATURE_DIMENSION:
+            raise RouteFirstDatasetError("aggregate feature dimension differs")
+        if arrays["feature_group_names"].tolist() != list(
+            ROUTE_FIRST_FEATURE_GROUPS
+        ) or arrays["feature_group_widths"].tolist() != list(
+            ROUTE_FIRST_FEATURE_GROUPS.values()
+        ):
+            raise RouteFirstDatasetError("aggregate feature groups differ")
+        if bool(arrays["control_influence"].item()):
+            raise RouteFirstDatasetError("teacher aggregate claims control influence")
+        claimed_payload = str(arrays["payload_sha256"].item())
+        source_hashes = tuple(
+            str(value) for value in arrays["source_file_sha256"].tolist()
+        )
+        values = {
+            name: arrays[name].copy()
+            for name in required
+            if name
+            not in {
+                "schema_version",
+                "feature_schema_version",
+                "feature_dimension",
+                "feature_group_names",
+                "feature_group_widths",
+                "control_influence",
+                "payload_sha256",
+                "source_file_sha256",
+            }
+        }
+
+    if not source_hashes or any(
+        re.fullmatch(r"[0-9a-f]{64}", value) is None for value in source_hashes
+    ) or len(set(source_hashes)) != len(source_hashes):
+        raise RouteFirstDatasetError("aggregate source hashes are invalid or duplicated")
+    features = np.asarray(values["features"], dtype=np.float32)
+    teacher = np.asarray(values["teacher_layer"], dtype=np.int16)
+    fallback = np.asarray(values["teacher_fallback"], dtype=np.bool_)
+    episode_id = np.asarray(values["episode_id"]).astype(np.str_)
+    task_id = np.asarray(values["task_id"], dtype=np.int16)
+    episode_index = np.asarray(values["episode_index"], dtype=np.int16)
+    step_id = np.asarray(values["step_id"], dtype=np.int32)
+    call_ordinal = np.asarray(values["call_ordinal"], dtype=np.int32)
+    rows = int(features.shape[0]) if features.ndim == 2 else -1
+    if features.shape != (rows, ROUTE_FIRST_FEATURE_DIMENSION) or rows < 1:
+        raise RouteFirstDatasetError("aggregate feature matrix geometry differs")
+    vectors = (
+        teacher,
+        fallback,
+        episode_id,
+        task_id,
+        episode_index,
+        step_id,
+        call_ordinal,
+    )
+    if any(value.shape != (rows,) for value in vectors):
+        raise RouteFirstDatasetError("teacher aggregate row arrays differ")
+    if not np.isfinite(features).all():
+        raise RouteFirstDatasetError("teacher aggregate features are non-finite")
+    if not set(np.unique(teacher).tolist()).issubset(ROUTE_FIRST_LAYERS):
+        raise RouteFirstDatasetError("teacher aggregate contains an invalid layer")
+    if not np.array_equal(fallback, teacher == 27):
+        raise RouteFirstDatasetError("aggregate fallback semantics differ")
+    if (
+        np.any(task_id < 0)
+        or np.any(episode_index < 0)
+        or np.any(step_id < 0)
+        or np.any(call_ordinal < 0)
+    ):
+        raise RouteFirstDatasetError("aggregate metadata must be non-negative")
+    identities = list(zip(episode_id.tolist(), call_ordinal.tolist()))
+    if len(set(identities)) != rows:
+        raise RouteFirstDatasetError("teacher aggregate has duplicate policy calls")
+    for index, identity in enumerate(episode_id.tolist()):
+        match = _EPISODE_PATTERN.fullmatch(str(identity))
+        if match is None:
+            raise RouteFirstDatasetError(f"invalid episode identity: {identity}")
+        if int(match.group("task")) != int(task_id[index]) or int(
+            match.group("episode")
+        ) != int(episode_index[index]):
+            raise RouteFirstDatasetError("aggregate episode identity metadata differs")
+    for identity in np.unique(episode_id):
+        ordinals = np.sort(call_ordinal[episode_id == identity]).tolist()
+        if ordinals != list(range(len(ordinals))):
+            raise RouteFirstDatasetError(
+                "aggregate policy calls are not canonical within episode"
+            )
+    canonical_order = np.lexsort((call_ordinal, episode_index, task_id))
+    if not np.array_equal(canonical_order, np.arange(rows)):
+        raise RouteFirstDatasetError("teacher aggregate rows are not canonically sorted")
+    recomputed = _payload_sha256(
+        features, teacher, episode_id, task_id, step_id, call_ordinal
+    )
+    if recomputed != claimed_payload:
+        raise RouteFirstDatasetError("teacher aggregate payload SHA-256 differs")
+    return RouteFirstTeacherAggregate(
+        path=target,
+        file_sha256=_sha256_file(target),
+        payload_sha256=recomputed,
+        source_file_sha256=source_hashes,
         features=features,
         teacher_layer=teacher,
         teacher_fallback=fallback,
@@ -354,8 +523,10 @@ def save_route_first_teacher_aggregate(
 __all__ = [
     "ROUTE_FIRST_AGGREGATE_SCHEMA_VERSION",
     "RouteFirstDatasetError",
+    "RouteFirstTeacherAggregate",
     "RouteFirstTeacherShard",
     "aggregate_route_first_teacher_shards",
+    "load_route_first_teacher_aggregate",
     "load_route_first_teacher_shard",
     "save_route_first_teacher_aggregate",
 ]

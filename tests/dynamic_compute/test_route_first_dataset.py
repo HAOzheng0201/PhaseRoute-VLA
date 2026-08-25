@@ -9,6 +9,7 @@ from a1.vla.dynamic_compute.route_first_dataset import (
     ROUTE_FIRST_AGGREGATE_SCHEMA_VERSION,
     RouteFirstDatasetError,
     aggregate_route_first_teacher_shards,
+    load_route_first_teacher_aggregate,
     load_route_first_teacher_shard,
     save_route_first_teacher_aggregate,
 )
@@ -101,6 +102,11 @@ def test_aggregate_route_first_teacher_shards_enforces_exact_grid(tmp_path):
         assert saved["schema_version"].item() == ROUTE_FIRST_AGGREGATE_SCHEMA_VERSION
         assert saved["features"].shape == (3, 199)
         assert saved["episode_index"].tolist() == [0, 0, 0]
+    loaded = load_route_first_teacher_aggregate(output)
+    assert loaded.rows == 3
+    assert loaded.payload_sha256 == result["payload_sha256"]
+    assert loaded.file_sha256 == result["file_sha256"]
+    assert loaded.episode_grid == ((0, 0), (1, 0))
 
 
 def test_aggregate_route_first_teacher_shards_rejects_missing_episode(tmp_path):
