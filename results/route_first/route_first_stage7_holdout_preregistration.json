@@ -1,0 +1,71 @@
+{
+  "schema_version": "phase-route-vla.route-first-holdout-preregistration.v1",
+  "status": "READY_TO_COLLECT_ENGINEERING_HOLDOUT_STATES_10_11",
+  "date": "2026-08-25",
+  "source_git_commit": "ec08539f8733b56af21b5eb150a0cf59fb2d6cca",
+  "frozen_calibrated_router": {
+    "path": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "threshold11": 0.9807427653025883,
+    "enabled11": false,
+    "threshold13": 0.9174261218080999,
+    "enabled13": true,
+    "active_control_authorized": false
+  },
+  "frozen_stage6_evidence": {
+    "calibration_result_sha256": "c599ffb8280368a1014f4de0827524c3e0bc5d9ccc172ede4062600fea9d5de5",
+    "calibration_verification_sha256": "34b07c89be854df10f541b8b6a3eebffcd1c7f9a7cf021276d2850f81148c7bb"
+  },
+  "protocol": {
+    "path": "configs/route_first_holdout_protocol.json",
+    "sha256": "f7b79d0706f836bf6df56548b64cce076a258c183fddc19c6dac7188f9681a14"
+  },
+  "implementation_sha256": {
+    "a1/vla/dynamic_compute/route_first_holdout.py": "c3202543ff0e16a1070a2ef6a4f5227ab0c12b7d7872125a28a75ad46539a368",
+    "scripts/evaluate_route_first_holdout.py": "23bb06c17b548aa437fb9faa0a342216ca229b858b322d33a2b9d818cea2f17d",
+    "tests/dynamic_compute/test_route_first_holdout.py": "1d80f917214911cebe1ee7f903467b643401b1c544fe516c2a97e1f57f68e32f"
+  },
+  "holdout_grid": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [10, 11],
+    "episodes": 20,
+    "control_influence": false
+  },
+  "decision": {
+    "pooled_and_each_episode_index_must_pass": true,
+    "safe11_must_remain_disabled": true,
+    "safe13_threshold_may_not_change": true,
+    "failure_may_not_trigger_refit_or_recalibration": true,
+    "active_control_not_authorized_by_holdout_alone": true
+  },
+  "targeted_test_gate": {
+    "passed": 12,
+    "failed": 0,
+    "warnings": 1,
+    "wall_seconds": 6.19
+  },
+  "full_cpu_regression": {
+    "passed": 514,
+    "failed": 0,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "pytest_seconds": 71.98,
+    "wall_seconds": 74.31
+  },
+  "access_ledger": {
+    "engineering_holdout_state10_opened": false,
+    "engineering_holdout_state11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "gpu_used": false,
+    "holdout_scores_computed": false,
+    "runtime_integration_authorized": false,
+    "active_control_authorized": false
+  },
+  "claim_boundary": {
+    "formal_safety_guarantee": false,
+    "active_control_run": false,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false
+  }
+}

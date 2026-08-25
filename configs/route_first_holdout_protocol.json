@@ -1,0 +1,74 @@
+{
+  "schema_version": "phase-route-vla.route-first-holdout-protocol.v1",
+  "seed": 20260825,
+  "frozen_calibrated_router": {
+    "path": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "file_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "calibration_status_required": "SET_ONE_SHOT_CONFIRMED_FAIL_CLOSED",
+    "source_router_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+    "threshold11": 0.9807427653025883,
+    "enabled11": false,
+    "threshold13": 0.9174261218080999,
+    "enabled13": true,
+    "engineering_holdout_authorized": true,
+    "active_control_authorized": false,
+    "calibration_result_path": "results/route_first/route_first_stage6_calibration.json",
+    "calibration_result_sha256": "c599ffb8280368a1014f4de0827524c3e0bc5d9ccc172ede4062600fea9d5de5",
+    "calibration_verification_path": "results/route_first/route_first_stage6_verification.json",
+    "calibration_verification_sha256": "34b07c89be854df10f541b8b6a3eebffcd1c7f9a7cf021276d2850f81148c7bb"
+  },
+  "data": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "engineering_holdout_episode_indices": [10, 11],
+    "training_episode_indices_forbidden": [0, 1, 2, 3, 4, 5, 6, 7],
+    "calibration_episode_indices_forbidden": [8, 9],
+    "historical_D9_episode_indices_forbidden": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
+    "teacher": "frozen_phase_route_v3",
+    "control_influence": false,
+    "identity_is_model_input": false
+  },
+  "statistics": {
+    "episode_cells": "equal_total_weight",
+    "confidence_method": "one_sided_weighted_wilson_effective_sample_size",
+    "confidence_level": 0.9,
+    "threshold_policy": "exact_stage6_threshold_no_refit_no_movement",
+    "decision_policy": "pooled_and_each_episode_index_must_pass"
+  },
+  "holdout_gate": {
+    "pooled_safe13": {
+      "minimum_coverage": 0.015,
+      "minimum_effective_selected_rows": 16.0,
+      "maximum_empirical_false_safe_rate": 0.2,
+      "maximum_false_safe_upper_bound": 0.4
+    },
+    "per_episode_index_safe13": {
+      "minimum_coverage": 0.015,
+      "minimum_effective_selected_rows": 8.0,
+      "maximum_empirical_false_safe_rate": 0.2,
+      "maximum_false_safe_upper_bound": 0.4
+    }
+  },
+  "diagnostics": {
+    "score13_quantiles_report_only": [0.0, 0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 1.0],
+    "per_task_metrics_report_only": true,
+    "raw_teacher_confusion_report_only": true,
+    "rollout_task_success_is_not_a_router_label": true
+  },
+  "fail_closed_policy": {
+    "safe11_must_remain_disabled": true,
+    "safe13_threshold_may_not_change": true,
+    "any_pooled_or_per_episode_gate_failure_disables_runtime_integration": true,
+    "holdout_failure_may_not_trigger_refit_or_recalibration": true,
+    "all_disabled_route": 27,
+    "active_control_not_authorized_by_holdout_alone": true
+  },
+  "claim_boundary": {
+    "engineering_gate_not_formal_safety_guarantee": true,
+    "states10_to11_observation_only": true,
+    "historical_D9_not_used": true,
+    "active_control_not_run": true,
+    "closed_loop_improvement_not_demonstrated": true,
+    "wall_clock_speedup_not_demonstrated": true
+  }
+}
