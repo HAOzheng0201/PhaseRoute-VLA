@@ -1,0 +1,164 @@
+{
+  "schema_version": "phase-route-vla.route-first-calibration-result.v1",
+  "status": "PASS_ONE_SHOT_CONFIRMATION_ENGINEERING_HOLDOUT_READY",
+  "created_at": "2026-08-25T21:52:08.325416+08:00",
+  "scope": "states8_selection_state9_confirmation_not_holdout_not_D9",
+  "inputs": {
+    "aggregate": "runs/route_first_teacher_calibration_states8_9/aggregate_states8_9.npz",
+    "aggregate_rows": 666,
+    "aggregate_episodes": 20,
+    "aggregate_payload_sha256": "da0912c44348d33ea52a6c56210f2c9c02778bccfa34555b6807e5b54ce361ad",
+    "aggregate_file_sha256": "896e1644c45b45168d9d3216863fe69f1c6114ee70f08e6a1a1fad28b6fb73f5",
+    "teacher_layer_counts": {
+      "11": 17,
+      "13": 78,
+      "27": 571
+    },
+    "router": "runs/route_first_router_stage5/router_uncalibrated.npz",
+    "router_file_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+    "router_metadata": {
+      "training_payload_sha256": "ffbda4bcf8d47447e09a163d58a73c234e6731b8f370abca4e9dba5e2403fe92",
+      "training_file_sha256": "e9f9a27090318d86ff2cd1ceb1949037fbf7c5d489a870898761a0e4b2f33683",
+      "training_task_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "training_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "seed": 20260825,
+      "calibration_status": "UNSET"
+    },
+    "protocol": "configs/route_first_calibration_protocol.json",
+    "protocol_file_sha256": "c1ab2aef44595d3d86b04684155a74302d2bb70b91bf01c1722f86d0790ce1d1"
+  },
+  "state8_threshold_selection": {
+    "safe11": {
+      "enabled": true,
+      "threshold": 0.9807427653025883,
+      "reason": "MAXIMUM_FEASIBLE_GROUP_EQUAL_COVERAGE",
+      "candidate_thresholds": 357,
+      "feasible_thresholds": 4,
+      "metrics": {
+        "threshold": 0.9807427653025883,
+        "selected_rows": 7,
+        "actual_coverage": 0.02183608058608059,
+        "empirical_false_safe_rate": 0.23401132312853842,
+        "false_safe_upper_bound": 0.4815846342982294,
+        "effective_selected_rows": 6.689828859521855,
+        "confidence_level": 0.9
+      }
+    },
+    "safe13": {
+      "enabled": true,
+      "threshold": 0.9174261218080999,
+      "reason": "MAXIMUM_FEASIBLE_GROUP_EQUAL_COVERAGE",
+      "candidate_thresholds": 357,
+      "feasible_thresholds": 24,
+      "metrics": {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 37,
+        "actual_coverage": 0.12334686147186148,
+        "empirical_false_safe_rate": 0.08547102286820202,
+        "false_safe_upper_bound": 0.16538784005028292,
+        "effective_selected_rows": 35.49638254599918,
+        "confidence_level": 0.9
+      }
+    }
+  },
+  "state9_one_shot_confirmation": {
+    "safe11": {
+      "selection_enabled": true,
+      "confirmed": false,
+      "active_enabled": false,
+      "threshold": 0.9807427653025883,
+      "reason": "CONFIRMATION_GATE_FAILED_HEAD_DISABLED",
+      "metrics": {
+        "threshold": 0.9807427653025883,
+        "selected_rows": 10,
+        "actual_coverage": 0.03508607581188226,
+        "empirical_false_safe_rate": 0.6107456564640329,
+        "false_safe_upper_bound": 0.7799308898876037,
+        "effective_selected_rows": 9.848327215448528,
+        "confidence_level": 0.9
+      }
+    },
+    "safe13": {
+      "selection_enabled": true,
+      "confirmed": true,
+      "active_enabled": true,
+      "threshold": 0.9174261218080999,
+      "reason": "CONFIRMED_EXACT_SELECTION_THRESHOLD",
+      "metrics": {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 34,
+        "actual_coverage": 0.11291340880287751,
+        "empirical_false_safe_rate": 0.026837406313658344,
+        "false_safe_upper_bound": 0.09028004516603418,
+        "effective_selected_rows": 33.512681731159894,
+        "confidence_level": 0.9
+      }
+    },
+    "thresholds_changed_from_state8": false,
+    "routing_summary": {
+      "rows": 309,
+      "selected_layer_counts": {
+        "11": 0,
+        "13": 34,
+        "27": 275
+      },
+      "group_equal_early_exit_coverage": 0.11291340880287751,
+      "group_equal_false_shallow_rate_among_early_exits": 0.026837406313658344,
+      "group_equal_executed_depth_ratio_to_l27": 0.9414523065466561,
+      "group_equal_layer_count_reduction_ratio": 0.058547693453343874
+    }
+  },
+  "authorization": {
+    "engineering_holdout_states10_to11": true,
+    "active_control": false,
+    "historical_D9_states40_to49": false
+  },
+  "artifacts": {
+    "calibrated_router": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "calibrated_router_file_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "calibration_scores": "runs/route_first_calibration_stage6/calibration_scores.npz",
+    "calibration_scores_file_sha256": "58c079f1b27018ffd2743cfd3898d66aa56ce8b6340712a7d9e2a3187a1360f0",
+    "maximum_score_roundtrip_error": 0.0,
+    "calibrated_metadata": {
+      "source_router_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+      "calibration_payload_sha256": "da0912c44348d33ea52a6c56210f2c9c02778bccfa34555b6807e5b54ce361ad",
+      "calibration_file_sha256": "896e1644c45b45168d9d3216863fe69f1c6114ee70f08e6a1a1fad28b6fb73f5",
+      "protocol_file_sha256": "c1ab2aef44595d3d86b04684155a74302d2bb70b91bf01c1722f86d0790ce1d1",
+      "threshold11": 0.9807427653025883,
+      "enabled11": false,
+      "threshold13": 0.9174261218080999,
+      "enabled13": true,
+      "engineering_holdout_authorized": true,
+      "active_control_authorized": false,
+      "calibration_status": "SET_ONE_SHOT_CONFIRMED_FAIL_CLOSED"
+    }
+  },
+  "claim_boundary": {
+    "engineering_thresholds_confirmed": true,
+    "formal_safety_guarantee": false,
+    "states10_to11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "active_control_run": false,
+    "closed_loop_improvement_demonstrated": false
+  }
+}

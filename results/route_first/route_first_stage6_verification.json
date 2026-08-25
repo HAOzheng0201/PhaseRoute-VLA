@@ -1,0 +1,132 @@
+{
+  "schema_version": "phase-route-vla.route-first-calibration-verification.v1",
+  "status": "PASS_STAGE6_L13_CONFIRMED_L11_FAIL_CLOSED",
+  "date": "2026-08-25",
+  "source_git_commit": "8190a611f52aada2283fbcc8681723969d4c99eb",
+  "protocol": {
+    "path": "configs/route_first_calibration_protocol.json",
+    "sha256": "c1ab2aef44595d3d86b04684155a74302d2bb70b91bf01c1722f86d0790ce1d1",
+    "state8_role": "threshold_selection_only",
+    "state9_role": "exact_threshold_one_shot_confirmation_only",
+    "thresholds_changed_on_state9": false
+  },
+  "collection": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "episode_indices": [8, 9],
+    "episodes": 20,
+    "successes": 18,
+    "policy_calls": 666,
+    "runtime_errors": 0,
+    "teacher_layer_counts": {
+      "11": 17,
+      "13": 78,
+      "27": 571
+    },
+    "failed_episodes_retained": [
+      {"task_id": 7, "episode_index": 8, "policy_calls": 65},
+      {"task_id": 8, "episode_index": 8, "policy_calls": 65}
+    ],
+    "attestations": [
+      {
+        "gpu": 4,
+        "tasks": [0, 4, 8],
+        "path": "runs/route_first_teacher_calibration_states8_9/libero_10_gpu4_20260825_213223_905046799/run_attestation.json",
+        "sha256": "393f19b9e8ed3bd666d2e52edc9ea067402f289de94ffe02aef723196ea99956"
+      },
+      {
+        "gpu": 5,
+        "tasks": [1, 5, 9],
+        "path": "runs/route_first_teacher_calibration_states8_9/libero_10_gpu5_20260825_213357_954514361/run_attestation.json",
+        "sha256": "d9b1c555330ad682ac6527671edc9a4d7dbbf5af9ffda2983342beac09183dac"
+      },
+      {
+        "gpu": 6,
+        "tasks": [2, 3, 6, 7],
+        "path": "runs/route_first_teacher_calibration_states8_9/libero_10_gpu6_20260825_213543_327649228/run_attestation.json",
+        "sha256": "70525a29d5d5ea747ae7970933e0cd89c73f9e12121693e94d6ec8f5d0fd4ea0"
+      }
+    ],
+    "excluded_infrastructure_attempts": {
+      "count": 4,
+      "reason": "wrong_hf_cache_missing_qwen2_tokenizer_failed_before_model_load",
+      "episodes_opened": 0,
+      "teacher_shards_emitted": 0
+    }
+  },
+  "aggregate": {
+    "path": "runs/route_first_teacher_calibration_states8_9/aggregate_states8_9.npz",
+    "rows": 666,
+    "episodes": 20,
+    "feature_dimension": 199,
+    "payload_sha256": "da0912c44348d33ea52a6c56210f2c9c02778bccfa34555b6807e5b54ce361ad",
+    "file_sha256": "896e1644c45b45168d9d3216863fe69f1c6114ee70f08e6a1a1fad28b6fb73f5"
+  },
+  "calibration_result": {
+    "path": "results/route_first/route_first_stage6_calibration.json",
+    "sha256": "c599ffb8280368a1014f4de0827524c3e0bc5d9ccc172ede4062600fea9d5de5",
+    "status": "PASS_ONE_SHOT_CONFIRMATION_ENGINEERING_HOLDOUT_READY",
+    "safe11": {
+      "threshold": 0.9807427653025883,
+      "confirmed": false,
+      "active_enabled": false,
+      "confirmation_coverage": 0.03508607581188226,
+      "confirmation_empirical_false_safe": 0.6107456564640329,
+      "confirmation_false_safe_upper_bound_90": 0.7799308898876037
+    },
+    "safe13": {
+      "threshold": 0.9174261218080999,
+      "confirmed": true,
+      "active_enabled": true,
+      "confirmation_coverage": 0.11291340880287751,
+      "confirmation_empirical_false_safe": 0.026837406313658344,
+      "confirmation_false_safe_upper_bound_90": 0.09028004516603418
+    },
+    "state9_selected_layers": {
+      "11": 0,
+      "13": 34,
+      "27": 275
+    },
+    "state9_layer_count_reduction_ratio": 0.058547693453343874
+  },
+  "artifacts": {
+    "calibrated_router": {
+      "path": "runs/route_first_calibration_stage6/router_calibrated.npz",
+      "sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2"
+    },
+    "calibration_scores": {
+      "path": "runs/route_first_calibration_stage6/calibration_scores.npz",
+      "sha256": "58c079f1b27018ffd2743cfd3898d66aa56ce8b6340712a7d9e2a3187a1360f0"
+    },
+    "maximum_score_roundtrip_error": 0.0
+  },
+  "tests": {
+    "targeted": {
+      "passed": 12,
+      "failed": 0,
+      "warnings": 1,
+      "wall_seconds": 6.16
+    },
+    "full_cpu_regression": {
+      "passed": 508,
+      "failed": 0,
+      "subtests_passed": 22,
+      "warnings": 3,
+      "pytest_seconds": 74.31,
+      "wall_seconds": 76.66
+    }
+  },
+  "authorization": {
+    "engineering_holdout_states10_to11": true,
+    "active_control": false,
+    "historical_D9_states40_to49": false
+  },
+  "claim_boundary": {
+    "formal_safety_guarantee": false,
+    "states10_to11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "active_control_run": false,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false
+  }
+}
