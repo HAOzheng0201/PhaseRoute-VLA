@@ -1,0 +1,135 @@
+{
+  "schema_version": "phase-route-vla.route-first-active-pilot-protocol.v1",
+  "status": "PREREGISTERED_NOT_OPENED",
+  "created_date": "2026-08-26",
+  "objective": "Verify that the Stage-8 route-first runtime is closed-loop executable, preserves descriptive task quality against its frozen candidate-first V3 teacher, and reduces measured policy latency by executing one flow-matching head per call.",
+  "frozen_implementation": {
+    "stage8_commit": "00e832713b25b4a01d5a443d015613e18ae89fb4",
+    "stage8_verification_path": "results/route_first/route_first_stage8_verification.json",
+    "stage8_verification_sha256": "3c66062f521ddcc0cd5b4c3371f99ec59bd8c00e0d7ac18301a2630420957e49",
+    "runtime_path": "a1/vla/dynamic_compute/route_first_runtime.py",
+    "runtime_sha256": "dc399b8c2df862289b956b8408de1f2c096811a8889ae65cfc700f3f64b8f679",
+    "controller_path": "a1/vla/dynamic_compute/route_first_controller.py",
+    "controller_sha256": "a419401c2bcda220ed6c5ccf9d82e7627a897b3bc1a9edbd6b29231c998b21d5",
+    "calibrated_router_path": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "calibrated_router_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "stage7_holdout_path": "results/route_first/route_first_stage7_holdout.json",
+    "stage7_holdout_sha256": "d9780a5e4765ee9a80165eb790b99b4e9e85fcb1ae6d34ae006ddb72ce48f258",
+    "v3_context_router_path": "artifacts/phase_route_v3/final_router.pt",
+    "v3_context_router_sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+    "phase_checkpoint_path": "artifacts/phase_route_v3/phase_estimator.pt",
+    "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+    "a1_checkpoint_attestation_sha256": "eed935ece00719016b5ea8e49b70b53ff1f99d36c51fb8a79d9d67ffcc0a1eab"
+  },
+  "methods": {
+    "candidate_first_v3": {
+      "description": "Frozen V3 teacher with action-dependent L11/L13/L27 gates and RP-PEP candidate flow-matching calls.",
+      "control_changes": false
+    },
+    "route_first_stage8": {
+      "description": "Frozen 199D context router selects L13/L27 before decoder candidates; exactly one selected-layer flow-matching call.",
+      "control_changes": true
+    }
+  },
+  "shared_settings": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "flow_matching_steps": 10,
+    "open_loop_actions": 8,
+    "base_seed": 20260826,
+    "seed_formula": "base_seed + task_id * 10000 + episode_index",
+    "reseed_each_episode": true,
+    "same_checkpoint": true,
+    "same_official_init_state": true,
+    "same_seed_across_methods": true,
+    "threshold_movement": false,
+    "router_refit": false,
+    "single_physical_gpu_per_process": true,
+    "latency_runs_must_be_contention_free": true
+  },
+  "schedule": {
+    "preflight": {
+      "may_open_simulator_episode": false,
+      "requirements": [
+        "all Stage-8 tests pass",
+        "D9 protected-code SHA gate passes",
+        "runner and validator tests pass",
+        "one currently idle physical GPU is UUID-bound",
+        "CUDA smoke test passes"
+      ]
+    },
+    "engineering_smoke": {
+      "task_ids": [0],
+      "episode_indices": [12],
+      "methods": ["candidate_first_v3", "route_first_stage8"],
+      "arm_order": ["candidate_first_v3", "route_first_stage8"],
+      "stop_before_pilot_on_failure": true,
+      "claim_use": "engineering_only"
+    },
+    "paired_pilot": {
+      "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "episode_indices": [13],
+      "methods": ["candidate_first_v3", "route_first_stage8"],
+      "arm_order": {
+        "even_task_ids": ["candidate_first_v3", "route_first_stage8"],
+        "odd_task_ids": ["route_first_stage8", "candidate_first_v3"]
+      },
+      "claim_use": "engineering_pilot_not_final_confirmation"
+    }
+  },
+  "primary_gates": {
+    "runtime_integrity": {
+      "route_first_runtime_errors": 0,
+      "nonfinite_action_calls": 0,
+      "missing_action_audits": 0,
+      "prepared_equals_policy_calls": true,
+      "committed_equals_policy_calls": true,
+      "l11_selected_calls": 0,
+      "valid_calls_with_fm_calls_equal_one_fraction": 1.0
+    },
+    "descriptive_task_quality": {
+      "minimum_route_first_successes_relative_to_v3": -2,
+      "denominator": 10,
+      "interpretation": "pilot guardrail only; not a powered non-inferiority claim"
+    },
+    "measured_efficiency": {
+      "maximum_route_first_median_policy_wall_ms_ratio_to_v3": 0.9,
+      "require_same_gpu_model": true,
+      "exclude_runs_with_external_gpu_contention": true,
+      "report_p50_p90_mean_and_fm_invocations": true
+    }
+  },
+  "report_only_diagnostics": [
+    "per-task success pairs",
+    "L13 and L27 counts",
+    "score13 distribution",
+    "per-task policy latency",
+    "task5 selected-call behavior",
+    "gripper action distribution",
+    "episode call counts",
+    "decoder depth block count"
+  ],
+  "failure_policy": {
+    "do_not_rerun_failed_episode_to_replace_result": true,
+    "do_not_move_threshold_after_opening_state12_or_state13": true,
+    "retain_runtime_and_simulator_failures": true,
+    "diagnose_before_any_method_change": true,
+    "any_method_change_requires_new_protocol_and_fresh_states": true
+  },
+  "access_ledger": {
+    "states0_to7_training_opened": true,
+    "states8_to9_calibration_opened": true,
+    "states10_to11_engineering_holdout_opened": true,
+    "state12_smoke_opened": false,
+    "state13_pilot_opened": false,
+    "historical_D9_states40_to49_opened_for_this_stage": false,
+    "active_control_executed_for_this_stage": false
+  },
+  "claim_boundary": {
+    "formal_safety_guarantee": false,
+    "final_closed_loop_improvement": false,
+    "final_wall_clock_speedup": false,
+    "pilot_can_authorize_fresh_state_confirmation": true,
+    "pilot_cannot_authorize_deployment": true
+  }
+}

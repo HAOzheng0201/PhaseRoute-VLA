@@ -1,0 +1,49 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-active-pilot-preregistration.v1",
+  "status": "PREREGISTERED_NOT_OPENED",
+  "created_date": "2026-08-26",
+  "protocol": {
+    "path": "configs/route_first_active_pilot_protocol.json",
+    "sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d"
+  },
+  "frozen_stage8": {
+    "commit": "00e832713b25b4a01d5a443d015613e18ae89fb4",
+    "verification_path": "results/route_first/route_first_stage8_verification.json",
+    "verification_sha256": "3c66062f521ddcc0cd5b4c3371f99ec59bd8c00e0d7ac18301a2630420957e49",
+    "calibrated_router_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "threshold13": 0.9174261218080999,
+    "enabled11": false,
+    "enabled13": true
+  },
+  "schedule": {
+    "smoke": {
+      "task_ids": [0],
+      "episode_indices": [12],
+      "opened": false
+    },
+    "paired_pilot": {
+      "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "episode_indices": [13],
+      "opened": false
+    }
+  },
+  "authorization": {
+    "implement_runner_and_validator": true,
+    "run_preflight_without_episode": true,
+    "open_state12_only_after_runner_tests_pass": true,
+    "open_state13_only_after_state12_smoke_passes": true,
+    "open_historical_D9_states40_to49": false,
+    "move_threshold": false
+  },
+  "access_ledger": {
+    "state12_active_smoke_opened": false,
+    "state13_active_pilot_opened": false,
+    "active_control_executed": false
+  },
+  "claim_boundary": {
+    "preregistration_only": true,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false,
+    "deployment_authorized": false
+  }
+}
