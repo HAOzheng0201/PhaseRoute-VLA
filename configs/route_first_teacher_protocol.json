@@ -1,0 +1,30 @@
+{
+  "schema_version": "phase-route-vla.route-first-teacher-protocol.v1",
+  "suite": "libero_10",
+  "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "seed_base": 20260824,
+  "teacher": "frozen_phase_route_v3",
+  "feature_schema_version": "phase-route-vla.route-first-context.v1",
+  "feature_dimension": 199,
+  "splits": {
+    "train_episode_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+    "calibration_episode_indices": [8, 9],
+    "engineering_holdout_episode_indices": [10, 11],
+    "forbidden_historical_D9_episode_indices": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
+  },
+  "collection": {
+    "control_influence": false,
+    "candidate_action_is_input": false,
+    "identity_is_model_input": false,
+    "teacher_layers": [11, 13, 27],
+    "exclusive_create": true,
+    "require_all_features_finite": true,
+    "require_rows_equal_policy_calls": true,
+    "require_zero_collection_errors": true
+  },
+  "selection_boundary": {
+    "holdout_not_opened_before_model_and_threshold_freeze": true,
+    "historical_D9_not_used_for_training_calibration_or_selection": true,
+    "active_control_before_offline_gate": false
+  }
+}

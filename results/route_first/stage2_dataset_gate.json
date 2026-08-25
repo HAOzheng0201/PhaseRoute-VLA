@@ -1,0 +1,49 @@
+{
+  "schema_version": "phase-route-vla.route-first.stage2-dataset-gate.v1",
+  "date": "2026-08-25",
+  "status": "CPU_GATE_PASS_CROSS_TASK_PILOT_PENDING",
+  "scope": "teacher_shard_validation_exact_grid_aggregation_and_split_freeze",
+  "protocol": "configs/route_first_teacher_protocol.json",
+  "implementation": {
+    "strict_shard_loader": true,
+    "allow_pickle": false,
+    "payload_sha256_recomputed": true,
+    "file_sha256_recorded": true,
+    "episode_identity_parsed_and_checked": true,
+    "canonical_call_ordinals_required": true,
+    "duplicate_policy_calls_rejected": true,
+    "exact_task_by_episode_grid_required": true,
+    "aggregate_sorted_by_task_episode_call": true,
+    "exclusive_create": true
+  },
+  "real_smoke_shard_replay": {
+    "source": "runs/route_first_teacher_smoke/libero_10_20260825_170835/route_first_teacher_context.npz",
+    "source_rows": 35,
+    "aggregate_rows": 35,
+    "source_payload_sha256": "f2881e133fc61b580e11b1a3240a964da4f6eef008d7a93c776737e39606e329",
+    "aggregate_payload_sha256": "f2881e133fc61b580e11b1a3240a964da4f6eef008d7a93c776737e39606e329",
+    "exact_payload_preserved": true
+  },
+  "cpu_gate": {
+    "passed": 495,
+    "failed": 0,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "wall_seconds": 73.94
+  },
+  "cross_task_state0_pilot": {
+    "planned_physical_gpus": [4, 5, 6],
+    "planned_task_partitions": [[0, 3, 6, 9], [1, 4, 7], [2, 5, 8]],
+    "started": false,
+    "reason": "parallel external approval review stream disconnected",
+    "gpu_processes_started": 0,
+    "partial_run_directories_created": 0,
+    "workaround_used": false
+  },
+  "claim_boundary": {
+    "cross_task_teacher_data_collected": false,
+    "router_trained": false,
+    "active_control_run": false,
+    "D9_retest": false
+  }
+}
