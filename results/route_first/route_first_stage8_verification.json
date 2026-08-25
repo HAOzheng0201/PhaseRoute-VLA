@@ -1,0 +1,67 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage8-verification.v1",
+  "status": "PASS_ROUTE_FIRST_RUNTIME_INTEGRATION_OFFLINE_ONLY",
+  "scope": "implementation_unit_test_offline_replay_no_active_control",
+  "implementation": {
+    "runtime": {
+      "path": "a1/vla/dynamic_compute/route_first_runtime.py",
+      "sha256": "dc399b8c2df862289b956b8408de1f2c096811a8889ae65cfc700f3f64b8f679"
+    },
+    "controller": {
+      "path": "a1/vla/dynamic_compute/route_first_controller.py",
+      "sha256": "a419401c2bcda220ed6c5ccf9d82e7627a897b3bc1a9edbd6b29231c998b21d5"
+    },
+    "audit_script": {
+      "path": "scripts/audit_route_first_runtime.py",
+      "sha256": "2968baebd1b48d5db7635ab072ee849894c6932ea4a92d0268491d1bc34b0d46"
+    },
+    "tests": {
+      "path": "tests/dynamic_compute/test_route_first_runtime.py",
+      "sha256": "91849ea3cc5188ed594599f997fc503861f2e6d9621cb2edf565046dd7d5cedf"
+    }
+  },
+  "protected_code": {
+    "status": "UNCHANGED_EXACT_SHA256",
+    "files": {
+      "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+      "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+      "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd"
+    }
+  },
+  "negative_result": {
+    "attempt": "direct edits to D9-protected controller and LIBERO hooks",
+    "test_result": "517 passed, 1 failed",
+    "failed_gate": "test_d9b_protected_code_is_still_exact",
+    "resolution": "reverted exact bytes and implemented isolated subclass/runtime"
+  },
+  "final_tests": {
+    "targeted": "5 passed, 1 warning",
+    "dynamic_compute": "518 passed, 22 subtests passed, 3 warnings",
+    "active_rollout_executed": false
+  },
+  "offline_replay": {
+    "path": "results/route_first/route_first_stage8_runtime_replay.json",
+    "sha256": "004638e544b046618ada2e63e07dcf77b3b582b3472244facde40391cd0d4166",
+    "rows": 681,
+    "selected_layer_exact_matches": 681,
+    "selected_layer_counts": {
+      "11": 0,
+      "13": 67,
+      "27": 614
+    },
+    "route_first_fm_invocations": 681,
+    "candidate_first_teacher_fm_invocations": 4545,
+    "static_fm_invocation_reduction_fraction": 0.8501650165016501
+  },
+  "authorization": {
+    "runtime_integration_verified": true,
+    "active_control": false,
+    "generated_state_active_test": false,
+    "historical_D9_states40_to49": false
+  },
+  "claim_boundary": {
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false,
+    "formal_safety_guarantee": false
+  }
+}

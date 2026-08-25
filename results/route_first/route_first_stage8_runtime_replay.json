@@ -1,0 +1,68 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage8-runtime-replay.v1",
+  "status": "PASS_ROUTE_FIRST_RUNTIME_REPLAY_AND_SINGLE_FM_CONTRACT",
+  "created_at": "2026-08-26T00:20:03.973935+08:00",
+  "scope": "offline_replay_only_no_active_control",
+  "inputs": {
+    "aggregate": "runs/route_first_teacher_holdout_states10_11/aggregate_states10_11.npz",
+    "aggregate_file_sha256": "4948ae68b8b9eca77a2f0615ac6a8001f1eac9df4ae996a735b1288e443d2950",
+    "aggregate_payload_sha256": "fe0b60bfc6412be345f3b442b59ca02724c05c74f6e3414d6852bcdefe08ff98",
+    "rows": 681,
+    "episodes": 20,
+    "router": "runs/route_first_calibration_stage6/router_calibrated.npz",
+    "router_file_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+    "stage7_result": "results/route_first/route_first_stage7_holdout.json",
+    "stage7_result_sha256": "d9780a5e4765ee9a80165eb790b99b4e9e85fcb1ae6d34ae006ddb72ce48f258",
+    "stage7_scores": "runs/route_first_holdout_stage7/holdout_scores.npz",
+    "stage7_scores_sha256": "c6b8872a18ca44e7762f05cbef29967aea06cde5c9324da392d93d8398326a45"
+  },
+  "runtime_contract": {
+    "route_before_flow_matching": true,
+    "action_free_feature_dimension": 199,
+    "enabled_layers": [
+      13,
+      27
+    ],
+    "disabled_layers": [
+      11
+    ],
+    "fallback_layer": 27,
+    "flow_matching_calls_per_valid_policy_call": 1,
+    "threshold13": 0.9174261218080999,
+    "threshold_changed": false
+  },
+  "replay": {
+    "selected_layer_counts": {
+      "11": 0,
+      "13": 67,
+      "27": 614
+    },
+    "stage7_selected_layer_exact_matches": 681,
+    "stage7_selected_layer_total": 681,
+    "stage7_score_max_abs_error": 2.9693786873785655e-08,
+    "l11_selected_rows": 0
+  },
+  "static_compute_audit": {
+    "route_first_flow_matching_invocations": 681,
+    "candidate_first_teacher_flow_matching_invocations": 4545,
+    "flow_matching_invocation_reduction_fraction": 0.8501650165016501,
+    "route_first_decoder_blocks": 18130,
+    "full_l27_decoder_blocks": 19068,
+    "decoder_block_reduction_vs_full_l27_fraction": 0.04919236417033779,
+    "candidate_first_teacher_decoder_blocks": 17644,
+    "note": "Static invocation/block accounting only; no wall-clock speedup or closed-loop quality claim."
+  },
+  "authorization": {
+    "runtime_integration_verified": true,
+    "active_control_run": false,
+    "generated_state_active_test": false,
+    "historical_D9_states40_to49": false
+  },
+  "claim_boundary": {
+    "offline_replay_passed": true,
+    "single_fm_controller_contract_requires_unit_test": true,
+    "closed_loop_improvement_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false,
+    "formal_safety_guarantee": false
+  }
+}
