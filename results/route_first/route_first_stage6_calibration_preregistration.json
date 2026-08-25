@@ -1,0 +1,45 @@
+{
+  "schema_version": "phase-route-vla.route-first-calibration-preregistration.v1",
+  "status": "READY_TO_COLLECT_CALIBRATION_STATES_8_9",
+  "date": "2026-08-25",
+  "source_git_commit": "b3d1e3a",
+  "protocol": {
+    "path": "configs/route_first_calibration_protocol.json",
+    "sha256": "c1ab2aef44595d3d86b04684155a74302d2bb70b91bf01c1722f86d0790ce1d1"
+  },
+  "frozen_score_model": {
+    "path": "runs/route_first_router_stage5/router_uncalibrated.npz",
+    "sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+    "calibration_status": "UNSET"
+  },
+  "implementation_sha256": {
+    "a1/vla/dynamic_compute/route_first_calibration.py": "768a21fe0d689a71064d8d2f58a88fe36cf3c8b7904edac11c5348fbc61e8938",
+    "scripts/calibrate_route_first_router.py": "30418f49476348ef11d962b226d90ace46b4494996354e13a9349519f60402df",
+    "tests/dynamic_compute/test_route_first_calibration.py": "377924fa9bb5fccf83a3a7070d2eb40d01aae2d96e79f7ae3e61d86654cb7442"
+  },
+  "targeted_test_gate": {
+    "passed": 12,
+    "failed": 0,
+    "warnings": 1
+  },
+  "full_cpu_regression": {
+    "passed": 508,
+    "failed": 0,
+    "subtests_passed": 22,
+    "warnings": 3,
+    "wall_seconds": 73.45
+  },
+  "access_ledger": {
+    "calibration_state8_opened": false,
+    "confirmation_state9_opened": false,
+    "engineering_holdout_states10_to11_opened": false,
+    "historical_D9_states40_to49_opened": false,
+    "gpu_used": false,
+    "thresholds_selected": false
+  },
+  "claim_boundary": {
+    "engineering_thresholds_available": false,
+    "active_control_authorized": false,
+    "closed_loop_improvement_demonstrated": false
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "phase-route-vla.route-first-calibration-protocol.v1",
+  "seed": 20260825,
+  "frozen_score_model": {
+    "path": "runs/route_first_router_stage5/router_uncalibrated.npz",
+    "file_sha256": "38aaef193442a4b40e71b1d48bee42ffbe5f191cad64f99d20bd3f75df3ad3ae",
+    "training_result_sha256": "c73c475d47c7e82afb35c3bfa52ab58dd4eca8171fe77692a0c11f3b027d7a6d",
+    "stage5_verification_sha256": "7446a7cf81ca3167c5ef3a5ce9d650e98db273b45a36982ffeaa0c049b5c3293",
+    "calibration_status_required": "UNSET",
+    "selected_candidate": "pca64_l2_0.3"
+  },
+  "data": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "threshold_selection_episode_indices": [8],
+    "one_shot_confirmation_episode_indices": [9],
+    "engineering_holdout_episode_indices_not_opened": [10, 11],
+    "historical_D9_episode_indices_forbidden": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
+    "teacher": "frozen_phase_route_v3",
+    "control_influence": false,
+    "identity_is_model_input": false
+  },
+  "statistics": {
+    "episode_cells": "equal_total_weight",
+    "confidence_method": "one_sided_weighted_wilson_effective_sample_size",
+    "confidence_level": 0.9,
+    "threshold_candidates": "unique_observed_score_selecting_score_greater_than_or_equal",
+    "selection_objective": "maximum_group_equal_coverage_then_lower_false_safe_then_higher_threshold"
+  },
+  "threshold_selection": {
+    "safe11": {
+      "minimum_coverage": 0.005,
+      "maximum_coverage": 0.05,
+      "minimum_effective_selected_rows": 3.0,
+      "maximum_empirical_false_safe_rate": 0.25,
+      "maximum_false_safe_upper_bound": 0.65
+    },
+    "safe13": {
+      "minimum_coverage": 0.025,
+      "maximum_coverage": 0.15,
+      "minimum_effective_selected_rows": 10.0,
+      "maximum_empirical_false_safe_rate": 0.1,
+      "maximum_false_safe_upper_bound": 0.25
+    }
+  },
+  "one_shot_confirmation": {
+    "safe11": {
+      "minimum_coverage": 0.0025,
+      "minimum_effective_selected_rows": 3.0,
+      "maximum_empirical_false_safe_rate": 0.5,
+      "maximum_false_safe_upper_bound": 0.75
+    },
+    "safe13": {
+      "minimum_coverage": 0.015,
+      "minimum_effective_selected_rows": 8.0,
+      "maximum_empirical_false_safe_rate": 0.2,
+      "maximum_false_safe_upper_bound": 0.4
+    }
+  },
+  "fail_closed_policy": {
+    "selection_without_feasible_threshold_disables_head": true,
+    "confirmation_failure_disables_only_that_head": true,
+    "state9_may_not_change_a_threshold": true,
+    "safe13_confirmation_required_for_engineering_holdout": true,
+    "all_disabled_route": 27
+  },
+  "claim_boundary": {
+    "thresholds_are_engineering_not_formal_safety_guarantees": true,
+    "states8_to9_may_not_change_model_weights_or_hyperparameters": true,
+    "states10_to11_not_opened_before_calibration_artifact_freeze": true,
+    "historical_D9_not_used": true,
+    "active_control_not_authorized_by_offline_calibration_alone": true
+  }
+}
