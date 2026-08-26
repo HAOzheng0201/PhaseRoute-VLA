@@ -1,0 +1,85 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-preflight-result.v1",
+  "status": "PASS_PREFLIGHT_ON_GPU5_WAIT_ACTIVE_SMOKE_RESOURCE",
+  "date": "2026-08-26",
+  "git_commit": "eb9335f7cfcd13e43acd854a36c1f3f73d6da802",
+  "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
+  "attempts": [
+    {
+      "order": 1,
+      "physical_gpu_index": 6,
+      "stage9_preflight": {
+        "status": "FAIL",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu6_20260826_193439_681649614/stage9_preflight.json",
+        "sha256": "e79c75b04f06d0f401af2553f45a2eb28921195b289a6767cfb787125910ca11",
+        "simulator_episode_opened": false,
+        "no_external_compute_process": false,
+        "sufficient_free_memory_mib": false,
+        "observed_external_pid": 3787176
+      },
+      "v3_preflight_executed": false,
+      "active_arm_executed": false,
+      "interpretation": "An external process acquired GPU 6 after the initial read-only audit; the Stage-9 gate rejected the run."
+    },
+    {
+      "order": 2,
+      "physical_gpu_index": 5,
+      "stage9_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu5_20260826_193644_857437578/stage9_preflight.json",
+        "sha256": "e3b9b9b129ce3cef82bade635b98a51d1b9354f69e0d880d1a3159d4563de392",
+        "simulator_episode_opened": false,
+        "external_compute_processes": [],
+        "memory_used_before_mib": 20,
+        "memory_total_mib": 49140
+      },
+      "v3_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu5_20260826_193644_857437578/preflight.json",
+        "sha256": "e6a9c06d9438818ce825122ac20651dd683a1c8a38331b9387510300927b7316",
+        "visible_device_count": 1
+      },
+      "active_arm_executed": false,
+      "interpretation": "Both no-episode preflights passed. Before active launch, a new external process acquired GPU 5, so state 12 remained sealed."
+    },
+    {
+      "order": 3,
+      "physical_gpu_index": 7,
+      "stage9_preflight": {
+        "status": "FAIL",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu7_20260826_194205_211707681/stage9_preflight.json",
+        "sha256": "a3d6f702f73ee3918c846db43a99ead89bd0ed2da053849648b32a9be4a2c246",
+        "simulator_episode_opened": false,
+        "no_external_compute_process": false,
+        "sufficient_free_memory_mib": false,
+        "observed_external_pid": 4077382
+      },
+      "v3_preflight_executed": false,
+      "active_arm_executed": false,
+      "interpretation": "An external process acquired GPU 7 before the Stage-9 preflight sample; the gate rejected the run."
+    }
+  ],
+  "aggregate": {
+    "stage9_preflight_attempts": 3,
+    "stage9_preflight_passes": 1,
+    "stage9_preflight_contention_failures": 2,
+    "v3_preflight_passes": 1,
+    "simulator_episodes_opened": 0,
+    "candidate_first_arms_executed": 0,
+    "route_first_arms_executed": 0
+  },
+  "access_ledger": {
+    "state12_smoke_opened": false,
+    "state13_pilot_opened": false,
+    "active_control_executed_for_this_stage": false,
+    "historical_D9_states40_to49_opened_for_this_stage": false
+  },
+  "claim_boundary": {
+    "runner_and_artifacts_ready": true,
+    "no_episode_preflight_demonstrated": true,
+    "closed_loop_executability_demonstrated": false,
+    "wall_clock_speedup_demonstrated": false,
+    "deployment_authorized": false
+  },
+  "next_gate": "Wait for one GPU to remain contention-free through preflight and active model loading; then execute the frozen candidate-first task0/state12 arm exactly once."
+}

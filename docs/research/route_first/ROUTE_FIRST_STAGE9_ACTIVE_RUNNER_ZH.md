@@ -73,3 +73,15 @@ flowchart LR
 - Stage-1 动作与延迟测量逐调用完整。
 
 对应新增测试后，正式门禁更新为 527 passed、22 subtests passed、3 warnings。测试完成时 8 张 GPU 仍均有外部计算进程，因此没有运行 preflight，也没有打开 state 12。
+
+## Stage-9 首次 GPU preflight 结果
+
+在提交 `eb9335f` 的 clean worktree 上进行了三次 no-episode 尝试：
+
+1. GPU 6：初始只读检查为空闲，但外部调度器在 preflight 窗口内加载约 10 GB，Stage-9 门禁 FAIL；
+2. GPU 5：Stage-9 preflight 与 V3 preflight 均 PASS，协议、权重、UUID、CUDA、空闲显存和 D9 字节全部正确；
+3. GPU 7：外部调度器在 preflight 前加载约 22 GB，Stage-9 门禁 FAIL。
+
+GPU 5 的两套 preflight 通过后、主动启动前，该卡又被外部进程占用约 25 GB，因此没有复用已经失去“当前空闲”条件的结果。三次尝试均未创建 LIBERO 环境、未读取 state 12，也没有生成 `evaluation_summary.json` 或主动臂 attestation。state 12 与 state 13 继续保持未打开。
+
+该结果同时验证了竞争条件下的 fail-closed 行为：资源门禁失败不会退化成共享 GPU 上的低可信延迟实验，也不会用失败目录替换正式结果。
