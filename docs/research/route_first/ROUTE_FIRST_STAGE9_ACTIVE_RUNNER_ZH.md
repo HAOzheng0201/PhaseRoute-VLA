@@ -85,3 +85,14 @@ flowchart LR
 GPU 5 的两套 preflight 通过后、主动启动前，该卡又被外部进程占用约 25 GB，因此没有复用已经失去“当前空闲”条件的结果。三次尝试均未创建 LIBERO 环境、未读取 state 12，也没有生成 `evaluation_summary.json` 或主动臂 attestation。state 12 与 state 13 继续保持未打开。
 
 该结果同时验证了竞争条件下的 fail-closed 行为：资源门禁失败不会退化成共享 GPU 上的低可信延迟实验，也不会用失败目录替换正式结果。
+
+## Stage-9 后续 GPU 竞争复核
+
+在提交 `614ea12` 的 clean worktree 上又执行了两次严格相同的 candidate-first 第一臂启动：
+
+1. GPU 6 在只读审计时无计算 PID、仅占用 563 MiB；进入 Stage-9 preflight 前，外部 PID `2698411` 加载约 10 GiB，门禁 FAIL；
+2. GPU 4 随后恢复到 18 MiB、0% 利用率且无计算 PID；进入 preflight 前，外部 PID `2811685` 同样加载约 10 GiB，门禁 FAIL。
+
+两次失败均满足 `simulator_episode_opened=false`，没有运行 V3 preflight、没有生成主动臂 attestation，也没有读取 state 12。累计 6 次 Stage-9 preflight 中，1 次曾同时通过 Stage-9 与 V3 no-episode preflight，5 次因共享 GPU 竞争被拒绝；candidate-first 与 route-first 主动臂执行次数仍均为 0。
+
+这进一步定位出当前阻塞是“初始 GPU 审计到 preflight 采样之间被外部调度器抢占”的资源竞争，而不是协议、backbone、CUDA smoke、保护文件或 frozen artifact 验证失败。在没有独占卡或能够与外部调度器协调的资源租约前，不通过降低 40 GiB 门槛、允许共享 PID 或修改预注册实验来绕过该问题。

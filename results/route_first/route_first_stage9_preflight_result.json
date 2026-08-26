@@ -74,12 +74,50 @@
       "v3_preflight_executed": false,
       "active_arm_executed": false,
       "interpretation": "The external batch scheduler again acquired GPU 6 during the preflight window; the gate rejected the run before state access."
+    },
+    {
+      "order": 5,
+      "physical_gpu_index": 6,
+      "git_commit": "614ea12abaa48fcc7fc78022050c997668ba6212",
+      "stage9_preflight": {
+        "status": "FAIL",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu6_20260826_205557_654514215/stage9_preflight.json",
+        "sha256": "930264cbc574fae947829f9f7abc516b34cf94051a74697d2e2c75950c7a35dd",
+        "simulator_episode_opened": false,
+        "no_external_compute_process": false,
+        "sufficient_free_memory_mib": false,
+        "memory_used_before_mib": 10008,
+        "memory_used_after_cuda_smoke_mib": 10543,
+        "observed_external_pid": 2698411
+      },
+      "v3_preflight_executed": false,
+      "active_arm_executed": false,
+      "interpretation": "GPU 6 was idle in the launcher audit, but an external process acquired about 10 GiB before the Stage-9 preflight sample; the episode remained sealed."
+    },
+    {
+      "order": 6,
+      "physical_gpu_index": 4,
+      "git_commit": "614ea12abaa48fcc7fc78022050c997668ba6212",
+      "stage9_preflight": {
+        "status": "FAIL",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260826_205824_301219124/stage9_preflight.json",
+        "sha256": "cd6d4746f2be7c1e8ca9bad87343e1cb1c9d420d5992f6f3ac9e1a69ac4973c2",
+        "simulator_episode_opened": false,
+        "no_external_compute_process": false,
+        "sufficient_free_memory_mib": false,
+        "memory_used_before_mib": 10008,
+        "memory_used_after_cuda_smoke_mib": 10543,
+        "observed_external_pid": 2811685
+      },
+      "v3_preflight_executed": false,
+      "active_arm_executed": false,
+      "interpretation": "GPU 4 became idle after attempt 5, but the same external scheduler race occurred before the preflight sample; no simulator episode was opened."
     }
   ],
   "aggregate": {
-    "stage9_preflight_attempts": 4,
+    "stage9_preflight_attempts": 6,
     "stage9_preflight_passes": 1,
-    "stage9_preflight_contention_failures": 3,
+    "stage9_preflight_contention_failures": 5,
     "v3_preflight_passes": 1,
     "simulator_episodes_opened": 0,
     "candidate_first_arms_executed": 0,
