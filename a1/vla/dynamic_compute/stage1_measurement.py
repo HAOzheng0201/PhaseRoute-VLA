@@ -139,6 +139,15 @@ class _TimedRouterProxy:
         finally:
             self.probe._safe_append("router_predict", _elapsed_ms(started_ns))
 
+    def probabilities(self, *args: Any, **kwargs: Any) -> Any:
+        """Time the route-first affine router without changing its interface."""
+
+        started_ns = time.perf_counter_ns()
+        try:
+            return self.target.probabilities(*args, **kwargs)
+        finally:
+            self.probe._safe_append("router_predict", _elapsed_ms(started_ns))
+
 
 class Stage1RuntimeProbe:
     """Install a timing-only overlay on one frozen ActivePhaseRouteRuntime."""
@@ -221,13 +230,21 @@ class Stage1RuntimeProbe:
 
         adapter = self.runtime.adapter
         self._wrap_method(adapter, "begin_policy_call", "adapter_begin")
-        self._wrap_method(
-            adapter,
-            "consider_candidate",
-            "candidate_route",
-            self._candidate_metadata,
-        )
-        self._wrap_method(adapter, "select_fallback", "fallback_route")
+        if bool(getattr(adapter, "route_first", False)):
+            self._wrap_method(
+                adapter,
+                "select_action",
+                "selected_action_route",
+                self._candidate_metadata,
+            )
+        else:
+            self._wrap_method(
+                adapter,
+                "consider_candidate",
+                "candidate_route",
+                self._candidate_metadata,
+            )
+            self._wrap_method(adapter, "select_fallback", "fallback_route")
 
         phase_forward = self.runtime.phase_estimator.forward
 

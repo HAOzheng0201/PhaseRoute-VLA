@@ -19,6 +19,7 @@ from a1.vla.dynamic_compute.route_first_runtime import (
     load_route_first_active_runtime,
     route_first_target_layers,
 )
+from a1.vla.dynamic_compute.stage1_measurement import Stage1RuntimeProbe
 from a1.vla.dynamic_compute.v3.active_runtime import ActiveRuntimeArtifacts
 from a1.vla.value_net import ActionValueNet
 
@@ -246,3 +247,52 @@ def test_repository_stage6_stage7_loader_binds_exact_evidence() -> None:
     assert runtime.adapter.enabled11 is False
     assert runtime.adapter.enabled13 is True
     assert runtime.adapter.target_layer == 27
+
+
+def test_stage1_probe_supports_route_first_probabilities_and_selected_action() -> None:
+    runtime = load_route_first_active_runtime(
+        REPO_ROOT / "runs/route_first_calibration_stage6/router_calibrated.npz",
+        REPO_ROOT / "results/route_first/route_first_stage7_holdout.json",
+        REPO_ROOT / "artifacts/phase_route_v3/final_router.pt",
+        REPO_ROOT / "artifacts/phase_route_v3/phase_estimator.pt",
+    )
+    episode_id = "route-first:task0:episode12"
+    context = {
+        "episode_id": episode_id,
+        "call_ordinal": 0,
+        "step_id": 10,
+        "task_id": 0,
+    }
+    runtime.start_episode(episode_id)
+    probe = Stage1RuntimeProbe(runtime)
+    probe.start_call(context)
+    assert runtime.begin_policy_call(
+        context=context,
+        instruction_summary=torch.zeros(1, 3584),
+        normalized_proprio=np.zeros(8, dtype=np.float32),
+    )
+    positions = torch.arange(720).reshape(1, 5, 144)
+    positions[:, 4] = -1
+    assert runtime.capture_visual_features(
+        {
+            "projected_features": torch.zeros(1, 5, 144, 3584),
+            "image_input_idx": positions,
+        }
+    )
+    assert runtime.prepare_policy_call()
+    layer = runtime.adapter.target_layer
+    action = torch.zeros(1, 8, 7, dtype=torch.bfloat16)
+    decision = runtime.adapter.select_action(
+        layer,
+        action,
+        fm_calls=1,
+        telemetry_callback=runtime.record_route_event,
+    )
+    assert decision.selected_action is action
+    assert runtime.commit_selected_action(action)
+    measured = probe.finish_call()
+
+    assert runtime.records[-1]["selected_layer"] == layer
+    assert "router_predict" in measured["components"]
+    assert measured["components"]["selected_action_route"][0]["layer"] == layer
+    assert measured["components"]["selected_action_route"][0]["should_exit"] is True

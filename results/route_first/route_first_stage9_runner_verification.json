@@ -1,0 +1,98 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-runner-verification.v1",
+  "status": "PASS_STAGE9_ACTIVE_RUNNER_READY_FOR_NO_EPISODE_PREFLIGHT",
+  "date": "2026-08-26",
+  "implementation_parent_commit": "af99af9",
+  "protocol": {
+    "path": "configs/route_first_active_pilot_protocol.json",
+    "sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d"
+  },
+  "implemented_files": {
+    "protocol_gate": {
+      "path": "a1/vla/dynamic_compute/route_first_active_protocol.py",
+      "sha256": "a6ddbfdc963d5b922cfbea99715116fb87c71d0cd1f17f23b8d85b1c59f18c4b"
+    },
+    "active_runner": {
+      "path": "scripts/run_route_first_active.py",
+      "sha256": "43c9782ac3cdf5abe52d6fe7b4292ea7b11801c4ef09978585390f44e4823304"
+    },
+    "state12_launcher": {
+      "path": "scripts/run_libero_route_first_active.sh",
+      "sha256": "55ff22e9e2c70c68288e34f7b61e413231b5ee83486c25b017d7095c3c53c6bc"
+    },
+    "no_episode_preflight": {
+      "path": "scripts/validate_route_first_active_preflight.py",
+      "sha256": "24d8b837da1e9977388a47dc90a32ce6c13fc9f1b463454446cf4a10a3ee6ac5"
+    },
+    "run_validator": {
+      "path": "scripts/validate_route_first_active_run.py",
+      "sha256": "13438f2b69ac118f1b0226d7e52822600b7a73ad3afe52ad660d46892910e1e1"
+    },
+    "measurement_probe": {
+      "path": "a1/vla/dynamic_compute/stage1_measurement.py",
+      "sha256": "03cf6070dbbd9ec35daec7b7c466d239839b187aae92051b54a733a59dc8015b"
+    },
+    "measurement_overlay": {
+      "path": "robot_experiments/libero/stage1_vla_utils.py",
+      "sha256": "b45cad88585611a16cc92229becdfd6a2466e3fb0f859302846ae29dbff815a4"
+    }
+  },
+  "verification": {
+    "targeted_contract_tests": {
+      "status": "PASS",
+      "passed": 15,
+      "warnings": 1
+    },
+    "formal_tests_directory_gate": {
+      "status": "PASS",
+      "passed": 524,
+      "subtests_passed": 22,
+      "warnings": 3,
+      "duration_seconds": 73.62
+    },
+    "python_compile": "PASS",
+    "shell_syntax": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "negative_results": [
+    {
+      "scope": "pytest_repository_root_collection",
+      "status": "BLOCKED_BY_PREEXISTING_EXAMPLE",
+      "cause": "a1/data/vla/test_dataloader.py passes the obsolete rlds_dataset_name argument to DataConfig during collection",
+      "impact_on_stage9": "none; the maintained tests/ gate completed and passed",
+      "modified_for_this_stage": false
+    },
+    {
+      "scope": "runner_help_without_bound_cuda_environment",
+      "status": "EXPECTED_IMPORT_FAILURE",
+      "cause": "LIBERO EGL imports require the launcher-provided UUID-bound CUDA/EGL environment",
+      "impact_on_stage9": "none; the active launcher establishes the required environment before invoking the runner",
+      "modified_for_this_stage": false
+    }
+  ],
+  "protected_evidence": {
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+    "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd",
+    "a1/vla/dynamic_compute/route_first_runtime.py": "dc399b8c2df862289b956b8408de1f2c096811a8889ae65cfc700f3f64b8f679",
+    "a1/vla/dynamic_compute/route_first_controller.py": "a419401c2bcda220ed6c5ccf9d82e7627a897b3bc1a9edbd6b29231c998b21d5"
+  },
+  "gates": {
+    "state12_opened": false,
+    "state13_opened": false,
+    "active_control_executed": false,
+    "l11_enabled": false,
+    "threshold_moved": false,
+    "router_refit": false,
+    "runner_requires_one_physical_gpu": true,
+    "runner_requires_one_fm_per_valid_call": true,
+    "runner_requires_finite_action_audit": true,
+    "state13_launcher_closed": true
+  },
+  "authorization": {
+    "no_episode_preflight": true,
+    "state12_smoke": false,
+    "state13_pilot": false,
+    "deployment": false
+  }
+}

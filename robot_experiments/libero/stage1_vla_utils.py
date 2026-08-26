@@ -213,7 +213,18 @@ def get_vla_action(
                 "mode": (
                     f"fixed_l{fixed_layer}"
                     if fixed_layer is not None
-                    else ("phase_route_v3" if runtime is not None else "original_a1")
+                    else (
+                        "route_first_stage8"
+                        if runtime is not None
+                        and bool(
+                            getattr(
+                                getattr(runtime, "adapter", None),
+                                "route_first",
+                                False,
+                            )
+                        )
+                        else ("phase_route_v3" if runtime is not None else "original_a1")
+                    )
                 ),
                 **probe_record,
                 "selected_layer": selected_layer,
