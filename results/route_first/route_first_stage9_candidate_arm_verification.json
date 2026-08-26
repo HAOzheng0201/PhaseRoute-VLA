@@ -1,0 +1,71 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-candidate-arm-verification.v1",
+  "status": "PASS_CANDIDATE_FIRST_ARM_READY_FOR_NO_EPISODE_PREFLIGHT",
+  "date": "2026-08-26",
+  "implementation_parent_commit": "31193687c736ef1c34dc505935a1bdfca01e3958",
+  "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
+  "files": {
+    "launcher": {
+      "path": "scripts/run_libero_route_first_stage9_candidate.sh",
+      "sha256": "6780c1d197fa678d5db7cdd06b7480869b95dc7d811268e80774c16544b61745"
+    },
+    "validator": {
+      "path": "scripts/validate_route_first_stage9_candidate_arm.py",
+      "sha256": "0dc208bcc0163ccf766325c20eb845444ac56fd9b00f38bf04fcdba604c45076"
+    },
+    "tests": {
+      "path": "tests/dynamic_compute/test_route_first_stage9_candidate_arm.py",
+      "sha256": "75803a0b74fd6b1e183803b6dfb26c83bb0e52b7dd5dd4dc5eb37b0d8dd5df34"
+    }
+  },
+  "verification": {
+    "targeted_tests": {
+      "status": "PASS",
+      "passed": 9,
+      "warnings": 1
+    },
+    "formal_tests_directory_gate": {
+      "status": "PASS",
+      "passed": 527,
+      "subtests_passed": 22,
+      "warnings": 3,
+      "duration_seconds": 106.69
+    },
+    "python_compile": "PASS",
+    "shell_syntax": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "candidate_arm_contract": {
+    "method": "candidate_first_v3",
+    "task_ids": [0],
+    "episode_indices": [12],
+    "seed_base": 20260826,
+    "arm_position": 1,
+    "stage1_measurement_required": true,
+    "stage9_preflight_required": true,
+    "v3_preflight_required": true,
+    "state13_allowed": false
+  },
+  "protected_evidence": {
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+    "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd"
+  },
+  "gpu_availability_at_verification": {
+    "status": "WAIT_NO_ELIGIBLE_GPU",
+    "eligible_gpu_count": 0,
+    "reason": "all eight GPUs had external compute processes or less than 40000 MiB free"
+  },
+  "access_ledger": {
+    "state12_opened": false,
+    "state13_opened": false,
+    "active_control_executed": false
+  },
+  "authorization": {
+    "no_episode_preflight": true,
+    "candidate_first_state12_arm": false,
+    "route_first_state12_arm": false,
+    "state13_pilot": false,
+    "deployment": false
+  }
+}

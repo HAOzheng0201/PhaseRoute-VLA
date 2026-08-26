@@ -58,3 +58,18 @@ flowchart LR
 6. 两臂 runtime、动作与测量门禁都通过后，另行生成 paired smoke 汇总；在此之前 state 13 保持关闭。
 
 这些结果只支持工程可执行性判断，不构成最终闭环提升、wall-clock 加速或部署结论。
+
+## Candidate-first 第一臂补充封装
+
+在正式打开 state 12 前，进一步新增了 `run_libero_route_first_stage9_candidate.sh` 和 `validate_route_first_stage9_candidate_arm.py`。原因是通用 V3 runner 只保证“可运行的非 D9 state”，不会单独证明它属于 Stage-9 预注册 smoke。
+
+新的第一臂封装同时要求：
+
+- Stage-9 no-episode preflight 与通用 V3 preflight 均为 PASS；
+- 两份 preflight 绑定同一物理 GPU UUID；
+- task/state/seed 精确为 0/12/20260826；
+- candidate-first 是第一臂；
+- runtime prepared/committed/policy calls 完全一致且无错误；
+- Stage-1 动作与延迟测量逐调用完整。
+
+对应新增测试后，正式门禁更新为 527 passed、22 subtests passed、3 warnings。测试完成时 8 张 GPU 仍均有外部计算进程，因此没有运行 preflight，也没有打开 state 12。
