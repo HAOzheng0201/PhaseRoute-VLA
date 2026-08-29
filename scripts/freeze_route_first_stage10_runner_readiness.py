@@ -65,7 +65,7 @@ EXPECTED_ARTIFACTS = {
     },
     "model/libero_exit/config.yaml": {
         "bytes": 8_369,
-        "sha256": "9365d0a6ca6379a7787aaf46e170a7945f084c359560463edc14726965b04ca",
+        "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
         "rehash_each_preflight": True,
     },
     "model/libero_exit/dataset_statistics.json": {

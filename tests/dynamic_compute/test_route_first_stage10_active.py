@@ -302,6 +302,18 @@ def test_protected_historical_code_is_still_byte_exact() -> None:
     } == PROTECTED_CODE_SHA256
 
 
+def test_readiness_artifact_sha_constants_are_well_formed() -> None:
+    from scripts.freeze_route_first_stage10_runner_readiness import (
+        EXPECTED_ARTIFACTS,
+    )
+
+    assert all(
+        len(item["sha256"]) == 64
+        and set(item["sha256"]).issubset(set("0123456789abcdef"))
+        for item in EXPECTED_ARTIFACTS.values()
+    )
+
+
 def test_runner_never_reads_official_init_states_and_loads_payload_safely() -> None:
     runner = (REPO_ROOT / "scripts/run_route_first_stage10_arm.py").read_text(
         encoding="utf-8"
