@@ -45,6 +45,23 @@ STATE_PAYLOAD_SCHEMA = "phase-route-vla.route-first-stage10-state-payload.v1"
 STATE_ATTESTATION_SCHEMA = (
     "phase-route-vla.route-first-stage10-state-attestation.v1"
 )
+STATE_RESULT_SCHEMA = "phase-route-vla.route-first-stage10-fresh-state-result.v1"
+STATE_RESULT_RELATIVE_PATH = Path(
+    "results/route_first/route_first_stage10_fresh_states.json"
+)
+STATE_RESULT_SHA256 = (
+    "4fa648bbeba2b91765517c31fb24ca3226fbd05cbdc051d901b6b06d8880861c"
+)
+STATE_BINDING_SCHEMA = (
+    "phase-route-vla.route-first-stage10-fresh-state-binding.v1"
+)
+STATE_BINDING_STATUS = "FROZEN_STATE_PAYLOAD_BOUND_ACTIVE_RUNNER_NOT_VALIDATED"
+STATE_BINDING_RELATIVE_PATH = Path(
+    "configs/route_first_stage10_fresh_state_binding.json"
+)
+STATE_BINDING_SHA256 = (
+    "e21d3536a8b93b627a7caec8f8c0d297fd13c2d10b6f069b5e6a7a70feb4ade3"
+)
 
 ARM_ORDERS = (
     ("original_a1", "candidate_first_v3", "route_first_stage8"),
@@ -257,6 +274,107 @@ def load_schedule(repo_root: str | Path) -> tuple[FreshTripletSpec, ...]:
     return specs
 
 
+def load_state_binding(repo_root: str | Path) -> dict[str, Any]:
+    """Load the tracked binding without opening the ignored state artifacts."""
+
+    root = Path(repo_root).resolve(strict=True)
+    load_schedule(root)
+    binding_path = root / STATE_BINDING_RELATIVE_PATH
+    result_path = root / STATE_RESULT_RELATIVE_PATH
+    if sha256_file(binding_path) != STATE_BINDING_SHA256:
+        raise PermissionError("Stage 10 state binding SHA-256 differs")
+    if sha256_file(result_path) != STATE_RESULT_SHA256:
+        raise PermissionError("Stage 10 fresh-state result SHA-256 differs")
+    binding = _object(binding_path)
+    result = _object(result_path)
+    bound_result = binding.get("tracked_result", {})
+    bound_protocol = binding.get("protocol", {})
+    bound_schedule = binding.get("schedule", {})
+    bound_attestation = binding.get("local_state_attestation", {})
+    bound_payload = binding.get("local_state_payload", {})
+    local_artifacts = result.get("local_ignored_artifacts", {})
+    authorization = binding.get("authorization", {})
+    if (
+        binding.get("schema_version") != STATE_BINDING_SCHEMA
+        or binding.get("status") != STATE_BINDING_STATUS
+        or binding.get("suite") != "libero_10"
+        or bound_protocol.get("sha256") != PROTOCOL_SHA256
+        or bound_schedule.get("sha256") != SCHEDULE_SHA256
+        or bound_result.get("path") != str(STATE_RESULT_RELATIVE_PATH)
+        or bound_result.get("sha256") != STATE_RESULT_SHA256
+        or result.get("schema_version") != STATE_RESULT_SCHEMA
+        or result.get("status")
+        != "PASS_ROUTE_FIRST_STAGE10_FRESH_STATES_FROZEN"
+        or result.get("source_generation_commit")
+        != binding.get("source_generation_commit")
+        or local_artifacts.get("state_attestation_path")
+        != bound_attestation.get("path")
+        or local_artifacts.get("state_attestation_sha256")
+        != bound_attestation.get("sha256")
+        or local_artifacts.get("state_payload_path") != bound_payload.get("path")
+        or local_artifacts.get("state_payload_sha256")
+        != bound_payload.get("sha256")
+        or local_artifacts.get("state_payload_bytes") != bound_payload.get("bytes")
+        or bound_payload.get("records") != TRIPLET_COUNT
+        or authorization.get("on_binding_validation_pass")
+        != "ACTIVE_RUNNER_IMPLEMENTATION_AND_CPU_CONTRACT_TESTS"
+        or authorization.get("active_rollout_requires_separate_clean_runner_commit")
+        is not True
+        or authorization.get("active_rollout_started") is not False
+    ):
+        raise PermissionError("Stage 10 state binding semantics differ")
+    return binding
+
+
+def validate_local_state_artifacts(repo_root: str | Path) -> dict[str, Any]:
+    """Validate exact ignored attestation/payload bytes without deserializing state."""
+
+    root = Path(repo_root).resolve(strict=True)
+    binding = load_state_binding(root)
+    attestation_binding = binding["local_state_attestation"]
+    payload_binding = binding["local_state_payload"]
+    attestation_path = (root / attestation_binding["path"]).resolve(strict=True)
+    payload_path = (root / payload_binding["path"]).resolve(strict=True)
+    if root not in attestation_path.parents or root not in payload_path.parents:
+        raise PermissionError("Stage 10 local artifact escaped repository root")
+    if (
+        sha256_file(attestation_path) != attestation_binding["sha256"]
+        or sha256_file(payload_path) != payload_binding["sha256"]
+        or payload_path.stat().st_size != payload_binding["bytes"]
+    ):
+        raise PermissionError("Stage 10 local state artifact SHA or size differs")
+    attestation = _object(attestation_path)
+    audit = attestation.get("audit", {})
+    access = attestation.get("access_ledger", {})
+    if (
+        attestation.get("schema_version") != STATE_ATTESTATION_SCHEMA
+        or attestation.get("status")
+        != "PASS_ROUTE_FIRST_STAGE10_FRESH_STATES_FROZEN"
+        or attestation.get("source_git_commit")
+        != binding.get("source_generation_commit")
+        or attestation.get("source_worktree_dirty") is not False
+        or attestation.get("payload_sha256") != payload_binding["sha256"]
+        or attestation.get("payload_bytes") != payload_binding["bytes"]
+        or audit.get("records") != TRIPLET_COUNT
+        or audit.get("passes") != len(STATE_PASSES)
+        or audit.get("byte_identical_records") != TRIPLET_COUNT
+        or audit.get("initially_solved_records") != 0
+        or access.get("model_checkpoint_loaded") is not False
+        or access.get("policy_action_sampled") is not False
+        or access.get("official_states_0_to_49_opened") is not False
+        or access.get("V3_D8_or_D10_states_reused") is not False
+        or access.get("gpu_query_or_initialization") != 0
+        or access.get("active_control") is not False
+    ):
+        raise PermissionError("Stage 10 local state attestation semantics differ")
+    return {
+        "binding": binding,
+        "attestation": attestation,
+        "attestation_path": attestation_path,
+        "payload_path": payload_path,
+    }
+
+
 def validate_two_pass_states(
     specs: Sequence[FreshTripletSpec],
     pass1: Sequence[FreshStateEvidence],
@@ -337,9 +455,16 @@ __all__ = [
     "REPLICATE_IDS",
     "SCHEDULE_SHA256",
     "STATE_ATTESTATION_SCHEMA",
+    "STATE_BINDING_RELATIVE_PATH",
+    "STATE_BINDING_SHA256",
+    "STATE_BINDING_SCHEMA",
+    "STATE_BINDING_STATUS",
     "STATE_PASSES",
     "STATE_PAYLOAD_SCHEMA",
     "STATE_RECORD_SCHEMA",
+    "STATE_RESULT_RELATIVE_PATH",
+    "STATE_RESULT_SHA256",
+    "STATE_RESULT_SCHEMA",
     "STATE_SEED_BASE",
     "Stage10ContractError",
     "TASK_IDS",
@@ -347,7 +472,9 @@ __all__ = [
     "canonical_state_bytes",
     "load_protocol",
     "load_schedule",
+    "load_state_binding",
     "sha256_file",
     "validate_two_pass_states",
     "validate_generation_record_manifest",
+    "validate_local_state_artifacts",
 ]

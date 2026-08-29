@@ -1,0 +1,45 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-fresh-state-binding.v1",
+  "binding_id": "route-first-stage10-fresh-state-binding-20260829-v1",
+  "status": "FROZEN_STATE_PAYLOAD_BOUND_ACTIVE_RUNNER_NOT_VALIDATED",
+  "suite": "libero_10",
+  "source_generation_commit": "9acdadad0672dfbaec9697e4025147fc991b3243",
+  "protocol": {
+    "path": "configs/route_first_stage10_fresh_confirmation_protocol.json",
+    "sha256": "62f5be1524676cd2db045de32964ff3206a455d5fd8e8b29eb10e134521bc604"
+  },
+  "schedule": {
+    "path": "configs/route_first_stage10_fresh_schedule.json",
+    "sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4"
+  },
+  "tracked_result": {
+    "path": "results/route_first/route_first_stage10_fresh_states.json",
+    "sha256": "4fa648bbeba2b91765517c31fb24ca3226fbd05cbdc051d901b6b06d8880861c"
+  },
+  "local_state_attestation": {
+    "path": "runs/route_first_stage10_states/state_attestation.json",
+    "sha256": "c8915722c1e7a6f05772d1d949cfcb8f24bfa4c93d3c70c2b63f0daff348a5ab"
+  },
+  "local_state_payload": {
+    "path": "runs/route_first_stage10_states/fresh_states.pt",
+    "sha256": "a757248882334724fd29d29e5d4535d08f0424b4f9c47abee69131f93e84ad4a",
+    "bytes": 60714,
+    "records": 60
+  },
+  "integrity_requirements": {
+    "tracked_result_sha_exact": true,
+    "local_attestation_sha_exact": true,
+    "local_payload_sha_exact": true,
+    "payload_size_exact": true,
+    "payload_record_count_exact": true,
+    "source_generation_commit_exact": true,
+    "state_sha_per_record_must_match_attestation": true,
+    "manual_state_replacement_allowed": false
+  },
+  "authorization": {
+    "on_binding_validation_pass": "ACTIVE_RUNNER_IMPLEMENTATION_AND_CPU_CONTRACT_TESTS",
+    "active_rollout_requires_separate_clean_runner_commit": true,
+    "active_rollout_started": false,
+    "deployment_authorized": false
+  }
+}

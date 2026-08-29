@@ -14,6 +14,8 @@ from a1.vla.dynamic_compute.route_first_stage10 import (
     PROTOCOL_RELATIVE_PATH,
     REPLICATE_IDS,
     SCHEDULE_RELATIVE_PATH,
+    STATE_BINDING_RELATIVE_PATH,
+    STATE_RESULT_RELATIVE_PATH,
     STAGE9_RESULT_RELATIVE_PATH,
     TASK_IDS,
     TRIPLET_COUNT,
@@ -21,6 +23,7 @@ from a1.vla.dynamic_compute.route_first_stage10 import (
     canonical_state_bytes,
     load_protocol,
     load_schedule,
+    load_state_binding,
     validate_two_pass_states,
     validate_generation_record_manifest,
 )
@@ -145,3 +148,32 @@ def test_stage10_state_bytes_are_canonical_and_fail_closed() -> None:
         canonical_state_bytes(np.array([1.0], dtype=np.float32))
     with pytest.raises(Stage10ContractError, match="finite nonempty float64"):
         canonical_state_bytes(np.array([float("nan")], dtype=np.float64))
+
+
+def test_stage10_tracked_state_binding_is_exact() -> None:
+    binding = load_state_binding(REPO_ROOT)
+    assert binding["local_state_payload"]["records"] == 60
+    assert binding["local_state_payload"]["bytes"] == 60714
+    assert binding["authorization"]["active_rollout_started"] is False
+
+
+def test_stage10_state_binding_hash_drift_fails_closed(tmp_path: Path) -> None:
+    for relative in (
+        PROTOCOL_RELATIVE_PATH,
+        SCHEDULE_RELATIVE_PATH,
+        STAGE9_RESULT_RELATIVE_PATH,
+        STATE_BINDING_RELATIVE_PATH,
+        STATE_RESULT_RELATIVE_PATH,
+    ):
+        target = tmp_path / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(REPO_ROOT / relative, target)
+    binding_path = tmp_path / STATE_BINDING_RELATIVE_PATH
+    binding_path.write_text(
+        binding_path.read_text(encoding="utf-8").replace(
+            '"bytes": 60714', '"bytes": 60715'
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(PermissionError, match="state binding SHA-256"):
+        load_state_binding(tmp_path)

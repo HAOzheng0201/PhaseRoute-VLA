@@ -1,0 +1,61 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-fresh-state-result.v1",
+  "status": "PASS_ROUTE_FIRST_STAGE10_FRESH_STATES_FROZEN",
+  "timestamp_utc": "2026-08-29T05:56:18.273+00:00",
+  "suite": "libero_10",
+  "source_generation_commit": "9acdadad0672dfbaec9697e4025147fc991b3243",
+  "frozen_inputs": {
+    "protocol_sha256": "62f5be1524676cd2db045de32964ff3206a455d5fd8e8b29eb10e134521bc604",
+    "schedule_sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4"
+  },
+  "local_ignored_artifacts": {
+    "generation_result_path": "runs/route_first_stage10_state_records/result.json",
+    "generation_result_sha256": "30066ff0c0c3d8ddedc77c24a456165304c682df8947cb66305b3dbc535862e9",
+    "state_attestation_path": "runs/route_first_stage10_states/state_attestation.json",
+    "state_attestation_sha256": "c8915722c1e7a6f05772d1d949cfcb8f24bfa4c93d3c70c2b63f0daff348a5ab",
+    "state_payload_path": "runs/route_first_stage10_states/fresh_states.pt",
+    "state_payload_sha256": "a757248882334724fd29d29e5d4535d08f0424b4f9c47abee69131f93e84ad4a",
+    "state_payload_bytes": 60714
+  },
+  "audit": {
+    "scheduled_triplets": 60,
+    "generation_processes": 120,
+    "determinism_passes": 2,
+    "byte_identical_records": 60,
+    "initially_solved_records": 0,
+    "unique_states_per_task": 6,
+    "state_dimensions_per_task": {
+      "0": 123,
+      "1": 123,
+      "2": 47,
+      "3": 51,
+      "4": 84,
+      "5": 45,
+      "6": 71,
+      "7": 84,
+      "8": 47,
+      "9": 47
+    }
+  },
+  "access_ledger": {
+    "fresh_states_generated": 60,
+    "determinism_audit_regenerations": 60,
+    "model_checkpoint_loaded": false,
+    "policy_action_sampled": false,
+    "official_states_0_to_49_opened": false,
+    "V3_D8_or_D10_states_reused": false,
+    "gpu_query_or_initialization": 0,
+    "active_rollouts_started": false
+  },
+  "authorization": {
+    "next_stage": "BIND_EXACT_ARTIFACT_SHA_AND_IMPLEMENT_ACTIVE_RUNNER",
+    "active_control_authorized_by_this_result_alone": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "generated_states_are_official_fixed_benchmark_states": false,
+    "policy_or_task_success_evaluated": false,
+    "fresh_active_confirmation_complete": false,
+    "superiority_claim_authorized": false
+  }
+}
