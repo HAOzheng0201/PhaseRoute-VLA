@@ -1,0 +1,269 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-runner-readiness.v1",
+  "status": "PASS_ROUTE_FIRST_STAGE10_RUNNER_READINESS",
+  "timestamp_utc": "2026-08-29T12:01:31.424+00:00",
+  "source_git_commit": "17acf66977742aafbf2b9b38394a19762a6f5c21",
+  "source_worktree_dirty": false,
+  "protocol_sha256": "62f5be1524676cd2db045de32964ff3206a455d5fd8e8b29eb10e134521bc604",
+  "schedule_sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4",
+  "bound_code_sha256": {
+    "a1/vla/dynamic_compute/route_first_stage10.py": "95479e637a7964422fbe9c344995d7892422574bac001cfebb7b2ea05527cc3e",
+    "a1/vla/dynamic_compute/route_first_stage10_active.py": "7a54d59043f6d305ef31fd19b1893e129b837d5f48dc72a06b9d141a5605cce6",
+    "a1/vla/dynamic_compute/route_first_controller.py": "a419401c2bcda220ed6c5ccf9d82e7627a897b3bc1a9edbd6b29231c998b21d5",
+    "a1/vla/dynamic_compute/route_first_runtime.py": "dc399b8c2df862289b956b8408de1f2c096811a8889ae65cfc700f3f64b8f679",
+    "a1/vla/dynamic_compute/productive_exit.py": "29e866432a4e0459acfc8a4fe8e02814afa1faca96500d775ec6a785a784e48f",
+    "a1/vla/dynamic_compute/stage1_measurement.py": "03cf6070dbbd9ec35daec7b7c466d239839b187aae92051b54a733a59dc8015b",
+    "a1/vla/dynamic_compute/telemetry.py": "2f88e8a3d36e2e308ecc378bdb6f63d99149f355f5d010bd954d7ced578a34c1",
+    "a1/vla/dynamic_compute/v3/active_runtime.py": "c58eb90396c05b4c72af6a0694a1aa3ebe13100c6c93b71f181eca3f74786258",
+    "a1/vla/dynamic_compute/v3/runtime_adapter.py": "6315dce34c4777a8451e13c446b92d404577256d1e0657dc522070e460cbef98",
+    "robot_experiments/libero/stage1_vla_utils.py": "b45cad88585611a16cc92229becdfd6a2466e3fb0f859302846ae29dbff815a4",
+    "scripts/_route_first_stage10_contracts.py": "a7de88e00dab118acddf25e1bb1b53b8f1cb37f270ca5f5f800f06c4ce276561",
+    "scripts/run_route_first_stage10_arm.py": "08397070a801ece575c67822bf824f478681976d6ca0eeffec1f7acfcab90909",
+    "scripts/run_route_first_stage10_triplet.py": "b8554fbb06550b6f2be4ffcb341d7ae686fda48ee868ab44c5c4f4adeaa11ef5",
+    "scripts/launch_route_first_stage10_active.py": "6f72943c00662e175cf94bcae60adc58ede63015065b833ff03077c33a126e87",
+    "scripts/validate_route_first_stage10_preflight.py": "1ea0badfd20e6f617366a15ba7d2b8a9ef3d2fcdf3963e93547c8381e6759534",
+    "scripts/validate_route_first_stage10_postflight.py": "71e93abc915dc70b27fa4a575292b8a33e3557ee901b7a3ed9ac017a3190a5bd",
+    "scripts/validate_route_first_stage10_arm.py": "a91925c7c1e6b66eec2b0cc7786195a195aacb03d3a3d88f6c93910fcac43bfe",
+    "scripts/aggregate_route_first_stage10_active.py": "e3cdd8d9e9c1a16b8b049c8433cae2e6b1d6fdbeceb1582e8b30655538c22267",
+    "scripts/freeze_route_first_stage10_runner_readiness.py": "fd99c975a0012b5a6d5749bb4109de123b77c7875fd1ae9f7a792dff07c81cef",
+    "tests/dynamic_compute/test_route_first_stage10_protocol.py": "76e32ef6871bb05cbc245c9f3154fee790378074885526d32fcf2e94bd28bc1d",
+    "tests/dynamic_compute/test_route_first_stage10_active.py": "ad2f377f4092f31bed181ea012a42204af861312c6958d31eb662db1e4673990",
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+    "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd"
+  },
+  "bound_artifacts": {
+    "model/libero_exit/model.pt": {
+      "bytes": 33841175207,
+      "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+      "mtime_ns": 1785508200508906587,
+      "inode": 32640614,
+      "rehash_each_preflight": false
+    },
+    "model/libero_exit/config.yaml": {
+      "bytes": 8369,
+      "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca",
+      "mtime_ns": 1785506997302523709,
+      "inode": 32640581,
+      "rehash_each_preflight": true
+    },
+    "model/libero_exit/dataset_statistics.json": {
+      "bytes": 11871,
+      "sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3",
+      "mtime_ns": 1785506997382524170,
+      "inode": 32640583,
+      "rehash_each_preflight": true
+    },
+    "model/libero_exit/exit_thresholds_libero_10_exp_1.0.json": {
+      "bytes": 236,
+      "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+      "mtime_ns": 1787506559679147180,
+      "inode": 32640585,
+      "rehash_each_preflight": true
+    },
+    "artifacts/phase_route_v3/final_router.pt": {
+      "bytes": 22290,
+      "sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+      "mtime_ns": 1787483892884113426,
+      "inode": 33364131,
+      "rehash_each_preflight": true
+    },
+    "artifacts/phase_route_v3/phase_estimator.pt": {
+      "bytes": 11344688,
+      "sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1",
+      "mtime_ns": 1787483892952113836,
+      "inode": 33364132,
+      "rehash_each_preflight": true
+    },
+    "runs/route_first_calibration_stage6/router_calibrated.npz": {
+      "bytes": 7313,
+      "sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+      "mtime_ns": 1787665928311993321,
+      "inode": 34082984,
+      "rehash_each_preflight": true
+    },
+    "results/route_first/route_first_stage7_holdout.json": {
+      "bytes": 8120,
+      "sha256": "d9780a5e4765ee9a80165eb790b99b4e9e85fcb1ae6d34ae006ddb72ce48f258",
+      "mtime_ns": 1787670864520005490,
+      "inode": 33789657,
+      "rehash_each_preflight": true
+    },
+    "configs/route_first_stage10_fresh_confirmation_protocol.json": {
+      "bytes": 6947,
+      "sha256": "62f5be1524676cd2db045de32964ff3206a455d5fd8e8b29eb10e134521bc604",
+      "mtime_ns": 1787981298581170811,
+      "inode": 32669887,
+      "rehash_each_preflight": true
+    },
+    "configs/route_first_stage10_fresh_schedule.json": {
+      "bytes": 1880,
+      "sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4",
+      "mtime_ns": 1787981179392514708,
+      "inode": 32669847,
+      "rehash_each_preflight": true
+    },
+    "configs/route_first_stage10_fresh_state_binding.json": {
+      "bytes": 1873,
+      "sha256": "e21d3536a8b93b627a7caec8f8c0d297fd13c2d10b6f069b5e6a7a70feb4ade3",
+      "mtime_ns": 1787983163491837877,
+      "inode": 32669864,
+      "rehash_each_preflight": true
+    },
+    "results/route_first/route_first_stage10_fresh_states.json": {
+      "bytes": 2284,
+      "sha256": "4fa648bbeba2b91765517c31fb24ca3226fbd05cbdc051d901b6b06d8880861c",
+      "mtime_ns": 1787983083955487245,
+      "inode": 33789681,
+      "rehash_each_preflight": true
+    },
+    "runs/route_first_stage10_states/state_attestation.json": {
+      "bytes": 38947,
+      "sha256": "c8915722c1e7a6f05772d1d949cfcb8f24bfa4c93d3c70c2b63f0daff348a5ab",
+      "mtime_ns": 1787982978271026416,
+      "inode": 34084326,
+      "rehash_each_preflight": true
+    },
+    "runs/route_first_stage10_states/fresh_states.pt": {
+      "bytes": 60714,
+      "sha256": "a757248882334724fd29d29e5d4535d08f0424b4f9c47abee69131f93e84ad4a",
+      "mtime_ns": 1787982978267026399,
+      "inode": 34084325,
+      "rehash_each_preflight": true
+    }
+  },
+  "artifact_checks": {
+    "model/libero_exit/model.pt": true,
+    "model/libero_exit/config.yaml": true,
+    "model/libero_exit/dataset_statistics.json": true,
+    "model/libero_exit/exit_thresholds_libero_10_exp_1.0.json": true,
+    "artifacts/phase_route_v3/final_router.pt": true,
+    "artifacts/phase_route_v3/phase_estimator.pt": true,
+    "runs/route_first_calibration_stage6/router_calibrated.npz": true,
+    "results/route_first/route_first_stage7_holdout.json": true,
+    "configs/route_first_stage10_fresh_confirmation_protocol.json": true,
+    "configs/route_first_stage10_fresh_schedule.json": true,
+    "configs/route_first_stage10_fresh_state_binding.json": true,
+    "results/route_first/route_first_stage10_fresh_states.json": true,
+    "runs/route_first_stage10_states/state_attestation.json": true,
+    "runs/route_first_stage10_states/fresh_states.pt": true
+  },
+  "validation": {
+    "targeted_contract_tests": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/dynamic_compute/test_route_first_stage10_protocol.py",
+        "tests/dynamic_compute/test_route_first_stage10_active.py"
+      ],
+      "exit_code": 0,
+      "output": "....................                                                     [100%]\n=============================== warnings summary ===============================\n../../../../home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266\n  /home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266: FutureWarning: You are using a Python version (3.10.20) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.\n    warnings.warn(message, FutureWarning)\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n20 passed, 1 warning in 5.99s",
+      "pass": true
+    },
+    "full_tests_directory": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [ 12%]\n........................................................................ [ 24%]\n........................................................................ [ 37%]\n........................................................................ [ 49%]\n........................................................................ [ 62%]\n.......................................................................................................................... [ 83%]\n........................................................................ [ 95%]\n..........................                                               [100%]\n=============================== warnings summary ===============================\n../../../../home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266\n  /home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/google/api_core/_python_version_support.py:266: FutureWarning: You are using a Python version (3.10.20) which Google will stop supporting in new releases of google.api_core once it reaches its end of life (2026-10-04). Please upgrade to the latest Python version, or at least Python 3.11, to continue receiving updates for google.api_core past that date.\n    warnings.warn(message, FutureWarning)\n\n../../../../home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/pydantic/_internal/_generate_schema.py:2274\n  /home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/pydantic/_internal/_generate_schema.py:2274: UnsupportedFieldAttributeWarning: The 'repr' attribute with value False was provided to the `Field()` function, which has no effect in the context it was used. 'repr' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.\n    warnings.warn(\n\n../../../../home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/pydantic/_internal/_generate_schema.py:2274\n  /home/haozheng/.conda/envs/a1/lib/python3.10/site-packages/pydantic/_internal/_generate_schema.py:2274: UnsupportedFieldAttributeWarning: The 'frozen' attribute with value True was provided to the `Field()` function, which has no effect in the context it was used. 'frozen' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.\n    warnings.warn(\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n580 passed, 3 warnings, 22 subtests passed in 72.68s (0:01:12)",
+      "pass": true
+    },
+    "python_compile": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "py_compile",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/route_first_stage10.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/route_first_stage10_active.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/route_first_controller.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/route_first_runtime.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/productive_exit.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/stage1_measurement.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/telemetry.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/v3/active_runtime.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/dynamic_compute/v3/runtime_adapter.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/robot_experiments/libero/stage1_vla_utils.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/_route_first_stage10_contracts.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/run_route_first_stage10_arm.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/run_route_first_stage10_triplet.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/launch_route_first_stage10_active.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/validate_route_first_stage10_preflight.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/validate_route_first_stage10_postflight.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/validate_route_first_stage10_arm.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/aggregate_route_first_stage10_active.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/scripts/freeze_route_first_stage10_runner_readiness.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/tests/dynamic_compute/test_route_first_stage10_protocol.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/tests/dynamic_compute/test_route_first_stage10_active.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/a1/vla/value_net.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/robot_experiments/libero/exit_vla_utils.py",
+        "/data3/haozheng/A1/PhaseRoute-VLA/robot_experiments/libero/eval_libero_early_exit.py"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "git_diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "pass": true
+    },
+    "pip_check": {
+      "command": [
+        "/home/haozheng/.conda/envs/a1/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "No broken requirements found.\nWARNING: The directory '/home/haozheng/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.",
+      "pass": true
+    }
+  },
+  "checks": {
+    "source_worktree_clean": true,
+    "protected_historical_code_exact": true,
+    "all_bound_artifacts_exact": true,
+    "state_payload_bytes_validated_not_deserialized": true,
+    "targeted_contract_tests_pass": true,
+    "full_tests_directory_pass": true,
+    "python_compile_pass": true,
+    "git_diff_check_pass": true,
+    "pip_check_pass": true,
+    "validation_did_not_initialize_cuda": true,
+    "source_worktree_remains_clean": true,
+    "active_rollouts_not_started": true
+  },
+  "access_ledger": {
+    "fresh_state_payload_opened": false,
+    "fresh_state_payload_bytes_hashed": true,
+    "fresh_state_payload_deserialized": false,
+    "LIBERO_environment_created": false,
+    "model_loaded": false,
+    "CUDA_initialized": false,
+    "active_rollouts": 0
+  },
+  "authorization": {
+    "next_stage": "EXACT_STAGE10_60_TRIPLET_180_ARM_ACTIVE_CONFIRMATION",
+    "minimum_free_memory_mib_before_each_arm": 40000,
+    "same_gpu_uuid_within_triplet": true,
+    "outcome_based_retry": false,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "runner_readiness_is_active_result": false,
+    "fresh_state_payload_deserialized": false,
+    "active_control_has_run": false,
+    "stage10_gate_evaluated": false
+  }
+}
