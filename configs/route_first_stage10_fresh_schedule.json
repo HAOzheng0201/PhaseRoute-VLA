@@ -1,0 +1,47 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-fresh-schedule.v1",
+  "schedule_id": "route-first-stage10-fresh-active-triarm-20260829-v1",
+  "status": "FROZEN_NOT_GENERATED",
+  "suite": "libero_10",
+  "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "replicate_ids": [0, 1, 2, 3, 4, 5],
+  "triplets": 60,
+  "active_rollouts": 180,
+  "cluster_key": "libero_10:task{task_id}:route_first_fresh_v1:replicate{replicate_id}",
+  "official_benchmark_episode_index": null,
+  "state_generation": {
+    "source": "fresh_environment_reset_not_official_fixed_init_state",
+    "seed_base": 71260829,
+    "seed_formula": "71260829 + task_id * 10000 + replicate_id",
+    "isolated_process_per_record": true,
+    "determinism_passes": 2,
+    "manual_selection_allowed": false,
+    "replacement_allowed": false
+  },
+  "policy_rollout": {
+    "seed_base": 81260829,
+    "seed_formula": "81260829 + task_id * 10000 + replicate_id",
+    "same_seed_for_all_three_arms": true,
+    "outcome_based_retry_or_replacement_allowed": false
+  },
+  "methods": [
+    "original_a1",
+    "candidate_first_v3",
+    "route_first_stage8"
+  ],
+  "arm_order_by_replicate": {
+    "0": ["original_a1", "candidate_first_v3", "route_first_stage8"],
+    "1": ["original_a1", "route_first_stage8", "candidate_first_v3"],
+    "2": ["candidate_first_v3", "original_a1", "route_first_stage8"],
+    "3": ["candidate_first_v3", "route_first_stage8", "original_a1"],
+    "4": ["route_first_stage8", "original_a1", "candidate_first_v3"],
+    "5": ["route_first_stage8", "candidate_first_v3", "original_a1"]
+  },
+  "identity_boundary": {
+    "v3_d8_generated_state_seed_reused": false,
+    "v3_d10_reserved_generated_state_seed_reused": false,
+    "official_states_0_to_49_reused": false,
+    "generated_state_is_official_LIBERO_benchmark_episode": false,
+    "official_fixed_state_generalization_claim_allowed": false
+  }
+}

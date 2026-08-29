@@ -1,0 +1,149 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-fresh-confirmation-protocol.v1",
+  "protocol_id": "route-first-stage10-fresh-active-triarm-confirmation-20260829-v1",
+  "status": "FROZEN_INFRASTRUCTURE_NOT_VALIDATED",
+  "stage": "ROUTE_FIRST_STAGE10",
+  "research_simulation_only": true,
+  "deployment_authorized": false,
+  "prerequisite": {
+    "stage9_result_path": "results/route_first/route_first_stage9_state13_pilot.json",
+    "stage9_result_sha256": "0979f04e8f7c3352b2bbea8540a2562925546233d03905c6d579d077795d1d8c",
+    "required_stage9_status": "PASS",
+    "required_stage9_next_gate": "fresh_state_confirmation_authorized"
+  },
+  "fresh_schedule": {
+    "path": "configs/route_first_stage10_fresh_schedule.json",
+    "sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4",
+    "tasks": 10,
+    "replicates_per_task": 6,
+    "triplets": 60,
+    "active_rollouts": 180,
+    "all_six_arm_permutations_per_task": true
+  },
+  "methods": {
+    "original_a1": {
+      "controller": "frozen_original_A1_action_delta_early_exit",
+      "candidate_layers": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+      "route_timing": "adjacent_candidate_action_delta_after_candidate_generation",
+      "phase_or_learned_router_used": false
+    },
+    "candidate_first_v3": {
+      "controller": "frozen_PhaseRoute_V3",
+      "candidate_layers": [11, 13, 27],
+      "route_timing": "candidate_action_before_five_head_risk_gate",
+      "router_sha256": "9f7360188e30e5831b18d460bf338638fb960db9374dd9cc74412f169914b830",
+      "phase_checkpoint_sha256": "b601f8221d47136818d7a008eaf7cee06e1201bf514f371ae33f42cfb39515a1"
+    },
+    "route_first_stage8": {
+      "controller": "frozen_route_first_stage8",
+      "candidate_layers": [13, 27],
+      "route_timing": "199D_action_free_context_before_action_generation",
+      "l11_permanently_disabled": true,
+      "exactly_one_flow_matching_invocation_per_valid_policy_call": true,
+      "calibrated_router_sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2",
+      "l13_threshold": 0.9174261218080999
+    }
+  },
+  "shared_frozen_inputs": {
+    "A1_checkpoint_sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+    "A1_config_sha256": "9365d0a6ca6379a7787aaf46e170a7945f084c359560463edc14726965b04ca",
+    "A1_dataset_statistics_sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3",
+    "A1_exit_thresholds_sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796",
+    "LIBERO_gitlink_commit": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
+    "fm_steps": 10,
+    "action_chunk_shape": [1, 8, 7],
+    "same_task_state_policy_seed_gpu_uuid_within_triplet": true
+  },
+  "fresh_state_generation": {
+    "method": "set_all_registered_RNGs_then_construct_environment_then_single_reset_then_capture_flattened_MuJoCo_state",
+    "cpu_only": true,
+    "one_isolated_process_per_record": true,
+    "determinism_passes": 2,
+    "require_byte_identical_state_sha_between_passes": true,
+    "required_state_dtype": "float64_little_endian",
+    "required_state_rank": 1,
+    "require_finite_state": true,
+    "require_task_local_state_dimension_constant": true,
+    "require_six_unique_state_sha_per_task": true,
+    "require_initial_task_success_predicate_false": true,
+    "manual_rejection_or_cherry_pick_allowed": false,
+    "replacement_seed_allowed": false,
+    "failure_policy": "freeze_negative_generation_result_without_policy_rollout",
+    "model_checkpoint_loaded_during_generation": false,
+    "policy_action_sampled_during_generation": false
+  },
+  "active_execution": {
+    "one_triplet_per_GPU_at_a_time": true,
+    "one_visible_GPU_per_process": true,
+    "minimum_free_memory_mib_before_each_arm": 40000,
+    "external_compute_process_allowed": false,
+    "triplet_arm_order_from_schedule_only": true,
+    "same_policy_seed_for_three_arms": true,
+    "post_first_action_trajectory_divergence_retained": true,
+    "valid_task_failure_retained": true,
+    "outcome_based_retry_or_replacement_allowed": false,
+    "infrastructure_retry": "same_task_replicate_state_payload_policy_seed_arm_order_GPU_UUID_and_code_commit_only",
+    "threshold_or_router_change_after_opening_states": false
+  },
+  "confirmation_gate": {
+    "pass_status": "PASS_ROUTE_FIRST_STAGE10_FRESH_ACTIVE_CONFIRMATION",
+    "incomplete_status": "INCOMPLETE_ROUTE_FIRST_STAGE10_FRESH_ACTIVE_CONFIRMATION",
+    "required_triplets": 60,
+    "required_active_rollouts": 180,
+    "all_runtime_and_evidence_attestations_pass": true,
+    "route_success_margin_episodes": 6,
+    "route_success_at_least_candidate_minus_margin": true,
+    "route_success_at_least_original_A1_minus_margin": true,
+    "median_within_triplet_route_to_candidate_policy_p50_ratio_at_most": 0.8,
+    "median_within_triplet_route_to_original_A1_policy_p50_ratio_at_most": 0.9,
+    "route_every_valid_policy_call_exactly_one_FM": true,
+    "all_conditions_conjunctive": true
+  },
+  "reporting": {
+    "primary": [
+      "three_arm_success_counts_and_paired_differences",
+      "within_triplet_policy_P50_latency_ratios",
+      "route_first_exact_FM_integrity"
+    ],
+    "secondary": [
+      "per_task_success_counts",
+      "pooled_policy_latency_mean_P50_P90_P95",
+      "method_policy_calls_and_selected_layer_counts",
+      "original_A1_FM_calls",
+      "candidate_first_route_distribution",
+      "route_first_L13_L27_distribution",
+      "arm_order_stratified_results"
+    ],
+    "paired_success_test": "exact_McNemar_reported_descriptively_without_superiority_gate",
+    "all_failures_and_infrastructure_incidents_reported": true
+  },
+  "stopping_and_missingness": {
+    "interim_gate_inspection_allowed": false,
+    "optional_stopping_allowed": false,
+    "all_60_triplets_required_before_gate": true,
+    "failed_or_unfavorable_episode_exclusion_allowed": false,
+    "incomplete_evidence_cannot_pass": true
+  },
+  "access_ledger": {
+    "official_states_0_to_49_opened_for_this_stage": false,
+    "V3_D8_generated_states_reused": false,
+    "V3_D10_reserved_generated_states_reused": false,
+    "new_generated_states_opened": false,
+    "active_rollouts_started": false
+  },
+  "authorization": {
+    "protocol_file_alone": "CPU_CONTRACT_TESTS_ONLY",
+    "after_infrastructure_validation_and_clean_commit": "FRESH_STATE_GENERATION_ONLY",
+    "after_two_pass_state_payload_attestation": "THREE_ARM_ACTIVE_CONFIRMATION",
+    "on_confirmation_pass": "RESULT_ANALYSIS_AND_NEXT_PROTOCOL_DESIGN_ONLY",
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "generated_states_are_official_LIBERO_fixed_benchmark_states": false,
+    "engineering_margin_is_powered_noninferiority": false,
+    "confirmation_pass_proves_statistical_superiority": false,
+    "latency_gate_is_formal_system_wide_speedup": false,
+    "single_suite_proves_cross_suite_generalization": false,
+    "real_robot_or_deployment_claim_authorized": false
+  }
+}
