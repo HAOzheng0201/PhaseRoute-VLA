@@ -1,0 +1,187 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-paired-smoke.v1",
+  "status": "PASS",
+  "scope": "stage9_preregistered_state12_paired_engineering_smoke",
+  "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
+  "research_simulation_only": true,
+  "deployment_authorized": false,
+  "identity": {
+    "suite": "libero_10",
+    "task_ids": [
+      0
+    ],
+    "episode_indices": [
+      12
+    ],
+    "seed_base": 20260826,
+    "episode_seed": 20260838,
+    "gpu_uuid": "GPU-535e41e1-a1ac-af65-a015-fc281644709e"
+  },
+  "candidate_first": {
+    "arm_position": 1,
+    "successes": 1,
+    "policy_calls": 33,
+    "selected_layers": {
+      "11": 0,
+      "13": 1,
+      "27": 32
+    },
+    "policy_wall_latency_ms": {
+      "count": 33,
+      "sum": 53586.753934,
+      "mean": 1623.8410283030303,
+      "p50": 1575.716152,
+      "p95": 1746.593031,
+      "max": 2548.551597
+    },
+    "episode_wall_seconds": 92.56727313995361
+  },
+  "route_first": {
+    "arm_position": 2,
+    "successes": 1,
+    "policy_calls": 33,
+    "selected_layers": {
+      "11": 0,
+      "13": 1,
+      "27": 32
+    },
+    "policy_wall_latency_ms": {
+      "count": 33,
+      "sum": 30961.127008,
+      "mean": 938.215969939394,
+      "p50": 879.584333,
+      "p95": 1271.502778,
+      "max": 2133.286277
+    },
+    "episode_wall_seconds": 73.73891854286194,
+    "fm_invocations": 33,
+    "calls_with_exactly_one_fm": 33
+  },
+  "descriptive_comparison": {
+    "success_difference_route_minus_candidate": 0,
+    "same_policy_call_count": true,
+    "same_selected_layer_counts": true,
+    "policy_wall_mean_reduction_fraction": 0.4222242488109431,
+    "policy_wall_mean_speedup": 1.7307753015629501,
+    "policy_wall_p50_reduction_fraction": 0.4417875758374532,
+    "policy_wall_p95_reduction_fraction": 0.2720097037877166,
+    "summed_policy_wall_reduction_fraction": 0.4222242488109431,
+    "episode_wall_reduction_fraction": 0.20340184990244714
+  },
+  "checks": {
+    "candidate_attestation_pass": true,
+    "route_attestation_pass": true,
+    "protocol_identity": true,
+    "candidate_is_arm_1": true,
+    "route_first_is_arm_2": true,
+    "frozen_task_state_seed": true,
+    "same_physical_gpu_uuid": true,
+    "candidate_runtime_error_free": true,
+    "route_runtime_error_free": true,
+    "candidate_calls_all_committed": true,
+    "route_calls_all_committed": true,
+    "route_l11_disabled": true,
+    "route_every_call_exactly_one_fm": true,
+    "candidate_measurement_complete": true,
+    "route_measurement_complete": true,
+    "candidate_episode_success": true,
+    "route_episode_success": true
+  },
+  "next_gate": {
+    "state13_pilot_protocol_gate_unlocked": true,
+    "state13_opened": false
+  },
+  "claim_boundary": {
+    "paired_episodes": 1,
+    "engineering_smoke_only": true,
+    "formal_closed_loop_improvement_claim": false,
+    "formal_wall_clock_speedup_claim": false,
+    "statistical_significance_claim": false,
+    "latency_is_descriptive_same_gpu_measurement": true,
+    "deployment_authorized": false
+  },
+  "run_dirs": {
+    "candidate_first": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100828_246469762",
+    "route_first": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_active/engineering_smoke_route_first_gpu4_20260829_101312_109729520"
+  },
+  "verified_artifacts": {
+    "candidate_first": {
+      "stage9_preflight.json": {
+        "bytes": 11143,
+        "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745"
+      },
+      "preflight.json": {
+        "bytes": 9351,
+        "sha256": "9d7b835077082338935dc9d40bd2bb58f7f83120eb5f5a938509a147e605cfe6"
+      },
+      "evaluation_summary.json": {
+        "bytes": 4343,
+        "sha256": "cc35636d6e47ea0ad7fc285db945d80ab13919b2ce090432a2f6aa150995a013"
+      },
+      "run_attestation.json": {
+        "bytes": 2865,
+        "sha256": "79472a7490cd1e20356395d4683a188a6b1e735b506b216d09b9b0f6bc7ed3b1"
+      },
+      "phase_route_runtime.jsonl": {
+        "bytes": 192020,
+        "sha256": "64bccc9f282be39b14e03e608396717f11538b9e79235277edaa170505f2ad1d"
+      },
+      "policy_telemetry.jsonl": {
+        "bytes": 208727,
+        "sha256": "ce8faa1e433b6824938a90e0e0729c1fbe710a9dddc3db97062a2dcfcc286fe2"
+      },
+      "stage1_measurement.jsonl": {
+        "bytes": 34095,
+        "sha256": "1c2d280976102e456e19f1e68e33deaad54fa02ccabd5db187d85570ca2d72b9"
+      },
+      "stdout.log": {
+        "bytes": 4532,
+        "sha256": "50d8d740f198e68081947e2ab3ea72e71fcfbaff91cb23ef85ac3b0eb5c8ec5e"
+      },
+      "command.sh": {
+        "bytes": 388,
+        "sha256": "cbfe5b01557e97afc70fd2ae742f7e11a73fb77ae0a0331dd433edd8fa740e6d"
+      }
+    },
+    "route_first": {
+      "preflight.json": {
+        "bytes": 11143,
+        "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745"
+      },
+      "evaluation_summary.json": {
+        "bytes": 6253,
+        "sha256": "01cd945d1c56e2c51316e5306bbdd7727efc567bdc224c44388b9733a244c934"
+      },
+      "phase_route_runtime.jsonl": {
+        "bytes": 96892,
+        "sha256": "457304558e82dd95cfae122b6270d90877f22b8fb4afa608793d80b8d09d4e0f"
+      },
+      "policy_telemetry.jsonl": {
+        "bytes": 105800,
+        "sha256": "3dfd3cc477b16c40b2d491ae73acbbba7e7630e4a09dc72abd03cb4567c9e94e"
+      },
+      "stage1_measurement.jsonl": {
+        "bytes": 30420,
+        "sha256": "fbc8a2f8c0c230e25eff0d832e6c42e2743f71e6982c92f9455ba4169e1b5921"
+      },
+      "stdout.log": {
+        "bytes": 4102,
+        "sha256": "20f54caed74fb4dd5dd16883910c12b4b88dda0c8e81d4e6b3d1def5d3389d69"
+      },
+      "command.sh": {
+        "bytes": 428,
+        "sha256": "9ac7c5971b29d5006a69a72e41f77d114b6e3a460295615a1e506529f51413f6"
+      }
+    }
+  },
+  "input_attestations": {
+    "candidate_first": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100828_246469762/stage9_arm_attestation.json",
+      "sha256": "52ba1ca4daea3aef3e01a58a1043fbff385a46b67fcd6c2843d23bdcd7056bb0"
+    },
+    "route_first": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_active/engineering_smoke_route_first_gpu4_20260829_101312_109729520/run_attestation.json",
+      "sha256": "0c59bbec67c447d2bfb023575937d53b1994448723687a7d77a8871a46555ec7"
+    }
+  }
+}

@@ -1,8 +1,10 @@
 {
   "schema_version": "phase-route-vla.route-first-stage9-preflight-result.v1",
-  "status": "PASS_PREFLIGHT_ON_GPU5_WAIT_ACTIVE_SMOKE_RESOURCE",
+  "status": "PASS_STATE12_PAIRED_ENGINEERING_SMOKE",
   "date": "2026-08-26",
+  "last_updated": "2026-08-29",
   "git_commit": "eb9335f7cfcd13e43acd854a36c1f3f73d6da802",
+  "active_execution_commit": "0626f007b843e00155e70ea89e8539ce33cf63dc",
   "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
   "attempts": [
     {
@@ -112,29 +114,141 @@
       "v3_preflight_executed": false,
       "active_arm_executed": false,
       "interpretation": "GPU 4 became idle after attempt 5, but the same external scheduler race occurred before the preflight sample; no simulator episode was opened."
+    },
+    {
+      "order": 7,
+      "physical_gpu_index": 4,
+      "git_commit": "0626f007b843e00155e70ea89e8539ce33cf63dc",
+      "stage9_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_095850_618861779/stage9_preflight.json",
+        "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745",
+        "simulator_episode_opened": false
+      },
+      "v3_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_095850_618861779/preflight.json",
+        "sha256": "9d7b835077082338935dc9d40bd2bb58f7f83120eb5f5a938509a147e605cfe6"
+      },
+      "active_arm_executed": false,
+      "failure_stage": "backbone_tokenizer_load_before_simulator_creation",
+      "interpretation": "Both preflights passed, then the offline A1 loader found that the Qwen tokenizer was absent from the configured HF cache. No simulator episode was created."
+    },
+    {
+      "order": 8,
+      "physical_gpu_index": 4,
+      "git_commit": "0626f007b843e00155e70ea89e8539ce33cf63dc",
+      "stage9_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100436_532929781/stage9_preflight.json",
+        "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745",
+        "simulator_episode_opened": false
+      },
+      "v3_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100436_532929781/preflight.json",
+        "sha256": "9d7b835077082338935dc9d40bd2bb58f7f83120eb5f5a938509a147e605cfe6"
+      },
+      "active_arm_executed": false,
+      "failure_stage": "backbone_tokenizer_cache_contract_before_simulator_creation",
+      "interpretation": "The tokenizer files existed under HF_HOME/hub, but the protected A1 evaluator passes HF_HOME itself as cache_dir. The mismatch was fixed in the external cache without changing protected source bytes."
+    },
+    {
+      "order": 9,
+      "physical_gpu_index": 4,
+      "git_commit": "0626f007b843e00155e70ea89e8539ce33cf63dc",
+      "stage9_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100828_246469762/stage9_preflight.json",
+        "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745"
+      },
+      "v3_preflight": {
+        "status": "PASS",
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100828_246469762/preflight.json",
+        "sha256": "9d7b835077082338935dc9d40bd2bb58f7f83120eb5f5a938509a147e605cfe6"
+      },
+      "active_arm_executed": true,
+      "active_arm_status": "PASS",
+      "stage9_arm_attestation": {
+        "path": "runs/route_first_stage9_active/engineering_smoke_candidate_first_gpu4_20260829_100828_246469762/stage9_arm_attestation.json",
+        "sha256": "52ba1ca4daea3aef3e01a58a1043fbff385a46b67fcd6c2843d23bdcd7056bb0"
+      },
+      "result": {
+        "successes": 1,
+        "episodes": 1,
+        "policy_calls": 33,
+        "selected_layers": {
+          "11": 0,
+          "13": 1,
+          "27": 32
+        },
+        "policy_wall_mean_ms": 1623.8410283030303
+      },
+      "interpretation": "The frozen candidate-first task0/state12 arm completed successfully and its Stage-9-specific attestation passed."
     }
   ],
+  "route_first_arm": {
+    "physical_gpu_index": 4,
+    "git_commit": "0626f007b843e00155e70ea89e8539ce33cf63dc",
+    "preflight": {
+      "status": "PASS",
+      "path": "runs/route_first_stage9_active/engineering_smoke_route_first_gpu4_20260829_101312_109729520/preflight.json",
+      "sha256": "4db6664e043b2a0fc13f10d0066c16b2e7773c935d6972a8f528b430df5e3745"
+    },
+    "active_arm_executed": true,
+    "active_arm_status": "PASS",
+    "run_attestation": {
+      "path": "runs/route_first_stage9_active/engineering_smoke_route_first_gpu4_20260829_101312_109729520/run_attestation.json",
+      "sha256": "0c59bbec67c447d2bfb023575937d53b1994448723687a7d77a8871a46555ec7"
+    },
+    "result": {
+      "successes": 1,
+      "episodes": 1,
+      "policy_calls": 33,
+      "selected_layers": {
+        "11": 0,
+        "13": 1,
+        "27": 32
+      },
+      "fm_invocations": 33,
+      "calls_with_exactly_one_fm": 33,
+      "policy_wall_mean_ms": 938.215969939394
+    }
+  },
+  "paired_state12_result": {
+    "status": "PASS",
+    "path": "results/route_first/route_first_stage9_state12_pair.json",
+    "sha256": "b636e1b1b650afbf50fb7bdda7c3ab18da366c4a5b33801b3af36a57e4055bbe",
+    "same_gpu": true,
+    "both_success": true,
+    "policy_wall_mean_reduction_fraction": 0.4222242488109431,
+    "policy_wall_mean_speedup": 1.7307753015629501,
+    "episode_wall_reduction_fraction": 0.20340184990244714
+  },
   "aggregate": {
-    "stage9_preflight_attempts": 6,
-    "stage9_preflight_passes": 1,
+    "stage9_preflight_attempts": 10,
+    "stage9_preflight_passes": 5,
     "stage9_preflight_contention_failures": 5,
-    "v3_preflight_passes": 1,
-    "simulator_episodes_opened": 0,
-    "candidate_first_arms_executed": 0,
-    "route_first_arms_executed": 0
+    "v3_preflight_passes": 4,
+    "pre_episode_environment_failures": 2,
+    "simulator_episodes_opened": 2,
+    "candidate_first_arms_executed": 1,
+    "route_first_arms_executed": 1
   },
   "access_ledger": {
-    "state12_smoke_opened": false,
+    "state12_smoke_opened": true,
     "state13_pilot_opened": false,
-    "active_control_executed_for_this_stage": false,
+    "active_control_executed_for_this_stage": true,
     "historical_D9_states40_to49_opened_for_this_stage": false
   },
   "claim_boundary": {
     "runner_and_artifacts_ready": true,
     "no_episode_preflight_demonstrated": true,
-    "closed_loop_executability_demonstrated": false,
+    "closed_loop_executability_demonstrated": true,
+    "paired_engineering_latency_demonstrated": true,
     "wall_clock_speedup_demonstrated": false,
+    "formal_closed_loop_improvement_demonstrated": false,
     "deployment_authorized": false
   },
-  "next_gate": "Wait for one GPU to remain contention-free through preflight and active model loading; then execute the frozen candidate-first task0/state12 arm exactly once."
+  "next_gate": "The preregistered state-12 pair passed and unlocks a separately controlled state-13 pilot. State 13 remains unopened until its launcher, validation, and result ledger are prepared and committed."
 }
