@@ -33,6 +33,19 @@ official init-state indices 40–49。每对共享 task、initial state 与预�
 McNemar equality test 的 `p=0.5078`。12 个 PhaseRoute failure 都与某次 early exit
 共现，但其中 unsafe early call 为 0，因此不能声称 early exit 因果导致失败。
 
+### Route-first Stage 9 工程 pilot
+
+在不改动上述 V3/D9 正式结果的前提下，后续 route-first 路径改为先用 199D
+action-free context 选择 L13 或 L27，再只调用被选中的 action head。冻结的 state13
+十任务配对 pilot 中，candidate-first 与 route-first 均为 `9/10` 成功；pooled policy
+wall P50 从 `1591.88 ms` 降至 `911.07 ms`（比值 `0.5723`），route-first 的
+`343/343` 个 policy call 均恰好一次 FM。完整机器证据见
+[`route_first_stage9_state13_pilot.json`](results/route_first/route_first_stage9_state13_pilot.json)，
+SHA-256 为 `0979f04e8f7c3352b2bbea8540a2562925546233d03905c6d579d077795d1d8c`；
+执行协议与失败保留边界见
+[`ROUTE_FIRST_STAGE9_STATE13_PILOT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE9_STATE13_PILOT_ZH.md)。
+这仍是单 init-state 工程 pilot，不是统计功效充分的 wall-clock 加速或非劣效性结论。
+
 ## 从输入到输出
 
 ```mermaid

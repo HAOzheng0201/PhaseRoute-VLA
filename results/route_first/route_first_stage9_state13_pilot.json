@@ -1,0 +1,269 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage9-pilot-result.v1",
+  "status": "PASS",
+  "scope": "stage9_state13_preregistered_engineering_pilot",
+  "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
+  "research_simulation_only": true,
+  "deployment_authorized": false,
+  "task_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "episode_indices": [
+    13
+  ],
+  "paired_episodes": 10,
+  "candidate_first": {
+    "successes": 9,
+    "policy_wall_latency_ms": {
+      "count": 358,
+      "sum": 549976.355153,
+      "mean": 1536.246802103352,
+      "p50": 1591.875241,
+      "p90": 1745.400325,
+      "p95": 1826.691092,
+      "max": 2444.140897
+    }
+  },
+  "route_first": {
+    "successes": 9,
+    "policy_wall_latency_ms": {
+      "count": 343,
+      "sum": 318014.364094,
+      "mean": 927.1555804489797,
+      "p50": 911.072599,
+      "p90": 1095.934495,
+      "p95": 1183.354183,
+      "max": 1972.89252
+    },
+    "fm_invocations": 343,
+    "decoder_blocks": 9016
+  },
+  "paired_outcomes": {
+    "both_success": 8,
+    "candidate_only_success": 1,
+    "route_only_success": 1
+  },
+  "descriptive_comparison": {
+    "success_difference_route_minus_candidate": 0,
+    "policy_wall_median_ratio_route_to_candidate": 0.5723266343584019,
+    "policy_wall_median_reduction_fraction": 0.4276733656415981,
+    "policy_wall_mean_ratio_route_to_candidate": 0.6035199417043959,
+    "policy_wall_mean_reduction_fraction": 0.39648005829560407
+  },
+  "checks": {
+    "complete_task_grid": true,
+    "all_task_pairs_pass": true,
+    "route_success_guardrail": true,
+    "route_median_latency_ratio_at_most_0_90": true,
+    "route_one_fm_per_policy_call": true
+  },
+  "access_ledger": {
+    "state12_smoke_opened": true,
+    "state13_pilot_opened": true,
+    "historical_D9_states40_to49_opened_for_this_stage": false
+  },
+  "next_gate": {
+    "fresh_state_confirmation_authorized": true,
+    "deployment_authorized": false
+  },
+  "claim_boundary": {
+    "engineering_pilot_only": true,
+    "powered_noninferiority_claim": false,
+    "formal_wall_clock_speedup_claim": false,
+    "final_closed_loop_improvement_claim": false,
+    "deployment_authorized": false
+  },
+  "rows": [
+    {
+      "task_id": 0,
+      "arm_order": [
+        "candidate_first_v3",
+        "route_first_stage8"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 33,
+      "route_policy_calls": 33,
+      "candidate_p50_ms": 1620.071273,
+      "route_p50_ms": 896.72597
+    },
+    {
+      "task_id": 1,
+      "arm_order": [
+        "route_first_stage8",
+        "candidate_first_v3"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 30,
+      "route_policy_calls": 30,
+      "candidate_p50_ms": 1519.511021,
+      "route_p50_ms": 885.507783
+    },
+    {
+      "task_id": 2,
+      "arm_order": [
+        "candidate_first_v3",
+        "route_first_stage8"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 31,
+      "route_policy_calls": 32,
+      "candidate_p50_ms": 1610.651929,
+      "route_p50_ms": 900.193285
+    },
+    {
+      "task_id": 3,
+      "arm_order": [
+        "route_first_stage8",
+        "candidate_first_v3"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 35,
+      "route_policy_calls": 33,
+      "candidate_p50_ms": 1603.577263,
+      "route_p50_ms": 909.632036
+    },
+    {
+      "task_id": 4,
+      "arm_order": [
+        "candidate_first_v3",
+        "route_first_stage8"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 28,
+      "route_policy_calls": 27,
+      "candidate_p50_ms": 1603.489319,
+      "route_p50_ms": 945.359861
+    },
+    {
+      "task_id": 5,
+      "arm_order": [
+        "route_first_stage8",
+        "candidate_first_v3"
+      ],
+      "paired_outcome": "route_only_success",
+      "candidate_success": false,
+      "route_success": true,
+      "candidate_policy_calls": 65,
+      "route_policy_calls": 19,
+      "candidate_p50_ms": 1594.571418,
+      "route_p50_ms": 896.689969
+    },
+    {
+      "task_id": 6,
+      "arm_order": [
+        "candidate_first_v3",
+        "route_first_stage8"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 25,
+      "route_policy_calls": 26,
+      "candidate_p50_ms": 1615.80856,
+      "route_p50_ms": 935.638205
+    },
+    {
+      "task_id": 7,
+      "arm_order": [
+        "route_first_stage8",
+        "candidate_first_v3"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 29,
+      "route_policy_calls": 29,
+      "candidate_p50_ms": 1564.434566,
+      "route_p50_ms": 892.203884
+    },
+    {
+      "task_id": 8,
+      "arm_order": [
+        "candidate_first_v3",
+        "route_first_stage8"
+      ],
+      "paired_outcome": "both_success",
+      "candidate_success": true,
+      "route_success": true,
+      "candidate_policy_calls": 48,
+      "route_policy_calls": 49,
+      "candidate_p50_ms": 1578.982374,
+      "route_p50_ms": 925.835062
+    },
+    {
+      "task_id": 9,
+      "arm_order": [
+        "route_first_stage8",
+        "candidate_first_v3"
+      ],
+      "paired_outcome": "candidate_only_success",
+      "candidate_success": true,
+      "route_success": false,
+      "candidate_policy_calls": 34,
+      "route_policy_calls": 65,
+      "candidate_p50_ms": 1612.4483,
+      "route_p50_ms": 906.050277
+    }
+  ],
+  "inputs": {
+    "0": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task0_state13_gpu4_20260829_110759_303591871/task_pair.json",
+      "sha256": "1b305aa5609fec155c40164cb1dfe402e4f39fe2e7cd8bd59379a8475d52c81e"
+    },
+    "1": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task1_state13_gpu5_20260829_110756_924599355/task_pair.json",
+      "sha256": "d1c975f3c946e023464c99f91cd799f7fb834057d21531caf3c1575d27e8dc70"
+    },
+    "2": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task2_state13_gpu6_20260829_110757_774843089/task_pair.json",
+      "sha256": "4cff92668558f44b7ddc85809b07d923d5153bcd8cf0f33a936fc0e495d1b6e7"
+    },
+    "3": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task3_state13_gpu7_20260829_110801_587661716/task_pair.json",
+      "sha256": "f589a7c1f9873e1e1981473315993fccd9c088aafabcec8678a34b61e909d880"
+    },
+    "4": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task4_state13_gpu4_20260829_111629_946221053/task_pair.json",
+      "sha256": "108fceba1409c44818e1d2e8bdfceddfcbbc1456b21780326f2b27fad221a9fe"
+    },
+    "5": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task5_state13_gpu6_20260829_111630_441749142/task_pair.json",
+      "sha256": "06e3e612360a21c911df1860e57723d54caf30f72f5850f163e3a8f02256d407"
+    },
+    "6": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task6_state13_gpu7_20260829_111630_669332116/task_pair.json",
+      "sha256": "b8307e7713dfb681389b57cb3a015d8888eff8399ae65573c8cb30a964cd9724"
+    },
+    "7": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task7_state13_gpu4_20260829_112451_034867027/task_pair.json",
+      "sha256": "ed37753c19cedc797852b43db98080c1232d7cc71586976d2b3e43bf15472ff0"
+    },
+    "8": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task8_state13_gpu6_20260829_112450_403431797/task_pair.json",
+      "sha256": "3abf572a5c2f8c1059982f1b9b1ba26f3ff340b46b1787b7af88bdad2a5dca2d"
+    },
+    "9": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage9_pilot/task9_state13_gpu7_20260829_112451_971944904/task_pair.json",
+      "sha256": "3eb5c06ee9d389b680105e46719d73620817d74b011c502a4f21a83f9d521dbb"
+    }
+  }
+}

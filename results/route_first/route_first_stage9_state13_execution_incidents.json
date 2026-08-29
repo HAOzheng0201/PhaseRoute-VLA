@@ -1,0 +1,85 @@
+{
+  "status": "RESOLVED_STAGE9_STATE13_PRE_EPISODE_GPU_CONTENTION",
+  "schema_version": "phase-route-vla.route-first-stage9-state13-execution-incidents.v1",
+  "protocol_sha256": "fcb1c2a1fdf7ea3f79343f72d25240449500a5eac3fad1372f0808023888db4d",
+  "source_git_commit": "180982f235f52080f52e39a0a95e06ebf518b98b",
+  "research_simulation_only": true,
+  "deployment_authorized": false,
+  "selection": {
+    "task_id": 1,
+    "episode_index": 13,
+    "base_seed": 20260826,
+    "episode_seed": 20270839,
+    "method": "candidate_first_v3",
+    "arm_position": 2,
+    "physical_gpu_index": 5,
+    "gpu_uuid": "GPU-135bb992-2b3f-cbef-8390-97c7fd1b1eb9"
+  },
+  "incidents": [
+    {
+      "timestamp_utc": "2026-08-29T03:12:57.374938+00:00",
+      "attempt_dir": "runs/route_first_stage9_pilot/task1_state13_gpu5_20260829_110756_924599355/arm2_candidate_first",
+      "type": "CUDA_OOM_DURING_MODEL_TRANSFER_BEFORE_EPISODE",
+      "preflight_status": "PASS",
+      "observed_exception": "torch.OutOfMemoryError in olmo_model.to(device)",
+      "observed_other_process_pid": 158319,
+      "observed_other_process_memory_gib": 16.82,
+      "evaluation_summary_created": false,
+      "simulator_episode_opened": false,
+      "policy_calls": 0,
+      "outcome_observed": false,
+      "evidence": {
+        "prelaunch.json": {
+          "sha256": "f4acbf4f75240be99611268c81116366459423a18049a5e22ac98e6b075424d1"
+        },
+        "stdout.log": {
+          "sha256": "b747ec9b3c4fc2b366fdcc1578051c1534bbe9e0baeebd3dbb51864962c78c41"
+        }
+      }
+    },
+    {
+      "timestamp_utc": "2026-08-29T03:15:20.839741+00:00",
+      "attempt_dir": "runs/route_first_stage9_pilot/task1_state13_gpu5_20260829_110756_924599355/arm2_candidate_first_retry1_pre_episode_oom",
+      "type": "PREFLIGHT_REFUSAL_EXTERNAL_GPU_CONTENTION",
+      "preflight_status": "FAIL",
+      "observed_external_process_pid": 162510,
+      "failed_checks": [
+        "no_external_compute_process",
+        "sufficient_free_memory_mib"
+      ],
+      "evaluation_summary_created": false,
+      "simulator_episode_opened": false,
+      "policy_calls": 0,
+      "outcome_observed": false,
+      "evidence": {
+        "stage9_preflight.json": {
+          "sha256": "d83c5b9ea2bc60ed81fd9409ebfbf07c346846cd88c38cdaa4dc7ac999618b92"
+        }
+      }
+    }
+  ],
+  "resolution": {
+    "action": "waited for GPU 5 to have no external compute process and at least 40 GiB free memory, then reran the same unopened arm",
+    "task_state_seed_gpu_changed": false,
+    "arm_order_changed": false,
+    "threshold_changed": false,
+    "router_retrained": false,
+    "historical_D9_states40_to49_accessed": false,
+    "successful_attempt_dir": "runs/route_first_stage9_pilot/task1_state13_gpu5_20260829_110756_924599355/arm2_candidate_first_retry2_pre_episode_contention",
+    "successful_arm_attestation_sha256": "f9acccceff01fb4c686c0d2cc924c4eec13fbb5ce38e9f8fda5ea0c9aa7a32f5",
+    "sealed_task_pair_sha256": "d1c975f3c946e023464c99f91cd799f7fb834057d21531caf3c1575d27e8dc70",
+    "successful_candidate_episode": {
+      "success": true,
+      "policy_calls": 30,
+      "policy_wall_p50_ms": 1519.511021
+    }
+  },
+  "claim_boundary": {
+    "incidents_are_model_or_method_failures": false,
+    "any_episode_or_policy_outcome_observed_before_retry": false,
+    "outcome_based_retry": false,
+    "valid_failed_rollout_replaced": false,
+    "formal_speedup_claim_authorized": false,
+    "deployment_authorized": false
+  }
+}
