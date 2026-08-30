@@ -71,6 +71,18 @@ route runtime overlay 的 P50 为 `108.15 ms`，其中 affine router predict 仅
 head。该分析不改变 Stage 10 的失败 gate，也不授权在最终测试状态上调参。详见
 [`ROUTE_FIRST_STAGE11_LATENCY_DIAGNOSIS_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11_LATENCY_DIAGNOSIS_ZH.md)。
 
+### Route-first Stage 11B CUDA component profile
+
+在已打开的 LIBERO-10 state 0 开发态上，Stage 11B 对 370 个 policy call 完成独立
+CUDA 分段计时：36 次选择 L13、334 次选择 L27，L13 覆盖率为 `9.73%`，相对全 L27
+的 decoder block 数只减少 `4.86%`。L13/L27 decoder P50 分别为 `212.59/456.13 ms`，
+说明浅层路径本身有效，但低覆盖限制了总体收益。全部调用中 decoder、vision、单次 FM
+占 model CUDA 总时间约 `47.99%/10.47%/29.63%`。该结果含 profiling 开销且分组并非
+随机，只用于归因，不是新的 speedup 或成功率对照结论。机器结果见
+[`route_first_stage11b_profile_aggregate.json`](results/route_first/route_first_stage11b_profile_aggregate.json)，
+完整解释见
+[`ROUTE_FIRST_STAGE11B_PROFILE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11B_PROFILE_RESULT_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid
