@@ -37,6 +37,10 @@ PROFILE_SCHEMA = "phase-route-vla.route-first-stage11b-profile-result.v1"
 THRESHOLD_SHA256 = (
     "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
 )
+LIBERO_CONFIG_RELATIVE_PATH = Path(".cache/libero/config.yaml")
+LIBERO_CONFIG_SHA256 = (
+    "6975dd6e7dd7f3b065f7e5084f5150b0b7c802dee0a0e03850e1df854c52bf93"
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -294,6 +298,10 @@ def _source_and_artifact_preflight(args: argparse.Namespace) -> Mapping[str, Any
         or stat.st_ino != model_binding.get("inode")
     ):
         raise PermissionError("A1 model file identity differs from Stage-10 binding")
+    libero_config_path = REPO_ROOT / LIBERO_CONFIG_RELATIVE_PATH
+    if sha256_file(libero_config_path) != LIBERO_CONFIG_SHA256:
+        raise PermissionError("repository-local LIBERO config SHA differs")
+    os.environ["LIBERO_CONFIG_PATH"] = str(libero_config_path.parent)
     return {
         "source_git_commit": source_commit,
         "source_worktree_dirty": False,
@@ -301,6 +309,8 @@ def _source_and_artifact_preflight(args: argparse.Namespace) -> Mapping[str, Any
         "stage10_readiness_path": str(STAGE10_READINESS_PATH),
         "stage10_readiness_sha256": STAGE10_READINESS_SHA256,
         "model_binding": dict(model_binding),
+        "libero_config_path": str(LIBERO_CONFIG_RELATIVE_PATH),
+        "libero_config_sha256": LIBERO_CONFIG_SHA256,
     }
 
 

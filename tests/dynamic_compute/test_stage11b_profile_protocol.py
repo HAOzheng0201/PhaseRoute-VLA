@@ -6,9 +6,12 @@ from pathlib import Path
 import pytest
 
 from scripts.run_route_first_stage11b_profile import (
+    LIBERO_CONFIG_RELATIVE_PATH,
+    LIBERO_CONFIG_SHA256,
     PROTOCOL_SCHEMA,
     _normalize_uuid,
     _parse_task_ids,
+    sha256_file,
 )
 
 
@@ -57,3 +60,11 @@ def test_runner_reproduces_sparse_controller_without_cuda_masking_import() -> No
     assert "base_controller = _stage11_sparse_controller(cfg, model, device)" in source
     assert "from scripts.run_route_first_stage10_arm import" not in source
     assert "initialize_exit_controller" not in source
+
+
+def test_runner_binds_repository_local_libero_config() -> None:
+    config = REPO_ROOT / LIBERO_CONFIG_RELATIVE_PATH
+    assert sha256_file(config) == LIBERO_CONFIG_SHA256
+    text = config.read_text(encoding="utf-8")
+    assert str(REPO_ROOT / "robot_experiments/libero/LIBERO") in text
+    assert "/A1/source/" not in text
