@@ -61,6 +61,16 @@ episode-P50 ratio 为 `1.0795`，未达到 `≤0.90` 门槛。因此正式状态
 SHA-256 为 `1818d96e4de096cb5913f8bc0ce20f656fb72cb724795362314a609d5aac915b`；完整解释见
 [`ROUTE_FIRST_STAGE10_ACTIVE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE10_ACTIVE_RESULT_ZH.md)。
 
+### Route-first Stage 11A latency diagnosis
+
+对 Stage 10 的 6,042 个 policy call 进行 SHA-bound 事后诊断后，根因定位为路径覆盖而非
+单路径退化：route L13/A1 L11 的分层 P50 比值为 `0.7487`，route L27/A1 L27 为
+`0.3454`；但 route 只有 `11.70%` 调用走 L13，而 A1 有 `59.56%` 调用停在 L11。
+route runtime overlay 的 P50 为 `108.15 ms`，其中 affine router predict 仅 `0.20 ms`，
+当前主要优化目标应是独立开发数据上的安全 L13 覆盖和深层路径，而不是单独优化 router
+head。该分析不改变 Stage 10 的失败 gate，也不授权在最终测试状态上调参。详见
+[`ROUTE_FIRST_STAGE11_LATENCY_DIAGNOSIS_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11_LATENCY_DIAGNOSIS_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid
