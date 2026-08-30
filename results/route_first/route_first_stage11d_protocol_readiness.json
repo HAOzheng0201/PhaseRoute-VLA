@@ -1,0 +1,35 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11d-readiness.v1",
+  "status": "PASS_ROUTE_FIRST_STAGE11D_PROTOCOL_READINESS",
+  "protocol": {
+    "protocol_path": "configs/research/route_first_stage11d_reliability_protocol.json",
+    "protocol_sha256": "16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00",
+    "status": "FROZEN_NEW_DEVELOPMENT_PROTOCOL_NOT_RUN",
+    "clusters": 200,
+    "split_counts": {
+      "development_train": 120,
+      "calibration": 40,
+      "shadow_confirmation": 40
+    },
+    "GPU_collection_authorized": false,
+    "active_control_authorized": false
+  },
+  "schedule": {
+    "clusters": 200,
+    "tasks": 10,
+    "replicates_per_task": 20,
+    "unique_cluster_keys": 200,
+    "unique_state_seeds": 200,
+    "unique_policy_seeds": 200,
+    "state_policy_seed_overlap": 0
+  },
+  "execution": {
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "data_payload_opened": false,
+    "simulator_opened": false,
+    "GPU_queried_or_initialized": false,
+    "training_run": false,
+    "active_control_run": false
+  },
+  "next_stage": "IMPLEMENT_GENERATION_COLLECTION_AND_REPLAY_RUNNERS_WITHOUT_EXECUTION"
+}

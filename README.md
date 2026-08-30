@@ -93,6 +93,21 @@ CUDA 分段计时：36 次选择 L13、334 次选择 L27，L13 覆盖率为 `9.7
 L13--L27 action-reliability target，而不是把 post-hoc 阈值写回 runtime。详见
 [`ROUTE_FIRST_STAGE11C_COVERAGE_DIAGNOSIS_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11C_COVERAGE_DIAGNOSIS_ZH.md)。
 
+### Route-first Stage 11D direct reliability protocol
+
+Stage 11D 不再模仿 V3 的最终 selected layer，而是把新的研究目标冻结为：由 FM 前的
+199D action-free causal context，直接预测同一 FM 输入下 L13 相对 L27 的动作可靠性。
+训练标签由 L13/L27 的整段 action cosine discrepancy 与 gripper 符号 XOR 构造；候选
+action、L27、task/replicate identity 和 success 均禁止进入在线 feature。在线方法仍只
+选择 L13 或 fail closed 到 L27，并只运行一次 selected-action FM。
+
+协议预注册了 200 个全新 generated-state clusters：120 train、40 calibration、40
+shadow confirmation；official states 0--49、V3-D8 和 Route-first Stage 10 states 均
+禁止复用。由于历史 59.72% 只证明标签支持而不证明 199D 可预测，协议先设置 grouped
+OOF feasibility gate；不通过就停止，不打开 calibration 或 active rollout。本阶段只完成
+协议、CPU target contract 和 synthetic tests，尚未授权 GPU 采集。详见
+[`ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid

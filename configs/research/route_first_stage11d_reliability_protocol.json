@@ -1,0 +1,207 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11d-reliability-protocol.v1",
+  "status": "FROZEN_NEW_DEVELOPMENT_PROTOCOL_NOT_RUN",
+  "created_date": "2026-08-30",
+  "objective": "Learn whether pre-action 199D causal context can directly predict same-noise L13 reliability relative to L27, without imitating the conservative V3 selected layer.",
+  "rationale": {
+    "stage11c_status": "THRESHOLD_ONLY_NOT_VIABLE_NEW_DEVELOPMENT_TARGET_REQUIRED",
+    "old_teacher_safe13_ceiling_calibration_group_equal": 0.1558,
+    "old_teacher_safe13_ceiling_holdout_group_equal": 0.1522,
+    "historical_d8_l13_joint_safe_fraction_descriptive_only": 0.5972,
+    "hypothesis": "Direct counterfactual reliability labels have materially more positive support than selected-layer imitation and may permit useful L13 coverage.",
+    "same_noise_replay_is_prior_infrastructure_not_claimed_as_novel": true
+  },
+  "method_contract": {
+    "runtime_feature_schema": "phase-route-vla.route-first-context.v1",
+    "runtime_feature_dimension": 199,
+    "runtime_decision_point": "after_vision_and_phase_context_before_decoder_and_flow_matching",
+    "runtime_inputs": [
+      "phase_embedding",
+      "phase_scalars",
+      "normalized_proprio",
+      "proprio_delta",
+      "past_selected_action_statistics",
+      "global_and_per_crop_vision_statistics",
+      "instruction_statistics"
+    ],
+    "forbidden_runtime_inputs": [
+      "current_candidate_action",
+      "same_noise_L13_action",
+      "same_noise_L27_action",
+      "teacher_selected_layer",
+      "task_id",
+      "replicate_id",
+      "success",
+      "future_observation",
+      "future_action"
+    ],
+    "decision_layers": [13, 27],
+    "online_flow_matching_calls_per_policy_call": 1,
+    "malformed_or_uncertain_fallback_layer": 27,
+    "L11_development_authorized": false
+  },
+  "data_lineage": {
+    "suite": "libero_10",
+    "task_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "replicate_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "cluster_count": 200,
+    "clusters_per_task": 20,
+    "split_by_replicate": {
+      "development_train": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "calibration": [12, 13, 14, 15],
+      "shadow_confirmation": [16, 17, 18, 19]
+    },
+    "split_cluster_counts": {
+      "development_train": 120,
+      "calibration": 40,
+      "shadow_confirmation": 40
+    },
+    "state_generation": {
+      "kind": "new_LIBERO_reset_sampler_states",
+      "state_seed_base": 93260830,
+      "state_seed_formula": "93260830 + task_id * 10000 + replicate_id",
+      "manual_selection_allowed": false,
+      "outcome_based_retry_or_replacement_allowed": false,
+      "initially_solved_or_invalid_state_policy": "retain_failure_record_and_fail_closed_without_replacement"
+    },
+    "behavior_policy": {
+      "name": "frozen_original_A1_early_exit",
+      "policy_seed_base": 94260830,
+      "policy_seed_formula": "94260830 + task_id * 10000 + replicate_id",
+      "router_controls_environment": false,
+      "candidate_replay_controls_environment": false,
+      "behavior_success_use": "descriptive_only"
+    },
+    "forbidden_sources": {
+      "official_LIBERO_states_0_49": true,
+      "V3_D8_generated_states": true,
+      "route_first_Stage10_generated_states": true,
+      "route_first_Stage10_policy_scores": true,
+      "Stage12_reserved_states": true
+    }
+  },
+  "offline_replay": {
+    "layers": [13, 27],
+    "flow_matching_steps": 10,
+    "same_cached_FM_input_x_for_both_layers": true,
+    "same_cached_model_input_for_both_layers": true,
+    "L27_role": "consistency_reference_only",
+    "L27_is_expert_or_success_label": false,
+    "replay_action_shape": ["policy_calls", 2, 8, 7],
+    "primary_noise_protocol": "one_behavior_cached_FM_input_x_per_policy_call",
+    "noise_limitation": "The action-free router cannot observe the sampled FM noise; single-noise label predictability must pass grouped OOF before active rollout.",
+    "additional_noise_probes_authorized_before_primary_feasibility_gate": false
+  },
+  "target_contract": {
+    "full_action_distance": "mean_t(1 - cosine(action_L13[t,0:7], action_L27[t,0:7]))",
+    "full_action_unsafe_threshold": 0.00390625,
+    "full_action_unsafe_rule": "full_action_distance > 0.00390625",
+    "gripper_step_unsafe_rule": "any_t((action_L13[t,6] >= 0) XOR (action_L27[t,6] >= 0))",
+    "joint_unsafe_rule": "full_action_unsafe OR gripper_step_unsafe",
+    "safe13_rule": "NOT joint_unsafe",
+    "severe_full_action_ratio": 4.0,
+    "label_source_is_runtime_input": false,
+    "task_or_outcome_identity_is_label": false
+  },
+  "model_development": {
+    "group_unit": "generated_state_cluster",
+    "row_weighting": "equal_total_weight_per_cluster_then_equal_total_weight_per_task",
+    "grouped_OOF": {
+      "fold_count": 6,
+      "fold_formula": "replicate_id % 6 on development replicates 0..11",
+      "validation_clusters_per_fold": 20,
+      "all_policy_calls_from_one_cluster_stay_in_one_fold": true
+    },
+    "development_only_model_selection": true,
+    "candidate_grid": {
+      "PCA_plus_weighted_logistic_affine": {
+        "pca_rank": [16, 32, 64, 128],
+        "l2": [0.0001, 0.001, 0.01, 0.1],
+        "maximum_optimizer_iterations": 200
+      },
+      "small_regularized_MLP": {
+        "architecture": "LayerNorm(199)-Linear(199,H)-GELU-Dropout-Linear(H,H/2)-GELU-Dropout-Linear(H/2,1)",
+        "hidden_width": [64, 128],
+        "dropout": [0.0, 0.1],
+        "weight_decay": [0.0001, 0.001],
+        "learning_rate": [0.0003, 0.001],
+        "training_seeds": [11260830, 11260831, 11260832],
+        "maximum_epochs": 200,
+        "early_stopping_patience": 20,
+        "batching": "whole_cluster_balanced_minibatches"
+      }
+    },
+    "required_baseline": "constant_prevalence_predictor",
+    "primary_ranking_metric": "group_equal_average_precision",
+    "secondary_metrics": [
+      "group_equal_ROC_AUC",
+      "false_safe_at_fixed_coverage",
+      "per_task_coverage_and_risk"
+    ],
+    "minimum_grouped_OOF_ROC_AUC": 0.65,
+    "minimum_grouped_OOF_average_precision_lift": 1.1,
+    "maximum_grouped_OOF_false_safe_at_30_percent_coverage": 0.1,
+    "if_feasibility_gate_fails": "stop_without_calibration_or_active_rollout"
+  },
+  "calibration": {
+    "opened_after_development_model_is_frozen": true,
+    "model_refit_after_opening": false,
+    "threshold_selection_objective": "maximum_L13_coverage_subject_to_all_constraints",
+    "minimum_L13_call_coverage": 0.2,
+    "minimum_each_task_L13_call_coverage": 0.05,
+    "maximum_group_equal_joint_false_safe": 0.05,
+    "maximum_observed_gripper_false_safe_calls": 0,
+    "if_no_threshold_is_feasible": "stop_without_shadow_confirmation_or_active_rollout"
+  },
+  "shadow_confirmation_gate": {
+    "opened_once_after_model_and_threshold_are_frozen": true,
+    "minimum_L13_call_coverage": 0.2,
+    "minimum_each_task_L13_call_coverage": 0.05,
+    "maximum_group_equal_joint_false_safe": 0.1,
+    "maximum_observed_gripper_false_safe_calls": 0,
+    "all_rows_clusters_and_replays_accounted_for": true,
+    "claim_level": "engineering_shadow_gate_only_not_statistical_noninferiority"
+  },
+  "future_state_reservations": {
+    "development_active_pilot": {
+      "authorized_now": false,
+      "replicates_per_task": 2,
+      "state_seed_base": 95260830,
+      "policy_seed_base": 96260830
+    },
+    "Stage12_independent_confirmation": {
+      "authorized_now": false,
+      "replicates_per_task": 6,
+      "state_seed_base": 97260830,
+      "policy_seed_base": 98260830
+    }
+  },
+  "stopping_rules": {
+    "protocol_or_artifact_hash_drift": "abort",
+    "nonfinite_or_shape_drift": "abort_partition",
+    "identity_or_split_overlap": "abort_whole_stage",
+    "grouped_OOF_feasibility_gate_failure": "record_negative_result_and_stop",
+    "calibration_constraint_failure": "record_negative_result_and_stop",
+    "shadow_gate_failure": "record_negative_result_and_stop",
+    "outcome_based_rerun_or_state_replacement": false
+  },
+  "authorization": {
+    "current_stage": [
+      "protocol_validation",
+      "CPU_synthetic_target_tests",
+      "runner_implementation_without_environment_execution"
+    ],
+    "new_state_generation_now": false,
+    "GPU_collection_now": false,
+    "training_now": false,
+    "active_environment_control_now": false,
+    "next_authorization_after_clean_tests_and_readiness": "generate_200_new_states_then_collect_original_A1_observation_only_data"
+  },
+  "claim_boundary": {
+    "same_noise_truth_is_not_ground_truth_expert_action": true,
+    "safe13_does_not_imply_task_success": true,
+    "historical_59_72_percent_is_support_only_not_new_result": true,
+    "no_speedup_success_or_superiority_claim_from_this_protocol": true,
+    "real_robot_deployment_authorized": false
+  }
+}
