@@ -1,0 +1,530 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11c-coverage-result.v1",
+  "status": "THRESHOLD_ONLY_NOT_VIABLE_NEW_DEVELOPMENT_TARGET_REQUIRED",
+  "protocol": {
+    "path": "/data3/haozheng/A1/PhaseRoute-VLA/configs/research/route_first_stage11c_coverage_protocol.json",
+    "sha256": "ef05f9e76b96e39374bc9d52d858c3f9b724f4e4c87a34b495aa407618cbba48"
+  },
+  "stage11b_live_development": {
+    "rows": 370,
+    "score13": {
+      "count": 370,
+      "min": 1.128904864733616e-15,
+      "p10": 1.2347134537503302e-10,
+      "p25": 8.384041382201563e-08,
+      "p50": 0.0004021075991084719,
+      "p75": 0.16403916028957755,
+      "p90": 0.9150132576385436,
+      "p95": 0.9867759780194186,
+      "p99": 0.9990771968861581,
+      "max": 0.9999926456843752
+    },
+    "frozen_threshold13": 0.9174261218080999,
+    "observed_L13_calls": 36,
+    "observed_L13_fraction": 0.0972972972972973,
+    "threshold_curve_descriptive_only": [
+      {
+        "threshold": 0.5,
+        "selected_rows": 69,
+        "raw_policy_call_coverage": 0.1864864864864865,
+        "equal_task_coverage": 0.20274554224151004
+      },
+      {
+        "threshold": 0.7,
+        "selected_rows": 62,
+        "raw_policy_call_coverage": 0.16756756756756758,
+        "equal_task_coverage": 0.1833191912627397
+      },
+      {
+        "threshold": 0.8,
+        "selected_rows": 51,
+        "raw_policy_call_coverage": 0.13783783783783785,
+        "equal_task_coverage": 0.14857803039254658
+      },
+      {
+        "threshold": 0.85,
+        "selected_rows": 46,
+        "raw_policy_call_coverage": 0.12432432432432433,
+        "equal_task_coverage": 0.13543907257616938
+      },
+      {
+        "threshold": 0.9,
+        "selected_rows": 42,
+        "raw_policy_call_coverage": 0.11351351351351352,
+        "equal_task_coverage": 0.12052185120733509
+      },
+      {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 36,
+        "raw_policy_call_coverage": 0.0972972972972973,
+        "equal_task_coverage": 0.10351704597672341
+      },
+      {
+        "threshold": 0.95,
+        "selected_rows": 31,
+        "raw_policy_call_coverage": 0.08378378378378379,
+        "equal_task_coverage": 0.09145669891637637
+      },
+      {
+        "threshold": 0.97,
+        "selected_rows": 24,
+        "raw_policy_call_coverage": 0.06486486486486487,
+        "equal_task_coverage": 0.07156026246752054
+      },
+      {
+        "threshold": 0.99,
+        "selected_rows": 18,
+        "raw_policy_call_coverage": 0.04864864864864865,
+        "equal_task_coverage": 0.05245907691472208
+      },
+      {
+        "threshold": 0.995,
+        "selected_rows": 16,
+        "raw_policy_call_coverage": 0.043243243243243246,
+        "equal_task_coverage": 0.04706134964199481
+      },
+      {
+        "threshold": 0.999,
+        "selected_rows": 5,
+        "raw_policy_call_coverage": 0.013513513513513514,
+        "equal_task_coverage": 0.016606929510155317
+      }
+    ],
+    "per_task": [
+      {
+        "task_id": 0,
+        "policy_calls": 36,
+        "L13_calls": 3,
+        "L13_fraction": 0.08333333333333333,
+        "near_miss_within_0_02": 2,
+        "maximum_score_below_threshold": 0.9150132576385436
+      },
+      {
+        "task_id": 1,
+        "policy_calls": 31,
+        "L13_calls": 7,
+        "L13_fraction": 0.22580645161290322,
+        "near_miss_within_0_02": 1,
+        "maximum_score_below_threshold": 0.9060242536939368
+      },
+      {
+        "task_id": 2,
+        "policy_calls": 31,
+        "L13_calls": 4,
+        "L13_fraction": 0.12903225806451613,
+        "near_miss_within_0_02": 0,
+        "maximum_score_below_threshold": 0.854375958431525
+      },
+      {
+        "task_id": 3,
+        "policy_calls": 27,
+        "L13_calls": 8,
+        "L13_fraction": 0.2962962962962963,
+        "near_miss_within_0_02": 0,
+        "maximum_score_below_threshold": 0.851525436188688
+      },
+      {
+        "task_id": 4,
+        "policy_calls": 32,
+        "L13_calls": 2,
+        "L13_fraction": 0.0625,
+        "near_miss_within_0_02": 0,
+        "maximum_score_below_threshold": 0.66744610817348
+      },
+      {
+        "task_id": 5,
+        "policy_calls": 21,
+        "L13_calls": 0,
+        "L13_fraction": 0.0,
+        "near_miss_within_0_02": 1,
+        "maximum_score_below_threshold": 0.9172881118431921
+      },
+      {
+        "task_id": 6,
+        "policy_calls": 65,
+        "L13_calls": 6,
+        "L13_fraction": 0.09230769230769231,
+        "near_miss_within_0_02": 1,
+        "maximum_score_below_threshold": 0.9105610419175799
+      },
+      {
+        "task_id": 7,
+        "policy_calls": 31,
+        "L13_calls": 1,
+        "L13_fraction": 0.03225806451612903,
+        "near_miss_within_0_02": 0,
+        "maximum_score_below_threshold": 0.8727798354999914
+      },
+      {
+        "task_id": 8,
+        "policy_calls": 52,
+        "L13_calls": 0,
+        "L13_fraction": 0.0,
+        "near_miss_within_0_02": 1,
+        "maximum_score_below_threshold": 0.9008152933036323
+      },
+      {
+        "task_id": 9,
+        "policy_calls": 44,
+        "L13_calls": 5,
+        "L13_fraction": 0.11363636363636363,
+        "near_miss_within_0_02": 0,
+        "maximum_score_below_threshold": 0.4810211492692527
+      }
+    ]
+  },
+  "historical_calibration_reused_diagnostic_only": {
+    "rows": 666,
+    "episode_indices": [
+      8,
+      9
+    ],
+    "teacher_safe13_rows": 95,
+    "teacher_safe13_raw_fraction": 0.14264264264264265,
+    "teacher_safe13_group_equal_ceiling": 0.1558098179492867,
+    "score13_all": {
+      "count": 666,
+      "min": 5.64026322324193e-16,
+      "p10": 1.8503988619134049e-10,
+      "p25": 2.0221249030782928e-07,
+      "p50": 0.0008421972161158919,
+      "p75": 0.292082279920578,
+      "p90": 0.943595826625824,
+      "p95": 0.9945223331451416,
+      "p99": 0.9996911287307739,
+      "max": 0.9999487400054932
+    },
+    "score13_safe": {
+      "count": 95,
+      "min": 0.06843861192464828,
+      "p10": 0.740373432636261,
+      "p25": 0.909916341304779,
+      "p50": 0.982610821723938,
+      "p75": 0.997337281703949,
+      "p90": 0.9994556903839111,
+      "p95": 0.9997513294219971,
+      "p99": 0.9999487400054932,
+      "max": 0.9999487400054932
+    },
+    "score13_unsafe": {
+      "count": 571,
+      "min": 5.64026322324193e-16,
+      "p10": 1.2784513725438984e-10,
+      "p25": 1.0432970043439127e-07,
+      "p50": 8.740076009416953e-05,
+      "p75": 0.030671104788780212,
+      "p90": 0.4897388517856598,
+      "p95": 0.730907678604126,
+      "p99": 0.9111315608024597,
+      "max": 0.9999430179595947
+    },
+    "maximum_unsafe_score13": 0.9999430179595947,
+    "threshold_curve_descriptive_only": [
+      {
+        "threshold": 0.5,
+        "selected_rows": 147,
+        "actual_coverage": 0.23763989263336982,
+        "empirical_false_safe_rate": 0.37937385127365547,
+        "false_safe_upper_bound": 0.4330749655920266,
+        "effective_selected_rows": 139.82804656975892,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.7,
+        "selected_rows": 122,
+        "actual_coverage": 0.20057276109932656,
+        "empirical_false_safe_rate": 0.2795642299265834,
+        "false_safe_upper_bound": 0.33570568976940685,
+        "effective_selected_rows": 116.20478270823439,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.8,
+        "selected_rows": 105,
+        "actual_coverage": 0.1725914670797261,
+        "empirical_false_safe_rate": 0.1943981447012759,
+        "false_safe_upper_bound": 0.2495673339806025,
+        "effective_selected_rows": 101.05980063397743,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.85,
+        "selected_rows": 93,
+        "actual_coverage": 0.15334354752879426,
+        "empirical_false_safe_rate": 0.14305376916468693,
+        "false_safe_upper_bound": 0.19683121480436339,
+        "effective_selected_rows": 89.77855796763973,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.9,
+        "selected_rows": 79,
+        "actual_coverage": 0.13168172467686232,
+        "empirical_false_safe_rate": 0.08951258187949808,
+        "false_safe_upper_bound": 0.14025046487971204,
+        "effective_selected_rows": 76.92787656571036,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 70,
+        "actual_coverage": 0.11656763513736955,
+        "empirical_false_safe_rate": 0.058218927714757326,
+        "false_safe_upper_bound": 0.10607505210239841,
+        "effective_selected_rows": 68.00039471027732,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.95,
+        "selected_rows": 64,
+        "actual_coverage": 0.10576596928530041,
+        "empirical_false_safe_rate": 0.06416470978142795,
+        "false_safe_upper_bound": 0.11605069175016357,
+        "effective_selected_rows": 62.58167516543202,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.97,
+        "selected_rows": 53,
+        "actual_coverage": 0.08744571091463878,
+        "empirical_false_safe_rate": 0.017868229140766592,
+        "false_safe_upper_bound": 0.06030722102655614,
+        "effective_selected_rows": 51.6769958993486,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.99,
+        "selected_rows": 42,
+        "actual_coverage": 0.0691791826575982,
+        "empirical_false_safe_rate": 0.022586274367154362,
+        "false_safe_upper_bound": 0.0752947129821622,
+        "effective_selected_rows": 41.16040992063941,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.995,
+        "selected_rows": 32,
+        "actual_coverage": 0.0530868504255601,
+        "empirical_false_safe_rate": 0.029432900755545523,
+        "false_safe_upper_bound": 0.09699718761075624,
+        "effective_selected_rows": 31.512729527539047,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.999,
+        "selected_rows": 12,
+        "actual_coverage": 0.019611790912194133,
+        "empirical_false_safe_rate": 0.07967145922550477,
+        "false_safe_upper_bound": 0.23753878274861095,
+        "effective_selected_rows": 11.935482042132637,
+        "confidence_level": 0.9
+      }
+    ]
+  },
+  "historical_holdout_reused_diagnostic_only": {
+    "rows": 681,
+    "episode_indices": [
+      10,
+      11
+    ],
+    "teacher_safe13_rows": 98,
+    "teacher_safe13_raw_fraction": 0.14390602055800295,
+    "teacher_safe13_group_equal_ceiling": 0.15220293338592672,
+    "score13_all": {
+      "count": 681,
+      "min": 1.726013118542836e-15,
+      "p10": 3.531094028286219e-10,
+      "p25": 2.61397588019463e-07,
+      "p50": 0.00028574635507538915,
+      "p75": 0.22730931639671326,
+      "p90": 0.9097824692726135,
+      "p95": 0.9928022027015686,
+      "p99": 0.9998089671134949,
+      "max": 0.9999948740005493
+    },
+    "score13_safe": {
+      "count": 98,
+      "min": 0.03790115565061569,
+      "p10": 0.6453586220741272,
+      "p25": 0.8701173663139343,
+      "p50": 0.9637290239334106,
+      "p75": 0.9956435561180115,
+      "p90": 0.999561071395874,
+      "p95": 0.99993497133255,
+      "p99": 0.9999948740005493,
+      "max": 0.9999948740005493
+    },
+    "score13_unsafe": {
+      "count": 583,
+      "min": 1.726013118542836e-15,
+      "p10": 2.2460222570686028e-10,
+      "p25": 3.656158042986135e-08,
+      "p50": 3.575946175260469e-05,
+      "p75": 0.020292241126298904,
+      "p90": 0.35466328263282776,
+      "p95": 0.6860653162002563,
+      "p99": 0.9078068733215332,
+      "max": 0.999498724937439
+    },
+    "maximum_unsafe_score13": 0.999498724937439,
+    "threshold_curve_descriptive_only": [
+      {
+        "threshold": 0.5,
+        "selected_rows": 138,
+        "actual_coverage": 0.21743599436792038,
+        "empirical_false_safe_rate": 0.33486406953781706,
+        "false_safe_upper_bound": 0.38939063881625535,
+        "effective_selected_rows": 131.34235191463281,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.7,
+        "selected_rows": 113,
+        "actual_coverage": 0.1761323684046644,
+        "empirical_false_safe_rate": 0.2502983210994147,
+        "false_safe_upper_bound": 0.3072969887326762,
+        "effective_selected_rows": 107.60888789884562,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.8,
+        "selected_rows": 99,
+        "actual_coverage": 0.1539650102998063,
+        "empirical_false_safe_rate": 0.18052738944123162,
+        "false_safe_upper_bound": 0.23666630132340813,
+        "effective_selected_rows": 94.14452071249895,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.85,
+        "selected_rows": 86,
+        "actual_coverage": 0.1342556771624608,
+        "empirical_false_safe_rate": 0.1273352961447472,
+        "false_safe_upper_bound": 0.1818902961291345,
+        "effective_selected_rows": 82.11530778302418,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.9,
+        "selected_rows": 72,
+        "actual_coverage": 0.11221672919550055,
+        "empirical_false_safe_rate": 0.08238617975230939,
+        "false_safe_upper_bound": 0.1350086649489128,
+        "effective_selected_rows": 69.2632493014098,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.9174261218080999,
+        "selected_rows": 67,
+        "actual_coverage": 0.10556689754566889,
+        "empirical_false_safe_rate": 0.06652545034257888,
+        "false_safe_upper_bound": 0.11791824173649573,
+        "effective_selected_rows": 64.67815051900975,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.95,
+        "selected_rows": 57,
+        "actual_coverage": 0.08993797921454469,
+        "empirical_false_safe_rate": 0.052815931258983026,
+        "false_safe_upper_bound": 0.1055636519022427,
+        "effective_selected_rows": 55.73507909188601,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.97,
+        "selected_rows": 49,
+        "actual_coverage": 0.07898207217882265,
+        "empirical_false_safe_rate": 0.041522965933938415,
+        "false_safe_upper_bound": 0.09577652565057204,
+        "effective_selected_rows": 48.322628529356784,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.99,
+        "selected_rows": 41,
+        "actual_coverage": 0.06637795884890287,
+        "empirical_false_safe_rate": 0.04940751341779658,
+        "false_safe_upper_bound": 0.11313912424235631,
+        "effective_selected_rows": 40.57239911524507,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.995,
+        "selected_rows": 27,
+        "actual_coverage": 0.04354688311460134,
+        "empirical_false_safe_rate": 0.038272926727741644,
+        "false_safe_upper_bound": 0.11848003958005446,
+        "effective_selected_rows": 26.663904474677846,
+        "confidence_level": 0.9
+      },
+      {
+        "threshold": 0.999,
+        "selected_rows": 12,
+        "actual_coverage": 0.020239695340501792,
+        "empirical_false_safe_rate": 0.0823464305478694,
+        "false_safe_upper_bound": 0.24082216502488266,
+        "effective_selected_rows": 11.956019118895766,
+        "confidence_level": 0.9
+      }
+    ]
+  },
+  "diagnostic_checks": {
+    "calibration_teacher_safe13_ceiling_is_low": true,
+    "holdout_teacher_safe13_ceiling_is_low": true,
+    "threshold_relaxation_live_coverage_remains_weak": true,
+    "threshold_relaxation_holdout_risk_bound_is_high": true,
+    "unsafe_examples_have_high_confidence_overlap": true,
+    "current_decoder_block_reduction_is_small": true
+  },
+  "new_threshold": null,
+  "runtime_change_authorized": false,
+  "next_development_hypothesis": {
+    "primary": "replace conservative teacher-imitation target with a newly collected direct L13-to-L27 action-reliability target",
+    "secondary": "reduce fixed L27 and selected-action FM cost without changing decisions",
+    "reject": "do not lower the scalar threshold and promote it directly to Stage 12"
+  },
+  "inputs": {
+    "stage11b_aggregate": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/results/route_first/route_first_stage11b_profile_aggregate.json",
+      "sha256": "4e7286d2b841c4c3adc510b0e934b90e10ab7ef8c3924d22b608151011e861dc"
+    },
+    "runtime": {
+      "shard0": {
+        "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage11b_profile/full_shard0/phase_route_runtime.jsonl",
+        "sha256": "a7437cbcd33a814fb5fbe5d74914cda58f9ad2cba299357dea82d0827c656367",
+        "records": 120
+      },
+      "shard1": {
+        "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage11b_profile/full_shard1/phase_route_runtime.jsonl",
+        "sha256": "e4eacd31e106d02bb21e2d83ef2e147ebd0470bd8a27738bdf4db65a371ce956",
+        "records": 96
+      },
+      "shard2": {
+        "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage11b_profile/full_shard2/phase_route_runtime.jsonl",
+        "sha256": "ffde733acf4bc2c540cdf3735e95d1eb0d20b28b8e30c2d41231520c90df7185",
+        "records": 96
+      },
+      "shard3": {
+        "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_stage11b_profile/full_shard3/phase_route_runtime.jsonl",
+        "sha256": "0b01cb0ef1f975a9ca75b6dcced6e07bf1889756ee61ee0d5654761a6ee58847",
+        "records": 58
+      }
+    },
+    "historical_calibration_scores": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_calibration_stage6/calibration_scores.npz",
+      "sha256": "58c079f1b27018ffd2743cfd3898d66aa56ce8b6340712a7d9e2a3187a1360f0"
+    },
+    "historical_holdout_scores": {
+      "path": "/data3/haozheng/A1/PhaseRoute-VLA/runs/route_first_holdout_stage7/holdout_scores.npz",
+      "sha256": "c6b8872a18ca44e7762f05cbef29967aea06cde5c9324da392d93d8398326a45"
+    }
+  },
+  "claim_boundary": {
+    "posthoc_development_diagnosis_only": true,
+    "historical_calibration_and_holdout_are_reused": true,
+    "not_a_new_safety_confirmation": true,
+    "not_a_speedup_confirmation": true,
+    "not_deployment_authorized": true
+  }
+}

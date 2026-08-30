@@ -83,6 +83,16 @@ CUDA 分段计时：36 次选择 L13、334 次选择 L27，L13 覆盖率为 `9.7
 完整解释见
 [`ROUTE_FIRST_STAGE11B_PROFILE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11B_PROFILE_RESULT_ZH.md)。
 
+### Route-first Stage 11C coverage diagnosis
+
+对 frozen score13 做只读风险—覆盖扫描后，阈值路线被判定为
+`THRESHOLD_ONLY_NOT_VIABLE_NEW_DEVELOPMENT_TARGET_REQUIRED`。历史 calibration/holdout
+中 teacher-safe-L13 的 group-equal 上限仅为 `15.58%/15.22%`；把阈值从 `0.9174`
+降到 `0.8`，state0 live 覆盖仅从 `9.73%` 增至 `13.78%`，holdout false-safe 则从
+`6.65%` 增至 `18.05%`。因此下一轮应在新 development observations 上学习直接的
+L13--L27 action-reliability target，而不是把 post-hoc 阈值写回 runtime。详见
+[`ROUTE_FIRST_STAGE11C_COVERAGE_DIAGNOSIS_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11C_COVERAGE_DIAGNOSIS_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid
