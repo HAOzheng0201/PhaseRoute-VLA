@@ -1,0 +1,176 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage10-published-result.v1",
+  "status": "INCOMPLETE_ROUTE_FIRST_STAGE10_FRESH_ACTIVE_CONFIRMATION",
+  "created_at": "2026-08-30T17:01:05+08:00",
+  "scope": "libero_10_fresh_generated_state_three_arm_active_confirmation",
+  "source": {
+    "git_commit": "4f13573a542b278d5fd8708be41cd9096ad49be1",
+    "protocol_sha256": "62f5be1524676cd2db045de32964ff3206a455d5fd8e8b29eb10e134521bc604",
+    "schedule_sha256": "c2c41259c5db1b79d6f2da68ec77c200d829670fb7cd17b4abc19f63a37f43d4",
+    "runner_readiness_sha256": "a4cd7726a03be9705fe8410ca1df92657dac281cfc1180c3e3edb661552b95d7",
+    "raw_aggregate": "runs/route_first_stage10_active/stage10_active_aggregate.json",
+    "raw_aggregate_sha256": "e436b4014b20ca10b73fa8f9a328bc101a881a4e14c376c47ac54509b8c30524",
+    "aggregate_timestamp_utc": "2026-08-30T07:46:01.446+00:00"
+  },
+  "coverage": {
+    "tasks": 10,
+    "replicates_per_task": 6,
+    "triplets": 60,
+    "active_rollouts": 180,
+    "arms_per_triplet": 3,
+    "all_triplet_and_arm_evidence_complete": true
+  },
+  "success": {
+    "original_a1": {
+      "count": 56,
+      "rate": 0.9333333333333333
+    },
+    "candidate_first_v3": {
+      "count": 57,
+      "rate": 0.95
+    },
+    "route_first_stage8": {
+      "count": 58,
+      "rate": 0.9666666666666667
+    },
+    "paired_discordance": {
+      "route_success_candidate_failure": 2,
+      "route_failure_candidate_success": 1,
+      "route_success_original_failure": 2,
+      "route_failure_original_success": 0
+    },
+    "exact_mcnemar_descriptive": {
+      "route_vs_candidate_two_sided_p": 1.0,
+      "route_vs_original_a1_two_sided_p": 0.5,
+      "used_as_gate": false
+    }
+  },
+  "policy_latency_ms": {
+    "original_a1": {
+      "calls": 2060,
+      "mean": 1557.609984604369,
+      "p50": 848.763189,
+      "p90": 2686.854676,
+      "p95": 2743.586706,
+      "max": 3966.890526
+    },
+    "candidate_first_v3": {
+      "calls": 2025,
+      "mean": 1546.3752626681483,
+      "p50": 1600.3621,
+      "p90": 1760.12013,
+      "p95": 1856.739585,
+      "max": 3372.914531
+    },
+    "route_first_stage8": {
+      "calls": 1957,
+      "mean": 916.903856554931,
+      "p50": 903.198376,
+      "p90": 1043.671767,
+      "p95": 1198.277595,
+      "max": 2469.727111
+    },
+    "route_relative_reduction": {
+      "versus_candidate_first_v3": {
+        "mean": 0.4070625166540197,
+        "p50": 0.4356287392709437,
+        "p90": 0.40704515037845734,
+        "p95": 0.35463346358288583
+      },
+      "versus_original_a1": {
+        "mean": 0.41133925333187726,
+        "p50": -0.06413471708655827,
+        "p90": 0.6115637453999763,
+        "p95": 0.5632441313484043
+      }
+    },
+    "within_triplet_episode_p50_ratio_median": {
+      "route_to_candidate": 0.5621576802051413,
+      "route_to_original_a1": 1.0795221559215773
+    }
+  },
+  "routing": {
+    "original_a1": {
+      "selected_layer_counts": {
+        "L11": 1227,
+        "L27": 833
+      },
+      "selected_layer_share": {
+        "L11": 0.595631067961165,
+        "L27": 0.40436893203883495
+      }
+    },
+    "candidate_first_v3": {
+      "selected_layer_counts": {
+        "L11": 74,
+        "L13": 224,
+        "L27": 1727
+      },
+      "selected_layer_share": {
+        "L11": 0.03654320987654321,
+        "L13": 0.11061728395061729,
+        "L27": 0.8528395061728395
+      }
+    },
+    "route_first_stage8": {
+      "selected_layer_counts": {
+        "L13": 229,
+        "L27": 1728
+      },
+      "selected_layer_share": {
+        "L13": 0.11701584057230455,
+        "L27": 0.8829841594276955
+      },
+      "authoritative_exactly_one_fm_calls": 1957,
+      "valid_policy_calls": 1957,
+      "every_valid_policy_call_exactly_one_fm": true
+    }
+  },
+  "rollout_wall_seconds_descriptive": {
+    "original_a1": 5552.855119440472,
+    "candidate_first_v3": 5413.898327595438,
+    "route_first_stage8": 3991.9871613653377,
+    "route_reduction_vs_candidate": 0.26264090682723196,
+    "route_reduction_vs_original_a1": 0.281092865652222,
+    "pure_system_speedup_claim_allowed": false
+  },
+  "gates": {
+    "complete_60_triplets": true,
+    "complete_180_active_rollouts": true,
+    "route_success_at_least_candidate_minus_6": true,
+    "route_success_at_least_original_a1_minus_6": true,
+    "route_candidate_episode_p50_ratio_median_at_most_0_80": true,
+    "route_original_episode_p50_ratio_median_at_most_0_90": false,
+    "route_every_valid_policy_call_exactly_one_fm": true,
+    "all_frozen_gates_passed": false
+  },
+  "infrastructure_integrity": {
+    "abort_records_retained": 5,
+    "outcome_based_retry": false,
+    "replacement_state_or_seed": false,
+    "gpu_overlap_quarantine": {
+      "task_id": 6,
+      "replicate_id": 1,
+      "original_triplet_sha256": "8ffd1622a4eea1f3253354f29c5d9b506bc38f40335fdf636be1f5e174f7fed7",
+      "clean_rerun_triplet_sha256": "2889d6b3c345199a299fe3e4bc1b9e0b0c717b0056e008e660c9655d379fb698",
+      "same_tuple_gpu_seed_commit": true,
+      "resolved_before_aggregate": true
+    }
+  },
+  "validation": {
+    "aggregate_sidecar_sha256_pass": true,
+    "targeted_tests": "20 passed, 1 warning",
+    "full_tests": "580 passed, 22 subtests passed, 3 warnings",
+    "test_failures": 0
+  },
+  "claim_boundary": {
+    "fresh_state_active_evidence_complete": true,
+    "all_preregistered_confirmation_gates_passed": false,
+    "powered_noninferiority": false,
+    "statistical_superiority": false,
+    "system_wide_speedup": false,
+    "cross_suite_generalization": false,
+    "deployment_authorized": false,
+    "retrospective_stage10_tuning_allowed": false
+  }
+}

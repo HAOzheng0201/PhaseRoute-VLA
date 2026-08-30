@@ -46,6 +46,21 @@ SHA-256 为 `0979f04e8f7c3352b2bbea8540a2562925546233d03905c6d579d077795d1d8c`�
 [`ROUTE_FIRST_STAGE9_STATE13_PILOT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE9_STATE13_PILOT_ZH.md)。
 这仍是单 init-state 工程 pilot，不是统计功效充分的 wall-clock 加速或非劣效性结论。
 
+### Route-first Stage 10 fresh-state confirmation
+
+Stage 10 在 60 个新生成状态上完成 180 个三臂 active rollout。Original A1、
+candidate-first V3、route-first 的成功数分别为 `56/60`、`57/60`、`58/60`；
+route-first 相对 candidate 的配对 episode-P50 ratio 中位数为 `0.5622`，且
+`1957/1957` 个有效 policy call 均由 runtime event 证明恰好一次 FM。相对 Original A1
+的 pooled mean/P90/P95 分别降低约 `41.13%/61.16%/56.32%`，但预注册的配对
+episode-P50 ratio 为 `1.0795`，未达到 `≤0.90` 门槛。因此正式状态保持
+`INCOMPLETE_ROUTE_FIRST_STAGE10_FRESH_ACTIVE_CONFIRMATION`，不能写成全面优于 A1。
+
+机器可读精简结果见
+[`route_first_stage10_active_confirmation.json`](results/route_first/route_first_stage10_active_confirmation.json)，
+SHA-256 为 `1818d96e4de096cb5913f8bc0ce20f656fb72cb724795362314a609d5aac915b`；完整解释见
+[`ROUTE_FIRST_STAGE10_ACTIVE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE10_ACTIVE_RESULT_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid
