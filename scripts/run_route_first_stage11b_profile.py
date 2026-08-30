@@ -34,6 +34,9 @@ STAGE10_READINESS_PATH = Path(
     "results/route_first/route_first_stage10_runner_readiness.json"
 )
 PROFILE_SCHEMA = "phase-route-vla.route-first-stage11b-profile-result.v1"
+THRESHOLD_SHA256 = (
+    "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -135,6 +138,48 @@ def parse_args() -> argparse.Namespace:
 def _normalize_uuid(value: Any) -> str:
     normalized = str(value).strip().lower()
     return normalized[4:] if normalized.startswith("gpu-") else normalized
+
+
+def _thresholds(checkpoint: Path) -> dict[int, float]:
+    path = checkpoint / "exit_thresholds_libero_10_exp_1.0.json"
+    if sha256_file(path) != THRESHOLD_SHA256:
+        raise PermissionError("frozen A1 threshold SHA-256 differs")
+    value = _load_json(path)
+    return {int(layer): float(threshold) for layer, threshold in value.items()}
+
+
+def _stage11_sparse_controller(cfg: Any, model: Any, device: Any) -> Any:
+    """Reproduce the Stage-10 sparse constructor without its CUDA-masking import."""
+
+    from a1.vla.dynamic_compute.productive_exit import a1_fm10_rp_pep_plan
+    from a1.vla.value_net import ActionValueNet, ExitController
+
+    original = tuple(model.get_all_exit_idx(cfg.exit_interval))
+    plan = a1_fm10_rp_pep_plan(original)
+    value_net = ActionValueNet(
+        exit_list=list(plan.eligible_exit_layers),
+        exit_head=model.action_head,
+        model=model,
+        interval=cfg.exit_interval,
+        threshold_type=cfg.threshold_type,
+        anchor=False,
+        productive_exit_plan=plan,
+    )
+    controller = ExitController(
+        value_net,
+        exit_id_list=list(plan.eligible_exit_layers),
+        steps_per_stage=cfg.steps_per_stage,
+        leq=True,
+        exit_dist=cfg.exit_dist,
+        max_layer=model.config.n_layers,
+    )
+    selected = plan.select_eligible_thresholds(
+        _thresholds(Path(cfg.pretrained_checkpoint)), lower_is_easier=True
+    )
+    controller.thresholds = dict(zip(plan.eligible_exit_layers, selected))
+    controller.to(device)
+    controller.eval()
+    return controller
 
 
 def _gpu_processes(expected_uuid: str) -> tuple[dict[str, Any], ...]:
@@ -306,7 +351,6 @@ def main() -> None:
     )
     from robot_experiments.robot_utils import set_seed_everywhere
     from scripts.run_route_first_active import summarize_route_first_integrity
-    from scripts.run_route_first_stage10_arm import _sparse_controller
 
     if not torch.cuda.is_available() or torch.cuda.device_count() != 1:
         raise RuntimeError("Stage-11B requires exactly one visible CUDA GPU")
@@ -363,7 +407,7 @@ def main() -> None:
         args.context_router.resolve(strict=True),
         args.phase_checkpoint.resolve(strict=True),
     )
-    base_controller = _sparse_controller(cfg, model, device)
+    base_controller = _stage11_sparse_controller(cfg, model, device)
     controller = RouteFirstExitController.from_frozen_sparse_controller(base_controller)
     controller.install_route_first_adapter(runtime.adapter)
     controller.to(device)

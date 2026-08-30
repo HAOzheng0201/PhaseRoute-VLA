@@ -48,10 +48,12 @@ def test_task_parser_and_gpu_uuid_normalization_are_strict() -> None:
     assert _normalize_uuid("abc") == "abc"
 
 
-def test_runner_reuses_stage10_sparse_controller_constructor() -> None:
+def test_runner_reproduces_sparse_controller_without_cuda_masking_import() -> None:
     source = (
         REPO_ROOT / "scripts/run_route_first_stage11b_profile.py"
     ).read_text(encoding="utf-8")
-    assert "from scripts.run_route_first_stage10_arm import _sparse_controller" in source
-    assert "base_controller = _sparse_controller(cfg, model, device)" in source
+    assert "def _stage11_sparse_controller" in source
+    assert "a1_fm10_rp_pep_plan(original)" in source
+    assert "base_controller = _stage11_sparse_controller(cfg, model, device)" in source
+    assert "from scripts.run_route_first_stage10_arm import" not in source
     assert "initialize_exit_controller" not in source
