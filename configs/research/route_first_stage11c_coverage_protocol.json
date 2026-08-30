@@ -1,0 +1,100 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11c-coverage-protocol.v1",
+  "status": "FROZEN_POST_STAGE11B_DEVELOPMENT_DIAGNOSIS_NOT_RUN",
+  "created_date": "2026-08-30",
+  "objective": "Determine whether scalar threshold relaxation can materially raise safe L13 coverage, without selecting a new deployment threshold.",
+  "access_disclosure": {
+    "designed_after_stage11b_result": true,
+    "manual_precheck_observed_before_freeze": [
+      "state0 L13 coverage is approximately 9.7 percent",
+      "lowering score13 threshold to 0.8 gives only approximately 13.8 percent live coverage",
+      "historical holdout false-safe rises materially at threshold 0.8"
+    ],
+    "therefore_not_an_unbiased_confirmation": true
+  },
+  "inputs": {
+    "stage11b_aggregate": {
+      "path": "results/route_first/route_first_stage11b_profile_aggregate.json",
+      "sha256": "4e7286d2b841c4c3adc510b0e934b90e10ab7ef8c3924d22b608151011e861dc"
+    },
+    "stage11b_runtime_jsonl": {
+      "shard0": {
+        "path": "runs/route_first_stage11b_profile/full_shard0/phase_route_runtime.jsonl",
+        "sha256": "a7437cbcd33a814fb5fbe5d74914cda58f9ad2cba299357dea82d0827c656367"
+      },
+      "shard1": {
+        "path": "runs/route_first_stage11b_profile/full_shard1/phase_route_runtime.jsonl",
+        "sha256": "e4eacd31e106d02bb21e2d83ef2e147ebd0470bd8a27738bdf4db65a371ce956"
+      },
+      "shard2": {
+        "path": "runs/route_first_stage11b_profile/full_shard2/phase_route_runtime.jsonl",
+        "sha256": "ffde733acf4bc2c540cdf3735e95d1eb0d20b28b8e30c2d41231520c90df7185"
+      },
+      "shard3": {
+        "path": "runs/route_first_stage11b_profile/full_shard3/phase_route_runtime.jsonl",
+        "sha256": "0b01cb0ef1f975a9ca75b6dcced6e07bf1889756ee61ee0d5654761a6ee58847"
+      }
+    },
+    "historical_calibration_scores": {
+      "path": "runs/route_first_calibration_stage6/calibration_scores.npz",
+      "sha256": "58c079f1b27018ffd2743cfd3898d66aa56ce8b6340712a7d9e2a3187a1360f0",
+      "episode_indices": [8, 9]
+    },
+    "historical_holdout_scores": {
+      "path": "runs/route_first_holdout_stage7/holdout_scores.npz",
+      "sha256": "c6b8872a18ca44e7762f05cbef29967aea06cde5c9324da392d93d8398326a45",
+      "episode_indices": [10, 11]
+    },
+    "calibrated_router": {
+      "path": "runs/route_first_calibration_stage6/router_calibrated.npz",
+      "sha256": "ae561b77c01bd4c7eee6cc0ff91e215733662544cc1af2e5039b0a8f02c60cc2"
+    }
+  },
+  "frozen_threshold13": 0.9174261218080999,
+  "diagnostic_threshold_grid": [
+    0.5,
+    0.7,
+    0.8,
+    0.85,
+    0.9,
+    0.9174261218080999,
+    0.95,
+    0.97,
+    0.99,
+    0.995,
+    0.999
+  ],
+  "weighting": {
+    "teacher_risk": "equal mass per task and episode cell",
+    "live_compute": "report both raw policy-call and equal-task coverage",
+    "confidence_level": 0.9
+  },
+  "diagnostic_rules": {
+    "maximum_teacher_safe13_ceiling_for_low_ceiling": 0.2,
+    "threshold_probe": 0.8,
+    "maximum_live_raw_coverage_for_weak_relaxation": 0.2,
+    "minimum_holdout_false_safe_upper_for_unsafe_relaxation": 0.2,
+    "minimum_unsafe_score_for_high_confidence_overlap": 0.99,
+    "maximum_current_decoder_block_reduction": 0.1
+  },
+  "decision": {
+    "all_rules_true": "THRESHOLD_ONLY_NOT_VIABLE_NEW_DEVELOPMENT_TARGET_REQUIRED",
+    "otherwise": "THRESHOLD_ONLY_REMAINS_DIAGNOSTIC_CANDIDATE",
+    "emits_new_threshold": false,
+    "authorizes_runtime_change": false
+  },
+  "forbidden": {
+    "read_stage10_fresh_policy_scores": true,
+    "select_new_threshold": true,
+    "train_or_modify_router": true,
+    "rerun_stage10": true,
+    "open_new_environment_state": true
+  },
+  "claim_boundary": {
+    "posthoc_development_diagnosis_only": true,
+    "historical_calibration_and_holdout_are_reused": true,
+    "not_a_new_safety_confirmation": true,
+    "not_a_speedup_confirmation": true,
+    "not_deployment_authorized": true
+  }
+}
