@@ -1,0 +1,63 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11b-profile-protocol.v1",
+  "status": "FROZEN_DEVELOPMENT_PROFILE_NOT_RUN",
+  "created_date": "2026-08-30",
+  "objective": "Measure vision-backbone, executed decoder blocks, and the single selected-action flow-matching latency without changing the frozen Route-first controller.",
+  "data_role": {
+    "suite": "libero_10",
+    "official_init_state": 0,
+    "state_role": "previously_opened_development_state",
+    "final_stage10_fresh_states_used": false,
+    "threshold_or_router_training_allowed_in_stage11b": false
+  },
+  "method": {
+    "name": "route_first_stage8",
+    "target_layers": [13, 27],
+    "exactly_one_selected_action_fm_required": true,
+    "controller_or_router_change": false,
+    "measurement_is_control_input": false
+  },
+  "schedule": {
+    "smoke": {
+      "task_ids": [0],
+      "episode_indices": [0],
+      "claim_use": "instrumentation_smoke_only"
+    },
+    "full_shards": {
+      "shard0": [0, 4, 8],
+      "shard1": [1, 5, 9],
+      "shard2": [2, 6],
+      "shard3": [3, 7]
+    },
+    "full_episode_indices": [0],
+    "seed_base": 91260830,
+    "seed_formula": "seed_base + task_id * 10000 + episode_index"
+  },
+  "required_spans_per_valid_policy_call": {
+    "model_predict": 1,
+    "vision_backbone": 1,
+    "selected_action_fm": 1,
+    "decoder_blocks": "selected_layer + 1",
+    "cuda_events_complete": true
+  },
+  "integrity_gates": {
+    "clean_single_source_commit": true,
+    "D9_protected_sources_exact": true,
+    "one_visible_UUID_bound_GPU": true,
+    "no_foreign_GPU_process_at_preflight": true,
+    "no_foreign_GPU_process_during_sampling_monitor": true,
+    "runtime_errors": 0,
+    "all_policy_calls_committed": true,
+    "all_policy_calls_exactly_one_authoritative_FM": true,
+    "all_compute_records_valid": true
+  },
+  "claim_boundary": {
+    "timing_diagnosis_only": true,
+    "profiling_overhead_included": true,
+    "success_is_descriptive_only": true,
+    "not_a_speedup_confirmation": true,
+    "not_a_threshold_selection_experiment": true,
+    "not_a_stage10_gate_reinterpretation": true,
+    "not_deployment_authorized": true
+  }
+}
