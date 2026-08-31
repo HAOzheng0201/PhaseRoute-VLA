@@ -159,10 +159,44 @@ L27。
   `16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00`；
 - 200 个 cluster key、state seed、policy seed 均唯一，state/policy seed 交集为 0；
 - 新增定向测试：11/11 PASS；
-- 完整 `tests/` 维护测试树：`613 passed, 22 subtests passed`；
+- protocol 阶段测试口径：`613 passed, 22 subtests passed`；
 - protected A1 文件未修改；
 - CUDA、LIBERO simulator、training、active control 均未启动。
 
 机器可读 readiness：
 [`route_first_stage11d_protocol_readiness.json`](../../../results/route_first/route_first_stage11d_protocol_readiness.json)，
 其 SHA-256 见同目录 sidecar。
+
+## 9. State runner 实现边界
+
+Stage 11D 的第一个执行层已经实现，但本阶段没有运行：
+
+```text
+200 scheduled records
+  × 2 isolated CPU processes
+  × exactly one env.reset()
+  -> canonical little-endian FP64 state bytes
+  -> pass-1/pass-2 SHA exact match
+  -> task-local 20/20 unique-state check
+  -> frozen fresh_states.pt + state_attestation.json
+```
+
+runner 由三个相互分离的入口组成：单状态 worker、400-process orchestration、two-pass
+aggregation。worker 不调用 official `get_task_init_states()`，不加载 `model.pt`，并强制
+`CUDA_VISIBLE_DEVICES=-1` 与 OSMesa。有效失败、initially-solved state、重复 state、
+非有限值、pass mismatch 或 output 已存在都会 fail closed；不允许替换 seed。
+
+这里刻意没有同时实现 original-A1 collection：collection 必须等生成后的
+`state_attestation.json` 和 `fresh_states.pt` SHA 被提交绑定，否则只能信任可变路径，破坏
+数据血缘。state runner readiness 只授权下一阶段的 CPU state generation，不授权 policy
+collection、same-noise replay、训练或 active control。
+
+State runner 新增 11 项定向测试；加入这些测试后的完整维护测试树为
+`624 passed, 22 subtests passed`。静态 readiness 同时要求：400 个隔离进程的 schedule
+可完整展开、runner 中只有一个显式 reset、state 输出尚不存在、三个 runner 均禁用
+CUDA，且 protected A1 文件不属于 runner 输入。
+
+机器可读 state-runner readiness：
+[`route_first_stage11d_state_runner_readiness.json`](../../../results/route_first/route_first_stage11d_state_runner_readiness.json)，
+SHA-256 为
+`c4b5f421179706dfdaea4d68eaf10bf8813eb99f116f4b73d452c95281c995f0`。

@@ -108,6 +108,12 @@ OOF feasibility gate；不通过就停止，不打开 calibration 或 active rol
 协议、CPU target contract 和 synthetic tests，尚未授权 GPU 采集。详见
 [`ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md)。
 
+Stage 11D 的 CPU state runner 也已实现：200 个新 reset-sampler states 各由两个隔离
+进程独立生成，只有 canonical FP64 bytes 逐项相同且 task 内 20 个状态唯一时才能发布
+payload。runner 尚未执行，不读取 official fixed states、不加载模型，也不授权 original-A1
+collection 或 replay；执行说明见
+[`route_first_stage11d/README.md`](scripts/dynamic_compute/route_first_stage11d/README.md)。
+
 ## 从输入到输出
 
 ```mermaid
