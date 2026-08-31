@@ -1,0 +1,71 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11d-fresh-state-result.v1",
+  "status": "PASS_ROUTE_FIRST_STAGE11D_FRESH_STATES_FROZEN",
+  "timestamp_utc": "2026-08-31T14:30:33.041+00:00",
+  "suite": "libero_10",
+  "source_generation_commit": "4e0b83bf38790abecb45c630b6b800db0960886a",
+  "frozen_inputs": {
+    "protocol_path": "configs/research/route_first_stage11d_reliability_protocol.json",
+    "protocol_sha256": "16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00",
+    "runner_readiness_path": "results/route_first/route_first_stage11d_state_runner_readiness.json",
+    "runner_readiness_sha256": "c4b5f421179706dfdaea4d68eaf10bf8813eb99f116f4b73d452c95281c995f0"
+  },
+  "local_ignored_artifacts": {
+    "generation_result_path": "runs/route_first_stage11d_state_records/result.json",
+    "generation_result_sha256": "c9921ddf3f04ba2b47dd29d80456271767cba3bf691f3ccd5b5c78a8efe9d123",
+    "state_attestation_path": "runs/route_first_stage11d_states/state_attestation.json",
+    "state_attestation_sha256": "0ec5c7e9e5bd9a3b72d35488972e0a21f956d551cca618a287fed729f37dff7a",
+    "state_attestation_bytes": 111313,
+    "state_payload_path": "runs/route_first_stage11d_states/fresh_states.pt",
+    "state_payload_sha256": "2de72279a8dc60f7853ad698b2d710e6a73c83a625b26ed70e74e0d7d76856db",
+    "state_payload_bytes": 197546
+  },
+  "audit": {
+    "scheduled_clusters": 200,
+    "generation_processes": 400,
+    "determinism_passes": 2,
+    "byte_identical_records": 200,
+    "initially_solved_records": 0,
+    "unique_states_per_task": 20,
+    "split_counts": {
+      "development_train": 120,
+      "calibration": 40,
+      "shadow_confirmation": 40
+    },
+    "state_dimensions_per_task": {
+      "0": 123,
+      "1": 123,
+      "2": 47,
+      "3": 51,
+      "4": 84,
+      "5": 45,
+      "6": 71,
+      "7": 84,
+      "8": 47,
+      "9": 47
+    }
+  },
+  "access_ledger": {
+    "fresh_states_generated": 200,
+    "determinism_audit_regenerations": 200,
+    "model_checkpoint_loaded": false,
+    "policy_action_sampled": false,
+    "official_states_0_to_49_opened": false,
+    "V3_D8_or_route_first_Stage10_states_reused": false,
+    "gpu_query_or_initialization": 0,
+    "active_control": false
+  },
+  "authorization": {
+    "next_stage": "BIND_EXACT_ARTIFACT_SHA_AND_IMPLEMENT_ORIGINAL_A1_COLLECTION_RUNNER",
+    "original_A1_collection_started": false,
+    "same_noise_replay_started": false,
+    "training_started": false,
+    "active_control_started": false
+  },
+  "claim_boundary": {
+    "generated_states_are_official_fixed_benchmark_states": false,
+    "policy_or_task_success_evaluated": false,
+    "reliability_model_trained": false,
+    "speedup_or_superiority_claim_authorized": false
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11d-fresh-state-binding.v1",
+  "binding_id": "route-first-stage11d-fresh-state-binding-20260831-v1",
+  "status": "FROZEN_STATE_PAYLOAD_BOUND_COLLECTION_RUNNER_NOT_VALIDATED",
+  "suite": "libero_10",
+  "source_generation_commit": "4e0b83bf38790abecb45c630b6b800db0960886a",
+  "protocol": {
+    "path": "configs/research/route_first_stage11d_reliability_protocol.json",
+    "sha256": "16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00"
+  },
+  "runner_readiness": {
+    "path": "results/route_first/route_first_stage11d_state_runner_readiness.json",
+    "sha256": "c4b5f421179706dfdaea4d68eaf10bf8813eb99f116f4b73d452c95281c995f0"
+  },
+  "tracked_result": {
+    "path": "results/route_first/route_first_stage11d_fresh_states.json",
+    "sha256": "03fce084b7f46c64dc762cd0f9605981aad6ad51d056b23bd783c7ddcf1c4764"
+  },
+  "local_state_attestation": {
+    "path": "runs/route_first_stage11d_states/state_attestation.json",
+    "sha256": "0ec5c7e9e5bd9a3b72d35488972e0a21f956d551cca618a287fed729f37dff7a",
+    "bytes": 111313
+  },
+  "local_state_payload": {
+    "path": "runs/route_first_stage11d_states/fresh_states.pt",
+    "sha256": "2de72279a8dc60f7853ad698b2d710e6a73c83a625b26ed70e74e0d7d76856db",
+    "bytes": 197546,
+    "records": 200
+  },
+  "integrity_requirements": {
+    "tracked_result_sha_exact": true,
+    "local_attestation_sha_exact": true,
+    "local_payload_sha_exact": true,
+    "attestation_and_payload_size_exact": true,
+    "payload_record_count_exact": true,
+    "source_generation_commit_exact": true,
+    "state_sha_per_record_must_match_attestation": true,
+    "manual_state_replacement_allowed": false
+  },
+  "authorization": {
+    "on_binding_validation_pass": "ORIGINAL_A1_OBSERVATION_ONLY_RUNNER_IMPLEMENTATION_AND_CPU_CONTRACT_TESTS",
+    "collection_requires_separate_clean_runner_commit": true,
+    "original_A1_collection_started": false,
+    "same_noise_replay_started": false,
+    "training_started": false,
+    "active_control_started": false,
+    "deployment_authorized": false
+  }
+}

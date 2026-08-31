@@ -167,9 +167,10 @@ L27。
 [`route_first_stage11d_protocol_readiness.json`](../../../results/route_first/route_first_stage11d_protocol_readiness.json)，
 其 SHA-256 见同目录 sidecar。
 
-## 9. State runner 实现边界
+## 9. State runner 执行与封存边界
 
-Stage 11D 的第一个执行层已经实现，但本阶段没有运行：
+Stage 11D 的第一个执行层已在 source commit
+`4e0b83bf38790abecb45c630b6b800db0960886a` 上执行并一次通过：
 
 ```text
 200 scheduled records
@@ -186,10 +187,16 @@ aggregation。worker 不调用 official `get_task_init_states()`，不加载 `mo
 `CUDA_VISIBLE_DEVICES=-1` 与 OSMesa。有效失败、initially-solved state、重复 state、
 非有限值、pass mismatch 或 output 已存在都会 fail closed；不允许替换 seed。
 
-这里刻意没有同时实现 original-A1 collection：collection 必须等生成后的
-`state_attestation.json` 和 `fresh_states.pt` SHA 被提交绑定，否则只能信任可变路径，破坏
-数据血缘。state runner readiness 只授权下一阶段的 CPU state generation，不授权 policy
-collection、same-noise replay、训练或 active control。
+两遍共 400 个隔离进程全部完成，200/200 state bytes 完全一致，每个 task 的 20 个状态
+全部唯一，initially-solved 为 0。全过程未加载 checkpoint、未采样 policy action、未读取
+official states 0--49 或历史 generated-state payload，也没有查询或初始化 GPU。
+
+原始 `fresh_states.pt`、逐进程记录与本地 attestation 保存在 Git 忽略的 `runs/`；tracked
+result 与 immutable binding 固定其路径、SHA、字节数、记录数、source commit、protocol
+和 runner readiness。下游必须同时验证 tracked binding、local attestation 与 payload，
+任何一处漂移都 fail closed。这里仍刻意没有同时实现 original-A1 collection；binding 只
+授权其 observation-only runner 实现和 CPU contract tests，不授权 collection 执行、
+same-noise replay、训练或 active control。
 
 State runner 新增 11 项定向测试；加入这些测试后的完整维护测试树为
 `624 passed, 22 subtests passed`。静态 readiness 同时要求：400 个隔离进程的 schedule
@@ -200,3 +207,6 @@ CUDA，且 protected A1 文件不属于 runner 输入。
 [`route_first_stage11d_state_runner_readiness.json`](../../../results/route_first/route_first_stage11d_state_runner_readiness.json)，
 SHA-256 为
 `c4b5f421179706dfdaea4d68eaf10bf8813eb99f116f4b73d452c95281c995f0`。
+
+正式生成与封存结果见
+[`ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md`](ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md)。

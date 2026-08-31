@@ -108,11 +108,14 @@ OOF feasibility gate；不通过就停止，不打开 calibration 或 active rol
 协议、CPU target contract 和 synthetic tests，尚未授权 GPU 采集。详见
 [`ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_RELIABILITY_PROTOCOL_ZH.md)。
 
-Stage 11D 的 CPU state runner 也已实现：200 个新 reset-sampler states 各由两个隔离
-进程独立生成，只有 canonical FP64 bytes 逐项相同且 task 内 20 个状态唯一时才能发布
-payload。runner 尚未执行，不读取 official fixed states、不加载模型，也不授权 original-A1
-collection 或 replay；执行说明见
-[`route_first_stage11d/README.md`](scripts/dynamic_compute/route_first_stage11d/README.md)。
+Stage 11D 的 CPU state runner 已执行并通过封存门禁：200 个新 reset-sampler states 各由
+两个隔离进程独立生成，200/200 canonical FP64 bytes 逐项相同，每个 task 的 20 个状态
+全部唯一，初始已完成状态为 0。全过程未读取 official fixed states、未加载模型、未查询或
+初始化 GPU。原始 payload 保留在 Git 忽略的 `runs/`，tracked result 与 immutable binding
+固定其 SHA、大小、source commit 和协议；仍未开始 original-A1 collection 或 replay。执行
+说明见 [`route_first_stage11d/README.md`](scripts/dynamic_compute/route_first_stage11d/README.md)，
+封存结果见
+[`ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md)。
 
 ## 从输入到输出
 
