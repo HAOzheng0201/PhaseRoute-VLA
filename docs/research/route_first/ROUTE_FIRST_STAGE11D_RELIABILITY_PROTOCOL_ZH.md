@@ -210,3 +210,21 @@ SHA-256 为
 
 正式生成与封存结果见
 [`ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md`](ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md)。
+
+## 10. Original-A1 observation-only collector
+
+下一执行层已实现但尚未启动。它只向 LIBERO suite 暴露每个 task 的 replicate 0--11，
+合计 120 个 development states；replicate 12--15 calibration 与 16--19 shadow 不会进入
+rollout schedule。环境动作仍由冻结 original A1 的 14 个候选层 controller 产生，新 router、
+phase routing 和视觉压缩均不加载。
+
+每个 policy call 的 observer 保存 replay 所需的 projected visual prefix、instruction、
+proprio、past behavior action、model-input tensors 和原 behavior FM input/noise。observer
+异常不能改变 action，但 postflight 要求 observation cache、telemetry 和 exit/FM metadata
+逐 call 对齐且 error 为 0，否则整个 task 保留为 `.incomplete`。
+
+readiness 已完整哈希 33.8 GB A1 checkpoint，并绑定五个保护源文件、关键 sidecar、runner、
+120-cluster schedule 与 state payload。它只授权在 clean commit 和 live GPU preflight 后执行
+original-A1 development collection；same-noise replay、训练、calibration、shadow 和 active
+control 仍为 false。实现与门禁见
+[`ROUTE_FIRST_STAGE11D_COLLECTION_RUNNER_ZH.md`](ROUTE_FIRST_STAGE11D_COLLECTION_RUNNER_ZH.md)。

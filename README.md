@@ -117,6 +117,13 @@ Stage 11D 的 CPU state runner 已执行并通过封存门禁：200 个新 reset
 封存结果见
 [`ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_FRESH_STATE_RESULT_ZH.md)。
 
+下一层 original-A1 observation-only development collector 也已实现并完成静态 readiness：
+只允许 replicate 0--11 的 120 个 development clusters，原 A1 仍是唯一行为控制器；observer
+只缓存后续 199D context 构建和 L13/L27 same-noise replay 所需的数据。launcher 会实时从
+物理 GPU 0--7 中选择空闲卡，并强制一进程一卡；calibration、shadow、replay、训练和新
+router active control 均未授权。详见
+[`ROUTE_FIRST_STAGE11D_COLLECTION_RUNNER_ZH.md`](docs/research/route_first/ROUTE_FIRST_STAGE11D_COLLECTION_RUNNER_ZH.md)。
+
 ## 从输入到输出
 
 ```mermaid

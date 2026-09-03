@@ -1,0 +1,113 @@
+{
+  "schema_version": "phase-route-vla.route-first-stage11d-collection-runner-readiness.v1",
+  "status": "PASS_ROUTE_FIRST_STAGE11D_COLLECTION_RUNNER_READINESS",
+  "protocol_sha256": "16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00",
+  "state_binding_sha256": "0f1ffcf23310dbb782986cdf93cac8439054f249f36b8dc8118919f479f0434d",
+  "state_payload_sha256": "2de72279a8dc60f7853ad698b2d710e6a73c83a625b26ed70e74e0d7d76856db",
+  "runner_files": {
+    "a1/vla/dynamic_compute/route_first_reliability.py": "f2c0ad391c4ceed7e7543e559048570a99d2c0aae45fb796a7eaf3a6d12db26b",
+    "a1/vla/dynamic_compute/route_first_reliability_artifacts.py": "6616f840221bdb4ed806d6bb7664aeecc0df4a226f5cdcb31d0a3e184a86b006",
+    "a1/vla/dynamic_compute/route_first_reliability_state_binding.py": "eafb413d950c824999ce3bdba11737184de32b7388d04fa06a4c12157cea45ae",
+    "a1/vla/dynamic_compute/route_first_reliability_collection.py": "56c8b2ce462c4d3dd83ab6e47ab5569d9523e5047f4be76c2a614cd2cf553ac8",
+    "configs/research/route_first_stage11d_reliability_protocol.json": "16a5b8a4adb268c99fec38741484cdde4ccfeab1e3079f11b79f1f4334b00e00",
+    "configs/research/route_first_stage11d_fresh_state_binding.json": "0f1ffcf23310dbb782986cdf93cac8439054f249f36b8dc8118919f479f0434d",
+    "results/route_first/route_first_stage11d_fresh_states.json": "03fce084b7f46c64dc762cd0f9605981aad6ad51d056b23bd783c7ddcf1c4764",
+    "scripts/dynamic_compute/route_first_stage11d/collect_original_a1_task.py": "edb3379f6011b28d749fd172c768a0009e49fdff32440734c8d4596c492fb351",
+    "scripts/dynamic_compute/route_first_stage11d/launch_original_a1_development.py": "5f237d68c9b124f9974e4e8382b3135116611ebd9e63ba7ae6f75f817f8bb9e4",
+    "scripts/validate_route_first_stage11d_collection_runner.py": "4af7c13214642d4fecb1e27d80c2abf8f2ee9be42df3c2c1b2cb240fee85d2e5",
+    "tests/dynamic_compute/test_route_first_reliability_collection.py": "644d890620da6bdce2ee2ac7cba88052a6b7487489d34317bf98b1fe12926b6e"
+  },
+  "protected_files": {
+    "a1/vla/value_net.py": "ec3a860427f32d5837e279eb17eeb28befaee9dd7944d46482173c85e8847dc1",
+    "robot_experiments/libero/exit_vla_utils.py": "e5c88b72199c1354fc7b3f2fa22e056b593ee5cdadf7185cc7d1c09fe768051a",
+    "robot_experiments/libero/eval_libero_early_exit.py": "a4e3b1b49cdaf2021b3cd370d8a1e89c927906e7cbd5f8afdccd5ceb5b1826cd",
+    "robot_experiments/libero/stage1_vla_utils.py": "b45cad88585611a16cc92229becdfd6a2466e3fb0f859302846ae29dbff815a4",
+    "a1/vla/dynamic_compute/vision_teacher_cache.py": "3e9b0d4f0d55539dfc13ccbbabf51ee09fcfa66873a126221338d37b9e118d7f"
+  },
+  "checkpoint_inventory": {
+    "model.pt": {
+      "path": "model/libero_exit/model.pt",
+      "bytes": 33841175207,
+      "sha256": "dcafd9ee8a3d3a4ced8840e59c90b0c4b20d41a7900adc9ff469c1a57e631b7f",
+      "device": 2080,
+      "inode": 32640614,
+      "mtime_ns": 1785508200508906587,
+      "ctime_ns": 1787490831329865983
+    },
+    "config.yaml": {
+      "path": "model/libero_exit/config.yaml",
+      "bytes": 8369,
+      "sha256": "9365d0a6ca6379a77877aaf46e170a7945f084c359560463edc14726965b04ca"
+    },
+    "exit_thresholds_libero_10_exp_1.0.json": {
+      "path": "model/libero_exit/exit_thresholds_libero_10_exp_1.0.json",
+      "bytes": 236,
+      "sha256": "a98d9e2c79d83846f5a778b52fc32b4803bdaf2a49aab5e3d961d2e624139796"
+    },
+    "dataset_statistics.json": {
+      "path": "model/libero_exit/dataset_statistics.json",
+      "bytes": 11871,
+      "sha256": "6ec6ef68d0d5bae4cb5f9fc9acb715a22b9f4545e9e9b300d0d88695cd7afec3"
+    },
+    "exit_action_delta_matrix_libero_10_fm_steps10.json": {
+      "path": "model/libero_exit/exit_action_delta_matrix_libero_10_fm_steps10.json",
+      "bytes": 4803533,
+      "sha256": "a0d0399b630953a9e0ef3b4ca09fe8a0fbde4b1ce6539ad5d911ad23fb6c812d"
+    }
+  },
+  "schedule": {
+    "development_clusters": 120,
+    "tasks": 10,
+    "replicates_per_task": 12,
+    "replicate_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "policy_seed_formula": "94260830 + task_id * 10000 + replicate_id"
+  },
+  "checks": {
+    "protocol_and_state_binding_exact": true,
+    "development_schedule_is_exact_120": true,
+    "each_task_exposes_only_replicates_0_to_11": true,
+    "original_A1_is_the_only_behavior_controller": true,
+    "observer_is_noncontrolling": true,
+    "cpu_gpu_and_model_load_gates_are_separate": true,
+    "idle_GPU_selection_and_one_process_one_GPU": true,
+    "no_outcome_based_retry_path": true,
+    "collection_outputs_absent": true,
+    "protected_A1_files_exact": true
+  },
+  "access_boundary": {
+    "development_train": true,
+    "calibration": false,
+    "shadow_confirmation": false,
+    "Stage12_reserved_states": false
+  },
+  "execution": {
+    "GPU_queried_or_initialized": false,
+    "A1_model_loaded": false,
+    "LIBERO_environment_opened": false,
+    "development_collection_started": false,
+    "same_noise_replay_started": false,
+    "training_started": false,
+    "active_new_router_control_started": false
+  },
+  "authorization": {
+    "original_A1_observation_collection": true,
+    "same_noise_replay": false,
+    "training": false,
+    "active_control": false,
+    "requires_clean_committed_runner_and_live_GPU_preflight": true
+  },
+  "next_stage": "COMMIT_RUNNER_THEN_RUN_CPU_AND_LIVE_GPU_PREFLIGHTS"
+}
